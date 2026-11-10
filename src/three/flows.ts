@@ -74,6 +74,9 @@ export class FlowDots {
     g.setAttribute('position', new THREE.BufferAttribute(this.pos, 3));
     g.setAttribute('color', new THREE.BufferAttribute(this.col, 3));
     g.setDrawRange(0, 0);
+    // the dots stand inside the part they run in: their box must not enlarge the part's (a hidden dot is parked far below the world)
+    g.boundingBox = new THREE.Box3();
+    g.boundingSphere = new THREE.Sphere();
     const mat = new THREE.PointsMaterial({
       size,
       sizeAttenuation: true,

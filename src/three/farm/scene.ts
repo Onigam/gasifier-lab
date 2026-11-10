@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { group, mesh, rng } from '@onigam/lab-kit/three';
 import type { Hotspot, SceneModule, ViewOpts } from '@onigam/lab-kit/three';
-import { FARM, GARAGE, UNIT } from '../dims';
+import { FARM, GARAGE, UNIT, UNIT_AT } from '../dims';
 import { Followers } from '../followers';
 import { dynamic, mergeStatic } from '../merge';
 import { chipsMap, concreteMap, tiled } from '../textures';
@@ -27,6 +27,7 @@ import {
   buildWoodpile,
   place,
 } from './props';
+import { FlowDots } from '../flows';
 import { createSky } from './sky';
 import { buildTerrain, terrainHeight } from './terrain';
 import { buildTrees } from './trees';
@@ -106,16 +107,15 @@ export function loopAt(s: number): { x: number; z: number; hx: number; hz: numbe
 export const LOOP_LENGTH = 2 * FARM.loop.len + 2 * Math.PI * FARM.loop.r;
 
 /** The ditch's water: a ribbon along the bottom, its UVs running along x so that the flow can be scrolled. Decoration: nothing in the model says how the ditch runs (docs/water.md). */
-function ditchWater(): { mesh: THREE.Mesh; map: THREE.DataTexture } {
-  const L = 70;
-  const N = 70;
+function ditchWater(x0: number, x1: number, shared?: THREE.DataTexture): { mesh: THREE.Mesh; map: THREE.DataTexture } {
+  const N = Math.max(4, Math.round((x1 - x0) / 2));
   const pos: number[] = [];
   const uv: number[] = [];
   const idx: number[] = [];
   const y = -FARM.ditch.depth + 0.28;
   const wHalf = FARM.ditch.width / 2 + 0.28 * FARM.ditch.slope * 0.9;
   for (let i = 0; i <= N; i++) {
-    const x = -L + (i * 2 * L) / N;
+    const x = x0 + (i * (x1 - x0)) / N;
     for (const s of [-1, 1]) {
       pos.push(x, y, FARM.ditch.z + s * wHalf);
       uv.push(x * 0.3, s > 0 ? 1 : 0);
@@ -144,12 +144,14 @@ function ditchWater(): { mesh: THREE.Mesh; map: THREE.DataTexture } {
       d[k + 2] = v;
       d[k + 3] = 255;
     }
-  const map = new THREE.DataTexture(d, S, S, THREE.RGBAFormat);
-  map.colorSpace = THREE.SRGBColorSpace;
-  map.wrapS = map.wrapT = THREE.RepeatWrapping;
-  map.minFilter = THREE.LinearMipmapLinearFilter;
-  map.generateMipmaps = true;
-  map.needsUpdate = true;
+  const map = shared ?? new THREE.DataTexture(d, S, S, THREE.RGBAFormat);
+  if (!shared) {
+    map.colorSpace = THREE.SRGBColorSpace;
+    map.wrapS = map.wrapT = THREE.RepeatWrapping;
+    map.minFilter = THREE.LinearMipmapLinearFilter;
+    map.generateMipmaps = true;
+    map.needsUpdate = true;
+  }
   const m = new THREE.Mesh(
     g,
     new THREE.MeshStandardMaterial({
@@ -167,11 +169,10 @@ function ditchWater(): { mesh: THREE.Mesh; map: THREE.DataTexture } {
 }
 
 /** Rushes and sedge along the ditch's banks: instanced blades. */
-function reeds(): THREE.Object3D {
-  const r = rng(12);
+function reeds(x0: number, x1: number, n: number, seed: number): THREE.Object3D {
+  const r = rng(seed);
   const blade = new THREE.PlaneGeometry(0.06, 1);
   blade.translate(0, 0.5, 0);
-  const n = 600;
   const im = new THREE.InstancedMesh(
     blade,
     new THREE.MeshStandardMaterial({ color: 0x6f8a3a, side: THREE.DoubleSide, roughness: 0.9 }),
@@ -182,7 +183,7 @@ function reeds(): THREE.Object3D {
   const e = new THREE.Euler();
   const col = new THREE.Color();
   for (let i = 0; i < n; i++) {
-    const x = (r() - 0.5) * 140;
+    const x = x0 + r() * (x1 - x0);
     const side = r() > 0.5 ? 1 : -1;
     const off = FARM.ditch.width / 2 + 0.25 + r() * 0.7;
     const z = FARM.ditch.z + side * off;
@@ -207,7 +208,8 @@ export interface FarmScene extends SceneModule<GasState> {
 export function createFarmScene(opts: FarmOptions = {}): FarmScene {
   const scene = new THREE.Scene();
   scene.name = 'farm';
-  scene.userData.wantsEnv = true;
+  // the sky gives the world its own environment (docs/scenery.md); the look is the labs' day light
+  scene.userData.look = { exposure: 1.1, ao: true, aoRadius: 0.9 };
   const sky = createSky(scene);
   const land = buildTerrain();
   scene.add(land.mesh);
@@ -353,13 +355,22 @@ export function createFarmScene(opts: FarmOptions = {}): FarmScene {
   scenery.add(mail);
 
   // ---- the ditch: its water, its reeds, a culvert where the field track crosses
-  const water = ditchWater();
+  const water = ditchWater(-30, 50);
   const ditch = group('field-ditch');
   ditch.userData.partId = 'field-ditch';
   ditch.add(water.mesh);
-  ditch.add(reeds());
+  ditch.add(reeds(-30, 50, 420, 12));
+  // the rest of the ditch, scenery: it runs on to the east and the west, to something
+  for (const [a, b] of [
+    [-130, -30],
+    [50, 130],
+  ] as const) {
+    const far = ditchWater(a, b, water.map);
+    scenery.add(far.mesh);
+    scenery.add(reeds(a, b, 500, 13 + a));
+  }
   // the culvert's mouth at each side of the track
-  for (const x of [FARM.field.x1 * 0 + 17, FARM.field.x1 * 0 + 24]) {
+  for (const x of [FARM.track.x - 3.4, FARM.track.x + 3.4]) {
     ditch.add(
       mesh(
         new THREE.CylinderGeometry(0.46, 0.46, 0.5, 18, 1, true).rotateZ(Math.PI / 2),
@@ -452,6 +463,42 @@ export function createFarmScene(opts: FarmOptions = {}): FarmScene {
   followers.add('wood-gas-tractor', link, { shell: false, explode: 0 });
   registry.overview(() => [new THREE.Box3(new THREE.Vector3(-40, -1, -30), new THREE.Vector3(40, 10, 50))]);
 
+  // ---- « Flux »: the fuel's way and what comes out of the machine, for the eye (the speed is nowhere the true one)
+  const flows = new FlowDots(900, 0.34, 0.012, true);
+  scene.add(flows.object);
+  const at = (x: number, y: number, z: number): THREE.Vector3 => new THREE.Vector3(x, y, z);
+  const woodAt = at(FARM.woodpile.x, 1.3, FARM.woodpile.z);
+  const chipperIn = at(FARM.chipper.x - 2.4, 1.2, FARM.chipper.z);
+  const chute = at(FARM.chipper.x + 1.7, 2.3, FARM.chipper.z);
+  const pileTop = at(FARM.chipPile.x, 1.6, FARM.chipPile.z);
+  const sieveIn = at(FARM.sieve.x - 1.7, 2.0, FARM.sieve.z);
+  const sieveOut = at(FARM.sieve.x + 0.1, 0.4, FARM.sieve.z);
+  const barnDoor = at(FARM.barn.x, 1.8, FARM.barn.z + FARM.barn.d / 2 + 0.5);
+  const barnIn = at(FARM.barn.x - 1.0, 1.6, FARM.barn.z + FARM.barn.d / 2 - 3.5);
+  const bin = at(FARM.ashBin.x, 1.0, FARM.ashBin.z);
+  const barrelTop = at(FARM.barrel.x, 1.3, FARM.barrel.z);
+  const mid = (a: THREE.Vector3, b: THREE.Vector3, up = 3): THREE.Vector3 =>
+    a
+      .clone()
+      .lerp(b, 0.5)
+      .add(at(0, up, 0));
+  const fixed: [THREE.Vector3[], number][] = [
+    [[woodAt, mid(woodAt, chipperIn, 2), chipperIn], 0xe2cfa4],
+    [[chute, mid(chute, pileTop, 1), pileTop], 0xd9b36a],
+    [[pileTop, mid(pileTop, sieveIn, 2), sieveIn], 0xd9b36a],
+    [[sieveOut, mid(sieveOut, barnDoor, 2), barnDoor, barnIn], 0xd9b36a],
+  ];
+  for (const [pts, c] of fixed) flows.add({ points: pts, color: c, spacing: 0.7 });
+  // the three that end on the tractor, which moves: chips to its rack, ash to the bin, black water to the barrel (rebuilt each frame)
+  const rack = at(0, 3.3, 0);
+  const base = at(UNIT_AT.x, 0.6, UNIT_AT.z);
+  const dyn = [
+    flows.add({ points: [barnDoor, at(0, 3, 0), rack], color: 0xd9b36a, spacing: 1.4 }),
+    flows.add({ points: [base, at(0, 1, 0), bin], color: 0xa9a6a0, spacing: 1.4 }),
+    flows.add({ points: [base, at(0, 1, 0), barrelTop], color: 0x4a3322, spacing: 1.4 }),
+  ];
+  const tr = new THREE.Vector3();
+  const tb = new THREE.Vector3();
   const hs: Hotspot[] = hotspots(HOTSPOTS, anchors);
   let s = 0;
   let waterFlow = 0;
@@ -516,6 +563,24 @@ export function createFarmScene(opts: FarmOptions = {}): FarmScene {
       waterFlow += dt * view.slowMo * 0.05;
       water.map.offset.x = -waterFlow;
       smoke.set({ share: 0.5, opacity: 0.35, time: view.time * view.slowMo });
+      // « Flux »: dots only while it is on; the three paths that end on the tractor follow it
+      flows.object.visible = view.schematic;
+      if (view.schematic) {
+        tr.set(0.55, 3.35, 0);
+        drive.localToWorld(tr);
+        tb.set(UNIT_AT.x, UNIT_AT.y + 0.4, UNIT_AT.z);
+        drive.localToWorld(tb);
+        flows.setPoints(dyn[0]!, [barnDoor, mid(barnDoor, tr, 3), tr]);
+        flows.setPoints(dyn[1]!, [tb, mid(tb, bin, 1.5), bin]);
+        flows.setPoints(dyn[2]!, [tb, mid(tb, barrelTop, 1.5), barrelTop]);
+        const run = state.engineOn ? 1 : 0;
+        const fuel = Math.min(1, Math.max(0, state.gasFlowShare));
+        for (let i = 0; i < 4; i++) flows.set(i, 1.2 * run, run ? 0.25 + 0.75 * fuel : 1);
+        flows.set(dyn[0]!, 1.2 * run, run ? 0.2 + 0.8 * fuel : 1);
+        flows.set(dyn[1]!, 1.0 * run, run ? 0.25 + 0.75 * fuel : 1);
+        flows.set(dyn[2]!, 1.0 * run, run ? 0.25 + 0.75 * fuel : 1);
+        flows.step(dt * view.slowMo);
+      }
       followers.update(registry);
     },
   };

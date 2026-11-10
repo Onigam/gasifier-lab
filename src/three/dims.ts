@@ -293,6 +293,8 @@ export const FARM = {
   /** The drainage ditch between the yard and the field, along x: width of the bottom, depth, run of its banks per metre of depth. */
   ditch: { z: 8.6, width: 1.1, depth: 0.95, slope: 1.7, length: 420 },
   lane: { z: -3, width: 3.6 },
+  /** The track from the yard to the field, across the ditch on a fill with a culvert. */
+  track: { x: 20.5, width: 3.2 },
   /** Farmhouse: plan (x, z), height of the eaves, its centre. Two storeys, red-painted boards. */
   house: { x: -17, z: -9, w: 12, d: 7, wall: 5.2 },
   /** The garage with its bedroom over it, attached to the house's east gable; its door in the front wall. */

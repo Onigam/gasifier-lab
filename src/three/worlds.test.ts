@@ -56,6 +56,9 @@ describe('the registry', () => {
         const b = m.registry.frameBounds(id);
         expect(b.isEmpty(), `${w} ${id} box`).toBe(false);
         expect(Number.isFinite(b.min.x + b.max.y + b.min.z), `${w} ${id} finite`).toBe(true);
+        // a part's box is the part's: no hidden dot parked below the world, no plume at the origin
+        const sz = b.getSize(new THREE.Vector3());
+        expect(Math.max(sz.x, sz.y, sz.z), `${w} ${id} size`).toBeLessThan(w === 'farm' ? 160 : 12);
         expect(e.viewDir, `${w} ${id} viewDir`).toBeDefined();
         expect(
           m.hotspots.some((h) => h.partId === id),
@@ -95,8 +98,10 @@ describe('the registry', () => {
       for (const h of m.hotspots) {
         expect(h.label.fr, h.partId).not.toMatch(banned);
         expect(h.label.en, h.partId).not.toMatch(banned);
-        expect(h.label.fr.replace('1940', ''), h.partId).not.toMatch(/\d/);
-        expect(h.label.en.replace('1940', ''), h.partId).not.toMatch(/\d/);
+        // but for the ends of the false-colour scale (20 and 1,400 °C: the ramp, not a size) and a year
+        const plain = (t: string): string => t.replace('1940', '').replace(/^[\d\s,.\u202f\u00a0]+°C$/, '');
+        expect(plain(h.label.fr), h.partId).not.toMatch(/\d/);
+        expect(plain(h.label.en), h.partId).not.toMatch(/\d/);
       }
   });
 

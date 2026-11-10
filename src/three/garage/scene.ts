@@ -101,18 +101,18 @@ export function createGarageScene(opts: GarageOptions = {}): GarageScene {
   const clutter = buildClutter();
   scene.add(indicator.group, rescue, bench, clutter);
   const placeProps = (): void => {
-    const { w, d, h } = building.dims;
-    indicator.group.position.set(w / 2 - 0.7, 2.25, d - 0.0);
+    const { w, d } = building.dims;
+    // the dial on the back wall, high and to the right, facing the room
+    indicator.group.position.set(w / 2 - 0.7, 2.25, d);
     indicator.group.rotation.y = Math.PI;
+    // the rescue set on its board on the left wall
     rescue.position.set(-w / 2, 1.8, 2.2);
     rescue.rotation.y = Math.PI / 2;
-    bench.position.set(-w / 2 + 0.02, 0, d - 0.0 - 0.7);
-    bench.rotation.y = (Math.PI / 2) * 0;
-    bench.position.set(-w / 2 + 0.7, 0, d - 0.65);
+    // the bench against the back wall, the clutter by the other corner
+    bench.position.set(-w / 2 + 1.0, 0, d - 0.02);
     bench.rotation.y = Math.PI;
     clutter.position.set(w / 2 - 0.5, 0, d - 0.4);
     clutter.rotation.y = Math.PI;
-    void h;
     building.lamp.position.set(0, building.dims.h, building.dims.d * 0.5);
   };
   placeProps();
@@ -145,8 +145,8 @@ export function createGarageScene(opts: GarageOptions = {}): GarageScene {
   const post = group('post-gas-plume');
   post.add(plumeEye.points, plumeEye.haze, plumeLid.points, plumeLid.haze);
   scene.add(post);
-  const exhaustMouth = machine.exhaust.group.localToWorld(machine.exhaust.mouth.clone());
-  const exMouthWorld = park.localToWorld(exhaustMouth);
+  // the exhaust's mouth, in the world: the machine's own frame carried by the parked group's turn
+  const exMouthWorld = machine.exhaust.group.localToWorld(machine.exhaust.mouth.clone());
   const plumeEx = makePlume({
     origin: exMouthWorld,
     color: 0x8d949a,

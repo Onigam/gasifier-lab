@@ -134,7 +134,8 @@ export function buildTerrain(): Terrain {
           float rYard = length( p - vec2( ${FARM.yard.x.toFixed(1)}, ${FARM.yard.z.toFixed(1)} ) * 1.0 );
           float yard = 1.0 - smoothstep( ${FARM.yard.r.toFixed(1)}, ${(FARM.yard.r + 5).toFixed(1)}, rYard + 4.0 * ( lNoise( p * 0.4 ) - 0.5 ) );
           float lane = ( 1.0 - smoothstep( ${(FARM.lane.width / 2).toFixed(2)}, ${(FARM.lane.width / 2 + 0.7).toFixed(2)}, abs( p.y - ${FARM.lane.z.toFixed(2)} + 1.6 * sin( p.x * 0.03 ) ) ) ) * step( 0.0, p.x ) * ( 1.0 - 0.0 * p.x );
-          float gravelM = max( yard, lane );
+          float trk = ( 1.0 - smoothstep( ${(FARM.track.width / 2).toFixed(2)}, ${(FARM.track.width / 2 + 0.7).toFixed(2)}, abs( p.x - ${FARM.track.x.toFixed(2)} ) ) ) * step( -4.0, p.y ) * step( p.y, ${(FARM.field.z0 + 6).toFixed(1)} );
+          float gravelM = max( max( yard, lane ), trk );
           vec3 gr = texture2D( uGravel, p * 0.8 ).rgb * mix( 1.0, 0.9, farM );
           gr = mix( gr, vec3( 0.34, 0.3, 0.24 ) * 1.1, 0.35 + 0.2 * lNoise( p * 0.2 ) );
           // wheel ruts and darker trodden ground near the doors

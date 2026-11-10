@@ -714,7 +714,8 @@ export function buildUnit(opts: UnitOptions): Unit {
   pit.add(heap);
   {
     const r = BOX_IN - 0.02;
-    const g = new THREE.SphereGeometry(1, 28, 14, phiStart, phiLength, 0, Math.PI / 2);
+    // a sphere's sweep starts a quarter turn after a lathe's (x = −r cos φ, z = r sin φ, against r sin φ and r cos φ)
+    const g = new THREE.SphereGeometry(1, 28, 14, phiStart + Math.PI / 2, phiLength, 0, Math.PI / 2);
     const p = g.attributes.position as THREE.BufferAttribute;
     const rnd = rng(77);
     for (let i = 0; i < p.count; i++) {
@@ -870,7 +871,13 @@ export function buildUnit(opts: UnitOptions): Unit {
       [y1, true],
     ] as const) {
       const r = bedRadius(y);
-      const d = new THREE.CircleGeometry(r, 48, phiStart + Math.PI / 2, phiLength);
+      // facing up the disc is turned about x by −90°, which flips its z: its sweep is mirrored so that it stays on the kept (far) half
+      const d = new THREE.CircleGeometry(
+        r,
+        48,
+        up ? -(phiStart + Math.PI / 2 + phiLength) : phiStart + Math.PI / 2,
+        phiLength,
+      );
       d.rotateX(up ? -Math.PI / 2 : Math.PI / 2);
       d.translate(0, y, 0);
       uvPlan(d, 3);
@@ -901,7 +908,7 @@ export function buildUnit(opts: UnitOptions): Unit {
   column.add(topGroup);
   {
     const r0 = RB - 0.012;
-    const g = new THREE.SphereGeometry(1, 36, 8, phiStart, phiLength, 0, Math.PI / 2);
+    const g = new THREE.SphereGeometry(1, 36, 8, phiStart + Math.PI / 2, phiLength, 0, Math.PI / 2);
     const p = g.attributes.position as THREE.BufferAttribute;
     const rnd = rng(5);
     for (let i = 0; i < p.count; i++) p.setY(i, p.getY(i) * (1 + 0.15 * (rnd() - 0.5)));

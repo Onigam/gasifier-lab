@@ -2,10 +2,14 @@ import * as THREE from 'three';
 import type { Hotspot, SceneModule, ViewOpts } from '@onigam/lab-kit/three';
 import { COLUMN, HEARTH, UNIT, UNIT_AT } from '../dims';
 import { frame } from '../train/stands';
+import { RAMP } from '../unit/field';
 import { cursorY, buildUnit, UNIT_PARTS, type Unit, type UnitPartId } from '../unit/unit';
 import { setField, FIELD, fieldT } from '../unit/field';
 import { makeFlow, unitSections } from '../flowpaths';
 import { heatRgb, heatStops } from '@onigam/lab-kit/sim/thermal';
+import { group, mesh } from '@onigam/lab-kit/three';
+import { joined } from '../common';
+import { darkSteel } from '../materials';
 import {
   PAPER,
   WorldRegistry,
@@ -82,11 +86,11 @@ const HOTSPOTS: HotspotDef[] = [
   { id: 'condensate-sleeve', fr: 'Manchon', en: 'Condensate sleeve', minor: true },
   { id: 'condensate-drain', fr: 'Purge', en: 'Condensate drain' },
   { id: 'eccentric-lock', fr: 'Verrou à came', en: 'Eccentric lock', minor: true },
-  { id: 'outer-casing', fr: 'Enveloppe', en: 'Outer casing' },
-  { id: 'air-intake', fr: 'Prise d’air', en: 'Air intake' },
-  { id: 'air-nozzles', fr: 'Tuyères', en: 'Air nozzles' },
+  { id: 'outer-casing', fr: 'Enveloppe', en: 'Outer casing', minor: true },
+  { id: 'air-intake', fr: 'Prise d’air', en: 'Air intake', minor: true },
+  { id: 'air-nozzles', fr: 'Tuyères', en: 'Air nozzles', minor: true },
   { id: 'fire-box', fr: 'Foyer', en: 'Fire box', minor: true },
-  { id: 'throat-ring', fr: 'Anneau de gorge', en: 'Throat ring' },
+  { id: 'throat-ring', fr: 'Anneau de gorge', en: 'Throat ring', minor: true },
   { id: 'grate', fr: 'Grille', en: 'Grate' },
   { id: 'grate-linkage', fr: 'Commande de grille', en: 'Grate linkage', minor: true },
   { id: 'ash-pit', fr: 'Cendrier', en: 'Ash pit' },
@@ -115,6 +119,46 @@ export function createGasifierScene(opts: GasifierOptions = {}): SceneModule<Gas
   const stand = frame(0.8, 0.8, UNIT_AT.y, 'unit-stand');
   scene.add(stand);
 
+  // the scale of the false colours: a bar on a foot, 20 °C at the bottom to 1,400 °C at the top, the ramp of the lab; two labels
+  const barH = 0.9;
+  const bar = group('ramp-bar');
+  {
+    const stops = heatStops(RAMP.min, RAMP.max);
+    const N = 128;
+    const px = new Uint8Array(N * 4);
+    const rgb: [number, number, number] = [0, 0, 0];
+    for (let i = 0; i < N; i++) {
+      heatRgb(stops, RAMP.min + ((RAMP.max - RAMP.min) * i) / (N - 1), rgb);
+      for (let c = 0; c < 3; c++) {
+        const x = rgb[c]!;
+        px[i * 4 + c] = Math.round(255 * (x <= 0.0031308 ? 12.92 * x : 1.055 * Math.pow(x, 1 / 2.4) - 0.055));
+      }
+      px[i * 4 + 3] = 255;
+    }
+    const tex = new THREE.DataTexture(px, 1, N, THREE.RGBAFormat);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    tex.magFilter = THREE.LinearFilter;
+    tex.needsUpdate = true;
+    bar.add(
+      mesh(new THREE.BoxGeometry(0.06, barH, 0.012), new THREE.MeshBasicMaterial({ map: tex }), [
+        0,
+        barH / 2 + 0.05,
+        0,
+      ]),
+    );
+    bar.add(mesh(new THREE.BoxGeometry(0.1, 0.05, 0.1), darkSteel(), [0, 0.025, 0]));
+    bar.add(mesh(new THREE.CylinderGeometry(0.01, 0.01, 0.05, 8), darkSteel(), [0, 0.07, 0]));
+    // ticks every 200 °C: marks only
+    const marks: THREE.BufferGeometry[] = [];
+    for (let T = 200; T < RAMP.max; T += 200) {
+      const y = 0.05 + (barH * (T - RAMP.min)) / (RAMP.max - RAMP.min);
+      marks.push(new THREE.BoxGeometry(0.02, 0.003, 0.014).translate(0.04, y, 0));
+    }
+    bar.add(mesh(joined(marks), darkSteel()));
+  }
+  bar.position.set(0.95, 0, -0.35);
+  scene.add(bar);
+
   const anchors: Record<string, THREE.Object3D> = {};
   for (const id of UNIT_PARTS) {
     const g = unit.parts.get(id)!;
@@ -127,8 +171,16 @@ export function createGasifierScene(opts: GasifierOptions = {}): SceneModule<Gas
   ]);
   void mergeStatic;
 
-  const hs: Hotspot[] = hotspots(HOTSPOTS, anchors);
-  void hs;
+  anchors['drying-zone#cold'] = anchor(bar, 0.05, 0.08, 0, 'ramp-cold');
+  anchors['oxidation-zone#hot'] = anchor(bar, 0.05, 0.05 + barH, 0, 'ramp-hot');
+  const hs: Hotspot[] = hotspots(
+    [
+      ...HOTSPOTS,
+      { id: 'drying-zone#cold', fr: '20 °C', en: '20 °C', minor: true },
+      { id: 'oxidation-zone#hot', fr: '1 400 °C', en: '1,400 °C', minor: true },
+    ],
+    anchors,
+  );
   void heatRgb;
   void heatStops;
   void FIELD;

@@ -73,6 +73,9 @@ export function makePlume(o: {
   const g = new THREE.BufferGeometry();
   g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
   g.setAttribute('aSeed', new THREE.BufferAttribute(seed, 4));
+  // the dots are placed by the shader: their own box would be the origin; the haze gives the part its box
+  g.boundingBox = new THREE.Box3();
+  g.boundingSphere = new THREE.Sphere();
   const mat = new THREE.ShaderMaterial({
     vertexShader: VERT,
     fragmentShader: FRAG,
@@ -144,6 +147,8 @@ export function makeCo(n = 1600): CoCloud {
   const g = new THREE.BufferGeometry();
   g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
   g.setAttribute('aSeed', new THREE.BufferAttribute(seed, 4));
+  g.boundingBox = new THREE.Box3();
+  g.boundingSphere = new THREE.Sphere();
   const mat = new THREE.ShaderMaterial({
     vertexShader: /* glsl */ `
       attribute vec4 aSeed;

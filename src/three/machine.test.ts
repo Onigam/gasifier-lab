@@ -143,6 +143,18 @@ describe('one machine, the same in every world (within 3 mm)', () => {
   });
 });
 
+describe('the unit in section keeps one half', () => {
+  it('nothing of a solid lies on the near side of the cut (the bed’s end faces included)', () => {
+    const u = buildUnit({ cut: true });
+    u.root.updateMatrixWorld(true);
+    for (const [id, g] of u.parts) {
+      const b = meshBox(g, (m) => !!m.userData.noShadow);
+      // what is centred on the plane (a rod, a coil of the spring, the latch) is drawn whole: at most its radius, 3 cm, on the near side
+      expect(b.min.z, id).toBeGreaterThan(-0.03);
+    }
+  });
+});
+
 describe('every moving part reaches what drives it', () => {
   it('the pipes’ ends are the ports of the pieces they join, on the tractor and on the train', () => {
     const m = tractor.machine;

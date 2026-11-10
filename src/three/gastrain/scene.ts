@@ -22,6 +22,7 @@ import { LivePipe, type Port } from '../train/pipes';
 import { frame, plinth, post } from '../train/stands';
 import { buildExhaust, buildGovernor } from '../tractor/engine';
 import { buildUnit } from '../unit/unit';
+import { buildSankey } from './sankey';
 import { makeFlow, unitSections } from '../flowpaths';
 import { lineSections } from '../train/flow';
 import { setField } from '../unit/field';
@@ -96,6 +97,8 @@ const HOTSPOTS: HotspotDef[] = [
 export interface GasTrainScene extends SceneModule<GasState> {
   pieces: Record<string, THREE.Object3D>;
 }
+
+const base0 = { woodKw: 195, dieselKw: 26, gasKw: 139, gasifierLossKw: 56, shaftKw: 40, engineLossKw: 125 };
 
 export function createGasTrainScene(opts: GasTrainOptions = {}): GasTrainScene {
   const scene = workshopScene({
@@ -187,6 +190,15 @@ export function createGasTrainScene(opts: GasTrainOptions = {}): GasTrainScene {
   cyclone.group.position.set(filterAt.x + 0.35, 0.69, filterAt.z - 1.55);
   cyclonePl.position.set(cyclone.group.position.x, 0, cyclone.group.position.z);
   scenery.add(cyclonePl);
+  // a ring drawn on the paper round the cyclone: it is on the programme's system (Fig. 3.5b), not on this tractor's schematic (conflict 22)
+  const mark = new THREE.Mesh(
+    new THREE.RingGeometry(0.62, 0.65, 64).rotateX(-Math.PI / 2),
+    new THREE.MeshBasicMaterial({ color: 0xb8742f, transparent: true, opacity: 0.8, depthWrite: false }),
+  );
+  mark.position.set(cyclone.group.position.x, 0.004, cyclone.group.position.z);
+  mark.castShadow = false;
+  scenery.add(mark);
+  followers.add('cyclone', mark, { shell: false, explode: 0 });
 
   scene.add(
     hot.group,
@@ -338,6 +350,12 @@ export function createGasTrainScene(opts: GasTrainOptions = {}): GasTrainScene {
     );
   };
   syncPipes();
+  // where the energy goes, flat on the paper in front of the line: the model's kilowatts as ribbons
+  const sankey = buildSankey();
+  sankey.group.position.set(-0.2, 0, -3.7);
+  scene.add(sankey.group);
+  followers.add('hot-gas-pipe', sankey.group, { shell: false, explode: 0 });
+  sankey.update(base0);
   const lineFlow = makeFlow(
     lineSections({
       hot: hot.group,
@@ -422,6 +440,7 @@ export function createGasTrainScene(opts: GasTrainOptions = {}): GasTrainScene {
       (fan.blur.material as THREE.MeshBasicMaterial).opacity = on ? 0.5 : 0;
       void blurOf;
       syncPipes();
+      sankey.update(state);
       // the same pieces' dynamics as on the tractor
       const dust = Math.min(1, state.filterHours / 60 + (state.filterDropMmWg - 150) / 700);
       const c = new THREE.Color(0xd6d2c4).lerp(new THREE.Color(0x6b665e), Math.max(0, dust));
