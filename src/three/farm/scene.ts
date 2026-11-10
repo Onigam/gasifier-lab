@@ -1,0 +1,522 @@
+import * as THREE from 'three';
+import { group, mesh, rng } from '@onigam/lab-kit/three';
+import type { Hotspot, SceneModule, ViewOpts } from '@onigam/lab-kit/three';
+import { FARM, GARAGE, UNIT } from '../dims';
+import { Followers } from '../followers';
+import { dynamic, mergeStatic } from '../merge';
+import { chipsMap, concreteMap, tiled } from '../textures';
+import { buildGarageBuilding } from '../garage/building';
+import { DOOR_OPEN } from '../garage/scene';
+import { makePlume } from '../garage/plume';
+import { buildMachine, type Machine } from '../tractor/tractor';
+import { WorldRegistry, anchor, hotspots, viewFrom, type HotspotDef, type PartFraming } from '../world';
+import { buildBarn, buildFarmhouse } from './buildings';
+import {
+  buildAshBin,
+  buildBales,
+  buildBarrel,
+  buildChipper,
+  buildCrusher,
+  buildFence,
+  buildLadder,
+  buildPallets,
+  buildSieve,
+  buildStoneWall,
+  buildTyres,
+  buildWheelbarrow,
+  buildWoodpile,
+  place,
+} from './props';
+import { createSky } from './sky';
+import { buildTerrain, terrainHeight } from './terrain';
+import { buildTrees } from './trees';
+import { v3 } from '../common';
+import type { GasParams, GasState } from '../../sim/types';
+
+// `farm`: the setting. A large farm in southern Sweden around 1970, where the machine worked: a yard of gravel with the red house, its garage and the chip barn; the drum chipper and the sieve where the fuel starts; the woodpile, the ash bin and the barrel
+// of black water; a ditch between the yard and the big field, where a tractor with its clod crusher goes round at the speed the model gives. The sun follows the model's clock. Everything is procedural (docs/scenery.md), nothing is a stand-in: the tractor is the
+// machine of the other worlds, drawn by the same function.
+
+export interface FarmOptions {
+  params?: () => GasParams;
+  selected?: () => string | null;
+}
+
+export const FARM_IDS = [
+  'wood-gas-tractor',
+  'chip-barn',
+  'drum-chipper',
+  'chip-sieve',
+  'clod-crusher',
+  'farmhouse',
+  'farm-garage',
+  'ash-bin',
+  'condensate-barrel',
+  'field-ditch',
+] as const;
+export type FarmId = (typeof FARM_IDS)[number];
+
+const HOTSPOTS: HotspotDef[] = [
+  { id: 'wood-gas-tractor', fr: 'Tracteur à gaz de bois', en: 'Wood-gas tractor', goto: 'tractor' },
+  { id: 'chip-barn', fr: 'Grange à plaquettes', en: 'Chip barn' },
+  { id: 'drum-chipper', fr: 'Déchiqueteuse', en: 'Drum chipper' },
+  { id: 'chip-sieve', fr: 'Crible', en: 'Chip sieve' },
+  { id: 'clod-crusher', fr: 'Brise-mottes', en: 'Clod crusher' },
+  { id: 'farmhouse', fr: 'Ferme', en: 'Farmhouse' },
+  { id: 'farm-garage', fr: 'Garage', en: 'Farm garage', goto: 'garage' },
+  { id: 'ash-bin', fr: 'Bac à cendres', en: 'Ash bin', minor: true },
+  { id: 'condensate-barrel', fr: 'Fût de condensats', en: 'Condensate barrel', minor: true },
+  { id: 'field-ditch', fr: 'Fossé', en: 'Field ditch' },
+];
+
+const FRAMING: Record<FarmId, PartFraming> = {
+  'wood-gas-tractor': { viewDir: viewFrom(16, 330) },
+  'chip-barn': { viewDir: viewFrom(14, 10) },
+  'drum-chipper': { viewDir: viewFrom(18, 20) },
+  'chip-sieve': { viewDir: viewFrom(18, 340) },
+  'clod-crusher': { viewDir: viewFrom(18, 340) },
+  farmhouse: { viewDir: viewFrom(12, 15) },
+  'farm-garage': { viewDir: viewFrom(12, 25) },
+  'ash-bin': { viewDir: viewFrom(20, 30) },
+  'condensate-barrel': { viewDir: viewFrom(18, 40) },
+  'field-ditch': { viewDir: viewFrom(30, 10) },
+};
+
+/** The loop the tractor drives: a rounded rectangle, parameterised by the distance along it. */
+export function loopAt(s: number): { x: number; z: number; hx: number; hz: number } {
+  const { x: cx, z: cz, len, r } = FARM.loop;
+  const half = len / 2;
+  const arc = Math.PI * r;
+  const P = 2 * len + 2 * arc;
+  let u = ((s % P) + P) % P;
+  // 1: along +x on the near side (z = cz − r), 2: the end at +x, 3: back along −x on the far side, 4: the end at −x
+  if (u < len) return { x: cx - half + u, z: cz - r, hx: 1, hz: 0 };
+  u -= len;
+  if (u < arc) {
+    const a = -Math.PI / 2 + u / r;
+    return { x: cx + half + Math.cos(a) * r, z: cz + Math.sin(a) * r, hx: -Math.sin(a), hz: Math.cos(a) };
+  }
+  u -= arc;
+  if (u < len) return { x: cx + half - u, z: cz + r, hx: -1, hz: 0 };
+  u -= len;
+  const a = Math.PI / 2 + u / r;
+  return { x: cx - half + Math.cos(a) * r, z: cz + Math.sin(a) * r, hx: -Math.sin(a), hz: Math.cos(a) };
+}
+
+export const LOOP_LENGTH = 2 * FARM.loop.len + 2 * Math.PI * FARM.loop.r;
+
+/** The ditch's water: a ribbon along the bottom, its UVs running along x so that the flow can be scrolled. Decoration: nothing in the model says how the ditch runs (docs/water.md). */
+function ditchWater(): { mesh: THREE.Mesh; map: THREE.DataTexture } {
+  const L = 70;
+  const N = 70;
+  const pos: number[] = [];
+  const uv: number[] = [];
+  const idx: number[] = [];
+  const y = -FARM.ditch.depth + 0.28;
+  const wHalf = FARM.ditch.width / 2 + 0.28 * FARM.ditch.slope * 0.9;
+  for (let i = 0; i <= N; i++) {
+    const x = -L + (i * 2 * L) / N;
+    for (const s of [-1, 1]) {
+      pos.push(x, y, FARM.ditch.z + s * wHalf);
+      uv.push(x * 0.3, s > 0 ? 1 : 0);
+    }
+    if (i < N) {
+      const k = i * 2;
+      idx.push(k, k + 1, k + 2, k + 1, k + 3, k + 2);
+    }
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  g.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
+  g.setIndex(idx);
+  g.computeVertexNormals();
+  // a small ripple map: streaks along the flow, darker in the middle
+  const S = 64;
+  const d = new Uint8Array(S * S * 4);
+  const r = rng(3);
+  for (let j = 0; j < S; j++)
+    for (let i = 0; i < S; i++) {
+      const k = (j * S + i) * 4;
+      const streak = 0.5 + 0.5 * Math.sin((i / S) * Math.PI * 2 * 4 + Math.sin((j / S) * Math.PI * 2 * 2) * 1.2);
+      const v = 70 + 30 * streak + 8 * r();
+      d[k] = v * 0.7;
+      d[k + 1] = v * 0.85;
+      d[k + 2] = v;
+      d[k + 3] = 255;
+    }
+  const map = new THREE.DataTexture(d, S, S, THREE.RGBAFormat);
+  map.colorSpace = THREE.SRGBColorSpace;
+  map.wrapS = map.wrapT = THREE.RepeatWrapping;
+  map.minFilter = THREE.LinearMipmapLinearFilter;
+  map.generateMipmaps = true;
+  map.needsUpdate = true;
+  const m = new THREE.Mesh(
+    g,
+    new THREE.MeshStandardMaterial({
+      map,
+      color: 0x6f8a86,
+      roughness: 0.08,
+      metalness: 0.2,
+      transparent: true,
+      opacity: 0.86,
+    }),
+  );
+  m.name = 'ditch-water';
+  m.receiveShadow = true;
+  return { mesh: m, map };
+}
+
+/** Rushes and sedge along the ditch's banks: instanced blades. */
+function reeds(): THREE.Object3D {
+  const r = rng(12);
+  const blade = new THREE.PlaneGeometry(0.06, 1);
+  blade.translate(0, 0.5, 0);
+  const n = 600;
+  const im = new THREE.InstancedMesh(
+    blade,
+    new THREE.MeshStandardMaterial({ color: 0x6f8a3a, side: THREE.DoubleSide, roughness: 0.9 }),
+    n,
+  );
+  const m = new THREE.Matrix4();
+  const q = new THREE.Quaternion();
+  const e = new THREE.Euler();
+  const col = new THREE.Color();
+  for (let i = 0; i < n; i++) {
+    const x = (r() - 0.5) * 140;
+    const side = r() > 0.5 ? 1 : -1;
+    const off = FARM.ditch.width / 2 + 0.25 + r() * 0.7;
+    const z = FARM.ditch.z + side * off;
+    const h = 0.5 + 0.9 * r();
+    e.set((r() - 0.5) * 0.4, r() * Math.PI, (r() - 0.5) * 0.5);
+    q.setFromEuler(e);
+    m.compose(v3(x, terrainHeight(x, z), z), q, v3(1, h, 1));
+    im.setMatrixAt(i, m);
+    const t = 0.7 + 0.5 * r();
+    col.setRGB(t * 0.8, t, t * 0.45);
+    im.setColorAt(i, col);
+  }
+  im.castShadow = false;
+  im.name = 'reeds';
+  return im;
+}
+
+export interface FarmScene extends SceneModule<GasState> {
+  machine: Machine;
+}
+
+export function createFarmScene(opts: FarmOptions = {}): FarmScene {
+  const scene = new THREE.Scene();
+  scene.name = 'farm';
+  scene.userData.wantsEnv = true;
+  const sky = createSky(scene);
+  const land = buildTerrain();
+  scene.add(land.mesh);
+  const trees = buildTrees();
+  scene.add(trees.group);
+  const registry = new WorldRegistry(new Set(), opts.selected ?? (() => null));
+  const followers = new Followers();
+  const scenery = group('scenery');
+  scene.add(scenery);
+
+  // ---- buildings
+  const house = buildFarmhouse();
+  house.group.position.x = FARM.house.x;
+  house.group.position.z = FARM.house.z;
+  scene.add(house.group);
+  const barn = buildBarn();
+  barn.group.position.x = FARM.barn.x;
+  barn.group.position.z = FARM.barn.z;
+  scene.add(barn.group);
+  // the garage, attached to the house's east gable: the same building that `garage` shows cut open, here roofed, its door to the south
+  const gar = buildGarageBuilding({ roof: true, volume: GARAGE.smallM3 });
+  const farmGarage = group('farm-garage');
+  farmGarage.userData.partId = 'farm-garage';
+  farmGarage.add(gar.shell, gar.above, gar.roof);
+  farmGarage.rotation.y = Math.PI;
+  farmGarage.position.set(FARM.garage.x, 0, FARM.garage.z);
+  scene.add(farmGarage);
+
+  // ---- the fuel's places
+  const chipper = buildChipper();
+  place(chipper.group, FARM.chipper.x, FARM.chipper.z, 0.25, 1.4);
+  scene.add(chipper.group);
+  const sieve = buildSieve();
+  place(sieve.group, FARM.sieve.x, FARM.sieve.z, -0.2, 1.4);
+  scene.add(sieve.group);
+  // the chip pile under the chute: a mound of chips
+  const pileG = new THREE.SphereGeometry(1, 36, 14, 0, Math.PI * 2, 0, Math.PI / 2);
+  {
+    const p = pileG.attributes.position as THREE.BufferAttribute;
+    const rr = rng(4);
+    for (let i = 0; i < p.count; i++) p.setY(i, p.getY(i) * (0.9 + 0.2 * rr()));
+    pileG.computeVertexNormals();
+    // UVs in metres on a unit sphere that will be scaled: planar
+    const uv = new Float32Array(p.count * 2);
+    for (let i = 0; i < p.count; i++) {
+      uv[i * 2] = p.getX(i) * 2.2;
+      uv[i * 2 + 1] = p.getZ(i) * 2.2;
+    }
+    pileG.setAttribute('uv', new THREE.BufferAttribute(uv, 2));
+  }
+  const pile = mesh(
+    pileG,
+    new THREE.MeshStandardMaterial({ color: 0xe4cf9f, map: tiled(chipsMap(), 0.8, 0.8), roughness: 1 }),
+  );
+  pile.scale.set(2.2, 1.5, 2.0);
+  place(pile, FARM.chipPile.x, FARM.chipPile.z, 0, 1.4);
+  pile.position.y -= 0.05;
+  dynamic(pile);
+  scene.add(pile);
+  const wood = buildWoodpile();
+  place(wood, FARM.woodpile.x, FARM.woodpile.z, Math.PI / 2, 2);
+  scene.add(wood);
+  const ash = buildAshBin();
+  place(ash.group, FARM.ashBin.x, FARM.ashBin.z, 0.2, 0.7);
+  scene.add(ash.group);
+  const barrel = buildBarrel();
+  place(barrel.group, FARM.barrel.x, FARM.barrel.z, 0.5, 0.4);
+  scene.add(barrel.group);
+
+  // ---- walls, fences, small things: the yard's life
+  const lane = buildStoneWall(60, 3);
+  place(lane, 36, -4.9, 0.0, 1);
+  scene.add(lane);
+  const wall2 = buildStoneWall(30, 8);
+  place(wall2, -24, 3.6, 0.0, 1);
+  scene.add(wall2);
+  const fence = buildFence(150);
+  place(fence, 0, FARM.field.z0 - 1.5, 0, 1);
+  scene.add(fence);
+  const fence2 = buildFence(60);
+  place(fence2, -8, -30, 0, 1);
+  scene.add(fence2);
+  const props: [THREE.Group, number, number, number][] = [
+    [buildWheelbarrow(), -13.5, -3.2, 0.7],
+    [buildLadder(4.4), 7.8, -16.5, 0.0],
+    [buildBales(5), 12.5, -15.8, 0.2],
+    [buildPallets(), 24.5, -15.5, 0.1],
+    [buildTyres(), 14.6, -6.8, 0.0],
+  ];
+  props.forEach(([p, x, z, yaw]) => {
+    place(p, x, z, yaw, 0.8);
+    scenery.add(p);
+  });
+  // the ladder leans on the barn's front
+  props[1]![0].rotation.z = 0.0;
+  props[1]![0].rotation.y = Math.PI / 2;
+  props[1]![0].rotation.x = 0.0;
+  // a clothesline between two posts, a mailbox at the lane's end
+  const posts = group('line');
+  posts.add(
+    mesh(
+      new THREE.CylinderGeometry(0.04, 0.05, 2.2, 8),
+      new THREE.MeshStandardMaterial({ color: 0x6b5238 }),
+      [0, 1.1, 0],
+    ),
+  );
+  posts.add(
+    mesh(
+      new THREE.CylinderGeometry(0.04, 0.05, 2.2, 8),
+      new THREE.MeshStandardMaterial({ color: 0x6b5238 }),
+      [6, 1.1, 0],
+    ),
+  );
+  posts.add(
+    mesh(
+      new THREE.CylinderGeometry(0.004, 0.004, 6, 4).rotateZ(Math.PI / 2),
+      new THREE.MeshStandardMaterial({ color: 0xcfcfcf }),
+      [3, 2.05, 0],
+    ),
+  );
+  for (const x of [1.0, 1.9, 2.6, 3.6, 4.7])
+    posts.add(
+      mesh(
+        new THREE.BoxGeometry(0.5, 0.7, 0.01),
+        new THREE.MeshStandardMaterial({ color: x > 3 ? 0xf0eee6 : 0x9bb0c4, roughness: 1, side: THREE.DoubleSide }),
+        [x, 1.68, 0],
+      ),
+    );
+  place(posts, -26, -16, 0.1, 1);
+  scenery.add(posts);
+  const mail = group('mailbox');
+  mail.add(
+    mesh(new THREE.BoxGeometry(0.1, 1.1, 0.1), new THREE.MeshStandardMaterial({ color: 0x5b4330 }), [0, 0.55, 0]),
+  );
+  mail.add(
+    mesh(
+      new THREE.BoxGeometry(0.34, 0.22, 0.2),
+      new THREE.MeshStandardMaterial({ color: 0x9c2f2a, roughness: 0.6 }),
+      [0, 1.2, 0],
+    ),
+  );
+  place(mail, 60, -2.0, 0, 0.3);
+  scenery.add(mail);
+
+  // ---- the ditch: its water, its reeds, a culvert where the field track crosses
+  const water = ditchWater();
+  const ditch = group('field-ditch');
+  ditch.userData.partId = 'field-ditch';
+  ditch.add(water.mesh);
+  ditch.add(reeds());
+  // the culvert's mouth at each side of the track
+  for (const x of [FARM.field.x1 * 0 + 17, FARM.field.x1 * 0 + 24]) {
+    ditch.add(
+      mesh(
+        new THREE.CylinderGeometry(0.46, 0.46, 0.5, 18, 1, true).rotateZ(Math.PI / 2),
+        new THREE.MeshStandardMaterial({
+          color: 0x9a968c,
+          map: tiled(concreteMap(), 1, 1),
+          roughness: 0.95,
+          side: THREE.DoubleSide,
+        }),
+        [x, -FARM.ditch.depth + 0.46, FARM.ditch.z],
+      ),
+    );
+  }
+  scene.add(ditch);
+
+  // ---- the tractor, and the crusher it tows
+  const machine = buildMachine();
+  // the registry puts a part back at its base position every frame (the explode): what moves is a child of a part that stays
+  const tractorPart = group('wood-gas-tractor');
+  tractorPart.userData.partId = 'wood-gas-tractor';
+  const drive = group('drive');
+  drive.add(machine.root);
+  tractorPart.add(drive);
+  scene.add(tractorPart);
+  const crusher = buildCrusher();
+  const crusherPart = group('clod-crusher');
+  crusherPart.userData.partId = 'clod-crusher';
+  crusherPart.add(crusher.group);
+  scene.add(crusherPart);
+  // the link: a rod from the tractor's pin to the crusher's hitch, drawn between them every frame
+  const link = mesh(
+    new THREE.CylinderGeometry(0.03, 0.03, 1, 8),
+    new THREE.MeshStandardMaterial({ color: 0x3d3a36, roughness: 0.6, metalness: 0.6 }),
+  );
+  link.castShadow = true;
+  dynamic(link);
+  scene.add(link);
+  // the sun's smoke: the chimney of the house
+  const chimney = v3(FARM.house.x + FARM.house.w / 2 - 2.0, FARM.house.wall + 2.7 + 1.6, FARM.house.z);
+  const smoke = makePlume({
+    origin: chimney,
+    color: 0xd6d6d0,
+    rise: 5,
+    spread: 1.6,
+    n: 60,
+    size: 3.5,
+    speed: 0.04,
+    seed: 9,
+  });
+  scene.add(smoke.points);
+  // where the plume would be seen would be nothing: no hot gas here
+
+  // ---- registered parts
+  const groups: Record<FarmId, THREE.Object3D> = {
+    'wood-gas-tractor': tractorPart,
+    'chip-barn': barn.group,
+    'drum-chipper': chipper.group,
+    'chip-sieve': sieve.group,
+    'clod-crusher': crusherPart,
+    farmhouse: house.group,
+    'farm-garage': farmGarage,
+    'ash-bin': ash.group,
+    'condensate-barrel': barrel.group,
+    'field-ditch': ditch,
+  };
+  const anchorAt: Record<FarmId, [number, number, number]> = {
+    'wood-gas-tractor': [0.6, 3.5, 0],
+    'chip-barn': [0, FARM.barn.wall + 4.2, FARM.barn.d / 2],
+    'drum-chipper': [0.2, 3.1, 0],
+    'chip-sieve': [0, 2.4, 0],
+    'clod-crusher': [0.0, 1.2, 0],
+    farmhouse: [0, FARM.house.wall + 3.4, FARM.house.d / 2],
+    'farm-garage': [0, 7.6, 0],
+    'ash-bin': [0, 1.2, 0],
+    'condensate-barrel': [0, 1.5, 0],
+    'field-ditch': [-6, 1.2, FARM.ditch.z],
+  };
+  const anchors: Record<string, THREE.Object3D> = {};
+  for (const id of FARM_IDS) {
+    const g = groups[id];
+    registry.add(id, g, new THREE.Vector3(0, 0, 0), undefined, FRAMING[id]);
+    const a = anchorAt[id];
+    const host = id === 'wood-gas-tractor' ? drive : id === 'clod-crusher' ? crusher.group : g;
+    anchors[id] = anchor(host, a[0], a[1], a[2], `anchor-${id}`);
+  }
+  // scenery follows: the pile with the chipper, the ladder with the barn, the rest by the land
+  followers.add('drum-chipper', pile, { shell: false, explode: 0 });
+  followers.add('chip-barn', props[1]![0], { shell: false, explode: 0 });
+  followers.add('chip-barn', props[2]![0], { shell: false, explode: 0 });
+  followers.add('wood-gas-tractor', link, { shell: false, explode: 0 });
+  registry.overview(() => [new THREE.Box3(new THREE.Vector3(-40, -1, -30), new THREE.Vector3(40, 10, 50))]);
+
+  const hs: Hotspot[] = hotspots(HOTSPOTS, anchors);
+  let s = 0;
+  let waterFlow = 0;
+  const tmp = new THREE.Vector3();
+  const pin = new THREE.Vector3();
+  const hitch = new THREE.Vector3();
+  void UNIT;
+  void mergeStatic;
+
+  return {
+    id: 'farm',
+    scene,
+    registry,
+    hotspots: hs,
+    machine,
+    home: { position: new THREE.Vector3(-46, 24, 52), target: new THREE.Vector3(8, 1.5, -6) },
+    minDistance: 1.2,
+    maxDistance: 420,
+    near: 0.1,
+    far: 5000,
+    declutter: true,
+    homePadding: 1.0,
+    update(state: GasState, dt: number, view: ViewOpts) {
+      const p = opts.params?.();
+      const sel = opts.selected?.() ?? null;
+      // the sun: the model's clock from the farm's day start; at a fast clock the light holds
+      const hour = (FARM.dayStart + state.hour) % 24;
+      sky.update(hour, view.time, 170, (p?.timeScale ?? 60) >= 600);
+      // the tractor goes round at the model's ground speed while it works, and stands while the engine does not, or while it is the one selected
+      const moving = state.engineOn && sel !== 'wood-gas-tractor' && sel !== 'clod-crusher';
+      if (moving) s += state.groundSpeedMs * dt * view.slowMo;
+      const at = loopAt(s);
+      const yaw = -Math.atan2(at.hz, at.hx);
+      drive.position.set(at.x, terrainHeight(at.x, at.z), at.z);
+      drive.rotation.y = yaw;
+      machine.update(state, dt, { slowMo: view.slowMo, time: view.time, params: p, parked: !moving, schematic: false });
+      // the crusher trails on the loop, its rings rolling as the ground says
+      const back = loopAt(s - 4.8);
+      crusher.group.position.set(back.x, terrainHeight(back.x, back.z), back.z);
+      crusher.group.rotation.y = -Math.atan2(back.hz, back.hx);
+      if (moving) for (const g of crusher.gangs) g.rotation.z -= (state.groundSpeedMs * dt * view.slowMo) / 0.31;
+      // the pole: from the tractor's drawbar pin to the crusher's hitch
+      pin.set(-0.84, 0.54, 0);
+      drive.localToWorld(pin);
+      hitch.copy(crusher.hitch);
+      crusher.group.localToWorld(hitch);
+      tmp.subVectors(hitch, pin);
+      const len = tmp.length();
+      link.position.copy(pin).addScaledVector(tmp, 0.5);
+      link.scale.set(1, Math.max(0.01, len), 1);
+      link.quaternion.setFromUnitVectors(v3(0, 1, 0), tmp.normalize());
+      // stocks: the heap of chips at the chipper and in the barn go down with what the tractor has burnt; the ash bin fills
+      const used = Math.min(1, state.chipsUsedKg / 500);
+      pile.scale.set(2.2 * (1 - 0.35 * used), 1.5 * (1 - 0.5 * used), 2.0 * (1 - 0.35 * used));
+      barn.heap.scale.set(4.2, 2.6 * (1 - 0.4 * used), 3.4);
+      ash.ash.scale.y = 0.02 + 0.5 * Math.min(1, state.ashKg / 12);
+      // the barn's doors: one leaf stands open
+      barn.leaves[0]!.position.x = -(FARM.barn.w * 0.0) - 3.0 * 0.5 - 2.2;
+      // the garage's door follows the model's
+      gar.door.set(DOOR_OPEN[state.door] ?? 0);
+      // the ditch's water runs: decoration
+      waterFlow += dt * view.slowMo * 0.05;
+      water.map.offset.x = -waterFlow;
+      smoke.set({ share: 0.5, opacity: 0.35, time: view.time * view.slowMo });
+      followers.update(registry);
+    },
+  };
+}
