@@ -85,11 +85,18 @@ export const FIG = {
   trueTurns: d(Math.round(MF_1100.rpmMax / 60), 0, [' tours par seconde', ' turns a second']),
   idleIn: d(55, 0, ' kW'), // the table's own losses at idle
   dieselShareMax: d(11.8, 1, pct), // 26.1 / 220.9: the table's 18.9 % does not add up
+  bunkerMin: m(53, 0, ' min'),
+  bunkerHand: d(44.5, 1, ' min'),
+  lost82: d(82, 0, pct), // 100 % less the 18 % of the bench
+  partIn: d(151, 0, ' kW'), // 27 kg/h of chips and 1.9 kg/h of diesel
+  partEff: d(19, 0, pct), // 29 / 151
   gasGap: d(6, 0, pct), // 5.27 against 5.60 MJ/Nm³
   vesselHours: d(2.5, 1, ' h'), // the middle of 2 to 3 h
 
   // ---- the model where this machine was measured: the bench's three points, docs/physics.md
   chipsModel: m(34, 0, kgh),
+  effModel: m(21, 0, pct),
+  gasWet20: m(5, 1, ' MJ/Nm³'),
   gasModel: m(5.3, 1, ' MJ/Nm³'),
   cgeModel: m(75.5, 1, pct),
   gasCO: m(20.9, 1, pct),
@@ -115,6 +122,10 @@ export const FIG = {
   // ---- the same model where it was not: past 20 % moisture, in a fault, on another engine, and in the room
   chipsShiftModel: w(274, 0, ' kg'),
   chipsWet40: w(57, 0, kgh),
+  gasWet30: w(4.7, 1, ' MJ/Nm³'),
+  gasWet40: w(4.4, 1, ' MJ/Nm³'),
+  sparkModel: w(31, 0, ' kW'),
+  truckChips: w(9.4, 1, ' kg'),
   wetLimit: w(45, 0, pct),
   wetNoDrain: w(40, 0, pct),
   dew40: w(46, 0, ' °C'),
@@ -127,6 +138,9 @@ export const FIG = {
   rpmModel: w(2800, 0, ' tr/min'),
 
   // ---- estimates: the sources are silent. Lengths from src/three/dims.ts, the rest from docs/research.md §3, docs/physics.md §1 and the model's own constants
+  idleChips: e(7, 0, ' kg'),
+  fills: e(9, 0),
+  serviceModel: e(13, 0, ' minutes'),
   thirdMore: words('estimate', 'un tiers', 'a third'),
   barnSize: size('estimate', 'm', FARM.barn.w, FARM.barn.d),
   houseSize: size('estimate', 'm', FARM.house.w, FARM.house.d),

@@ -194,6 +194,22 @@ export const REPORTED = new Set(
     '300',
     '1400',
     // the false-colour ramp's ends and the dots' (research §2.6, docs/3d.md)
+
+    // the lessons: Table 3.13's idle chips, K23/K24 engines, K18, Fig. 3.11 by eye and the table's misprint, K35, K36, K68, S5's delayed syndrome (7 to 21 days), K66's 250; the numbers of the emergency services, from general knowledge, to check (research §A.4)
+    '19.6',
+    '42',
+    '56',
+    '8.5',
+    '19',
+    '5.3',
+    '0.55',
+    '3.6',
+    '7.8',
+    '1986',
+    '112',
+    '144',
+    '7',
+    '21',
   ].map((n) => String(Number(n))),
 );
 

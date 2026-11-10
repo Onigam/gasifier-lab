@@ -2,7 +2,16 @@ import { describe, expect, it } from 'vitest';
 import { GasifierSim } from '../sim/engine';
 import { DOOR_ACH, DIESEL_LHV, LHV_AT_8, MF_1100, MODEL, ROOM } from '../sim/machine';
 import { FINES_POWER_KW, TABLE_3_13 } from '../sim/reported';
-import { fullPower, moistureAtHeating, roomRun, steadyPoint, tableIdle, tableMax, wotCurve } from '../sim/runs';
+import {
+  fullPower,
+  moistureAtHeating,
+  roomRun,
+  steadyPoint,
+  tableIdle,
+  tableMax,
+  truckRun,
+  wotCurve,
+} from '../sim/runs';
 import { UNIT } from '../three/dims';
 import { FIG, type Fig, type FigName } from './figures';
 
@@ -43,6 +52,8 @@ describe('the arithmetic on reported figures (derived, †)', () => {
     const minutes = ((MF_1100.bunkerVolume * MF_1100.bulkDensity) / 41) * 60;
     near('fall', ((MF_1100.bunkerVolume / section) * 100) / minutes, 0.1);
     near('woodMJ', LHV_AT_8 / 1e6, 0.05);
+    near('bunkerHand', ((MF_1100.bunkerVolume * MF_1100.bulkDensity) / 41) * 60, 0.1);
+    near('bunkerMin', ((MF_1100.bunkerVolume * MF_1100.bulkDensity) / max.chips) * 60, 0.6);
   });
   it('the tar’s 0.03 %, the phenols’ 150 to 300 times, the jacket’s litres by hand, the air by hand', () => {
     near('tarShare', ((0.13 * 2.17) / 1000) * 100, 0.01);
@@ -67,6 +78,27 @@ describe('the arithmetic on reported figures (derived, †)', () => {
     near('trueTurns', 1855 / 60, 0.2);
     near('gasGap', ((5.6 - max.gasMJ) / 5.6) * 100, 0.5);
     near('vesselHours', MODEL.coolerVesselHours, 0);
+  });
+});
+
+describe('the lessons’ figures', () => {
+  it('the part load’s 151 kW and 19 %, the 82 % lost, the model’s 21 %, the wet gas, the spark engine, the truck, the idle, the day', () => {
+    near('partIn', (27 * LHV_AT_8) / 3.6e6 + (1.9 * DIESEL_LHV) / 3.6e6, 0.6);
+    near('partEff', (29 / v('partIn')) * 100, 0.5);
+    expect(100 - 18).toBe(v('lost82'));
+    near('effModel', max.totalEffPct, 0.5);
+    near('gasWet20', steadyPoint({ moistureWet: 20 }).gasMJ, 0.05);
+    near('gasWet30', steadyPoint({ moistureWet: 30 }).gasMJ, 0.05);
+    near('gasWet40', steadyPoint({ moistureWet: 40 }).gasMJ, 0.05);
+    near('sparkModel', fullPower('spark').power, 0.6);
+    near('truckChips', truckRun('load-8t').chipsPer10, 0.06);
+    near('idleChips', idle.chips, 0.5);
+    const sim = new GasifierSim();
+    sim.applyScenario('working-shift');
+    const dt = 1 / 60;
+    for (let i = 0; i < (8 * 3600) / sim.params.timeScale / dt; i++) sim.step(dt);
+    near('fills', sim.state.fillCount, 0);
+    near('serviceModel', sim.state.serviceMinPerHour, 0.5);
   });
 });
 

@@ -1,9 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import type { PartCategory } from '@onigam/lab-kit/content';
+import { WORLD } from '../three/index';
 import { TRACTOR } from '../three/dims';
 import { LAYOUT } from '../sim/machine';
 import { PART_NAMES } from '../three/part-ids';
-import { allTexts, ownPartTexts } from './all-texts';
+import { allTexts, ownPartTexts, stepTexts } from './all-texts';
+import { ASSEMBLY } from './assembly';
+import { INSTALL } from './install';
+import { OVERVIEWS, WORLD_IDS } from './overviews';
 import { FIG, markOf, type Fig } from './figures';
 import { bare, NOT_REPEATED, numbers, OPERATING_EN, OPERATING_FR, PROMISES, REPORTED } from './lint';
 import { PARTS } from './parts';
@@ -14,6 +18,7 @@ import { DIM_SPECS } from './parts/dim-specs';
 
 const CATEGORIES: PartCategory[] = ['hydraulic', 'mechanical', 'electrical', 'structure', 'site'];
 const LANGS = ['fr', 'en'] as const;
+const WORLDS = ['farm', 'tractor', 'gasifier', 'gas-train', 'garage'];
 const sheetTexts = allTexts();
 
 describe('parts catalogue', () => {
@@ -151,7 +156,9 @@ describe('the visitor’s texts of the sheets', () => {
     const problems: string[] = [];
     for (const [where, t] of sheetTexts) {
       for (const lang of LANGS) {
-        const text = bare(t[lang], lang).replace(/\*\*/g, '');
+        // the marks are explained once, in the last paragraph of the farm's overview: that paragraph is allowed to print them
+        const body = where === 'overview farm.text' ? t[lang].split('\n\n').slice(0, -1).join('\n\n') : t[lang];
+        const text = bare(body, lang).replace(/\*\*/g, '');
         if (/[†*]/.test(text)) problems.push(`${where} [${lang}]: a mark typed by hand in « ${text.slice(0, 80)} »`);
         for (const n of numbers(text, lang)) if (!REPORTED.has(n)) problems.push(`${where} [${lang}]: ${n}`);
       }
@@ -214,5 +221,175 @@ describe('what the sheets print of the machine is the dims’s and the report’
     expect(
       PARTS.find((p) => p.id === 'left-consoles')!.specs.some((s) => JSON.stringify(s.value).includes('0,50')),
     ).toBe(true);
+  });
+});
+
+describe('the two guides', () => {
+  const guides = [
+    ['assembly', ASSEMBLY, 20],
+    ['install', INSTALL, 10],
+  ] as const;
+  const ids = (world: string) => PARTS.filter((p) => p.scene === world).map((p) => p.id);
+
+  it('have the steps of the bar, each with a unique id, a world, and parts that exist in that world', () => {
+    for (const [name, steps, bar] of guides) {
+      expect(steps.length, name).toBeGreaterThanOrEqual(bar);
+      expect(new Set(steps.map((s) => s.id)).size, name).toBe(steps.length);
+      for (const s of steps) {
+        expect(WORLDS, `${name} ${s.id}`).toContain(s.scene);
+        for (const id of s.parts) expect(PARTS.find((p) => p.id === id)?.scene, `${name} ${s.id}: ${id}`).toBe(s.scene);
+      }
+    }
+  });
+
+  it('end every step on where it comes from, the same origin in both languages', () => {
+    for (const [name, steps] of guides) {
+      for (const s of steps) {
+        const fr = s.text.fr.match(/Origine : (rapporté|pratique courante|notre lecture)(.*)\.$/);
+        const en = s.text.en.match(/Origin: (reported|usual practice|our reading)(.*)\.$/);
+        expect(fr, `${name} ${s.id} [fr]`).not.toBeNull();
+        expect(en, `${name} ${s.id} [en]`).not.toBeNull();
+        const map: Record<string, string> = {
+          rapporté: 'reported',
+          'pratique courante': 'usual practice',
+          'notre lecture': 'our reading',
+        };
+        expect(map[fr![1]!], `${name} ${s.id}`).toBe(en![1]);
+      }
+    }
+  });
+
+  it('say once, at the top of each, that it is a reading and no procedure, and nothing shows that it would be acceptable or allowed', () => {
+    for (const [name, steps] of guides) {
+      const fr = steps.filter((s) => /pas une procédure/.test(s.text.fr));
+      const en = steps.filter((s) => /not a procedure/.test(s.text.en));
+      expect(
+        fr.map((s) => s.id),
+        name,
+      ).toEqual([steps[0]!.id]);
+      expect(
+        en.map((s) => s.id),
+        name,
+      ).toEqual([steps[0]!.id]);
+      expect(steps[0]!.text.en, name).toMatch(/nothing here shows that/);
+      expect(steps[0]!.text.fr, name).toMatch(/rien ici ne montre/);
+    }
+  });
+
+  it('give no instruction and no recipe: no imperative of an operating verb, no tool, no torque, no duration field', () => {
+    for (const [name, steps] of guides) {
+      for (const s of steps) {
+        for (const [k, t] of stepTexts(s)) {
+          expect(t.en, `${name} ${s.id}.${k}`).not.toMatch(OPERATING_EN);
+          expect(t.fr, `${name} ${s.id}.${k}`).not.toMatch(OPERATING_FR);
+        }
+        expect(s.tools, `${name} ${s.id}`).toBeUndefined();
+        expect(s.torque, `${name} ${s.id}`).toBeUndefined();
+        expect(s.duration, `${name} ${s.id}`).toBeUndefined();
+      }
+    }
+  });
+
+  it('install every id of gasifier and gas-train in exactly one step of the assembly, in its own world, and nothing twice', () => {
+    const seen = new Map<string, string[]>();
+    for (const s of ASSEMBLY) for (const id of s.parts) seen.set(id, [...(seen.get(id) ?? []), s.id]);
+    for (const [id, steps] of seen) expect(steps, id).toHaveLength(1);
+    for (const w of ['gasifier', 'gas-train']) for (const id of ids(w)) expect(seen.has(id), id).toBe(true);
+    const twice = new Map<string, number>();
+    for (const s of INSTALL) for (const id of s.parts) twice.set(id, (twice.get(id) ?? 0) + 1);
+    for (const [id, n] of twice) expect(n, id).toBe(1);
+  });
+
+  it('follow a sensible order: the lower body before what sits on it, the unit before the line, the line before the engine’s end', () => {
+    const at = (id: string): number => ASSEMBLY.findIndex((s) => s.parts.includes(id));
+    expect(at('outer-casing')).toBeLessThan(at('ash-pit'));
+    expect(at('grate')).toBeLessThan(at('fire-box'));
+    expect(at('fire-box')).toBeLessThan(at('throat-ring'));
+    expect(at('fire-box')).toBeLessThan(at('fuel-casing'));
+    expect(at('fuel-casing')).toBeLessThan(at('spring-lid'));
+    expect(at('spring-lid')).toBeLessThan(at('gasifier-unit'));
+    expect(at('gasifier-unit')).toBeLessThan(at('hot-gas-pipe'));
+    expect(at('filter-box')).toBeLessThan(at('gas-cooler'));
+    expect(at('gas-cooler')).toBeLessThan(at('gas-air-mixer'));
+    expect(at('gas-air-mixer')).toBeLessThan(at('cylinder-cutaway'));
+    expect(at('gasifier-unit')).toBeLessThan(at('gas-line-run'));
+  });
+
+  it('warn where the gesture is risky, once each, and never lay a hazard on a step of the other guide twice', () => {
+    const warned = ASSEMBLY.filter((s) => s.warning).map((s) => s.id);
+    expect(warned).toEqual(['bunker', 'lid', 'fan', 'engine-bay']);
+    expect(INSTALL.filter((s) => s.warning).map((s) => s.id)).toEqual(['stop']);
+  });
+
+  it('keep each step readable: a title, a few sentences, at most 105 words, in both languages', () => {
+    for (const [name, steps] of guides) {
+      for (const s of steps) {
+        for (const lang of LANGS) {
+          const n = s.text[lang].replace(/\*\*/g, '').split(/\s+/).length;
+          expect(n, `${name} ${s.id} [${lang}] ${n} words`).toBeLessThanOrEqual(105);
+          expect(n, `${name} ${s.id} [${lang}] ${n} words`).toBeGreaterThanOrEqual(40);
+        }
+      }
+    }
+  });
+});
+
+describe('the world overviews', () => {
+  const tool = {
+    explode: [/\*\*[ÉE]clat[ée]\*\*|«\s?Éclaté\s?»/, /\*\*Explode\*\*|“Explode”/],
+    cutaway: [/\*\*Coupe\*\*|«\s?Coupe\s?»/, /\*\*Section\*\*|“Section”/],
+  };
+
+  it('cover the five worlds, named as the 3D names them', () => {
+    expect(WORLD_IDS).toEqual(['farm', 'tractor', 'gasifier', 'gas-train', 'garage']);
+    expect(Object.keys(OVERVIEWS)).toEqual([...WORLD_IDS]);
+  });
+
+  it('tell the marks once, in the first world, and say the plain line on carbon monoxide there', () => {
+    for (const id of WORLD_IDS) {
+      const has = /† calculés/.test(OVERVIEWS[id].text.fr) && /† computed/.test(OVERVIEWS[id].text.en);
+      expect(has, id).toBe(id === 'farm');
+    }
+    expect(OVERVIEWS.farm.text.en).toMatch(/cannot be seen or smelt/);
+    expect(OVERVIEWS.farm.text.fr).toMatch(/ne se voit pas et ne se sent pas/);
+  });
+
+  it('give the garage the warning in full, once: what it is, what it is not, and the one line on poisoning', () => {
+    const g = OVERVIEWS.garage.text;
+    expect(g.en).toMatch(/it is not a plan, a procedure or advice/);
+    expect(g.fr).toMatch(/ni un plan, ni une procédure, ni un conseil/);
+    expect(g.en).toMatch(/get into the open air, do not go back in, call 112/);
+    expect(g.fr).toMatch(/à l’air libre, on ne retourne pas à l’intérieur, on appelle le 112/);
+    for (const id of WORLD_IDS) if (id !== 'garage') expect(OVERVIEWS[id].text.en, id).not.toMatch(/call 112/);
+  });
+
+  it('say once what the 3D role asked: the farm has no source, the parts under the bonnet are estimates, the zones are in order and not to scale, the cyclone is apart', () => {
+    expect(OVERVIEWS.farm.text.en).toMatch(/The farm has no source/);
+    expect(OVERVIEWS.tractor.text.en).toMatch(/their sizes are estimates/);
+    expect(OVERVIEWS.gasifier.text.en).toMatch(/in order and not to scale, on purpose/);
+    expect(OVERVIEWS['gas-train'].text.en).toMatch(/Apart, the \*\*cyclone\*\*/);
+    for (const id of ['farm', 'tractor', 'gasifier', 'gas-train', 'garage'] as const)
+      expect(OVERVIEWS[id].text.en.match(/not to scale/g)?.length ?? 0, id).toBeLessThanOrEqual(1);
+  });
+
+  it('name no tool in a world that does not have it, in the overview, the sheets’ tips or the guides’ steps', () => {
+    const noExplode = ['farm'];
+    const noCut = ['farm', 'tractor', 'gasifier', 'gas-train', 'garage'];
+    const check = (where: string, world: string, fr: string, en: string): void => {
+      if (noExplode.includes(world)) {
+        expect(fr, `${where} [fr]`).not.toMatch(tool.explode[0]!);
+        expect(en, `${where} [en]`).not.toMatch(tool.explode[1]!);
+      }
+      if (noCut.includes(world)) {
+        expect(fr, `${where} [fr]`).not.toMatch(tool.cutaway[0]!);
+        expect(en, `${where} [en]`).not.toMatch(tool.cutaway[1]!);
+      }
+    };
+    for (const id of WORLD_IDS) check(`overview ${id}`, id, OVERVIEWS[id].text.fr, OVERVIEWS[id].text.en);
+    for (const p of PARTS) check(`tip ${p.id}`, p.scene, p.tip?.fr ?? '', p.tip?.en ?? '');
+    for (const s of [...ASSEMBLY, ...INSTALL]) check(`step ${s.id}`, s.scene ?? '', s.text.fr, s.text.en);
+    // the 3D’s own switches agree: the farm does not come apart, no world has a section tool
+    expect(WORLD.farm.explode).toBe(false);
+    for (const id of WORLD_IDS) expect(WORLD[id].cutaway, id).toBe(false);
   });
 });

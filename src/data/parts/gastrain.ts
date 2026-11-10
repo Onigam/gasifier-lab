@@ -685,8 +685,8 @@ export const GAS_TRAIN_PARTS: PartInfo[] = [
       },
     ),
     tip: l(
-      'Cette pièce est coupée en tout temps, et seule elle : l’outil « Coupe » n’a rien d’autre à faire dans ce monde.',
-      'This part is cut at all times, and only this one: the “Section” tool has nothing else to do in this world.',
+      'Ce cylindre est coupé en tout temps : il n’y a pas d’outil à presser, et c’est le seul de la ligne qui le soit.',
+      'This cylinder is cut at all times: there is no tool to press, and it is the only one on the line that is.',
     ),
     design: l(
       'Le mélange gaz-air ne contient qu’un tiers de moins d’énergie que l’essence, et le frottement ne diminue pas : c’est toute l’explication de la puissance perdue. Le lab ne montre aucun taux de compression ni aucune avance : ce sont des réglages de moteur.',
