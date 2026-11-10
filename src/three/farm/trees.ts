@@ -552,6 +552,7 @@ function instance(
   feet: THREE.Vector3[],
   tintJitter = 0.12,
 ): void {
+  plantings = plantings.filter((p) => !avoidAt(p.x, p.z));
   if (plantings.length === 0) return;
   const hasTrunk = !!sp.trunk.attributes.position;
   const mt = new THREE.InstancedMesh(hasTrunk ? sp.trunk : sp.crown, trunkMat, hasTrunk ? plantings.length : 1);
@@ -583,7 +584,11 @@ function instance(
   }
 }
 
-export function buildTrees(): TreeSet {
+/** Where no tree may stand (the world keeps the lines from which its parts are looked at free of crowns). Set by `buildTrees`. */
+let avoidAt: (x: number, z: number) => boolean = () => false;
+
+export function buildTrees(avoid: (x: number, z: number) => boolean = () => false): TreeSet {
+  avoidAt = avoid;
   const group = new THREE.Group();
   group.name = 'trees';
   const feet: THREE.Vector3[] = [];

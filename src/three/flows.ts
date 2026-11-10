@@ -58,6 +58,8 @@ export class FlowDots {
   readonly live: Live[] = [];
   private readonly pos: Float32Array;
   private readonly col: Float32Array;
+  /** 1 for a dot that is drawn, 0 for one that is not: a dot past its path's share has no size, and stands on its path's start. */
+  private readonly shown: Float32Array;
   private total = 0;
   private readonly tmp = new THREE.Vector3();
   private readonly colour = new THREE.Color();
@@ -70,11 +72,13 @@ export class FlowDots {
   ) {
     this.pos = new Float32Array(max * 3);
     this.col = new Float32Array(max * 3);
+    this.shown = new Float32Array(max);
     const g = new THREE.BufferGeometry();
     g.setAttribute('position', new THREE.BufferAttribute(this.pos, 3));
     g.setAttribute('color', new THREE.BufferAttribute(this.col, 3));
+    g.setAttribute('aShown', new THREE.BufferAttribute(this.shown, 1));
     g.setDrawRange(0, 0);
-    // the dots stand inside the part they run in: their box must not enlarge the part's (a hidden dot is parked far below the world)
+    // the dots stand inside the part they run in: their box must not enlarge the part's (a hidden dot stands on its path's start, with no size: the kit measures a part by every vertex of what it holds)
     g.boundingBox = new THREE.Box3();
     g.boundingSphere = new THREE.Sphere();
     const mat = new THREE.PointsMaterial({
@@ -87,12 +91,14 @@ export class FlowDots {
       depthTest: !over,
     });
     // `size` holds the pixel ratio, `scale` the picture's half height in CSS pixels
-    patchMaterial(mat, `flow-dot-size:${size}:${minShare}`, (shader) => {
-      shader.vertexShader = shader.vertexShader.replace(
-        '#include <logdepthbuf_vertex>',
-        `gl_PointSize = clamp( gl_PointSize, ${minShare.toFixed(4)} * scale * size / ${size.toFixed(4)}, ${FLOW_MAX.toFixed(4)} * scale * size / ${size.toFixed(4)} );
+    patchMaterial(mat, `flow-dot-size:${size}:${minShare}:shown`, (shader) => {
+      shader.vertexShader = shader.vertexShader
+        .replace('#include <common>', '#include <common>\nattribute float aShown;')
+        .replace(
+          '#include <logdepthbuf_vertex>',
+          `gl_PointSize = clamp( gl_PointSize, ${minShare.toFixed(4)} * scale * size / ${size.toFixed(4)}, ${FLOW_MAX.toFixed(4)} * scale * size / ${size.toFixed(4)} ) * aShown;
         #include <logdepthbuf_vertex>`,
-      );
+        );
     });
     this.object = new THREE.Points(g, mat);
     this.object.frustumCulled = false;
@@ -164,7 +170,7 @@ export class FlowDots {
     return this.total;
   }
 
-  /** Move every dot `dt` seconds, and write the positions. A dot past the share it shows goes under the world. */
+  /** Move every dot `dt` seconds, and write the positions. A dot past the share it shows has no size and waits on its path's start. */
   step(dt: number): void {
     for (const l of this.live) {
       if (l.length <= 0) continue;
@@ -174,11 +180,20 @@ export class FlowDots {
         if (u < 0) u += l.length;
         l.u[i] = u;
         const k = l.first + i;
-        if (i < shown) this.place(l, u, k);
-        else this.pos[k * 3 + 1] = -1000;
+        if (i < shown) {
+          this.place(l, u, k);
+          this.shown[k] = 1;
+        } else {
+          const a = l.points[0]!;
+          this.pos[k * 3] = a.x;
+          this.pos[k * 3 + 1] = a.y;
+          this.pos[k * 3 + 2] = a.z;
+          this.shown[k] = 0;
+        }
       }
     }
     this.object.geometry.attributes.position.needsUpdate = true;
+    this.object.geometry.attributes.aShown!.needsUpdate = true;
   }
 
   private place(l: Live, u: number, k: number): void {

@@ -70,10 +70,10 @@ const FRAMING: Record<TractorId, PartFraming> = {
   'roof-headlights': { viewDir: viewFrom(12, 110) },
   'rear-wheels': { viewDir: viewFrom(10, 200) },
   'front-wheels': { viewDir: viewFrom(10, 150) },
-  'diesel-engine': { viewDir: viewFrom(30, 60) },
-  'injection-pump': { viewDir: viewFrom(18, 190) },
-  'heat-shield': { viewDir: viewFrom(10, 195) },
-  'extra-governor': { viewDir: viewFrom(18, 120) },
+  'diesel-engine': { viewDir: viewFrom(42, 25) },
+  'injection-pump': { viewDir: viewFrom(52, 15) },
+  'heat-shield': { viewDir: viewFrom(50, 20) },
+  'extra-governor': { viewDir: viewFrom(52, 55) },
   'left-consoles': { viewDir: viewFrom(18, 215) },
   'gasifier-unit': { viewDir: viewFrom(12, 190) },
   'gas-line-run': { viewDir: viewFrom(18, 140) },
@@ -95,6 +95,9 @@ const HOTSPOTS: HotspotDef[] = [
   { id: 'gas-line-run', fr: 'Ligne de gaz', en: 'Gas line run', goto: 'gas-train' },
 ];
 
+/** The parts that stand under the bonnet: a click on one of them opens the bonnet to the ghost, so that it can be seen. */
+const UNDER_BONNET: ReadonlySet<string> = new Set(['diesel-engine', 'injection-pump', 'heat-shield', 'extra-governor']);
+
 /** Where each label stands, in T. */
 const ANCHORS: Record<TractorId, [number, number, number]> = {
   'tractor-chassis': [0.7, 1.5, 0.45],
@@ -109,7 +112,7 @@ const ANCHORS: Record<TractorId, [number, number, number]> = {
   'extra-governor': [3.0, 1.2, -0.3],
   'left-consoles': [1.6, 0.42, -1.06],
   'gasifier-unit': [UNIT_AT.x, 2.0, UNIT_AT.z - 0.3],
-  'gas-line-run': [3.3, 1.95, -0.7],
+  'gas-line-run': [3.75, 1.14, -0.32],
 };
 
 export interface TractorScene extends SceneModule<GasState> {
@@ -203,10 +206,18 @@ export function createTractorScene(opts: TractorSceneOptions = {}): TractorScene
     homePadding: 0.95,
     update(state: GasState, dt: number, view: ViewOpts) {
       const p = opts.params?.();
-      machine.update(state, dt, { slowMo: view.slowMo, time: view.time, params: p, schematic: view.schematic });
-      // the bonnet opens to the ghost while things are apart or seen through; the unit's core stays as the model has it
       const now = partsNow(registry);
-      followers.force(machine.body.bonnet, now.xray || now.exploded);
+      // the dots run through the machine put together: apart, they would hang in the air where its parts were
+      machine.update(state, dt, {
+        slowMo: view.slowMo,
+        time: view.time,
+        params: p,
+        schematic: view.schematic && !now.exploded,
+      });
+      // the bonnet opens to the ghost while things are apart or seen through; the unit's core stays as the model has it
+      // a part under the bonnet is read through it: the bonnet opens to the ghost when one of them is the part selected
+      const sel = opts.selected?.() ?? null;
+      followers.force(machine.body.bonnet, now.xray || now.exploded || (sel !== null && UNDER_BONNET.has(sel)));
       followers.update(registry);
       // the floor's grid runs under the wheels
       const v = state.engineOn ? state.groundSpeedMs : 0;

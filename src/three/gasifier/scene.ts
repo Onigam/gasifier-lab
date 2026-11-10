@@ -16,6 +16,7 @@ import {
   anchor,
   hotspots,
   paperFloor,
+  partsNow,
   viewFrom,
   workshopScene,
   type HotspotDef,
@@ -113,6 +114,8 @@ export function createGasifierScene(opts: GasifierOptions = {}): SceneModule<Gas
   unit.root.position.set(0, UNIT_AT.y, 0);
   scene.add(unit.root);
   const flow = makeFlow(unitSections(unit.nozzles, true), 500, 0.028);
+  // the paths are in the unit's own frame, and the unit stands on its frame
+  flow.dots.object.position.set(0, UNIT_AT.y, 0);
   scene.add(flow.dots.object);
 
   // what it stands on: a frame the height of the console that carries it on the tractor, with the shelf of the fan's side left out
@@ -217,7 +220,7 @@ export function createGasifierScene(opts: GasifierOptions = {}): SceneModule<Gas
         slowMo: view.slowMo,
         dt,
       });
-      flow.update(state, dt, { slowMo: view.slowMo, visible: view.schematic });
+      flow.update(state, dt, { slowMo: view.slowMo, visible: view.schematic && !partsNow(registry).exploded });
       const j = p?.journey ?? 0.62;
       unit.cursor.visible = true;
       unit.cursor.position.y = cursorY(j);

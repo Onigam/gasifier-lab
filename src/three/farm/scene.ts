@@ -60,15 +60,27 @@ export type FarmId = (typeof FARM_IDS)[number];
 const HOTSPOTS: HotspotDef[] = [
   { id: 'wood-gas-tractor', fr: 'Tracteur à gaz de bois', en: 'Wood-gas tractor', goto: 'tractor' },
   { id: 'chip-barn', fr: 'Grange à plaquettes', en: 'Chip barn' },
-  { id: 'drum-chipper', fr: 'Déchiqueteuse', en: 'Drum chipper' },
-  { id: 'chip-sieve', fr: 'Crible', en: 'Chip sieve' },
-  { id: 'clod-crusher', fr: 'Brise-mottes', en: 'Clod crusher' },
+  { id: 'drum-chipper', fr: 'Déchiqueteuse', en: 'Drum chipper', minor: true },
+  { id: 'chip-sieve', fr: 'Crible', en: 'Chip sieve', minor: true },
+  { id: 'clod-crusher', fr: 'Brise-mottes', en: 'Clod crusher', minor: true },
   { id: 'farmhouse', fr: 'Ferme', en: 'Farmhouse' },
   { id: 'farm-garage', fr: 'Garage', en: 'Farm garage', goto: 'garage' },
   { id: 'ash-bin', fr: 'Bac à cendres', en: 'Ash bin', minor: true },
   { id: 'condensate-barrel', fr: 'Fût de condensats', en: 'Condensate barrel', minor: true },
   { id: 'field-ditch', fr: 'Fossé', en: 'Field ditch' },
 ];
+
+/** Where each part of the yard stands, to keep the way it is looked at free of trees. */
+const PART_AT: Partial<Record<FarmId, { x: number; z: number }>> = {
+  'chip-barn': FARM.barn,
+  'drum-chipper': FARM.chipper,
+  'chip-sieve': FARM.sieve,
+  farmhouse: FARM.house,
+  'farm-garage': FARM.garage,
+  'ash-bin': FARM.ashBin,
+  'condensate-barrel': FARM.barrel,
+  'field-ditch': { x: 21, z: FARM.ditch.z },
+};
 
 const FRAMING: Record<FarmId, PartFraming> = {
   'wood-gas-tractor': { viewDir: viewFrom(16, 330) },
@@ -80,8 +92,30 @@ const FRAMING: Record<FarmId, PartFraming> = {
   'farm-garage': { viewDir: viewFrom(12, 25) },
   'ash-bin': { viewDir: viewFrom(20, 30) },
   'condensate-barrel': { viewDir: viewFrom(18, 40) },
-  'field-ditch': { viewDir: viewFrom(30, 10) },
+  // the ditch is 420 m long: a stretch with the track's culvert is what a click brings the camera to
+  'field-ditch': {
+    viewDir: viewFrom(38, 190),
+    frame: new THREE.Box3(new THREE.Vector3(10, -1.2, 6.2), new THREE.Vector3(31, 2.0, 11)),
+  },
 };
+
+/** True where a crown would stand between the eye and a part: within 7 m of the line from the part along the way the camera looks at it, from 2 to 70 m out. */
+export function blocksSight(x: number, z: number): boolean {
+  for (const id of FARM_IDS) {
+    const at = PART_AT[id];
+    const dir = FRAMING[id].viewDir;
+    if (!at || !dir) continue;
+    const h = Math.hypot(dir.x, dir.z) || 1;
+    const dx = dir.x / h;
+    const dz = dir.z / h;
+    const rx = x - at.x;
+    const rz = z - at.z;
+    const along = rx * dx + rz * dz;
+    const across = Math.abs(rx * dz - rz * dx);
+    if (along > 2 && along < 70 && across < 7) return true;
+  }
+  return false;
+}
 
 /** The loop the tractor drives: a rounded rectangle, parameterised by the distance along it. */
 export function loopAt(s: number): { x: number; z: number; hx: number; hz: number } {
@@ -213,7 +247,7 @@ export function createFarmScene(opts: FarmOptions = {}): FarmScene {
   const sky = createSky(scene);
   const land = buildTerrain();
   scene.add(land.mesh);
-  const trees = buildTrees();
+  const trees = buildTrees(blocksSight);
   scene.add(trees.group);
   const registry = new WorldRegistry(new Set(), opts.selected ?? (() => null));
   const followers = new Followers();
@@ -461,7 +495,7 @@ export function createFarmScene(opts: FarmOptions = {}): FarmScene {
   followers.add('chip-barn', props[1]![0], { shell: false, explode: 0 });
   followers.add('chip-barn', props[2]![0], { shell: false, explode: 0 });
   followers.add('wood-gas-tractor', link, { shell: false, explode: 0 });
-  registry.overview(() => [new THREE.Box3(new THREE.Vector3(-40, -1, -30), new THREE.Vector3(40, 10, 50))]);
+  registry.overview(() => [new THREE.Box3(new THREE.Vector3(-30, -1, -28), new THREE.Vector3(36, 8, 34))]);
 
   // ---- « Flux »: the fuel's way and what comes out of the machine, for the eye (the speed is nowhere the true one)
   const flows = new FlowDots(900, 0.34, 0.012, true);
@@ -514,7 +548,7 @@ export function createFarmScene(opts: FarmOptions = {}): FarmScene {
     registry,
     hotspots: hs,
     machine,
-    home: { position: new THREE.Vector3(-46, 24, 52), target: new THREE.Vector3(8, 1.5, -6) },
+    home: { position: new THREE.Vector3(14, 52, 50), target: new THREE.Vector3(4, 0.5, -8) },
     minDistance: 1.2,
     maxDistance: 420,
     near: 0.1,

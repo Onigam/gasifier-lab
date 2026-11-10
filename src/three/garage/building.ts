@@ -334,6 +334,24 @@ export function buildGarageBuilding(opts: { roof: boolean; volume: number }): Ga
       above.add(
         mesh(softBox(s * 0.78, wy + 0.6, rd - 0.1, 0.34, 1.5, 0.05, 0.02), mat({ color: 0x8c6a4d, roughness: 1 })),
       );
+    // two windows in the front wall, on both faces, so that the bedroom reads as one from the yard as from inside
+    for (const x of [-1.0, 1.0])
+      for (const z0 of [-t * 0.8 - 0.03, 0.0]) {
+        above.add(mesh(boxAt(x - 0.5, wy, z0, x + 0.5, wy + 1.1, z0 + 0.03), cabGlass()));
+        above.add(
+          mesh(
+            joined([
+              boxAt(x - 0.53, wy - 0.03, z0 - 0.01, x + 0.53, wy, z0 + 0.04),
+              boxAt(x - 0.53, wy + 1.1, z0 - 0.01, x + 0.53, wy + 1.13, z0 + 0.04),
+              boxAt(x - 0.53, wy, z0 - 0.01, x - 0.5, wy + 1.1, z0 + 0.04),
+              boxAt(x + 0.5, wy, z0 - 0.01, x + 0.53, wy + 1.1, z0 + 0.04),
+              boxAt(x - 0.012, wy, z0 - 0.01, x + 0.012, wy + 1.1, z0 + 0.04),
+              boxAt(x - 0.5, wy + 0.55, z0 - 0.01, x + 0.5, wy + 0.57, z0 + 0.04),
+            ]),
+            mat({ color: 0xf1ece0, roughness: 0.8 }),
+          ),
+        );
+      }
     // the bed, made: frame, mattress, a quilt, a pillow
     const bx = -rw / 2 + 1.0;
     const bz = rd - 1.15;

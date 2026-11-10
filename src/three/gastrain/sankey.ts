@@ -3,9 +3,9 @@ import { group } from '@onigam/lab-kit/three';
 import type { GasState } from '../../sim/types';
 
 // Where the energy goes, on the paper in front of the line: a Sankey of the model's own kilowatts, flat, in four columns. The wood's energy goes in; the gasifier keeps its losses and passes the gas on; the diesel joins the gas at the engine; the engine
-// gives the shaft its work and keeps its losses. 1 cm of width is about 1.7 kW. Ribbons only: no figure, no text (the strip and the sheets carry the numbers). It rebuilds a ribbon when its width has moved by more than a quarter of a kilowatt.
+// gives the shaft its work and keeps its losses. 1 cm of width is 2 kW. Ribbons only: no figure, no text (the strip and the sheets carry the numbers). It rebuilds a ribbon when its width has moved by more than a quarter of a kilowatt.
 
-const SCALE = 0.006;
+const SCALE = 0.005;
 const COLOUR = { wood: 0x8c6a3f, gas: 0x5f8f8a, loss: 0x9b9791, diesel: 0xc9803a, shaft: 0x4e8a4a };
 
 interface Link {

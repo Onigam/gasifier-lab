@@ -75,7 +75,7 @@ export const TRAIN_IDS = [
 export type TrainId = (typeof TRAIN_IDS)[number];
 
 const HOTSPOTS: HotspotDef[] = [
-  { id: 'hot-gas-pipe', fr: 'Conduite de gaz chaud', en: 'Hot gas pipe' },
+  { id: 'hot-gas-pipe', fr: 'Conduite de gaz chaud', en: 'Hot gas pipe', minor: true },
   { id: 'stop-valve', fr: 'Vanne d’arrêt', en: 'Stop valve' },
   { id: 'starting-fan', fr: 'Ventilateur de démarrage', en: 'Starting fan' },
   { id: 'fan-stack', fr: 'Cheminée du ventilateur', en: 'Fan stack' },
@@ -88,10 +88,10 @@ const HOTSPOTS: HotspotDef[] = [
   { id: 'gas-air-mixer', fr: 'Mélangeur', en: 'Gas-air mixer' },
   { id: 'gas-throttle', fr: 'Papillon de gaz', en: 'Gas throttle', minor: true },
   { id: 'secondary-air-throttle', fr: 'Papillon d’air', en: 'Secondary-air throttle', minor: true },
-  { id: 'pilot-injector', fr: 'Injecteur pilote', en: 'Pilot injector' },
+  { id: 'pilot-injector', fr: 'Injecteur pilote', en: 'Pilot injector', minor: true },
   { id: 'cylinder-cutaway', fr: 'Cylindre en coupe', en: 'Cylinder cutaway' },
   { id: 'exhaust-pipe', fr: 'Échappement', en: 'Exhaust pipe' },
-  { id: 'water-gauge', fr: 'Manomètre à eau', en: 'Water gauge' },
+  { id: 'water-gauge', fr: 'Manomètre à eau', en: 'Water gauge', minor: true },
 ];
 
 export interface GasTrainScene extends SceneModule<GasState> {
@@ -335,7 +335,8 @@ export function createGasTrainScene(opts: GasTrainOptions = {}): GasTrainScene {
       p.root,
       { shell: true, explode: 0 },
     );
-  registry.overview(() => [new THREE.Box3(new THREE.Vector3(-1.2, 0, -1.6), new THREE.Vector3(cylX + 1.4, 2.6, 2.0))]);
+  // (the Sankey on the floor in front of the line is in the picture too)
+  registry.overview(() => [new THREE.Box3(new THREE.Vector3(-1.2, 0, -3.9), new THREE.Vector3(cylX + 1.4, 2.6, 2.0))]);
 
   const portOf = (id: string, p: Port): Port => worldPort(pieces[id]!, p);
   const syncPipes = (): void => {
@@ -352,7 +353,7 @@ export function createGasTrainScene(opts: GasTrainOptions = {}): GasTrainScene {
   syncPipes();
   // where the energy goes, flat on the paper in front of the line: the model's kilowatts as ribbons
   const sankey = buildSankey();
-  sankey.group.position.set(-0.2, 0, -3.7);
+  sankey.group.position.set(-0.2, 0, -3.45);
   scene.add(sankey.group);
   followers.add('hot-gas-pipe', sankey.group, { shell: false, explode: 0 });
   sankey.update(base0);
@@ -406,7 +407,7 @@ export function createGasTrainScene(opts: GasTrainOptions = {}): GasTrainScene {
     registry,
     hotspots: hs,
     pieces,
-    home: { position: new THREE.Vector3(cx + 0.8, 3.0, -7.6), target: new THREE.Vector3(cx + 0.6, 0.9, 0.2) },
+    home: { position: new THREE.Vector3(cx + 0.8, 4.2, -8.8), target: new THREE.Vector3(cx + 0.6, 0.6, -0.5) },
     minDistance: 0.4,
     maxDistance: 36,
     near: 0.05,
@@ -456,8 +457,9 @@ export function createGasTrainScene(opts: GasTrainOptions = {}): GasTrainScene {
       mixer.airLever.rotation.y = 0.1 + load * 0.35;
       exhaust.flap.rotation.z = state.engineOn ? 0.9 : 0;
       // the line's dots, after the pipes have followed their ports
-      lineFlow.update(state, dt, { slowMo: view.slowMo, visible: view.schematic });
-      unitFlow.update(state, dt, { slowMo: view.slowMo, visible: view.schematic });
+      // (apart, the dots would hang in the air where the parts were)
+      lineFlow.update(state, dt, { slowMo: view.slowMo, visible: view.schematic && !now.exploded });
+      unitFlow.update(state, dt, { slowMo: view.slowMo, visible: view.schematic && !now.exploded });
       followers.force(unit.root, false);
       for (const f of followers.list) if (f.shell) followers.force(f.root, now.xray);
       followers.update(registry);

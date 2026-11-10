@@ -727,6 +727,19 @@ export function buildUnit(opts: UnitOptions): Unit {
     m.scale.set(r, 0.12, r);
     m.position.y = 0.006;
     heap.add(m);
+    if (cut) {
+      // the heap's section, so that the dome is not a hollow shell seen from the open side
+      const prof: [number, number][] = [[0, 0]];
+      for (let k = 0; k <= 12; k++) {
+        const a = (Math.PI / 2) * (k / 12);
+        prof.push([0.985 * Math.cos(a), 0.985 * Math.sin(a)]);
+      }
+      const c = mesh(capPolygon(prof), ashMat());
+      c.scale.set(r, 0.12, r);
+      c.position.y = 0.006;
+      c.castShadow = false;
+      heap.add(c);
+    }
     // a few pieces of char on it
     const rr = rng(3);
     const pcs: THREE.BufferGeometry[] = [];

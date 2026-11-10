@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import type { SceneModule } from '@onigam/lab-kit/three';
 import { GasifierSim } from '../sim/engine';
 import { GARAGE, FARM, TRACTOR } from './dims';
-import { createFarmScene, loopAt, LOOP_LENGTH } from './farm/scene';
+import { blocksSight, createFarmScene, loopAt, LOOP_LENGTH } from './farm/scene';
 import { terrainHeight } from './farm/terrain';
 import { createGarageScene, DOOR_OPEN } from './garage/scene';
 import { garageFor, grossVolume } from './garage/building';
@@ -191,6 +191,23 @@ describe('the parts come apart along sensible lines', () => {
     }
   });
 
+  it('« Flux » on, the kit measures each part as it is: no dot enlarges a box (the overview and the explode would frame the void)', () => {
+    for (const [w, m] of WORLDS) {
+      m.registry.setAllFactors(0);
+      m.update(base, 1 / 60, view({ time: 1, schematic: true }));
+      m.update(base, 1 / 60, view({ time: 1.1, schematic: true }));
+      m.scene.updateMatrixWorld(true);
+      const all = new THREE.Box3();
+      for (const id of m.registry.ids()) {
+        const b = m.registry.bounds(id);
+        if (!b.isEmpty()) all.union(b);
+      }
+      expect(Number.isFinite(all.min.y + all.max.y + all.min.x + all.max.x), `${w} finite`).toBe(true);
+      expect(all.min.y, `${w} lowest point ${all.min.y}`).toBeGreaterThan(-3);
+      expect(all.max.y, `${w} highest point ${all.max.y}`).toBeLessThan(60);
+    }
+  });
+
   it('the explode of the unit leaves each part along a line that is free: up, out of the open side, or along its fitting', () => {
     const m = mod('gasifier');
     for (const id of m.registry.ids()) {
@@ -211,6 +228,27 @@ describe('the parts come apart along sensible lines', () => {
     for (const id of m.registry.ids()) m.registry.setDisplay(id, 'solid');
     m.update(base, 1 / 60, view({ time: 1 }));
     expect(unit.visible).toBe(true);
+  });
+});
+
+describe('the Sankey lies on the floor in front of the line', () => {
+  it('its ribbons keep clear of every part’s footprint, whatever the model says', () => {
+    const m = mod('gas-train');
+    m.update(base, 1 / 60, view());
+    m.scene.updateMatrixWorld(true);
+    const sk = m.scene.getObjectByName('sankey')!;
+    const rb = meshBox(sk);
+    expect(rb.isEmpty()).toBe(false);
+    for (const id of m.registry.ids()) {
+      const b = m.registry.bounds(id);
+      if (b.isEmpty()) continue;
+      const overlapX = b.min.x < rb.max.x && b.max.x > rb.min.x;
+      const overlapZ = b.min.z < rb.max.z && b.max.z > rb.min.z;
+      expect(
+        overlapX && overlapZ,
+        `${id} stands on the Sankey: part z ${b.min.z.toFixed(2)}..${b.max.z.toFixed(2)} x ${b.min.x.toFixed(2)}..${b.max.x.toFixed(2)}, ribbons z ${rb.min.z.toFixed(2)}..${rb.max.z.toFixed(2)} x ${rb.min.x.toFixed(2)}..${rb.max.x.toFixed(2)}`,
+      ).toBe(false);
+    }
   });
 });
 
@@ -266,6 +304,18 @@ describe('the garage is the model’s room', () => {
     const t1 = (pts.material as THREE.ShaderMaterial).uniforms.uTime!.value as number;
     m.update(stopped, 1 / 60, view({ time: 5 }));
     expect((pts.material as THREE.ShaderMaterial).uniforms.uTime!.value).toBe(t1);
+  });
+
+  it('the camera looks at the wall fittings from the room, on the side that faces: the dial, the 1940s set', () => {
+    const m = mod('garage');
+    m.update(base, 1 / 60, view());
+    m.scene.updateMatrixWorld(true);
+    for (const id of ['co-indicator', 'old-rescue-set']) {
+      const e = m.registry.get(id)!;
+      // the fitting's front is its local +z: it must point to the camera, that is along the view direction
+      const front = new THREE.Vector3(0, 0, 1).transformDirection(e.object.matrixWorld);
+      expect(front.dot(e.viewDir!), id).toBeGreaterThan(0.8);
+    }
   });
 
   it('there is no person in the room: no mesh of a body, nothing named for one', () => {
@@ -330,6 +380,25 @@ describe('the farm', () => {
       expect(b.min.y, id).toBeLessThan(0.05);
       expect(b.min.y, id).toBeGreaterThan(-1.0);
     }
+  });
+
+  it('no tree stands on the line from which a part of the yard is looked at', () => {
+    const farm = createFarmScene();
+    const trees = farm.scene.getObjectByName('trees')!;
+    const m = new THREE.Matrix4();
+    const p = new THREE.Vector3();
+    let n = 0;
+    trees.traverse((o) => {
+      const im = o as THREE.InstancedMesh;
+      if (!im.isInstancedMesh) return;
+      for (let i = 0; i < im.count; i++) {
+        im.getMatrixAt(i, m);
+        p.setFromMatrixPosition(m);
+        n++;
+        expect(blocksSight(p.x, p.z), `${o.name} ${i} at ${p.x.toFixed(1)}, ${p.z.toFixed(1)}`).toBe(false);
+      }
+    });
+    expect(n).toBeGreaterThan(100);
   });
 
   it('every prop rests on the ground within a few centimetres', () => {

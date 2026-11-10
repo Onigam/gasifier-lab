@@ -3,6 +3,7 @@ import { group, mesh } from '@onigam/lab-kit/three';
 import { TAU, boxAt, joined, softBox, stick, tubeGeometry, v3 } from '../common';
 import { dynamic, mergeStatic } from '../merge';
 import { blackPaint, bright, brassMat, darkSteel, glassClear, rubber, steel } from '../materials';
+import { tiled, woodMap } from '../textures';
 
 // The small things of the garage: a catalytic CO indicator of the period on the wall (a needle on a dial with ticks and no figure, and a lamp), the rescue set of the 1940s on its hooks, the bench and its tools. None of them is a person: nobody is in the
 // picture (R5).
@@ -11,8 +12,15 @@ const bakelite = (): THREE.MeshStandardMaterial =>
   new THREE.MeshStandardMaterial({ color: 0x2a211b, roughness: 0.35, metalness: 0.15 });
 const leather = (): THREE.MeshStandardMaterial => new THREE.MeshStandardMaterial({ color: 0x6a4630, roughness: 0.7 });
 const canvas = (): THREE.MeshStandardMaterial => new THREE.MeshStandardMaterial({ color: 0x7c7a55, roughness: 1 });
-const wood = (c = 0x8a6740): THREE.MeshStandardMaterial =>
-  new THREE.MeshStandardMaterial({ color: c, roughness: 0.85 });
+const woods = new Map<number, THREE.MeshStandardMaterial>();
+const wood = (c = 0x8a6740): THREE.MeshStandardMaterial => {
+  let m = woods.get(c);
+  if (!m) {
+    m = new THREE.MeshStandardMaterial({ color: c, map: tiled(woodMap(), 1, 1), roughness: 0.85 });
+    woods.set(c, m);
+  }
+  return m;
+};
 
 export interface Indicator {
   group: THREE.Group;

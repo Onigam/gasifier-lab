@@ -181,7 +181,7 @@ export function createGarageScene(opts: GarageOptions = {}): GarageScene {
     'post-gas-plume': [0, 0, 0],
     'exhaust-plume': [0, 0, 0],
     'co-indicator': [0, 0, -1.0],
-    'old-rescue-set': [-1.6, 0, 0],
+    'old-rescue-set': [0.8, 0, 0],
   };
   const FRAME: Record<GarageId, PartFraming> = {
     'closed-garage': { viewDir: viewFrom(22, 60) },
@@ -189,13 +189,13 @@ export function createGarageScene(opts: GarageOptions = {}): GarageScene {
     'room-above': { viewDir: viewFrom(30, 60) },
     'post-gas-plume': { viewDir: viewFrom(14, 80) },
     'exhaust-plume': { viewDir: viewFrom(14, 60) },
-    'co-indicator': { viewDir: viewFrom(0, 0) },
-    'old-rescue-set': { viewDir: viewFrom(5, 270) },
+    'co-indicator': { viewDir: viewFrom(0, 180) },
+    'old-rescue-set': { viewDir: viewFrom(5, 90) },
   };
   const anchorAt: Record<GarageId, [number, number, number]> = {
-    'closed-garage': [GARAGE.small.w / 2, 0.6, 3.5],
+    'closed-garage': [GARAGE.small.w / 2 + GARAGE.wall, GARAGE.small.h + 0.15, GARAGE.small.d / 2],
     'garage-door': [0, 3.1, 0],
-    'room-above': [GARAGE.small.w / 2, 4.6, 3.5],
+    'room-above': [GARAGE.small.w / 2, GARAGE.small.h + 1.3, GARAGE.small.d * 0.7],
     'post-gas-plume': [0.0, 0.0, 0.0],
     'exhaust-plume': [0.0, 0.0, 0.0],
     'co-indicator': [0, 0.17, 0.09],
@@ -274,6 +274,10 @@ export function createGarageScene(opts: GarageOptions = {}): GarageScene {
         building.setVolume(volume);
         placeProps();
         co.fit(building.inside);
+        // the labels of the shell and of the bedroom stay on the walls of the room as it grows
+        const ins = building.inside;
+        anchors['closed-garage']!.position.set(ins.max.x + GARAGE.wall, ins.max.y + 0.15, (ins.min.z + ins.max.z) / 2);
+        anchors['room-above']!.position.set(ins.max.x, ins.max.y + 1.3, ins.min.z + (ins.max.z - ins.min.z) * 0.7);
         registry
           .get('closed-garage')
           ?.meshes.splice(0, registry.get('closed-garage')!.meshes.length, ...collect(building.shell));
@@ -314,6 +318,8 @@ export function createGarageScene(opts: GarageOptions = {}): GarageScene {
       // scenery follows its parts
       const now = partsNow(registry);
       void now;
+      // the set on the left wall is 70 cm from the tractor's side: the camera that frames it stands inside the tractor, so the tractor is read through while the set is the one selected
+      followers.force(park, (opts.selected?.() ?? null) === 'old-rescue-set');
       followers.update(registry);
       void dynamic;
       void PAPER;
