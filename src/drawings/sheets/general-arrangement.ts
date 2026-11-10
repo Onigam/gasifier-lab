@@ -1,9 +1,8 @@
 import { COLORS, Drawing, W, type DrawingSheet } from '@onigam/lab-kit/drawings';
 import { l } from '@onigam/lab-kit/i18n';
-import { D } from '../../three/device';
+import { TRACTOR, UNIT } from '../../three/dims';
 
-// One A3 sheet drawn from the same dimensions as the 3D model (src/three/device.ts `D`), in millimetres,
-// model Y pointing up. A real lab has several: general arrangement, sections, diagrams, bill of materials.
+// One A3 sheet drawn from the same dimensions as the 3D model (src/three/dims.ts), in millimetres, model Y pointing up. A first outline of the machine from its reported heights: the tractor's box and the unit's top, read from dims.ts.
 
 const mm = (m: number) => Math.round(m * 1000);
 
@@ -13,28 +12,24 @@ export const generalArrangement: DrawingSheet = {
   group: 'device',
   title: l('Plan d’ensemble', 'General arrangement'),
   description: l(
-    'Vue de face du dispositif : socle, axe et volant, avec les cotes principales.',
-    'Front view of the device: base, axle and wheel, with the main dimensions.',
+    'Vue de côté du tracteur : sa boîte, et la hauteur du gazogène.',
+    'Side view of the tractor: its box, and the height of the gasifier.',
   ),
   scene: 'device',
-  parts: ['base', 'axle', 'wheel'],
+  parts: ['base'],
   render() {
     const d = new Drawing();
     d.frame({
-      title: l('Dispositif — plan d’ensemble', 'Device — general arrangement'),
-      subtitle: l('Vue de face', 'Front view'),
+      title: l('Tracteur à gaz de bois — plan d’ensemble', 'Wood-gas tractor — general arrangement'),
+      subtitle: l('Vue de côté', 'Side view'),
       number: 'PL-D01',
-      scale: '1:2.5',
+      scale: '1:20',
     });
-    const v = d.view(170, 232, 0.4);
-    const cy = mm(D.baseH + D.axisY);
-    v.rect([-mm(D.baseW) / 2, 0], [mm(D.baseW) / 2, mm(D.baseH)], { w: W.thick, fill: COLORS.paper });
-    v.circle([0, cy], mm(D.wheelR), { w: W.thick });
-    v.circle([0, cy], mm(D.axleR), { w: W.medium });
-    v.center([-mm(D.wheelR) - 20, cy], [mm(D.wheelR) + 20, cy]);
-    v.dim([-mm(D.baseW) / 2, 0], [mm(D.baseW) / 2, 0], -14, { dir: 'h' });
-    v.dim([mm(D.baseW) / 2, 0], [mm(D.baseW) / 2, cy], 18, { dir: 'v' });
-    v.dimDiameter([0, cy], mm(D.wheelR), 40, { label: `Ø${2 * mm(D.wheelR)}` });
+    const v = d.view(60, 232, 0.05);
+    v.rect([0, 0], [mm(TRACTOR.length), mm(TRACTOR.cabTop)], { w: W.medium, fill: COLORS.paper });
+    v.line([0, mm(UNIT.top)], [mm(TRACTOR.length), mm(UNIT.top)], { w: W.thin, dash: 'hidden' });
+    v.dim([0, 0], [mm(TRACTOR.length), 0], -12, { dir: 'h' });
+    v.dim([mm(TRACTOR.length), 0], [mm(TRACTOR.length), mm(UNIT.top)], 14, { dir: 'v' });
     return d;
   },
 };
