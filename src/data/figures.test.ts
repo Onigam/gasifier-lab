@@ -77,6 +77,7 @@ describe('the arithmetic on reported figures (derived, †)', () => {
     near('fanPpm', (200 / 1000 / 1000) * 1e6, 0.5);
     near('trueTurns', 1855 / 60, 0.2);
     near('gasGap', ((5.6 - max.gasMJ) / 5.6) * 100, 0.5);
+    near('woodGap', ((41 - max.chips) / 41) * 100, 0.7);
     near('vesselHours', MODEL.coolerVesselHours, 0);
   });
 });
