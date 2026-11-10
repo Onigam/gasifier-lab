@@ -1004,13 +1004,19 @@ export function buildUnit(opts: UnitOptions): Unit {
   }
   const cursor = dynamic(group('journey-cursor'));
   {
-    const flake = new THREE.BoxGeometry(COLUMN.chipLength * 1.6, COLUMN.chipThick * 2.2, COLUMN.chipWidth * 1.6);
-    const mat = new THREE.MeshStandardMaterial({ color: 0xd9b27a, roughness: 0.6, emissive: 0x000000 });
+    // the chip that travels: larger than the others and pale, with a little light of its own, so that it is the thing looked at and not only its ring
+    const flake = new THREE.BoxGeometry(COLUMN.chipLength * 2.6, COLUMN.chipThick * 3.4, COLUMN.chipWidth * 2.6);
+    const mat = new THREE.MeshStandardMaterial({
+      color: 0xfff1d0,
+      roughness: 0.5,
+      emissive: 0xffe2a0,
+      emissiveIntensity: 0.9,
+    });
     const chip = new THREE.Mesh(flake, mat);
     chip.name = 'chip';
     cursor.add(chip);
     const halo = new THREE.Mesh(
-      new THREE.TorusGeometry(0.034, 0.0018, 8, 40),
+      new THREE.TorusGeometry(0.036, 0.0014, 8, 40),
       new THREE.MeshBasicMaterial({ color: 0xfff3d8, transparent: true, opacity: 0.85, depthTest: false }),
     );
     halo.rotation.x = Math.PI / 2;

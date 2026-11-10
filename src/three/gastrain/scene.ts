@@ -91,6 +91,7 @@ const HOTSPOTS: HotspotDef[] = [
   { id: 'pilot-injector', fr: 'Injecteur pilote', en: 'Pilot injector', minor: true },
   { id: 'cylinder-cutaway', fr: 'Cylindre en coupe', en: 'Cylinder cutaway' },
   { id: 'exhaust-pipe', fr: 'Échappement', en: 'Exhaust pipe' },
+  { id: 'hot-gas-pipe#energy', fr: 'Où va l’énergie', en: 'Where the energy goes' },
   { id: 'water-gauge', fr: 'Manomètre à eau', en: 'Water gauge', minor: true },
 ];
 
@@ -357,6 +358,8 @@ export function createGasTrainScene(opts: GasTrainOptions = {}): GasTrainScene {
   scene.add(sankey.group);
   followers.add('hot-gas-pipe', sankey.group, { shell: false, explode: 0 });
   sankey.update(base0);
+  // its name, so that the ribbons on the floor are not a mystery: a label of the line, which it follows
+  anchors['hot-gas-pipe#energy'] = anchor(sankey.group, 2.25, 0.02, 0.3, 'anchor-energy');
   const lineFlow = makeFlow(
     lineSections({
       hot: hot.group,

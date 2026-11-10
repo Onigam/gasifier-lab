@@ -95,7 +95,7 @@ export const zincMat = (): THREE.MeshStandardMaterial =>
 export function hotCasing(around = 6, along = 2): THREE.MeshStandardMaterial {
   return once(`hot-casing-${around}-${along}`, () =>
     std({
-      color: 0x5a524a,
+      color: 0x7f7366,
       map: tiled(rustSteelMap(), around, along),
       roughness: 0.85,
       metalness: 0.35,
@@ -108,7 +108,7 @@ export function hotCasing(around = 6, along = 2): THREE.MeshStandardMaterial {
 export function upperCasing(around = 6, along = 2): THREE.MeshStandardMaterial {
   return once(`upper-casing-${around}-${along}`, () =>
     std({
-      color: 0x4a504b,
+      color: 0x6f756f,
       map: tiled(rustSteelMap(), around, along),
       roughness: 0.8,
       metalness: 0.3,
@@ -117,9 +117,9 @@ export function upperCasing(around = 6, along = 2): THREE.MeshStandardMaterial {
   );
 }
 
-/** The inside of the casing: sooty, dark, matt. */
+/** The inside of the casing: sooty, dark, matt, but not black: in a section the inside is what is looked at, and it must read as steel, not as a hole. */
 export const sootSteel = (): THREE.MeshStandardMaterial =>
-  once('soot-steel', () => std({ color: 0x1f1c1a, roughness: 0.95, metalness: 0.2, side: THREE.DoubleSide }));
+  once('soot-steel', () => std({ color: 0x4a4138, roughness: 0.92, metalness: 0.15, side: THREE.DoubleSide }));
 
 /** Section face of a metal wall, drawn as every section is: one pale flat colour. */
 export const cutMetal = (): THREE.MeshStandardMaterial =>
