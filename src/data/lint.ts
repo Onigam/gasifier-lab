@@ -12,8 +12,8 @@ export const isL = (v: unknown): v is L => typeof v === 'object' && v !== null &
 /** Numbers of a text, normalised so that the French and English spellings compare equal (7,5 / 7.5, 5 700 / 5,700). */
 export function numbers(text: string, lang: 'fr' | 'en'): string[] {
   let t = text.replace(/[−–]/g, '-');
-  if (lang === 'fr') t = t.replace(/(\d)[  ](?=\d{3}(?!\d))/g, '$1').replace(/(\d),(\d)/g, '$1.$2');
-  else t = t.replace(/(\d),(\d{3})(?!\d)/g, '$1$2');
+  if (lang === 'fr') t = t.replace(/(?<=\d)[  ](?=\d{3}(?!\d))/g, '').replace(/(\d),(\d)/g, '$1.$2');
+  else t = t.replace(/(?<=\d),(?=\d{3}(?!\d))/g, '');
   return (t.match(/\d+(?:\.\d+)?/g) ?? []).map((n) => String(Number(n))).sort();
 }
 

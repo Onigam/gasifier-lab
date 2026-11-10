@@ -86,6 +86,8 @@ export const FIG = {
   idleIn: d(55, 0, ' kW'), // the table's own losses at idle
   dieselShareMax: d(11.8, 1, pct), // 26.1 / 220.9: the table's 18.9 % does not add up
   bunkerMin: m(53, 0, ' min'),
+  hearthMbar: d(50, 0, ' mbar'), // the bed's drop at the bench's maximum, from the measured drops by chip grade
+  filterMbar: m(21, 0, ' mbar'),
   bunkerHand: d(44.5, 1, ' min'),
   woodGap: d(16, 0, pct), // 34.3 against 41 kg/h
   lost82: d(82, 0, pct), // 100 % less the 18 % of the bench
@@ -126,6 +128,8 @@ export const FIG = {
   gasWet30: w(4.7, 1, ' MJ/Nm³'),
   gasWet40: w(4.4, 1, ' MJ/Nm³'),
   sparkModel: w(31, 0, ' kW'),
+  engineLow: w(47, 0, ' kW'), // dual fuel at its highest speed with an indicated efficiency of 0.36, the lowest the book's balances give
+  engineHigh: w(60, 0, ' kW'), // and 0.43, the highest
   truckChips: w(9.4, 1, ' kg'),
   wetLimit: w(45, 0, pct),
   wetNoDrain: w(40, 0, pct),

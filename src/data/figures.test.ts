@@ -92,6 +92,8 @@ describe('the lessons’ figures', () => {
     near('gasWet30', steadyPoint({ moistureWet: 30 }).gasMJ, 0.05);
     near('gasWet40', steadyPoint({ moistureWet: 40 }).gasMJ, 0.05);
     near('sparkModel', fullPower('spark').power, 0.6);
+    near('engineLow', fullPower('dual', { etaDual: 0.36 }).power, 0.6);
+    near('engineHigh', fullPower('dual', { etaDual: 0.43 }).power, 0.6);
     near('truckChips', truckRun('load-8t').chipsPer10, 0.06);
     near('idleChips', idle.chips, 0.5);
     const sim = new GasifierSim();
@@ -120,6 +122,8 @@ describe('the model where this machine was measured (†)', () => {
     near('chargeModel', fullPowerCharge(), 0.8);
     near('substModel', max.substitution * 100, 0.6);
     near('dew8', max.dewPoint, 0.5);
+    near('hearthMbar', max.hearthDropMbar, 0.6);
+    near('filterMbar', (max.filterDropMmWg * 9.80665) / 100, 0.6);
   });
   it('the highest power on gas, the sieve’s gain, the cloth’s ageing', () => {
     const fresh = fullPower().power;
