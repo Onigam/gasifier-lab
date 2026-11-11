@@ -1,9 +1,8 @@
-import { getLang } from '@onigam/lab-kit/i18n';
 import type { StripAlarm, StripValue } from '@onigam/lab-kit/ui';
 import type { GasifierSim } from '../sim/engine';
 import { SPEEDS } from '../sim/presets';
 import { roomRows, stripAlarms as alarmsOf, stripClock as clockOf, workRows, type StripRow } from '../sim/strip';
-import { say } from './strings';
+import { num, say, STRIP_ALARMS } from './strings';
 
 // What the bottom strip shows: src/sim/strip.ts says what, this says it in the language of the moment. A value's mark follows its unit until the kit's `StripValue` has a tag of its own (docs/kit-requests.md, 4).
 // The strip does not know which world is open (docs/kit-requests.md, 5): `onFrame` of src/lab.ts tells it, and the garage's world shows the room's figures, not the work's.
@@ -38,13 +37,18 @@ export function rowsFor(sim: GasifierSim, inScene = scene): StripRow[] {
   return s.place === 'garage' || inScene === 'garage' ? roomRows(s) : workRows(s);
 }
 
+/** A figure the way the language writes it (1 855 and 2,2 in French, 1,855 and 2.2 in English). */
+const figure = (text: string): string => {
+  const n = Number(text);
+  return Number.isFinite(n) ? num(n, text.split('.')[1]?.length ?? 0) : text;
+};
+
 export function stripValues(sim: GasifierSim): StripValue[] {
-  const comma = getLang() === 'fr';
   return rowsFor(sim).map((row) => {
     const none = empty(row, sim);
     return {
       label: say(row.label),
-      value: none ? '—' : comma ? row.value.replace('.', ',') : row.value,
+      value: none ? '—' : figure(row.value),
       unit: none ? '' : `${row.unit}${row.unit && row.tag ? ' ' : ''}${row.tag}`,
     };
   });
@@ -56,7 +60,11 @@ export function stripClock(sim: GasifierSim): { time: string; sub: string } {
 }
 
 export function stripAlarms(sim: GasifierSim): StripAlarm[] {
-  return alarmsOf(sim.state).map((a) => ({ key: a.key, label: say(a.label), severe: a.severe }));
+  return alarmsOf(sim.state).map((a) => ({
+    key: a.key,
+    label: say(STRIP_ALARMS[a.key as keyof typeof STRIP_ALARMS]),
+    severe: a.severe,
+  }));
 }
 
 export const STRIP_SPEEDS = SPEEDS;

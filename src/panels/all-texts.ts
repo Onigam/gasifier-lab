@@ -20,7 +20,7 @@ import {
 } from '../sim/texts';
 import { GasifierSim } from '../sim/engine';
 import { analyserReadouts, moreReadouts } from './model';
-import { PANEL } from './strings';
+import { PANEL, STRIP_ALARMS } from './strings';
 
 const l = (p: Pair): L => ({ fr: p[0], en: p[1] });
 
@@ -49,6 +49,7 @@ export function panelTexts(): [string, L][] {
   for (const [k, v] of Object.entries(TRUCK_TEXTS)) add(`truck ${k}`, v);
   for (const [k, v] of Object.entries(ZONE_TEXTS)) add(`zone ${k}`, v);
   for (const [k, v] of Object.entries(ALARM_TEXTS)) add(`alarm ${k}`, v.text);
+  for (const [k, v] of Object.entries(STRIP_ALARMS)) add(`strip alarm ${k}`, v);
   for (const [k, v] of Object.entries(SCENARIO_TEXTS)) {
     add(`scenario ${k}.name`, v.name);
     add(`scenario ${k}.lesson`, v.lesson);

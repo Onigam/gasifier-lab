@@ -113,7 +113,8 @@ describe('the words of the panels', () => {
 
   it('use no number of their own beyond the 20 % where the measured ground ends', () => {
     for (const [k, v] of ours) {
-      if (k.startsWith('chart') && k.endsWith('Hint')) continue;
+      // the names of the two machines carry their model numbers
+      if (k.startsWith('preset') || (k.startsWith('chart') && k.endsWith('Hint'))) continue;
       const nums = new Set((v[0] + ' ' + v[1]).match(/\d+/g) ?? []);
       for (const n of nums) expect(['20'], `${k}: ${n}`).toContain(n);
     }

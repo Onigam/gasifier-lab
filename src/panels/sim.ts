@@ -155,7 +155,9 @@ export class SimPanel implements PanelController {
           this.render();
         },
       },
-      ...PRESET_IDS.map((id) => h('option', { value: id, selected: p.preset === id }, sx('preset', id))),
+      ...PRESET_IDS.map((id) =>
+        h('option', { value: id, selected: p.preset === id }, st(id === 'mf-1100' ? 'presetMf' : 'presetScania')),
+      ),
       h('option', { value: 'custom', selected: p.preset === 'custom', disabled: true }, st('custom')),
     );
     this.presetSelect = presetSelect;
@@ -207,9 +209,53 @@ export class SimPanel implements PanelController {
     this.machine = p.machine;
     const truckField = p.machine === 'scania-l8050' ? pick<TruckLoad>('truckLoad', 'truckLoad', trucks) : null;
 
+    // the section of the world the visitor is in comes first and open: the journey from the gasifier, the room from the garage
+    const world = this.ctx.ui.scene;
+    const journeySection = folded(
+      st('secJourney'),
+      world === 'gasifier',
+      slider('journeyLabel', 'journey', (v) => sx('zone', zoneAt(v))),
+      hint('journeyHint'),
+      this.analyser,
+      world === 'gasifier'
+        ? null
+        : h(
+            'button',
+            { class: 'btn btn--primary', onclick: () => this.ctx.gotoScene('gasifier') },
+            icon(ICONS.focus, 16),
+            st('seeInGasifier'),
+          ),
+    );
+    const roomSection = folded(
+      st('secRoom'),
+      world === 'garage' || p.place === 'garage',
+      hint('roomHint'),
+      pick<'field' | 'garage'>('place', 'place', [
+        ['field', st('placeField')],
+        ['garage', st('placeGarage')],
+      ]),
+      pick<number>('garageVolume', 'garageVolume', [
+        [50, `${num(50)} m³`],
+        [1000, `${num(1000)} m³`],
+      ]),
+      pick<DoorState>('door', 'door', doors),
+      slider('postGasVolume', 'postGasVolume', (v) => `${num(v, 1)} m³ *`),
+      slider('postGasMinutes', 'postGasMinutes', (v) => minutesText(v)),
+      toggle('lidLeak', 'lidLeak'),
+      toggle('fanSource', 'fanSource'),
+      this.room,
+      this.rung,
+      h('p', { class: 'hint' }, say(ROOM_NOTE)),
+      hint('roomRangeNote'),
+      eyebrow('chartRoom'),
+      this.roomChart.el,
+      hint('chartRoomHint'),
+    );
+
     fill(
       this.el,
       h('div', { class: 'eyebrow eyebrow--accent' }, st('simHeading')),
+      world === 'gasifier' ? journeySection : null,
       hint('simIntro'),
       h('p', { class: 'hint' }, say(TAG_NOTE)),
       h(
@@ -246,12 +292,13 @@ export class SimPanel implements PanelController {
         ),
       ),
       this.lesson,
+      world === 'garage' ? roomSection : null,
       this.status,
       this.readouts,
       folded(st('moreTitle'), false, this.more),
       folded(
         st('secConditions'),
-        true,
+        world !== 'gasifier' && world !== 'garage',
         slider('load', 'load', (v) => `${num(v)} ${st('loadUnit')}`),
         toggle('fullPower', 'fullPower'),
         pick<EngineMode>('engineMode', 'engineMode', modes),
@@ -273,44 +320,8 @@ export class SimPanel implements PanelController {
         toggle('vesselNeglected', 'vesselNeglected'),
         hint('faultsHint'),
       ),
-      folded(
-        st('secJourney'),
-        false,
-        slider('journeyLabel', 'journey', (v) => sx('zone', zoneAt(v))),
-        hint('journeyHint'),
-        this.analyser,
-        h(
-          'button',
-          { class: 'btn btn--primary', onclick: () => this.ctx.gotoScene('gasifier') },
-          icon(ICONS.focus, 16),
-          st('seeInGasifier'),
-        ),
-      ),
-      folded(
-        st('secRoom'),
-        p.place === 'garage',
-        hint('roomHint'),
-        pick<'field' | 'garage'>('place', 'place', [
-          ['field', st('placeField')],
-          ['garage', st('placeGarage')],
-        ]),
-        pick<number>('garageVolume', 'garageVolume', [
-          [50, `${num(50)} m³`],
-          [1000, `${num(1000)} m³`],
-        ]),
-        pick<DoorState>('door', 'door', doors),
-        slider('postGasVolume', 'postGasVolume', (v) => `${num(v, 1)} m³ *`),
-        slider('postGasMinutes', 'postGasMinutes', (v) => minutesText(v)),
-        toggle('lidLeak', 'lidLeak'),
-        toggle('fanSource', 'fanSource'),
-        this.room,
-        this.rung,
-        h('p', { class: 'hint' }, say(ROOM_NOTE)),
-        hint('roomRangeNote'),
-        eyebrow('chartRoom'),
-        this.roomChart.el,
-        hint('chartRoomHint'),
-      ),
+      world === 'gasifier' ? null : journeySection,
+      world === 'garage' ? null : roomSection,
       folded(
         st('secCharts'),
         false,

@@ -23,6 +23,8 @@ export const PANEL = {
     'The Swedish institute’s machine at work: the gas, the engine, the filter, and what becomes of a room when it stops. The model is set to no figure: where it differs from the measurements, the scenario or the sheet says so. Here you change working conditions, never a part.',
   ],
   preset: ['Machine', 'Machine'],
+  presetMf: ['Tracteur MF 1100', 'MF 1100 tractor'],
+  presetScania: ['Camion Scania L8050', 'Scania L8050 truck'],
   custom: ['Autres réglages', 'Other settings'],
   resetSim: ['Recommencer', 'Start again'],
   scenarios: ['Scénarios', 'Scenarios'],
@@ -106,7 +108,7 @@ export const PANEL = {
 
   // ---- the journey of a chip
   secJourney: ['Le voyage d’une plaquette', 'The journey of a chip'],
-  journeyLabel: ['Position du curseur, du couvercle au cendrier', 'Cursor position, from the lid to the ash pit'],
+  journeyLabel: ['Position du curseur', 'Cursor position'],
   journeyHint: [
     'Le curseur suit une plaquette et un analyseur lit le gaz autour d’elle. Les zones sont dans l’ordre et pas à l’échelle, exprès. La température et le gaz de chaque point sont des estimations, sauf aux deux bouts.',
     'The cursor follows one chip and an analyser reads the gas around it. The zones are in order and not to scale, on purpose. The temperature and gas at each point are estimates, except at the two ends.',
@@ -176,6 +178,29 @@ export const PANEL = {
   hours: ['h', 'h'],
   noData: ['La courbe commence avec la course.', 'The curve begins with the run.'],
 } as const satisfies Record<string, readonly [string, string]>;
+
+/** The alarm of the bottom strip is one line: a short form of each, about forty characters. The panel keeps the sentence (src/sim/texts.ts), and `sim.test.ts` holds that the two lists have the same keys. */
+export const STRIP_ALARMS: Record<keyof typeof ALARM_TEXTS, Pair> = {
+  engineShort: ['Puissance demandée non atteinte', 'Power asked not reached'],
+  gasTooPoor: ['Gaz sous 4,2 MJ/m³', 'Gas below 4.2 MJ/m³'],
+  moistureAboveLimit: ['Plaquettes au-delà de 30 %', 'Chips past 30 % moisture'],
+  moistureNoBurn: ['Selon le rapport, le gaz ne brûle plus', 'The report says the gas no longer burns'],
+  filterWet: ['Toile mouillée : résistance × 6', 'Cloth wet: resistance × 6'],
+  filterHot: ['Filtre au-delà de 300 °C', 'Filter past 300 °C'],
+  filterAged: ['Poussière : résistance du filtre × 2', 'Dust: the filter’s resistance × 2'],
+  airLeak: ['De l’air brûle le gaz chaud', 'Air is burning the hot gas'],
+  vesselOverfull: ['Bac du refroidisseur trop plein', 'Cooler vessel overfull'],
+  gasOutAfterStop: ['Moteur arrêté : le gaz sort encore', 'Engine stopped: the gas still comes out'],
+  lidLeak: ['Couvercle non étanche', 'Lid does not seal'],
+  fanOut: ['Ventilateur : environ 200 L de CO par minute', 'Starting fan: about 200 L of CO a minute'],
+  exhaustIndoors: ['Moteur tournant dans un local', 'Engine running indoors'],
+  coWorkLimit: ['Au-delà de 20 ppm, limite sur 8 h', 'Past 20 ppm, the 8 h limit'],
+  coShortLimit: ['Au-delà de 100 ppm, limite à court terme', 'Past 100 ppm, the short-term limit'],
+  coLadder: ['Dans l’échelle des symptômes publiés', 'Inside the ladder of published symptoms'],
+  coRoomAbove: ['Le monoxyde a atteint la pièce du dessus', 'Carbon monoxide has reached the room above'],
+  coDoorOpen: ['Porte ouverte : jugé très insuffisant en Suède', 'Open door: found far from enough in Sweden'],
+  coNoAllClear: ['Un chiffre bas ne dit rien d’une vraie pièce', 'A low number says nothing of a real room'],
+};
 
 registerStrings(PANEL);
 

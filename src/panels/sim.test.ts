@@ -4,10 +4,10 @@ import { afterEach, beforeAll, describe, expect, it } from 'vitest';
 import { GasifierSim } from '../sim/engine';
 import { PRESET_IDS, SCENARIO_IDS } from '../sim/presets';
 import { roomRows, workRows } from '../sim/strip';
-import { ROOM_NOTE } from '../sim/texts';
+import { ALARM_TEXTS, ROOM_NOTE } from '../sim/texts';
 import { analyserReadouts, band, mainReadouts, moreReadouts, niceCeil3, roomFacts, statusOf } from './model';
 import { SimPanel } from './sim';
-import { num, say, st, sx } from './strings';
+import { num, say, st, STRIP_ALARMS, sx } from './strings';
 import { rowsFor, setActiveScene, stripAlarms, stripClock, stripValues } from './strip';
 import { FakeElement, installFakeDom } from './test-dom';
 
@@ -66,9 +66,8 @@ describe('what the panel offers', () => {
   it('opens on the machine with its presets, a custom entry and a chip per scenario', () => {
     const { root, sim } = open();
     const options = root.find('option');
-    expect(options.slice(0, PRESET_IDS.length).map((o) => o.textContent)).toEqual(
-      PRESET_IDS.map((id) => sx('preset', id)),
-    );
+    expect(PRESET_IDS).toEqual(['mf-1100', 'scania-l8050']);
+    expect(options.slice(0, PRESET_IDS.length).map((o) => o.textContent)).toEqual([st('presetMf'), st('presetScania')]);
     expect(options.some((o) => o.textContent === st('custom'))).toBe(true);
     for (const id of SCENARIO_IDS) expect(button(root, sx('scenario', id))).toBeDefined();
     expect(root.find('.part-chip')).toHaveLength(12);
@@ -281,6 +280,79 @@ describe('the figures', () => {
     expect(statusOf(sim.state)).toBe('statusDiesel');
     sim.set({ engineMode: 'dual', engineOn: false });
     expect(statusOf(sim.state)).toBe('statusStopped');
+  });
+});
+
+describe('the strip, in one line', () => {
+  it('has a short form of every alarm, under fifty characters, and the sentence stays longer', () => {
+    expect(Object.keys(STRIP_ALARMS).sort()).toEqual(Object.keys(ALARM_TEXTS).sort());
+    for (const [key, pair] of Object.entries(STRIP_ALARMS))
+      for (const i of [0, 1] as const) {
+        expect(pair[i].length, `${key} ${i}`).toBeLessThanOrEqual(48);
+        expect(pair[i].length, `${key} ${i}`).toBeLessThanOrEqual(
+          ALARM_TEXTS[key as keyof typeof ALARM_TEXTS].text[i].length,
+        );
+      }
+  });
+
+  it('writes the numbers the way the language does: 1 855 and 2,2 in French, 1,855 and 2.2 in English', () => {
+    const sim = new GasifierSim();
+    setLang('fr');
+    expect(stripValues(sim).find((v) => v.label === 'Régime')!.value).toBe(num(1855));
+    expect(stripValues(sim).find((v) => v.label === 'Régime')!.value).toMatch(/^1\s855$/);
+    setLang('en');
+    expect(stripValues(sim).find((v) => v.label === 'Speed')!.value).toBe('1,855');
+  });
+
+  it('says an alarm with its short form in the strip and its sentence in the panel', () => {
+    const sim = new GasifierSim();
+    sim.set({ engineOn: false });
+    setLang('fr');
+    const alarm = stripAlarms(sim).find((a) => a.key === 'gasOutAfterStop')!;
+    expect(alarm.label).toBe(STRIP_ALARMS.gasOutAfterStop[0]);
+    expect(sx('alarm', 'gasOutAfterStop').length).toBeGreaterThan(alarm.label.length);
+  });
+});
+
+describe('the sections follow the world', () => {
+  const sections = (scene: string) => {
+    setLang('fr');
+    const sim = new GasifierSim();
+    const ctx = { sim, ui: { scene }, gotoScene: () => undefined } as unknown as AppContext<GasifierSim>;
+    const panel = new SimPanel(ctx);
+    panel.render();
+    return (panel.el as unknown as FakeElement)
+      .find('details')
+      .map((d) => ({ title: d.find('summary')[0]!.textContent, open: d.open }));
+  };
+
+  it('opens the journey first in the gasifier, and the room first in the garage', () => {
+    const g = sections('gasifier');
+    expect(g[g.findIndex((s) => s.title === st('secJourney'))]!.open).toBe(true);
+    expect(
+      g.filter((s) => s.title === st('secJourney' as never) || s.title === st('secRoom')).map((s) => s.title)[0],
+    ).toBe(st('secJourney'));
+    const r = sections('garage');
+    expect(r.find((s) => s.title === st('secRoom'))!.open).toBe(true);
+    expect(r.filter((s) => [st('secJourney'), st('secRoom')].includes(s.title)).map((s) => s.title)[0]).toBe(
+      st('secRoom'),
+    );
+  });
+
+  it('keeps the working conditions first and open anywhere else', () => {
+    const f = sections('farm');
+    expect(f.find((s) => s.title === st('secConditions'))!.open).toBe(true);
+    expect(f.find((s) => s.title === st('secJourney'))!.open).toBe(false);
+  });
+
+  it('shows the two machines under names that fit in the select', () => {
+    const { root } = open();
+    const names = root
+      .find('option')
+      .slice(0, 2)
+      .map((o) => o.textContent);
+    expect(names).toEqual([st('presetMf'), st('presetScania')]);
+    for (const n of names) expect(n.length).toBeLessThanOrEqual(22);
   });
 });
 
