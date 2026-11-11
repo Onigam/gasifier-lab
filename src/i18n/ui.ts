@@ -6,7 +6,8 @@ import { registerStrings, tx, type CommonKey } from '@onigam/lab-kit/i18n';
 
 export const LAB_STRINGS = {
   // the top bar shows about 60 capitals at 1280 px and cuts the rest: the longer line is for the showcase, in public/lab.json
-  labTitle: ['LABO DU GAZOGÈNE F-5', 'F-5 WOOD GASIFIER LAB'],
+  // mixed case, as written: the kit lower-cases a title that is all capitals (« f-5 »)
+  labTitle: ['Labo du gazogène F-5', 'F-5 Wood Gasifier Lab'],
   tagline: [
     'Un tracteur suédois au bois : comment, et ce que ça coûtait',
     'A Swedish tractor on wood: how it worked, and what it cost',

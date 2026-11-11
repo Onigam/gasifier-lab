@@ -221,8 +221,8 @@ describe('the lab’s own strings', () => {
       expect(v[0] + v[1], k).not.toMatch(/\{|\}|TODO|à remplacer|to replace|'/);
     }
     expect(LAB_STRINGS.labTitle[0]).not.toBe(LAB_STRINGS.labTitle[1]);
-    expect(LAB_STRINGS.labTitle[0]).toMatch(/GAZOGÈNE/);
-    expect(LAB_STRINGS.labTitle[1]).toMatch(/WOOD GASIFIER/);
+    expect(LAB_STRINGS.labTitle[0]).toMatch(/gazogène F-5/);
+    expect(LAB_STRINGS.labTitle[1]).toMatch(/Wood Gasifier/);
     expect(LAB_STRINGS.tagline[0]).not.toMatch(/Explorer · Comprendre|Construire/);
     expect(LAB_STRINGS.tagline[1]).not.toMatch(/Explore · Understand|Build/);
     // the top bar cuts at about 60 capitals: the title must fit
