@@ -16,12 +16,12 @@ The texts of the lab, written in French and English together (`l(fr, en)`): **67
 | `src/data/lessons.ts`                | the seven lessons: `docs/lessons.md`                                                                                                                                                                                                                 |
 | `src/data/sources.ts`                | `sourcesPanel()`, `SOURCE_GROUPS`, `REFUSALS` (ten), `MODEL_LIMITS` (ten): the credits and links, the warning, what the lab refuses, what the model does not find                                                                                    |
 | `src/data/all-texts.ts`              | every text a visitor reads from `src/data`, labelled, for the tests and the guard of the refused sizes                                                                                                                                               |
-| `src/i18n/ui.ts`                     | `LAB_STRINGS`: the lab's own strings (title, worlds and shortcuts, the intros, the notices of the Sources panel). The template's four keys are kept until the lead rewires `src/lab.ts` and `src/panels/sim.ts`                                      |
+| `src/i18n/ui.ts`                     | `LAB_STRINGS`: the lab's own strings (title, worlds and shortcuts, the intros, the notices of the Sources panel, the notice on the way in). The template's keys are deleted; the simulation panel's words are in `src/panels/strings.ts`             |
 | `src/drawings/**`                    | the ten sheets: `docs/drawings.md`                                                                                                                                                                                                                   |
 
-## What `src/lab.ts` has to do with it (the lead's file)
+## What `src/lab.ts` does with it (wired by the lead, 2026-11-11)
 
-`parts: PARTS`; `assembly: { scene: …, steps: ASSEMBLY }` and `install` from `src/data/guide.ts` (a kit step plays in one world, so the steps are cut by world); the overview of each world from `OVERVIEWS[id]` with the shortcuts `goFarm`… `goGarage`; `lessons: LESSONS`; `plans: { sheets: SHEETS, groups: PLAN_GROUPS, intro: strL('plansIntro') }`; `about: sourcesPanel` (the panel is built from `h` and the lab's strings); `registerStrings(LAB_STRINGS)`. The title block's wording is set by `configureDrawings` in `src/drawings/index.ts`: `src/lab.ts` must not set the project name over it without keeping the disclaimer. The warning (`warning` in `LAB_STRINGS`) is for the lead to show on the way in as well as at the top of the Sources panel (research Q5). The standard's report (`src/standard.test.ts`) shows five `todo` lines: the worlds registered (1 of 4) and the installation guide (0 of 10) wait for that wiring, and the spoken guide and `public/lab.json` (tagline and tags) are the lead's.
+`parts: PARTS`; the two guides from `src/data/guide.ts` (a kit step plays in one world, so each step names its own: the assembly starts in `gasifier`, the installation in `farm`); the overview of each world from `OVERVIEWS[id]` with the shortcuts `goFarm`… `goGarage` and `goSimulation`; `lessons: LESSONS`; `plans: { sheets: SHEETS, groups: PLAN_GROUPS, intro: strL('plansIntro') }`; `about: sourcesPanel`; the strings by `import './i18n/ui'`. The title block's wording stays the one `configureDrawings` sets in `src/drawings/index.ts`: `src/lab.ts` does not set the project name over it. **The warning is shown on the way in** (`src/panels/entry.ts`, from `warning` and three lines of the other hazards in `LAB_STRINGS`: the stop in a closed garage, the backfire, the burns), once per browser, as well as at the top of the Sources panel and in the garage's overview: research Q5, deliberately more than the « said once » rule on this one lab. The standard's report (`src/standard.test.ts`) shows two `todo` lines, the spoken guide in French and in English, which the narrator writes next; the lab stays `building`.
 
 ## Conventions
 
@@ -38,16 +38,17 @@ The texts of the lab, written in French and English together (`l(fr, en)`): **67
 
 The author and the physicist used the research's figures; the sources below were **not read** by those roles (`docs/physics.md` §9), and the fact-checker should read them before a visitor sees what leans on them.
 
-| Fact                                                                                                    | Source              | Where                                                                      |
-| ------------------------------------------------------------------------------------------------------- | ------------------- | -------------------------------------------------------------------------- |
-| French and EU limits (20 ppm over 8 h, 100 ppm short term); the detector alarms; the explosion limits   | S5 (INRS FT 47), S6 | the ladder (PL-G08), lesson 2, the garage's overview                       |
-| « Sometimes for hours », the phenols (1,500 to 3,000 mg/L), the deaths (17), the tar table              | S2 (Reed and Das)   | PL-G09, PL-G10, `condensate-*`, lesson 2                                   |
-| the fleet (73,853; 36.3 % on wood), the fires (2,865: 1,740, 1,025, 100), the chronic cases, 155 of 230 | S3 (pp. 302 to 321) | PL-G10: the rows were checked by adding, the OCR had scrambled the columns |
-| the oxidation band 1,200 to 1,500 °C and the start of pyrolysis at 250 °C                               | S1 §2.5             | PL-G05, the zones' sheets, lesson 3                                        |
-| Tables 3.5, 3.10 and 3.11 (the engines' powers on diesel and on gas): read as images by the physicist   | S1                  | PL-G07; the speeds are known for few engines                               |
-| Table 3.17 and its footnotes (the service intervals, the jobs counted inside another job)               | S1                  | PL-G04, the sheets' maintenance paragraphs                                 |
-| the lives between failures (firebox, throat ring, grate, bags, casing)                                  | S1 (research K43)   | PL-G04, the sheets' « Panne à prévoir »                                    |
-| the French emergency numbers                                                                            | general knowledge   | the garage's overview, the warning: to check (research §A.4)               |
+| Fact                                                                                                                                   | Source                         | Where                                                                                  |
+| -------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ | -------------------------------------------------------------------------------------- |
+| French and EU limits (20 ppm over 8 h, 100 ppm short term); the detector alarms; the explosion limits                                  | S5 (INRS FT 47), S6            | the ladder (PL-G08), lesson 2, the garage's overview                                   |
+| « Sometimes for hours », the phenols (1,500 to 3,000 mg/L), the deaths (17), the tar table                                             | S2 (Reed and Das)              | PL-G09, PL-G10, `condensate-*`, lesson 2                                               |
+| the fleet (73,853; 36.3 % on wood), the fires (2,865: 1,740, 1,025, 100), the chronic cases, 155 of 230                                | S3 (pp. 302 to 321)            | PL-G10: the rows were checked by adding, the OCR had scrambled the columns             |
+| the oxidation band 1,200 to 1,500 °C and the start of pyrolysis at 250 °C                                                              | S1 §2.5                        | PL-G05, the zones' sheets, lesson 3                                                    |
+| Tables 3.5, 3.10 and 3.11 (the engines' powers on diesel and on gas): read as images by the physicist                                  | S1                             | PL-G07; the speeds are known for few engines                                           |
+| Table 3.17 and its footnotes (the service intervals, the jobs counted inside another job)                                              | S1                             | PL-G04, the sheets' maintenance paragraphs                                             |
+| the lives between failures (firebox, throat ring, grate, bags, casing)                                                                 | S1 (research K43)              | PL-G04, the sheets' « Panne à prévoir »                                                |
+| the French emergency numbers                                                                                                           | general knowledge              | the garage's overview, the warning, the notice on the way in: to check (research §A.4) |
+| the worst accidents were in closed garages; the backfire into the filter; the casing as hot as a catalytic converter and the dry grass | S3 p. 310, S1 §2.8.3, S4 p. 59 | the notice on the way in, the garage's overview, the guides' warnings                  |
 
 ## Open questions
 
@@ -59,6 +60,16 @@ The author and the physicist used the research's figures; the sources below were
 6. **The jacket's size, the casing's surface and what the 15 % of loss is made of** are estimates: the casing's own surface loses about 12.5 kW* and the chemistry's `h` says 24 kW. They are said where they stand.
 7. **S3 p. 260 and p. 309** give a ventilation (four air changes an hour) and a wait (twenty minutes before the car goes into the garage). No text repeats them: they read as a way to make it acceptable (R3, R5).
 8. **No licensed footage.** Nothing is taken from a video.
+9. **The emergency numbers are from general knowledge, not from a source.** The warning, the garage's overview and the notice on the way in say « 112 (15 in France, 144 in Switzerland) » and no document of the research gives them: the researcher wrote them from memory (research §A.4, R6) and the author copied them. Someone must check them against an official page (the French health ministry's and the Swiss federal office's) before the lab is `released`; the same goes for the line « get into the open air, do not go back in », which is the lab's own wording of general first-aid advice and is no medical protocol (R6). It must not grow.
+
+## Blocking for release
+
+None of these stops the lab from being `building`. Each stops it from being `released`, and none is for an agent that built the lab to settle: an independent fact-check reads the pages and the owner decides.
+
+1. **S5 (INRS FT 47) and S2 (Reed and Das, 1988): the 20 and 100 ppm limits of the carbon monoxide ladder, and the rungs and bands around them.** The researcher and the author worked from a summary and a partial text (research §1.2, access **f**; `docs/physics.md` §9): the French and EU limits (20 ppm over 8 h, 100 ppm short term), the symptom rungs, the explosion limits, « sometimes for hours », the phenols and the 17 deaths. They stand on PL-G08, PL-G09, lesson 2, the garage's overview and the Sources panel. A figure of this ladder is the one a visitor might act on: it is read before release, page by page.
+2. **S3 pp. 302 to 321: the fleet, the fires, the chronic cases.** The tables were read through an OCR text layer whose columns are scrambled; the rows were checked by adding (PL-G10). The curve of the fires per 1,000 vehicles is not drawn until someone reads the page (open question 1).
+3. **The emergency numbers** (open question 9) and the one plain sentence on the law (`legal` in `LAB_STRINGS`, which no lawyer has read).
+4. **The notice on the way in** (`entryGarage`, `entryFire`, `entryBurns`): three lines written by the lead from research §A.3, each resting on a source of the table above. The fact-check reads them with the warning.
 
 ## Numbers left as estimates (`*`)
 
