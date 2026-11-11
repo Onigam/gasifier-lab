@@ -65,8 +65,8 @@ export const SOURCE_GROUPS: SourceGroup[] = [
         href: 'https://inrs.fr/dam/ficheTox/FicheFicheTox/FICHETOX_47-1.pdf',
         label: 'INRS, Monoxyde de carbone, fiche toxicologique FT 47 (avril 2021)',
         note: l(
-          'La référence du lab sur la santé : propriétés, limite française contraignante et valeurs de l’Union européenne, effets aigus et différés, séquelles, toxicité pour le fœtus. Lue dans le texte, en partie. Quand le rapport de la FAO dit qu’aucune séquelle n’est possible, le lab suit l’INRS.',
-          'The lab’s reference on health: properties, the French binding limit and the EU’s values, acute and delayed effects, after-effects, toxicity to the fetus. Read as text, in part. Where the FAO’s report says no after-effect can occur, the lab follows INRS.',
+          'La référence du lab sur la santé : propriétés, valeurs limites d’exposition professionnelle (celles de cette fiche, pour la France ; les limites diffèrent d’un pays à l’autre), effets aigus et différés, séquelles, toxicité pour le fœtus. Lue dans le texte, en partie. Quand le rapport de la FAO dit qu’aucune séquelle n’est possible, le lab suit l’INRS.',
+          'The lab’s reference on health: properties, occupational exposure limit values (those of this sheet, for France; limits differ from country to country), acute and delayed effects, after-effects, toxicity to the fetus. Read as text, in part. Where the FAO’s report says no after-effect can occur, the lab follows INRS.',
         ),
       },
       {

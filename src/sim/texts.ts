@@ -84,15 +84,15 @@ export const ALARM_TEXTS: Record<AlarmKey, { text: Pair; severe: boolean }> = {
   },
   coWorkLimit: {
     text: [
-      'Au-delà de la limite française (contraignante, 2019) et de la valeur de l’Union européenne (2017) sur 8 h au travail, 20 ppm',
-      'Past the French binding limit (2019) and the EU value (2017) over 8 h at work, 20 ppm',
+      'Au-delà de la valeur limite d’exposition professionnelle de la fiche INRS sur 8 h, 20 ppm : les limites diffèrent d’un pays à l’autre',
+      'Past the occupational exposure limit value in the INRS sheet (France) over 8 h, 20 ppm: limits differ from country to country',
     ],
     severe: true,
   },
   coShortLimit: {
     text: [
-      'Au-delà de la limite française à court terme au travail, 100 ppm',
-      'Past the French short-term limit at work, 100 ppm',
+      'Au-delà de la valeur limite d’exposition professionnelle de la fiche INRS sur de courtes périodes, 100 ppm',
+      'Past the occupational exposure limit value in the INRS sheet (France), short term, 100 ppm',
     ],
     severe: true,
   },

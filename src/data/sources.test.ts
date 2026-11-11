@@ -141,8 +141,10 @@ describe('the Sources panel', () => {
   it('says the warning in full, once, and the reconstruction once: nowhere else on a sheet, a guide, a lesson or an overview', () => {
     const w = LAB_STRINGS.warningFull;
     expect(w[1]).toMatch(/It is not a plan, a procedure or advice/);
-    expect(w[1]).toMatch(/get into the open air, do not go back in, call 112/);
-    expect(w[0]).toMatch(/à l’air libre, on ne retourne pas à l’intérieur, on appelle le 112/);
+    expect(w[1]).toMatch(/get into the open air, do not go back in, call your local emergency number/);
+    expect(w[0]).toMatch(
+      /à l’air libre, on ne retourne pas à l’intérieur, on appelle le numéro d’urgence de votre pays/,
+    );
     const d = LAB_STRINGS.disclaimer;
     expect(d[1]).toMatch(/independent educational reconstruction/);
     expect(d[0]).toMatch(/Reconstitution pédagogique indépendante/);

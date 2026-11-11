@@ -1,7 +1,7 @@
 import type { Pair } from './texts';
 
 // The published ladder for carbon monoxide, for reading beside a number and for sheet 8. Every rung has its source and says what the source says, and that is all. There is no side of it to stand on: no rung is a level one may stay under (R5), the limits are for workplaces,
-// the symptoms are for a person, and nobody stands in this lab's room. No state key computes a dose or a time from these. S1 Table 2.9 opens on a row « 50 ppm: no significant effects »: left out on purpose, against the legal 20 ppm and against R5. Sheet 8 must not bring it back. Its 400, 1,600 and 6,400 ppm rows are not here because research K51 kept four; adding them is the author's call.
+// the symptoms are for a person, and nobody stands in this lab's room. No state key computes a dose or a time from these. S1 Table 2.9 opens on a row « 50 ppm: no significant effects »: left out on purpose, against the 20 ppm limit value and against R5. Sheet 8 must not bring it back. Its 400, 1,600 and 6,400 ppm rows are not here because research K51 kept four; adding them is the author's call.
 
 export interface Rung {
   ppm: number;
@@ -20,24 +20,24 @@ export const CO_LADDER: readonly Rung[] = [
     ppm: 20,
     source: 'S5',
     text: [
-      'Limite française (contraignante, 2019) et valeur de l’Union européenne (2017) sur 8 h, au travail : une borne de travail, pas une frontière pour le corps',
-      'French binding limit (2019) and EU value (2017) over 8 h, at work: a limit for work, not a border for the body',
+      'Valeur limite d’exposition professionnelle de la fiche INRS sur 8 h, au travail : une borne de travail, pas une frontière pour le corps ; les limites diffèrent d’un pays à l’autre',
+      'Occupational exposure limit value in the INRS sheet (France) over 8 h, at work: a limit for work, not a border for the body; limits differ from country to country',
     ],
     plain: [
-      'Limite française (contraignante, 2019) et valeur de l’Union européenne (2017), au travail : une borne de travail, pas une frontière pour le corps',
-      'French binding limit (2019) and EU value (2017), at work: a limit for work, not a border for the body',
+      'Valeur limite d’exposition professionnelle de la fiche INRS, au travail : une borne de travail, pas une frontière pour le corps ; les limites diffèrent d’un pays à l’autre',
+      'Occupational exposure limit value in the INRS sheet (France), at work: a limit for work, not a border for the body; limits differ from country to country',
     ],
   },
   {
     ppm: 100,
     source: 'S5',
     text: [
-      'Limite française (contraignante, 2019) et valeur de l’Union européenne (2017) à court terme, au travail',
-      'French binding limit (2019) and EU value (2017), short term, at work',
+      'Valeur limite d’exposition professionnelle de la fiche INRS sur de courtes périodes, au travail',
+      'Occupational exposure limit value in the INRS sheet (France), short term, at work',
     ],
     plain: [
-      'Limite française (contraignante, 2019) et valeur de l’Union européenne (2017) à court terme, au travail',
-      'French binding limit (2019) and EU value (2017), short term, at work',
+      'Valeur limite d’exposition professionnelle de la fiche INRS sur de courtes périodes, au travail',
+      'Occupational exposure limit value in the INRS sheet (France), short term, at work',
     ],
   },
   {

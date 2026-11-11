@@ -185,9 +185,6 @@ export const REPORTED = new Set(
     '2002',
     '2012',
     '1983',
-    // S5 (INRS FT 47): the years of the French binding limit and of the EU value
-    '2019',
-    '2017',
     // the room and the carbon monoxide: K48, K50, K51, K65; S5, S6
     '23',
     '27',
@@ -200,7 +197,7 @@ export const REPORTED = new Set(
     '1400',
     // the false-colour ramp's ends and the dots' (research §2.6, docs/3d.md)
 
-    // the lessons: Table 3.13's idle chips, K23/K24 engines, K18, Fig. 3.11 by eye and the table's misprint, K35, K36, K68, S5's delayed syndrome (7 to 21 days), K66's 250; the numbers of the emergency services, from general knowledge, to check (research §A.4)
+    // the lessons: Table 3.13's idle chips, K23/K24 engines, K18, Fig. 3.11 by eye and the table's misprint, K35, K36, K68, S5's delayed syndrome (7 to 21 days), K66's 250
     '19.6',
     '42',
     '56',
@@ -211,8 +208,6 @@ export const REPORTED = new Set(
     '3.6',
     '7.8',
     '1986',
-    '112',
-    '144',
     '7',
     '21',
   ].map((n) => String(Number(n))),

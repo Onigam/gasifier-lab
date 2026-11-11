@@ -358,9 +358,11 @@ describe('the world overviews', () => {
     const g = OVERVIEWS.garage.text;
     expect(g.en).toMatch(/it is not a plan, a procedure or advice/);
     expect(g.fr).toMatch(/ni un plan, ni une procédure, ni un conseil/);
-    expect(g.en).toMatch(/get into the open air, do not go back in, call 112/);
-    expect(g.fr).toMatch(/à l’air libre, on ne retourne pas à l’intérieur, on appelle le 112/);
-    for (const id of WORLD_IDS) if (id !== 'garage') expect(OVERVIEWS[id].text.en, id).not.toMatch(/call 112/);
+    expect(g.en).toMatch(/get into the open air, do not go back in, call your local emergency number/);
+    expect(g.fr).toMatch(
+      /à l’air libre, on ne retourne pas à l’intérieur, on appelle le numéro d’urgence de votre pays/,
+    );
+    for (const id of WORLD_IDS) if (id !== 'garage') expect(OVERVIEWS[id].text.en, id).not.toMatch(/emergency number/);
   });
 
   it('say once what the 3D role asked: the farm has no source, the parts under the bonnet are estimates, the zones are in order and not to scale, the cyclone is apart', () => {

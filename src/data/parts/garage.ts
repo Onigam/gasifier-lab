@@ -251,11 +251,15 @@ export const GARAGE_PARTS: PartInfo[] = [
     material: l('Boîtier, cadran et lampe', 'Case, dial and lamp'),
     specs: [
       sp(
-        'Limite française (contraignante, 2019) et valeur de l’Union européenne (2017) sur 8 h, au travail',
-        'French binding limit (2019) and EU value (2017) over 8 h, at work',
+        'Valeur limite d’exposition professionnelle (fiche toxicologique de référence, France), sur 8 h, au travail',
+        'Occupational exposure limit value (reference toxicological sheet, France), over 8 h, at work',
         '20 ppm',
       ),
-      sp('Limite à court terme, au travail', 'Short-term limit, at work', '100 ppm'),
+      sp(
+        'Même fiche, valeur limite sur de courtes périodes, au travail',
+        'Same sheet, limit value over short periods, at work',
+        '100 ppm',
+      ),
       sp(
         'Alarmes conseillées dans les locaux de gazogènes professionnels',
         'Alarms advised in professional gasifier rooms',
@@ -272,13 +276,14 @@ export const GARAGE_PARTS: PartInfo[] = [
         failure:
           'Le cadran de ce lab n’imite aucun des indicateurs de l’époque que décrit le livre suédois (à combustion catalytique, dont un modèle fixe servant d’alarme dans les garages) : il ne dit rien de leur précision.',
         check:
-          'La limite française de 20 ppm, sur 8 heures, est faite pour un lieu de travail, et pas pour une chambre où l’on dort.',
+          'La valeur limite de 20 ppm sur 8 heures, celle de la fiche toxicologique de référence, est faite pour un lieu de travail, et pas pour une chambre où l’on dort ; les limites diffèrent d’un pays à l’autre.',
         care: 'Aucune opération n’est décrite pour l’instrument.',
       },
       {
         failure:
           'This lab’s dial copies none of the indicators of the period that the Swedish book describes (of the catalytic type, one of them a fixed model used as an alarm in garages): it says nothing of their accuracy.',
-        check: 'The French limit of 20 ppm over 8 hours is made for a workplace, and not for a bedroom.',
+        check:
+          'The limit value of 20 ppm over 8 hours, the reference toxicological sheet’s, is made for a workplace, and not for a bedroom; limits differ from country to country.',
         care: 'No operation is described for the instrument.',
       },
     ),

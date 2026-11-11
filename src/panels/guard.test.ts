@@ -143,9 +143,11 @@ describe('the notice on the way in', () => {
     expect(fr).not.toMatch(/faisaient attention/);
   });
 
-  it('gives the emergency numbers as they are in the warning: 112, 15 in France, 144 in Switzerland', () => {
-    expect(LAB_STRINGS.warningFull[1]).toMatch(/call 112 \(15 in France, 144 in Switzerland\)/);
-    expect(LAB_STRINGS.warningFull[0]).toMatch(/le 112 \(le 15 en France, le 144 en Suisse\)/);
+  it('gives no emergency number of any country: the one line says to call the local one', () => {
+    expect(LAB_STRINGS.warningFull[1]).toMatch(/call your local emergency number\./);
+    expect(LAB_STRINGS.warningFull[0]).toMatch(/le numéro d’urgence de votre pays\./);
+    for (const e of entry)
+      for (const t of e) expect(t).not.toMatch(/\b(112|144|999|911)\b|en France|in France|en Suisse|Switzerland/);
   });
 
   it('is not a plan, a procedure or advice, and says no build or run would be allowed', () => {

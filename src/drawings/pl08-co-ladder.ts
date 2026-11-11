@@ -4,7 +4,7 @@ import { CO_LADDER, type Rung } from '../sim/ladder';
 import { nEn, nFr } from '../data/units';
 import { cat, fig, heading, INKS, marksLegend, note, RED } from './draw';
 
-// PL-G08: what the sources say about carbon monoxide, on a logarithmic scale from 10 ppm to a million. Every rung says what its source says and nothing more, with that source named. There is no side of it to stand on: no rung is a level one may stay under (research R5): the legal limits are for work, the published effects are for a person,
+// PL-G08: what the sources say about carbon monoxide, on a logarithmic scale from 10 ppm to a million. Every rung says what its source says and nothing more, with that source named. There is no side of it to stand on: no rung is a level one may stay under (research R5): the limit values are for work, the published effects are for a person,
 // and nobody stands in this lab's room. The model's two rooms are marked beside the ladder, as a concentration from a stated source and an estimate: the sheet computes no time to any rung and none for a person. S1 Table 2.9's first row (« 50 ppm: no significant effects ») is left out on purpose and must not come back.
 
 export const NUMBER = 'PL-G08';
