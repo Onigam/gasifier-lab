@@ -16,49 +16,49 @@
       "scope": "intro",
       "title": "Présentation du labo",
       "scene": "farm",
-      "text": "[[home]] [[lab:preset:mf-1100]] Imaginez un soir de juin, dans le sud de la Suède, il y a plus d’un demi-siècle. Un tracteur rentre des champs. Il roule au bois, avec un filet de gazole : un tracteur qui mange du bois ! [[frame:chip-barn]] Suivons une petite plaquette. Elle attend au sec, dans la grange, parmi des milliers de sœurs. [[frame:drum-chipper]] Elle est née sous les couteaux d’une déchiqueteuse. [[scene:tractor]] La voici sur le tracteur, qui l’emporte vers le champ. [[frame:roof-rack]] Elle voyage sur la galerie du toit, avant de tomber dans la soute. [[scene:gasifier]] Son voyage commence. Elle descend, doucement : une heure environ. [[lab:journey:0.15]] Elle sèche. [[lab:journey:0.42]] Elle noircit et se défait. [[lab:journey:0.62]] Elle passe sous une flamme : un feu qui manque d’air, exprès. [[lab:journey:0.85]] Puis, dans un lit de charbon rouge, le gaz se refroidit… et devient combustible ! [[lab:journey:0.98]] Au fond, il ne reste presque rien. [[scene:gas-train]] Le gaz, lui, continue sa route, bien chaud encore : [[frame:filter-box]] il traverse un filtre, puis un refroidisseur. [[frame:cylinder-cutaway]] Dans le cylindre, ce filet de gazole l’allume. Au banc, quarante kilowatts à l’arbre : dix-huit pour cent, dit le rapport. Soit, par le calcul, environ deux cent vingt kilowatts en entrée. [[scene:garage]] Et puis, un soir, le moteur s’arrête. [[lab:scenario:engine-stops]] [[frame:post-gas-plume]] Mais le gaz, lui, ne s’arrête pas avec lui. C’est l’histoire la plus grave de ce lab. [[lab:preset:mf-1100]] [[scene:farm]] Voici quelques repères. Il y a cinq mondes, de la ferme au garage. Cliquez sur une pièce : sa fiche s’ouvre, et vous pouvez écouter son histoire. [[mode:assembly]] Montage raconte, au passé, comment le système s’assemblait : une lecture, pas une procédure. [[mode:install]] Installation dit ce qu’il fallait réunir avant le premier jour. [[mode:sim]] La simulation vous laisse changer la charge et l’humidité du bois. [[mode:lessons]] Sept leçons expliquent la physique. [[mode:plans]] Dix planches la dessinent. [[mode:explore]] Une dernière chose : ce laboratoire est une reconstitution pédagogique indépendante. Ce n’est ni un plan officiel, ni le produit d’un constructeur. Il explique une machine de l’histoire, et ne donne aucun plan. Les chiffres publiés viennent d’un rapport sur cet institut, d’un livre suédois sur les gazogènes, et de manuels. Les autres sortent de la simulation. Sur les fiches, un chiffre sans marque est publié ; une croix marque un calcul, une étoile une estimation. Le panneau Sources dit qui a dit quoi. [[select:none]] Prenez votre temps : une plaquette met une heure à descendre."
+      "text": "[[home]] [[lab:preset:mf-1100]] Un soir de juin, dans le sud de la Suède, il y a plus d’un demi-siècle, un tracteur rentre des champs. Il roule au bois, avec un filet de gazole. [[frame:chip-barn]] Une plaquette de bois est stockée au sec, dans la grange, avec des milliers d’autres. [[frame:drum-chipper]] Elle a été coupée par les couteaux d’une déchiqueteuse. [[scene:tractor]] Le tracteur l’emporte vers le champ. [[frame:roof-rack]] Elle voyage sur la galerie du toit, avant de tomber dans la soute. [[scene:gasifier]] La plaquette descend doucement, en une heure environ. [[lab:journey:0.15]] Elle sèche. [[lab:journey:0.42]] Puis elle noircit et se défait. [[lab:journey:0.62]] Elle passe sous une flamme : un feu qui manque d’air, exprès. [[lab:journey:0.85]] Dans un lit de charbon rouge, le gaz se refroidit et devient combustible. [[lab:journey:0.98]] Au fond, il ne reste presque rien. [[scene:gas-train]] Le gaz, lui, continue sa route, bien chaud encore : [[frame:filter-box]] il traverse un filtre, puis un refroidisseur. [[frame:cylinder-cutaway]] Dans le cylindre, ce filet de gazole l’allume. Au banc, quarante kilowatts à l’arbre : dix-huit pour cent, dit le rapport. Soit, par le calcul, environ deux cent vingt kilowatts en entrée. [[scene:garage]] Ce soir-là, au garage, le moteur s’arrête. [[lab:scenario:engine-stops]] [[frame:post-gas-plume]] Le gaz ne s’arrête pas avec le moteur : le dernier monde y est consacré. [[lab:preset:mf-1100]] [[scene:farm]] Quelques repères. Il y a cinq mondes, de la ferme au garage. Cliquez sur une pièce : sa fiche s’ouvre, et vous pouvez écouter son histoire. [[mode:assembly]] Montage raconte, au passé et sans procédure, comment le système s’assemblait. [[mode:install]] Installation dit ce qu’il fallait réunir avant le premier jour. [[mode:sim]] La simulation vous laisse changer la charge et l’humidité du bois. [[mode:lessons]] Sept leçons expliquent la physique. [[mode:plans]] Dix planches la dessinent. [[mode:explore]] Une dernière chose : ce laboratoire est une reconstitution pédagogique indépendante. Ce n’est ni un plan officiel, ni le produit d’un constructeur. Il explique une machine de l’histoire, et ne donne aucun plan. Les chiffres publiés viennent d’un rapport sur cet institut, d’un livre suédois sur les gazogènes, et de manuels. Les autres sortent de la simulation. Sur les fiches, un chiffre sans marque est publié ; une croix marque un calcul, une étoile une estimation. Le panneau Sources dit qui a dit quoi. [[select:none]]"
     },
     {
       "id": "scene-farm",
       "scope": "scene:farm",
       "title": "La ferme et son bois",
       "scene": "farm",
-      "text": "[[home]] Une grande ferme du sud de la Suède, vers mille neuf cent soixante-dix. [[flows:on]] [[frame:chip-barn]] Le bois commence ici, au sec, dans la grange. [[frame:drum-chipper]] La déchiqueteuse le coupe en plaquettes, [[frame:chip-sieve]] et le crible les débarrasse de leurs fines. [[frame:wood-gas-tractor]] Le tracteur les emporte, et traîne [[frame:clod-crusher]] un brise-mottes de quatre mètres de large. [[frame:ash-bin]] Ce que la machine laisse, la cendre, [[frame:condensate-barrel]] et une eau noire, finit dans un bac et dans un fût. [[flows:off]] [[frame:farm-garage]] Et là, collé à la maison, le garage. Gardez-le en tête. [[home]] La ferme n’a aucune source : ses murs sont dessinés à l’échelle d’un tracteur de cinq tonnes. Ce qui est réel, c’est ce que la machine y a fait : plus de deux mille cinq cents heures en six ans."
+      "text": "[[home]] Une grande ferme du sud de la Suède, vers mille neuf cent soixante-dix. [[flows:on]] [[frame:chip-barn]] Le bois commence ici, au sec, dans la grange. [[frame:drum-chipper]] La déchiqueteuse le coupe en plaquettes, [[frame:chip-sieve]] et le crible les débarrasse de leurs fines. [[frame:wood-gas-tractor]] Le tracteur les emporte, et traîne [[frame:clod-crusher]] un brise-mottes de quatre mètres de large. [[frame:ash-bin]] Ce que la machine laisse, la cendre, [[frame:condensate-barrel]] et une eau noire, finit dans un bac et dans un fût. [[flows:off]] [[frame:farm-garage]] Et là, collé à la maison, le garage. Nous y reviendrons. [[home]] La ferme n’a aucune source. Ses murs sont dessinés à l’échelle d’un tracteur de cinq tonnes. Ce qui est réel, c’est ce que la machine y a fait : plus de deux mille cinq cents heures en six ans."
     },
     {
       "id": "scene-tractor",
       "scope": "scene:tractor",
       "title": "Le tracteur et son système",
       "scene": "tractor",
-      "text": "[[home]] La machine, sur le papier, qui roule sur place. [[frame:tractor-chassis]] Un tracteur de série, et sur son flanc gauche, [[frame:gasifier-unit]] le gazogène : quatre cent cinquante kilos de plus. [[frame:cab]] Son sommet arrive presque à l’œil du conducteur. [[xray:on]] Voyez, la cabine s’efface ! [[xray:off]] [[frame:roof-rack]] Sur le toit, une galerie porte les plaquettes du jour. [[frame:gas-line-run]] [[flows:on]] Et le gaz file vers le moteur, par un filtre et un refroidisseur. [[flows:off]] [[home]] [[explode:0.6]] Écartons un peu les pièces, pour voir qui porte quoi… [[explode:0]] Rien ne flotte : chaque pièce a son appui."
+      "text": "[[home]] La machine, sur le papier, qui roule sur place. [[frame:tractor-chassis]] Un tracteur de série, et sur son flanc gauche, [[frame:gasifier-unit]] le gazogène : quatre cent cinquante kilos de plus. [[frame:cab]] Son sommet arrive presque à l’œil du conducteur. [[xray:on]] La cabine s’efface. [[xray:off]] [[frame:roof-rack]] Sur le toit, une galerie porte les plaquettes du jour. [[frame:gas-line-run]] [[flows:on]] Et le gaz file vers le moteur, par un filtre et un refroidisseur. [[flows:off]] [[home]] [[explode:0.6]] Écartées, les pièces montrent qui porte quoi. [[explode:0]] Rien ne flotte. Chaque pièce a son appui."
     },
     {
       "id": "scene-gasifier",
       "scope": "scene:gasifier",
       "title": "Le voyage d’une plaquette",
       "scene": "gasifier",
-      "text": "[[home]] [[lab:preset:mf-1100]] Voici l’appareil, toujours en coupe, et sa plaquette qui voyage. [[frame:spring-lid]] Elle entre par le couvercle, et là, [[frame:chip-column]] [[lab:journey:0.05]] la colonne l’entraîne tout doucement vers le bas : une heure environ. [[frame:drying-zone]] [[lab:journey:0.15]] D’abord, elle sèche : la vapeur d’eau s’en va. [[frame:pyrolysis-zone]] [[lab:journey:0.42]] Puis elle se défait en charbon et en vapeurs. [[frame:oxidation-zone]] [[lab:journey:0.62]] Ces vapeurs doivent traverser la flamme. [[frame:reduction-zone]] [[lab:journey:0.85]] Après quoi le gaz chaud traverse du charbon rouge, où il se refroidit : c’est là qu’il devient combustible. [[frame:ash-pit]] [[lab:journey:0.98]] Reste un peu de cendre : c’est la fin du voyage. [[lab:journey:0.62]] [[home]] Le curseur du voyage et les planches du gazogène ne sont pas à l’échelle : exprès. La coupe, elle, est à l’échelle. [[flows:on]] Voyez maintenant l’air entrer, et le gaz sortir… [[flows:off]]"
+      "text": "[[home]] [[lab:preset:mf-1100]] L’appareil est toujours montré en coupe, avec sa plaquette. [[frame:spring-lid]] Elle entre par le couvercle, et là, [[frame:chip-column]] [[lab:journey:0.05]] la colonne l’entraîne tout doucement vers le bas, en une heure environ. [[frame:drying-zone]] [[lab:journey:0.15]] D’abord, elle sèche, et la vapeur d’eau s’en va. [[frame:pyrolysis-zone]] [[lab:journey:0.42]] Puis elle se défait en charbon et en vapeurs. [[frame:oxidation-zone]] [[lab:journey:0.62]] Ces vapeurs doivent traverser la flamme. [[frame:reduction-zone]] [[lab:journey:0.85]] Après quoi le gaz chaud traverse du charbon rouge, où il se refroidit : c’est là qu’il devient combustible. [[frame:ash-pit]] [[lab:journey:0.98]] Il reste un peu de cendre, à la fin du voyage. [[lab:journey:0.62]] [[home]] Le curseur du voyage et les planches du gazogène ne sont pas à l’échelle : exprès. La coupe, elle, est à l’échelle. [[flows:on]] L’air entre, le gaz sort. [[flows:off]]"
     },
     {
       "id": "scene-gas-train",
       "scope": "scene:gas-train",
       "title": "La ligne de gaz",
       "scene": "gas-train",
-      "text": "[[home]] [[lab:preset:mf-1100]] Le gaz, de la sortie au moteur, à plat et dans l’ordre. [[flows:on]] [[frame:hot-gas-pipe]] Il sort chaud, et le tuyau le garde chaud : trop tôt refroidi, il mouillerait le filtre. [[frame:filter-box]] Là, une toile arrête la poussière. [[frame:gas-cooler]] Puis le refroidisseur le fait tomber vers vingt degrés : plus froid, il est plus dense. [[frame:gas-air-mixer]] Au mélangeur, il retrouve de l’air. [[frame:cylinder-cutaway]] Dans le cylindre, un filet de gazole l’allume. [[flows:off]] [[home]] Regardez le sol : des rubans disent où va l’énergie. Le bois qui entre, le gaz, le gazole, le travail à l’arbre, et en gris, les pertes. Il y a bien plus de gris que de travail."
+      "text": "[[home]] [[lab:preset:mf-1100]] Le gaz, de la sortie au moteur, à plat et dans l’ordre. [[flows:on]] [[frame:hot-gas-pipe]] Il sort chaud, et le tuyau le garde chaud : trop tôt refroidi, il mouillerait le filtre. [[frame:filter-box]] Là, une toile arrête la poussière. [[frame:gas-cooler]] Puis le refroidisseur le fait tomber vers vingt degrés, car un gaz plus froid est plus dense. [[frame:gas-air-mixer]] Au mélangeur, il retrouve de l’air. [[frame:cylinder-cutaway]] Dans le cylindre, un filet de gazole l’allume. [[flows:off]] [[home]] Au sol, des rubans disent où va l’énergie. Le bois qui entre, le gaz, le gazole, le travail à l’arbre, et en gris, les pertes. Il y a bien plus de gris que de travail."
     },
     {
       "id": "scene-garage",
       "scope": "scene:garage",
       "title": "Ce qu’elle fait quand on s’arrête",
       "scene": "garage",
-      "text": "[[home]] [[lab:scenario:closed-garage]] Le même tracteur, garé dans le garage, sous une chambre. [[frame:post-gas-plume]] Le moteur est arrêté. Mais le gaz continue de se former dans le lit chaud, et il sort, même d’une machine qui paraissait étanche. [[flows:on]] [[lab:speed:600]] [[frame:co-indicator]] Voici l’indicateur : sa lampe s’allume dès que le monoxyde a touché la pièce, et elle ne s’éteint plus. [[frame:room-above]] Là-haut, la chambre en reçoit à son tour, plus tard. [[flows:off]] [[frame:garage-door]] Et la porte ? Les Suédois ont jugé très insuffisant de lancer le ventilateur ou le moteur portes de garage ouvertes. Ici, le moteur est arrêté. Voyons la boîte du modèle, où l’air est bien mélangé : [[lab:door:open]] le chiffre tombe vite. C’est ce qu’une boîte est faite pour dire. [[lab:preset:mf-1100]] [[home]] Pendant combien de temps ? Les sources divergent."
+      "text": "[[home]] [[lab:scenario:closed-garage]] Le même tracteur, garé dans le garage, sous une chambre. [[frame:post-gas-plume]] Le moteur est arrêté. Mais le gaz continue de se former dans le lit chaud, et il sort, même d’une machine qui paraissait étanche. [[flows:on]] [[lab:speed:600]] [[frame:co-indicator]] L’indicateur a une lampe, qui s’allume dès que le monoxyde a touché la pièce et ne s’éteint plus. [[frame:room-above]] Là-haut, la chambre en reçoit à son tour, plus tard. [[flows:off]] [[frame:garage-door]] Pour la porte, les Suédois ont jugé très insuffisant de lancer le ventilateur ou le moteur portes de garage ouvertes. Ici, le moteur est arrêté. Dans la boîte du modèle, où l’air est bien mélangé, [[lab:door:open]] le chiffre tombe vite : une boîte bien mélangée donne toujours cela. [[lab:preset:mf-1100]] [[home]] Quant à la durée de la poussée, les sources divergent."
     },
     {
       "id": "part-wood-gas-tractor",
       "scope": "part:wood-gas-tractor",
       "title": "Tracteur à gaz de bois",
       "scene": "farm",
-      "text": "Voici la machine entière : un tracteur de cinq tonnes qui roule au bois, avec un filet de gazole ! À quarante kilowatts à l’arbre, le modèle brûle trente-quatre kilos de plaquettes à l’heure. Le banc de l’institut en a mesuré quarante et un. Pourquoi cet écart ? Le moteur du modèle brûle mieux que celui du banc, et son gazogène aussi. Les conducteurs habituels n’en voulaient pas : c’était long, sale et lourd."
+      "text": "La machine entière est un tracteur de cinq tonnes qui roule au bois, avec un filet de gazole. À quarante kilowatts à l’arbre, le modèle brûle trente-quatre kilos de plaquettes à l’heure. Le banc de l’institut en a mesuré quarante et un. L’écart vient du modèle : son moteur brûle mieux que celui du banc, et son gazogène aussi. Les conducteurs habituels n’en voulaient pas, car c’était long, sale et lourd."
     },
     {
       "id": "part-chip-barn",
@@ -72,21 +72,21 @@
       "scope": "part:drum-chipper",
       "title": "Déchiqueteuse",
       "scene": "farm",
-      "text": "Un tracteur à gaz de bois ne brûle pas des bûches. Les plaquettes naissent ici : un tambour garni de couteaux, qui coupe le bois en morceaux. La taille compte, car le gaz doit passer entre eux. Selon le rapport, les bonnes plaquettes font surtout de quinze à trente millimètres."
+      "text": "Un tracteur à gaz de bois ne brûle pas des bûches. Les plaquettes se font ici, dans un tambour garni de couteaux qui coupe le bois en morceaux. La taille compte, car le gaz doit passer entre eux. Selon le rapport, les bonnes plaquettes font surtout de quinze à trente millimètres."
     },
     {
       "id": "part-chip-sieve",
       "scope": "part:chip-sieve",
       "title": "Crible",
       "scene": "farm",
-      "text": "Les fines, ce sont les éclats et la poussière : elles bouchent le chemin du gaz. Sur un tracteur de la même famille, des plaquettes criblées ont donné un quart de puissance de plus. Le prix ? Quatorze pour cent du bois jeté. Le modèle ne trouve que dix pour cent de gain ici : il n’a que la perte de pression."
+      "text": "Les fines, ce sont les éclats et la poussière, qui bouchent le chemin du gaz. Sur un tracteur de la même famille, des plaquettes criblées ont donné un quart de puissance de plus. Le coût : quatorze pour cent du bois jeté. Le modèle ne trouve que dix pour cent de gain ici, car il ne tient compte que de la perte de pression."
     },
     {
       "id": "part-clod-crusher",
       "scope": "part:clod-crusher",
       "title": "Brise-mottes",
       "scene": "farm",
-      "text": "C’est la raison d’être de toute la machine : un brise-mottes de quatre mètres de large, traîné derrière le tracteur. Plus de deux mille cinq cents heures de service en six ans, transports compris. Voyez, il s’est arrêté : la caméra ne court pas après lui."
+      "text": "La raison d’être de toute la machine, c’est un brise-mottes de quatre mètres de large, traîné derrière le tracteur. Plus de deux mille cinq cents heures de service en six ans, transports compris. À l’écran, il reste à l’arrêt."
     },
     {
       "id": "part-farmhouse",
@@ -114,35 +114,35 @@
       "scope": "part:condensate-barrel",
       "title": "Fût de condensats",
       "scene": "farm",
-      "text": "Voici où finit l’eau noire : en refroidissant, le gaz laisse de l’eau chargée de goudrons. Typiquement, elle contient mille cinq cents à trois mille milligrammes de phénols par litre. C’est cent cinquante à trois cents fois la limite d’égout de la Suède en guerre. Pour son sort, voyez votre autorité locale."
+      "text": "L’eau noire finit ici. En refroidissant, le gaz laisse de l’eau chargée de goudrons. Typiquement, elle contient mille cinq cents à trois mille milligrammes de phénols par litre. C’est cent cinquante à trois cents fois la limite d’égout de la Suède en guerre. Pour son sort, voyez votre autorité locale."
     },
     {
       "id": "part-field-ditch",
       "scope": "part:field-ditch",
       "title": "Fossé",
       "scene": "farm",
-      "text": "Un fossé borde presque toute ferme de plaine. Celui-ci ne fait rien, exprès : rien n’y coule. Il ne pose qu’une question : où allait l’eau noire ? Dans les deux fermes de l’institut, rien de ce que nous avons lu ne le dit."
+      "text": "Un fossé borde presque toute ferme de plaine. Celui-ci ne fait rien, exprès, et rien n’y coule. Reste une question : où allait l’eau noire ? Dans les deux fermes de l’institut, rien de ce que nous avons lu ne le dit."
     },
     {
       "id": "part-tractor-chassis",
       "scope": "part:tractor-chassis",
       "title": "Châssis",
       "scene": "tractor",
-      "text": "Sans son gazogène, c’est un tracteur de série. Le système pèse quatre cent cinquante kilos : presque neuf pour cent du tracteur en version gaz. [[explode:0.7]] Voyez tout le reste quitter le châssis, chacun le long de sa ligne ! [[explode:0]] L’institut a aussi retiré les masses avant, et tourné le filtre à air."
+      "text": "Sans son gazogène, c’est un tracteur de série. Le système pèse quatre cent cinquante kilos : presque neuf pour cent du tracteur en version gaz. [[explode:0.7]] Tout le reste quitte le châssis, chacun le long de sa ligne. [[explode:0]] L’institut a aussi retiré les masses avant, et tourné le filtre à air."
     },
     {
       "id": "part-cab",
       "scope": "part:cab",
       "title": "Cabine",
       "scene": "tractor",
-      "text": "Là où l’on conduit. Le sommet du gazogène arrive juste sous l’œil du conducteur : de trois à dix-huit centimètres d’écart. [[xray:on]] La cabine s’efface : le sommet se lit tout contre l’œil. [[xray:off]] Et l’air de la cabine ? Personne ne l’a mesuré."
+      "text": "Là où l’on conduit. Le sommet du gazogène arrive juste sous l’œil du conducteur : de trois à dix-huit centimètres d’écart. [[xray:on]] La cabine s’efface, et le sommet se lit tout contre l’œil. [[xray:off]] Personne n’a mesuré l’air de la cabine."
     },
     {
       "id": "part-roof-rack",
       "scope": "part:roof-rack",
       "title": "Galerie",
       "scene": "tractor",
-      "text": "La soute ne tient que quarante à cinquante minutes de plaquettes. Le reste voyage sur le toit, au-dessus du conducteur : un poste de huit heures en demande plus de deux cents kilos. Le lab ne dit pas que c’était un bon choix, mais que c’était nécessaire."
+      "text": "La soute ne tient que quarante à cinquante minutes de plaquettes. Le reste voyage sur le toit, au-dessus du conducteur : un poste de huit heures en demande plus de deux cents kilos. On ne sait pas si c’était un bon choix ; c’était en tout cas nécessaire."
     },
     {
       "id": "part-roof-headlights",
@@ -163,28 +163,28 @@
       "scope": "part:front-wheels",
       "title": "Roues avant",
       "scene": "tractor",
-      "text": "Voyez : [[lab:scenario:engine-stops]] le moteur s’arrête, et les roues cessent de rouler. Elles sont plus petites, et allégées : l’institut a retiré les masses avant, pour faire place au refroidisseur. Comment la direction l’a pris, rien de ce que nous avons lu ne le dit. [[lab:preset:mf-1100]]"
+      "text": "[[lab:scenario:engine-stops]] Le moteur s’arrête, et les roues cessent de rouler. Elles sont plus petites, et allégées, car l’institut a retiré les masses avant pour faire place au refroidisseur. Comment la direction l’a pris, rien de ce que nous avons lu ne le dit. [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-diesel-engine",
       "scope": "part:diesel-engine",
       "title": "Moteur diesel",
       "scene": "tractor",
-      "text": "Au gazole seul, ce six-cylindres donne soixante-quatre kilowatts ; au gaz avec un filet de gazole, cinquante et un. Le modèle en trouve cinquante-cinq, mais cet accord vaut peu : il lit trente pour cent trop haut les autres moteurs. Pourquoi moins ? Le mélange de gaz et d’air contient deux mille cinq cents kilojoules par mètre cube. L’essence en contient trois mille huit cents."
+      "text": "Au gazole seul, ce six-cylindres donne soixante-quatre kilowatts ; au gaz avec un filet de gazole, cinquante et un. Le mélange de gaz et d’air contient moins d’énergie : deux mille cinq cents kilojoules par mètre cube. Celui de l’essence en contient trois mille huit cents. Le modèle en trouve cinquante-cinq, mais cet accord vaut peu : il lit trente pour cent trop haut les autres moteurs."
     },
     {
       "id": "part-injection-pump",
       "scope": "part:injection-pump",
       "title": "Pompe d’injection",
       "scene": "tractor",
-      "text": "Même au gaz, le diesel garde sa pompe : c’est elle qui dose le filet de gazole dont la flamme a besoin. Mais elle est sous le capot, tout près du gazogène… qui est chaud ! À vingt-cinq heures, elle a grippé. L’institut a ajouté un écran de rayonnement."
+      "text": "Même au gaz, le diesel garde sa pompe, qui dose le filet de gazole dont la flamme a besoin. Mais elle est sous le capot, tout près du gazogène, qui est chaud. À vingt-cinq heures, elle a grippé. L’institut a ajouté un écran de rayonnement."
     },
     {
       "id": "part-heat-shield",
       "scope": "part:heat-shield",
       "title": "Écran thermique",
       "scene": "tractor",
-      "text": "Une plaque d’acier est muette, mais elle raconte : on n’ajoute un écran qu’après avoir vu quelque chose griller. La tôle du gazogène atteint environ deux cent dix degrés, une estimation. Ni la matière, ni la taille de l’écran ne sont dites."
+      "text": "Un écran n’est ajouté qu’après avoir vu quelque chose griller : celui-ci en est la trace. La tôle du gazogène atteint environ deux cent dix degrés, une estimation. Ni la matière, ni la taille de l’écran ne sont dites."
     },
     {
       "id": "part-extra-governor",
@@ -205,7 +205,7 @@
       "scope": "part:gasifier-unit",
       "title": "Gazogène",
       "scene": "tractor",
-      "text": "Voici le cœur de la machine : deux mètres vingt-deux de haut, et il fabrique le gaz ! Des plaquettes y descendent, et il en sort du gaz. [[xray:on]] Voyez le feu briller dans la tôle du bas. [[xray:off]] Au banc, le gaz vaut cinq virgule six mégajoules par mètre cube ; le modèle en trouve cinq virgule trois."
+      "text": "Le gazogène mesure deux mètres vingt-deux de haut. Des plaquettes y descendent, et il en sort du gaz. [[xray:on]] Le feu brille dans la tôle du bas. [[xray:off]] Au banc, le gaz vaut cinq virgule six mégajoules par mètre cube ; le modèle en trouve cinq virgule trois."
     },
     {
       "id": "part-gas-line-run",
@@ -219,7 +219,7 @@
       "scope": "part:spring-lid",
       "title": "Couvercle à ressort",
       "scene": "gasifier",
-      "text": "Un couvercle et un ressort : la pièce la plus simple, et la plus lourde de conséquences. S’il ne ferme pas, l’air entre par le haut : le livre suédois dit qu’un gazogène garé brûle alors comme un poêle. Le modèle l’essaie sur trois fuites : la plus grande dure environ six heures."
+      "text": "Un couvercle et un ressort, c’est la pièce la plus simple de la machine. S’il ne ferme pas, l’air entre par le haut : le livre suédois dit qu’un gazogène garé brûle alors comme un poêle. Le modèle l’essaie sur trois fuites : la plus grande dure environ six heures."
     },
     {
       "id": "part-fuel-casing",
@@ -233,7 +233,7 @@
       "scope": "part:chip-column",
       "title": "Colonne de plaquettes",
       "scene": "gasifier",
-      "text": "[[lab:journey:0.05]] Voici les deux vitesses de cette machine. La colonne descend d’environ un centimètre et demi par minute : une plaquette met une heure à descendre. Le gaz, lui, traverse le même lit en quelques centièmes de seconde. Le bois à l’allure d’un escargot, le gaz d’un trait : c’est ce rapport qui fait de l’énergie ! [[lab:journey:0.62]]"
+      "text": "[[lab:journey:0.05]] La machine a deux vitesses. La colonne descend d’environ un centimètre et demi par minute, et une plaquette met une heure à descendre. Le gaz, lui, traverse le même lit en quelques centièmes de seconde. Le bois va à l’allure d’un escargot, le gaz d’un trait. [[lab:journey:0.62]]"
     },
     {
       "id": "part-drying-zone",
@@ -254,77 +254,77 @@
       "scope": "part:oxidation-zone",
       "title": "Zone d’oxydation",
       "scene": "gasifier",
-      "text": "Voici le feu ! [[lab:journey:0.62]] De mille deux cents à quinze cents degrés, écrit le rapport. Le modèle trouve mille deux cent trente-cinq degrés, et mille soixante-seize avec la perte de la paroi. Les vapeurs doivent traverser cette flamme. Presque aucun goudron n’en sort : zéro virgule zéro trois pour cent du bois, au banc. Un gazogène à courant montant en laisse cinq à vingt pour cent. Un feu qui manque d’air fait du gaz ; un feu qui en a assez ne laisse que des cendres. Tout le gazogène tient dans cette phrase."
+      "text": "Le feu. [[lab:journey:0.62]] De mille deux cents à quinze cents degrés, écrit le rapport. Le modèle trouve mille deux cent trente-cinq degrés, et mille soixante-seize avec la perte de la paroi. Les vapeurs doivent traverser cette flamme. Presque aucun goudron n’en sort : zéro virgule zéro trois pour cent du bois, au banc. Un gazogène à courant montant en laisse cinq à vingt pour cent. Un feu qui manque d’air fait du gaz ; un feu qui en a assez ne laisse que des cendres."
     },
     {
       "id": "part-reduction-zone",
       "scope": "part:reduction-zone",
       "title": "Zone de réduction",
       "scene": "gasifier",
-      "text": "Sous la flamme, un lit de charbon rouge, et un tour de magie. [[lab:journey:0.85]] Le gaz s’y refroidit, et c’est là qu’il devient combustible ! Le gaz carbonique reprend du carbone et devient du monoxyde ; la vapeur d’eau devient de l’hydrogène. Ces réactions prennent de la chaleur : le gaz perd environ trois cent soixante-dix degrés. Il sort, selon le modèle, avec un cinquième de monoxyde, un sixième d’hydrogène, presque moitié d’azote. [[lab:journey:0.62]]"
+      "text": "Sous la flamme, un lit de charbon rouge. [[lab:journey:0.85]] Le gaz s’y refroidit, et c’est là qu’il devient combustible. Le gaz carbonique reprend du carbone et devient du monoxyde ; la vapeur d’eau devient de l’hydrogène. Ces réactions prennent de la chaleur, et le gaz perd environ trois cent soixante-dix degrés. Il sort, selon le modèle, avec un cinquième de monoxyde, un sixième d’hydrogène, presque moitié d’azote. [[lab:journey:0.62]]"
     },
     {
       "id": "part-fuel-baffle",
       "scope": "part:fuel-baffle",
       "title": "Déflecteur",
       "scene": "gasifier",
-      "text": "Voici une pièce que le lab dessine sans pouvoir la citer : le rapport la montre sur une figure, sans un mot. Notre lecture : elle tient les plaquettes loin de la paroi froide, où l’eau et les goudrons collent. Mais c’est une lecture, pas un fait."
+      "text": "Cette pièce est dessinée sans qu’aucun texte la décrive : le rapport la montre sur une figure, sans un mot. Notre lecture : elle tient les plaquettes loin de la paroi froide, où l’eau et les goudrons collent. Rien ne confirme cette lecture."
     },
     {
       "id": "part-condensate-sleeve",
       "scope": "part:condensate-sleeve",
       "title": "Manchon de condensation",
       "scene": "gasifier",
-      "text": "Voici une astuce de bon sens ! Au lieu de laisser l’eau du bois descendre dans le feu et le refroidir, on la fait se condenser ailleurs. [[flows:on]] La vapeur traverse les perforations, touche la paroi froide, et coule vers la purge. [[flows:off]] Soixante à quatre-vingts pour cent de l’eau du bois peut ainsi s’évacuer."
+      "text": "Au lieu de laisser l’eau du bois descendre refroidir le feu, on la fait se condenser ailleurs. [[flows:on]] La vapeur traverse les perforations, touche la paroi froide, et coule vers la purge. [[flows:off]] Soixante à quatre-vingts pour cent de l’eau du bois peut ainsi s’évacuer."
     },
     {
       "id": "part-condensate-drain",
       "scope": "part:condensate-drain",
       "title": "Purge",
       "scene": "gasifier",
-      "text": "La sortie de l’eau noire, vers un bac. Sans bac, écrit le rapport, elle reviendrait mouiller le lit de charbon après un arrêt. Combien ? Un virgule neuf litre à l’heure à huit pour cent d’humidité, cinq virgule sept à vingt, dans le modèle."
+      "text": "La sortie de l’eau noire, vers un bac. Sans bac, écrit le rapport, elle reviendrait mouiller le lit de charbon après un arrêt. Le modèle compte un virgule neuf litre à l’heure à huit pour cent d’humidité, cinq virgule sept à vingt."
     },
     {
       "id": "part-eccentric-lock",
       "scope": "part:eccentric-lock",
       "title": "Verrou à came",
       "scene": "gasifier",
-      "text": "Le gazogène est fait de deux corps : le haut garde le combustible, le bas garde le feu. [[explode:0.5]] Une bande les tient, et ce verrou serre la bande. [[explode:0]] [[lab:scenario:air-leak]] Mais chaque joint laisse l’air entrer, et cet air brûle le gaz fini, près de la grille. Voyez : le gaz tombe de cinq virgule trois à quatre virgule deux mégajoules. La taille de la fuite est une supposition ; le sens ne l’est pas : plus chaud, plus faible. [[lab:preset:mf-1100]]"
+      "text": "Le gazogène est fait de deux corps, le haut qui garde le combustible et le bas qui garde le feu. [[explode:0.5]] Une bande les tient, et ce verrou serre la bande. [[explode:0]] [[lab:scenario:air-leak]] Mais chaque joint laisse l’air entrer, et cet air brûle le gaz fini, près de la grille. Le gaz tombe de cinq virgule trois à quatre virgule deux mégajoules. La taille de la fuite est une supposition ; le sens ne l’est pas : plus chaud, plus faible. [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-outer-casing",
       "scope": "part:outer-casing",
       "title": "Enveloppe",
       "scene": "gasifier",
-      "text": "La tôle chaude du gazogène : environ deux cent dix degrés à pleine charge, dans le modèle. [[xray:on]] Le corps du haut s’efface, et le feu brille dans la tôle du bas. [[xray:off]] Deux comptes de ses pertes ne se recoupent pas : le lab laisse les deux, il ne choisit pas celui qui l’arrange."
+      "text": "La tôle chaude du gazogène atteint environ deux cent dix degrés à pleine charge, dans le modèle. [[xray:on]] Le corps du haut s’efface, et le feu brille dans la tôle du bas. [[xray:off]] Deux comptes de ses pertes ne se recoupent pas : les deux sont gardés."
     },
     {
       "id": "part-air-intake",
       "scope": "part:air-intake",
       "title": "Prise d’air",
       "scene": "gasifier",
-      "text": "Par ici entre l’air du feu, aspiré par le moteur : toute la ligne est en dépression. Quand le moteur s’arrête, l’aspiration cesse, et le gaz continue de se former. Le sens s’inverse : on a vu sortir ici du gaz blanc ou jaune. Une même ouverture, deux sens, deux moments : voilà toute l’affaire du garage."
+      "text": "Par ici entre l’air du feu, aspiré par le moteur : toute la ligne est en dépression. Quand le moteur s’arrête, l’aspiration cesse, et le gaz continue de se former. Le sens s’inverse : on a vu sortir ici du gaz blanc ou jaune."
     },
     {
       "id": "part-air-nozzles",
       "scope": "part:air-nozzles",
       "title": "Tuyères",
       "scene": "gasifier",
-      "text": "L’air du feu entre par les tuyères, en anneau autour du foyer. Ce n’est pas une pression qui le pousse : c’est le moteur qui l’aspire. [[flows:on]] Voyez-le faire le tour, puis se répartir. [[flows:off]] Trop d’air, et tout le bois brûlerait : plus de gaz. Sans air, plus de flamme !"
+      "text": "L’air du feu entre par les tuyères, en anneau autour du foyer. Aucune pression ne le pousse : le moteur l’aspire. [[flows:on]] Il fait le tour, puis se répartit. [[flows:off]] Trop d’air, et tout le bois brûlerait : plus de gaz. Sans air, plus de flamme."
     },
     {
       "id": "part-fire-box",
       "scope": "part:fire-box",
       "title": "Foyer",
       "scene": "gasifier",
-      "text": "Le pot qui contient le feu. L’air passe entre lui et l’enveloppe avant d’entrer dans le feu. C’est la pièce la plus éprouvée : elle se fissure entre six cents et mille heures, d’après plusieurs véhicules. Le rapport note la vie de chaque pièce : c’est une des raisons de le croire."
+      "text": "Le pot qui contient le feu. L’air passe entre lui et l’enveloppe avant d’entrer dans le feu. C’est la pièce la plus éprouvée : elle se fissure entre six cents et mille heures, d’après plusieurs véhicules. Le rapport note la durée de vie de chaque pièce."
     },
     {
       "id": "part-throat-ring",
       "scope": "part:throat-ring",
       "title": "Anneau de gorge",
       "scene": "gasifier",
-      "text": "L’étranglement par où passe tout le gaz du feu, au point le plus chaud ! Pourquoi y tenir ? Les vapeurs et les goudrons descendent avec le bois. S’ils contournaient la flamme, ils sortiraient tels quels. L’anneau les force à la traverser. Il tient environ sept cents heures, dit le rapport, puis se remplace. Ce lab explique ce que fait cette pièce, pas comment la faire."
+      "text": "L’étranglement par où passe tout le gaz du feu, au point le plus chaud. Les vapeurs et les goudrons descendent avec le bois. S’ils contournaient la flamme, ils sortiraient tels quels. L’anneau les force à la traverser. Il tient environ sept cents heures, dit le rapport, puis se remplace. Ici, on dit ce que fait cette pièce, et rien de sa fabrication."
     },
     {
       "id": "part-grate",
@@ -366,56 +366,56 @@
       "scope": "part:stop-valve",
       "title": "Vanne d’arrêt",
       "scene": "gas-train",
-      "text": "Sur le schéma du rapport, une vanne d’arrêt entre le tuyau chaud et le filtre. À quoi servait-elle ? Le rapport ne le dit pas, et ce lab ne décrit aucun usage. Notre lecture : elle ne change rien à ce qui se forme dans l’appareil. Une vanne sur un tuyau de gaz donne une impression de maîtrise."
+      "text": "Sur le schéma du rapport, une vanne d’arrêt entre le tuyau chaud et le filtre. Le rapport ne dit pas à quoi elle servait, et aucun usage n’en est décrit ici. Notre lecture : elle ne change rien à ce qui se forme dans l’appareil."
     },
     {
       "id": "part-starting-fan",
       "scope": "part:starting-fan",
       "title": "Ventilateur de démarrage",
       "scene": "gas-train",
-      "text": "Quand le moteur ne tire pas encore, un ventilateur le remplace : il aspire de l’air à travers l’appareil. Il rejette le gaz par une cheminée : environ deux cents litres de monoxyde à la minute, dit le livre suédois. Le lab en garde la trace, pas la marche à suivre."
+      "text": "Quand le moteur ne tire pas encore, un ventilateur le remplace, en aspirant de l’air à travers l’appareil. Il rejette le gaz par une cheminée : environ deux cents litres de monoxyde à la minute, dit le livre suédois. Seule la trace en est gardée ici, sans aucune marche à suivre."
     },
     {
       "id": "part-fan-stack",
       "scope": "part:fan-stack",
       "title": "Cheminée du ventilateur",
       "scene": "gas-train",
-      "text": "Elle part du té du tuyau chaud, et monte à environ deux mètres et demi. Elle emmène vers le haut le gaz que rejette le ventilateur. Mais une cheminée ne change pas la nature de ce gaz : environ un cinquième est du monoxyde de carbone. Elle déplace le nuage, pas le danger."
+      "text": "Elle part du té du tuyau chaud, et monte à environ deux mètres et demi. Elle emmène vers le haut le gaz que rejette le ventilateur. Mais une cheminée ne change pas la nature de ce gaz : environ un cinquième est du monoxyde de carbone, où qu’il aille."
     },
     {
       "id": "part-primary-air-valve",
       "scope": "part:primary-air-valve",
       "title": "Vanne d’air primaire",
       "scene": "gas-train",
-      "text": "Sur le schéma du rapport, l’air du feu part de l’œil du ventilateur, passe par cette vanne, puis entre au gazogène. [[flows:on]] Les points d’air suivent ce chemin. [[flows:off]] Ce lab ne donne ni position, ni réglage de cette vanne : ce serait un réglage de plus."
+      "text": "Sur le schéma du rapport, l’air du feu part de l’œil du ventilateur, passe par cette vanne, puis entre au gazogène. [[flows:on]] Les points d’air suivent ce chemin. [[flows:off]] Aucune position, aucun réglage de cette vanne n’est donné ici."
     },
     {
       "id": "part-cyclone",
       "scope": "part:cyclone",
       "title": "Cyclone",
       "scene": "gas-train",
-      "text": "Un bon cyclone fait tourner le gaz et jette la poussière contre ses parois : soixante à soixante-dix pour cent. Il figure sur le système à filtre à toile du programme, pas sur le schéma de ce tracteur. En avait-il un ? Le rapport ne dit rien, et la photographie ne tranche pas."
+      "text": "Un bon cyclone fait tourner le gaz et jette la poussière contre ses parois : soixante à soixante-dix pour cent. Il figure sur le système à filtre à toile du programme, pas sur le schéma de ce tracteur. Le rapport ne dit pas s’il en avait un, et la photographie ne tranche pas."
     },
     {
       "id": "part-filter-box",
       "scope": "part:filter-box",
       "title": "Caisson de filtre",
       "scene": "gas-train",
-      "text": "Le caisson loge la toile qui arrête la poussière. Elle faisait d’abord deux mètres carrés et demi : la nettoyer toutes les vingt heures, c’était trop. On l’a doublée ! [[xray:on]] Voyez les manches, à l’intérieur. [[xray:off]] C’est aussi un endroit où l’air peut rencontrer du gaz : un retour de flamme y peut être violent."
+      "text": "Le caisson loge la toile qui arrête la poussière. Elle faisait d’abord deux mètres carrés et demi, et la nettoyer toutes les vingt heures, c’était trop. On l’a doublée. [[xray:on]] À l’intérieur, les manches. [[xray:off]] C’est aussi un endroit où l’air peut rencontrer du gaz : un retour de flamme y peut être violent."
     },
     {
       "id": "part-filter-bags",
       "scope": "part:filter-bags",
       "title": "Manches",
       "scene": "gas-train",
-      "text": "La toile est montée en manches plates : le gaz passe à travers, la poussière reste. Derrière elle, il n’en reste que trois dixièmes de milligramme par mètre cube. Mais la toile se paie. [[lab:scenario:filter-ageing]] Voyez-la foncer à mesure que la poussière s’y dépose. Sur le camion du programme, sa résistance doublait vers trois mille kilomètres. [[lab:preset:mf-1100]]"
+      "text": "La toile est montée en manches plates : le gaz passe à travers, la poussière reste. Derrière elle, il n’en reste que trois dixièmes de milligramme par mètre cube. Mais la toile s’encrasse. [[lab:scenario:filter-ageing]] Elle fonce à mesure que la poussière s’y dépose. Sur le camion du programme, sa résistance doublait vers trois mille kilomètres. [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-gas-cooler",
       "scope": "part:gas-cooler",
       "title": "Refroidisseur",
       "scene": "gas-train",
-      "text": "Après le filtre, le gaz est encore chaud : il monte par la moitié des tubes, redescend par l’autre. [[flows:on]] Voyez les points virer du rouge au bleu ! [[flows:off]] Pourquoi le refroidir ? Un gaz plus froid est plus dense. Selon le rapport, dix pour cent de température en moins donnent presque deux pour cent de puissance en plus. Et de l’eau sort : deux litres deux à l’heure."
+      "text": "Après le filtre, le gaz encore chaud monte par la moitié des tubes et redescend par l’autre. [[flows:on]] Les points virent du rouge au bleu. [[flows:off]] On le refroidit parce qu’un gaz plus froid est plus dense. Selon le rapport, dix pour cent de température en moins donnent presque deux pour cent de puissance en plus. Et de l’eau sort, deux litres deux à l’heure."
     },
     {
       "id": "part-cooler-condensate-vessel",
@@ -429,35 +429,35 @@
       "scope": "part:gas-air-mixer",
       "title": "Mélangeur",
       "scene": "gas-train",
-      "text": "Ici le gaz rencontre l’air du filtre à air, à peu près volume pour volume. Il en faut un virgule zéro huit d’air pour un de gaz, par arithmétique ; un virgule douze selon le modèle. Pas de curseur pour cette proportion : c’est un fait du gaz, pas un bouton."
+      "text": "Ici le gaz rencontre l’air du filtre à air, à peu près volume pour volume. Il en faut un virgule zéro huit d’air pour un de gaz, par arithmétique ; un virgule douze selon le modèle. Aucun curseur pour cette proportion : elle vient du gaz lui-même."
     },
     {
       "id": "part-gas-throttle",
       "scope": "part:gas-throttle",
       "title": "Papillon de gaz",
       "scene": "gas-train",
-      "text": "Dans un diesel ordinaire, le pied du conducteur règle le gazole. Ici, il règle le gaz : ce papillon dit combien en entre. Et il a un coût ! [[lab:scenario:idling]] Au ralenti, le levier se ferme presque, et pourtant cinquante-cinq kilowatts entrent, sans rien donner à l’arbre. [[lab:preset:mf-1100]]"
+      "text": "Dans un diesel ordinaire, le pied du conducteur règle le gazole. Ici, il règle le gaz : ce papillon dit combien en entre. Il a un coût. [[lab:scenario:idling]] Au ralenti, le levier se ferme presque, mais cinquante-cinq kilowatts entrent quand même, sans rien donner à l’arbre. [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-secondary-air-throttle",
       "scope": "part:secondary-air-throttle",
       "title": "Papillon d’air",
       "scene": "gas-train",
-      "text": "Un deuxième papillon, sur l’air qu’on ajoute au gaz : l’air secondaire, par opposition à l’air primaire du feu. Il règle la proportion, à la main selon le rapport. C’est un réglage qui a un optimum, et ce lab ne le donne pas."
+      "text": "Un deuxième papillon se trouve sur l’air qu’on ajoute au gaz, l’air secondaire, par opposition à l’air primaire du feu. Il règle la proportion, à la main selon le rapport. Ce réglage a un optimum, qui n’est pas donné ici."
     },
     {
       "id": "part-pilot-injector",
       "scope": "part:pilot-injector",
       "title": "Injecteur pilote",
       "scene": "gas-train",
-      "text": "Un diesel n’a pas de bougie : il allume sa charge en la comprimant, puis en y injectant du gazole. Le gaz et l’air ne s’allument pas ainsi, mais le filet de gazole, si : c’est le pilote. Le bois suffit-il ? La réponse honnête est non : le pilote reste du gazole."
+      "text": "Un diesel n’a pas de bougie : il allume sa charge en la comprimant, puis en y injectant du gazole. Le gaz et l’air ne s’allument pas ainsi, mais le filet de gazole, si : c’est le pilote. Le bois ne suffit donc pas : le pilote reste du gazole."
     },
     {
       "id": "part-cylinder-cutaway",
       "scope": "part:cylinder-cutaway",
       "title": "Cylindre en coupe",
       "scene": "gas-train",
-      "text": "Voici où l’énergie finit en travail : un cylindre coupé en deux. Le vrai moteur fait trente et un tours par seconde : l’œil ne verrait rien. Celui de l’écran tourne à six pour cent du vrai. Et le gaz brûle lentement : le rapport lui voit une limite vers deux mille cinq cents tours par minute."
+      "text": "Ici l’énergie finit en travail : un cylindre coupé en deux. Le vrai moteur fait trente et un tours par seconde, trop vite pour l’œil. Celui de l’écran tourne à six pour cent du vrai. Et le gaz brûle lentement : le rapport lui voit une limite vers deux mille cinq cents tours par minute."
     },
     {
       "id": "part-exhaust-pipe",
@@ -471,21 +471,21 @@
       "scope": "part:water-gauge",
       "title": "Manomètre à eau",
       "scene": "gas-train",
-      "text": "Un tube en U rempli d’eau : la différence des deux niveaux dit la dépression du filtre. Le modèle lit deux cent seize millimètres d’eau. [[lab:scenario:filter-ageing]] Voyez l’écart des colonnes grandir, quand la toile s’encrasse. Il ne dit rien du gaz, seulement que le filtre résiste : un instrument d’une honnêteté rare. [[lab:preset:mf-1100]]"
+      "text": "Un tube en U rempli d’eau : la différence des deux niveaux dit la dépression du filtre. Le modèle lit deux cent seize millimètres d’eau. [[lab:scenario:filter-ageing]] L’écart des colonnes grandit quand la toile s’encrasse. Il ne dit rien du gaz, seulement que le filtre résiste. [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-closed-garage",
       "scope": "part:closed-garage",
       "title": "Garage fermé",
       "scene": "garage",
-      "text": "Voici la pièce où la machine dort : cinquante mètres cubes d’air, ou mille. [[lab:scenario:closed-garage]] [[flows:on]] Ces points, c’est le monoxyde. Le modèle y met un mètre cube de gaz après l’arrêt. Une demi-heure plus tard, dans la petite pièce : environ trois mille cinq cents parties par million. Dans la grande : deux cents. Mais cette boîte est bien mélangée : un vrai garage garde ce gaz en couches, bien plus concentrées. [[flows:off]] [[lab:preset:mf-1100]]"
+      "text": "La pièce où la machine est garée : cinquante mètres cubes d’air, ou mille. [[lab:scenario:closed-garage]] [[flows:on]] Ces points, c’est le monoxyde. Le modèle y met un mètre cube de gaz après l’arrêt. Une demi-heure plus tard, la petite pièce atteint environ trois mille cinq cents parties par million. La grande, deux cents. Mais cette boîte est bien mélangée : un vrai garage garde ce gaz en couches, bien plus concentrées. [[flows:off]] [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-garage-door",
       "scope": "part:garage-door",
       "title": "Porte",
       "scene": "garage",
-      "text": "La porte a trois états. [[lab:scenario:closed-garage]] Prenons cinquante mètres cubes, une demi-heure après l’arrêt. Porte fermée, le modèle compte environ trois mille cinq cents parties par million. Les Suédois ont jugé très insuffisant de lancer le ventilateur ou le moteur portes de garage ouvertes. Ici, le moteur est arrêté : voyons. [[lab:door:open]] Six cent quatre-vingt-dix parties par million, bien moins. Une boîte bien mélangée est faite pour dire cela. Un vrai garage n’est pas une boîte. [[lab:preset:mf-1100]]"
+      "text": "La porte a trois états. [[lab:scenario:closed-garage]] Cinquante mètres cubes, une demi-heure après l’arrêt. Porte fermée, le modèle compte environ trois mille cinq cents parties par million. Les Suédois ont jugé très insuffisant de lancer le ventilateur ou le moteur portes de garage ouvertes. Ici, le moteur est arrêté. [[lab:door:open]] Porte ouverte, six cent quatre-vingt-dix parties par million, bien moins. Un vrai garage n’est pas une boîte bien mélangée. [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-room-above",
@@ -499,7 +499,7 @@
       "scope": "part:post-gas-plume",
       "title": "Panache après l’arrêt",
       "scene": "garage",
-      "text": "Le moteur s’arrête. [[lab:scenario:engine-stops]] Plus rien n’aspire, mais le gaz continue de se former dans le lit chaud. Il pousse une vingtaine de minutes, dit le livre suédois, parfois des heures selon un autre manuel. Il sort, même d’un appareil étanche : vingt-trois à vingt-sept pour cent de monoxyde. Son volume ? Personne ne l’a mesuré : le modèle part d’un mètre cube. Il laisse la poussée s’affaiblir sans jamais s’arrêter : c’est un choix, pas une mesure. Rien de ce que nous avons lu ne dit quand une pièce n’en garde plus : c’est la phrase que ce lab ne peut pas écrire. [[lab:preset:mf-1100]]"
+      "text": "Le moteur s’arrête. [[lab:scenario:engine-stops]] Plus rien n’aspire, mais le gaz continue de se former dans le lit chaud. Il pousse une vingtaine de minutes, dit le livre suédois, parfois des heures selon un autre manuel. Il sort, même d’un appareil étanche, avec vingt-trois à vingt-sept pour cent de monoxyde. Personne n’a mesuré son volume, et le modèle part d’un mètre cube. Le modèle laisse la poussée s’affaiblir sans jamais s’arrêter. Ce choix est le sien ; aucune mesure ne le donne. Rien de ce que nous avons lu ne dit quand une pièce n’en garde plus. [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-exhaust-plume",
@@ -513,14 +513,14 @@
       "scope": "part:co-indicator",
       "title": "Indicateur de monoxyde",
       "scene": "garage",
-      "text": "Un cadran au mur : son aiguille suit le monoxyde de la boîte du modèle. [[lab:scenario:closed-garage]] La lampe s’allume dès que le monoxyde est passé dans la pièce. Ici, elle ne s’éteint plus : le chiffre bas d’une boîte ne dit rien d’une vraie pièce. [[lab:speed:600]] Voyez l’aiguille retomber, et la lampe rester. Pas de zone verte : le cadran dit ce que le modèle sait, et rien de plus. [[lab:preset:mf-1100]]"
+      "text": "Au mur, un cadran dont l’aiguille suit le monoxyde de la boîte du modèle. [[lab:scenario:closed-garage]] La lampe s’allume dès que le monoxyde est passé dans la pièce. Ici, elle ne s’éteint plus : le chiffre bas d’une boîte ne dit rien d’une vraie pièce. [[lab:speed:600]] L’aiguille retombe, et la lampe reste allumée. Pas de zone verte : le cadran ne montre que le chiffre du modèle. [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-old-rescue-set",
       "scope": "part:old-rescue-set",
       "title": "Appareil des années 1940",
       "scene": "garage",
-      "text": "À gauche, un appareil de secours des années quarante. Les médecins de l’époque soignaient les intoxiqués avec des méthodes que ce lab ne décrit pas et ne recommande pas. Il garde l’échelle de l’affaire : environ dix mille cas chroniques enregistrés en Suède en cinq ans."
+      "text": "À gauche, un appareil de secours des années quarante. Les médecins de l’époque soignaient les intoxiqués avec des méthodes que l’on ne décrit ni ne recommande ici. L’échelle de l’affaire : environ dix mille cas chroniques enregistrés en Suède en cinq ans."
     }
   ]
 }

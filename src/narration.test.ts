@@ -20,9 +20,9 @@ const CUE = /\[\[([a-z]+)(?::([^\]]*))?\]\]/g;
 const BOOLEAN_CUES = ['xray', 'cutaway', 'flows', 'isolate'];
 const MODES = ['explore', 'assembly', 'install', 'sim', 'plans', 'lessons'];
 const CAMERA_CUES = ['home', 'scene', 'frame', 'select'];
-/** Ceiling set by the owner for the spoken characters of one language, and what this guide aims for (the series' 17,000 to 24,000, with the French a little over: the fix pass of docs/fact-check.md put its hedges in). */
+/** Ceiling set by the owner for the spoken characters of one language, and what this guide aims for (the series' 17,000 to 24,000). */
 const BUDGET = 30_000;
-const AIM = [17_000, 24_900] as const;
+const AIM = [17_000, 24_000] as const;
 /** generate.mjs refuses a longer segment. */
 const SEGMENT_CAP = 2_500;
 /** This lab's guide is in the local voice (generate.mjs --engine voicebox): a change of voice must be a decision, not an accident. */
@@ -70,7 +70,7 @@ const ONCE: Record<string, Record<string, [RegExp, string]>> = {
     thirtyFour: [/trente-quatre kilos/i, 'part-wood-gas-tractor'],
     neverGoesOut: [/ne s’éteint jamais/i, 'part-drying-zone'],
     oneCubicMetre: [/un mètre cube de gaz après l’arrêt/i, 'part-closed-garage'],
-    noEnd: [/ne peut pas écrire/i, 'part-post-gas-plume'],
+    noEnd: [/ne dit quand une pièce n’en garde plus/i, 'part-post-gas-plume'],
   },
   en: {
     reconstruction: [/educational reconstruction/i, 'intro'],
@@ -83,7 +83,7 @@ const ONCE: Record<string, Record<string, [RegExp, string]>> = {
     thirtyFour: [/thirty-four kilos/i, 'part-wood-gas-tractor'],
     neverGoesOut: [/flame never goes out/i, 'part-drying-zone'],
     oneCubicMetre: [/one cubic metre of gas in it after the stop/i, 'part-closed-garage'],
-    noEnd: [/cannot write/i, 'part-post-gas-plume'],
+    noEnd: [/says when a room holds none of it/i, 'part-post-gas-plume'],
   },
 };
 
@@ -385,6 +385,10 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
               'the book’s « most » keeps its reserve out: « souvent, selon le livre »',
             ],
             [
+              /c’est un choix, pas une mesure|phrase que ce lab ne peut pas|réponse honnête|tient dans cette phrase|voilà toute l’affaire|tour de magie|astuce de bon sens/i,
+              'the owner’s own samples of slop (docs/narration-notes.md): a kicker, an announced honesty, a trick',
+            ],
+            [
               /aucune source (lue )?ne (dit|décrit|le dit)/i,
               'what the lab read, not every source: « rien de ce que nous avons lu » (« lue ne » is heard « lune »)',
             ],
@@ -415,6 +419,10 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
               /most often from an electrical fault/,
               'the book’s « most » keeps its reserve out: « often, says the book »',
             ],
+            [
+              /a choice, not a measurement|sentence this lab cannot write|honest answer|fits in that sentence|whole business of the garage|conjuring trick|sound common sense/i,
+              'the owner’s own samples of slop (docs/narration-notes.md): a kicker, an announced honesty, a trick',
+            ],
             [/\bno source (says|describes)/i, 'what the lab read, not every source: « no source we read »'],
           ];
     for (const [re, why] of retired) expect(where(re), why).toEqual([]);
@@ -444,7 +452,7 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
             ['part-filter-bags', /Sur le camion du programme/],
             [
               'part-post-gas-plume',
-              /laisse la poussée s’affaiblir sans jamais s’arrêter : c’est un choix, pas une mesure/,
+              /Le modèle laisse la poussée s’affaiblir sans jamais s’arrêter\. Ce choix est le sien/,
             ],
             ['part-post-gas-plume', /Rien de ce que nous avons lu ne dit quand une pièce/],
             ['part-farm-garage', /Souvent d’un défaut électrique, selon le livre suédois/],
@@ -469,7 +477,10 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
             ['part-gas-cooler', /By the report, ten per cent less temperature/],
             ['part-cooler-condensate-vessel', /This tractor’s one serious failure/],
             ['part-filter-bags', /On the programme’s truck/],
-            ['part-post-gas-plume', /lets the push weaken without ever stopping: a choice, not a measurement/],
+            [
+              'part-post-gas-plume',
+              /The model lets the push weaken without ever stopping\. That choice is the model’s/,
+            ],
             ['part-post-gas-plume', /No source we read says when a room/],
             ['part-farm-garage', /Often from an electrical fault, says the Swedish book/],
             ['part-farmhouse', /No source we read describes the farmhouse/],
@@ -543,14 +554,12 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
     for (const s of script.segments) expect(spokenOf(s), s.id).not.toMatch(american);
   });
 
-  it('asks questions and marvels a little, as the series does: about as many exclamations and questions as Pelton’s', () => {
+  it('keeps exclamations and questions rare: ceilings only, no floor (a floor is a rule to write them: docs/narration-notes.md, the slop pass)', () => {
     const total = spokenAll.length;
     const exclamations = (spokenAll.match(/!/g) ?? []).length;
     const questions = (spokenAll.match(/\?/g) ?? []).length;
-    expect((exclamations * 1000) / total).toBeGreaterThanOrEqual(0.5);
-    expect((exclamations * 1000) / total).toBeLessThanOrEqual(1.2);
-    expect((questions * 1000) / total).toBeGreaterThanOrEqual(0.25);
-    expect((questions * 1000) / total).toBeLessThanOrEqual(0.9);
+    expect((exclamations * 1000) / total).toBeLessThanOrEqual(0.3);
+    expect((questions * 1000) / total).toBeLessThanOrEqual(0.35);
   });
 
   it('stays within the budget, and near the aim', () => {
@@ -657,4 +666,49 @@ describe('narration scripts agree between languages', () => {
       a.forEach((x, i) => expect(Math.abs(x - b[i]!), `${s.id}: cue ${i}`).toBeLessThanOrEqual(0.25));
     }
   });
+});
+
+describe('the slop check: the tics of docs/narration-notes.md stay under their ceilings', () => {
+  // scripts/slop-check.mjs and scripts/slop-patterns.json are a copy of studio/narration-style (2026-11-11): the lab cannot import from the studio. The tic index counts the patterns of the owner's « less AI slop » pass (stock opener, signposts, rhetorical questions, « not X, it is Y », announced honesty, kickers, personification, exclamations, triplets, anaphora, wonder-words, ellipsis beats, « and yet », closing formulas, question-and-fragment pairs) per 1,000 characters.
+  const TIC = [
+    'P1-opener',
+    'P2-signpost',
+    'P3-short-question',
+    'P4-not-x-but-y',
+    'P5-honesty',
+    'P6-kicker',
+    'P7-personified',
+    'P8-exclamation',
+    'P10-triplet',
+    'P11-anaphora',
+    'P12-wonder-words',
+    'P13-ellipsis-beat',
+    'P14-and-yet',
+    'P17-invitation-formula',
+    'P19-qa-pair',
+  ];
+  const load = (name: string): Promise<any> => import(/* @vite-ignore */ name);
+  const run = async (lang: string) => {
+    const [cp, url] = await Promise.all([load('node:child_process'), load('node:url')]);
+    const script = url.fileURLToPath(new URL('../scripts/slop-check.mjs', import.meta.url));
+    const file = url.fileURLToPath(new URL(`../narration/${lang}.json`, import.meta.url));
+    const out = cp.spawnSync('node', [script, file, '--lang', lang, '--json'], { encoding: 'utf8' });
+    return JSON.parse(out.stdout) as {
+      chars: number;
+      rows: { id: string; hits: number; allowed: number; over: boolean }[];
+    };
+  };
+
+  it.each(['fr', 'en'])(
+    '%s: no pattern over its ceiling, and a tic index of 0.8 per 1,000 characters or less',
+    async (lang) => {
+      const r = await run(lang);
+      expect(
+        r.rows.filter((x) => x.over).map((x) => `${x.id}: ${x.hits} hits, ${x.allowed} allowed`),
+        `${lang}: patterns over their ceilings (node scripts/slop-check.mjs narration/${lang}.json --lang ${lang} --list)`,
+      ).toEqual([]);
+      const hits = r.rows.filter((x) => TIC.includes(x.id)).reduce((n, x) => n + x.hits, 0);
+      expect((hits * 1000) / r.chars, `${lang}: ${hits} tics in ${r.chars} characters`).toBeLessThanOrEqual(0.8);
+    },
+  );
 });

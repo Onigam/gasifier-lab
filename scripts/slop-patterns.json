@@ -1,0 +1,216 @@
+{
+  "note": "Patterns that read as « AI slop » in the narration, the titles and the descriptions of Onigam Labs (owner, 2026-11-11). Derived from the real texts of the gasifier, house, Pelton and ram pump labs and of the six films. Regexes are matched on the SPOKEN text (the [[cues]] removed, spaces made one) with the flags g, i, u. `hold` is a ceiling in hits per 1,000 characters for a lab guide (about 24,000 characters), `holdFilm` the one for a film script, a Short or a description (3,000 to 7,000 characters); a script is allowed at least one hit of a pattern whose ceiling is not zero (allowed = max(1, round(ceiling x characters / 1000))). `perSegment` is the most hits one segment may carry (0: none at all; 99: not tested). `apos` stands for the two apostrophes: the scripts use the typographic one, the YouTube texts the straight one. A regex cannot judge meaning: see STYLE.md, « What a regex cannot catch ».",
+  "sentenceEnd": "(?<=[.!?…])\\s+",
+  "patterns": [
+    {
+      "id": "P1-opener",
+      "label": "Stock opener or « let's follow »",
+      "fr": "(?:^|[.!?…]\\s+)(?:Imaginez|Imagine|Suivons|Suivez|Pensez à|Dites-vous que)\\b|\\bil était une fois\\b",
+      "en": "(?:^|[.!?…]\\s+)(?:Picture|Imagine|Let['’]s follow|Follow (?:one|a|the|our)|Think of)\\b|\\bonce upon a time\\b",
+      "hold": 0,
+      "holdFilm": 0,
+      "perSegment": 0
+    },
+    {
+      "id": "P2-signpost",
+      "label": "Walk-through signpost (« voyons », « let's see », « take »)",
+      "fr": "(?:^|[.!?…:]\\s+)(?:Voyons|Regardons|Entrons|Faisons les comptes|Écartons|Prenons|Allons|Passons)\\b",
+      "en": "(?:^|[.!?…:]\\s+)(?:Let['’]s (?:see|look|do|step|pull|go|take|make|count|move)|Time to|Now (?:let['’]s|for))\\b",
+      "hold": 0.1,
+      "holdFilm": 0.2,
+      "perSegment": 1
+    },
+    {
+      "id": "P3-short-question",
+      "label": "Short rhetorical question (a question sentence of 38 characters or fewer, or a question opened by et/mais/and/but/alors/so)",
+      "fr": "(?:^|[.!?…:]\\s+)(?:[^.!?…:]{1,38}\\?|(?:Et|Mais|Alors|Donc)\\s[^.!?…:]{1,40}\\?)",
+      "en": "(?:^|[.!?…:]\\s+)(?:[^.!?…:]{1,38}\\?|(?:And|But|So|Then)\\s[^.!?…:]{1,40}\\?)",
+      "hold": 0.2,
+      "holdFilm": 0.6,
+      "perSegment": 1
+    },
+    {
+      "id": "P4-not-x-but-y",
+      "label": "« Not X, it is Y » turn",
+      "fr": "\\bn['’]est pas [^.;:!?]{1,50}[;:,]\\s*(?:c['’]est|il est|elle est|ce sont)\\b|\\bne [^.;:!?]{1,30}\\bpas [^.;:!?]{1,50}\\bmais\\b|,\\s+(?:et )?pas (?:un|une|le|la|les|l['’]|du|des|de|d['’]|que)\\b|\\bpas (?:un|une|le|la|les)\\s\\S+\\s*:\\s*(?:un|une|le|la|les)\\b|\\bn['’]est pas (?:une?|le|la|les) [^.;:!?]{1,30}[.;:]\\s*(?:C['’]est|Ce sont)\\b|\\bSans [^.!?,]{2,20}, (?:plus|pas) d[e’']",
+      "en": "\\b(?:is|was|are|does|do|did) (?:not|n['’]t) [^.;:!?]{1,50}[;:,]\\s*(?:it|that|this|he|she|they)(?:['’]s| is| was| are)\\b|,\\s+not (?:a|an|the|one|that|its|their|every|any)\\b|\\bnot [^.;:!?,]{1,30},? but\\b|\\bNo [a-z]+, no [a-z]+\\b|\\bnot [^.;:!?,]{1,25}: [^.;:!?]{1,25}\\b(?:it|that|this) (?:is|was)\\b",
+      "hold": 0.2,
+      "holdFilm": 0.3,
+      "perSegment": 1
+    },
+    {
+      "id": "P5-honesty",
+      "label": "Announced honesty or candour",
+      "fr": "\\bhonn[êe]te(?:ment|té)?\\b|\\bun aveu\\b|\\bfranchement\\b|\\ben toute franchise\\b|\\bsoyons (?:clairs?|francs?|honnêtes)\\b|\\bsans détour\\b",
+      "en": "\\bhonest(?:ly|y)?\\b|\\bconfession\\b|\\bfrankly\\b|\\bto be (?:clear|fair|frank)\\b|\\blet['’]s be (?:clear|honest|frank)\\b",
+      "hold": 0.05,
+      "holdFilm": 0.2,
+      "perSegment": 1
+    },
+    {
+      "id": "P6-kicker",
+      "label": "Summing-up kicker (« that is the whole story »)",
+      "fr": "\\bvoilà (?:toute l['’](?:histoire|affaire)|le secret|ce qui se passe|comment|pourquoi|tout)\\b|\\btout [^.!?]{1,40} tient (?:dans|en) (?:cette|une|un) (?:phrase|ligne|mot)\\b|\\btient en une (?:phrase|ligne)\\b|\\bc['’]est (?:toute |tout )?l['’](?:affaire|histoire|astuce)\\b|\\btoute l['’]affaire\\b|\\bc['’]est (?:là|ici) que tout\\b|\\bc['’]est tout\\b",
+      "en": "\\bthat['’]?s? (?:is )?(?:the )?whole (?:story|business|affair|point)\\b|\\bthe whole [a-z ]{1,25} (?:fits|sits|comes down|boils down)\\b|\\bfits in (?:one|a|that) (?:line|sentence|phrase)\\b|\\bthat['’]s (?:how you|the secret|what happens)\\b|\\bthat is the (?:secret|trick)\\b|\\b(?:all|everything) (?:comes|boils) down to\\b|\\bthis is where everything\\b|\\bthat['’]s all\\b",
+      "hold": 0.05,
+      "holdFilm": 0.2,
+      "perSegment": 1
+    },
+    {
+      "id": "P7-personified",
+      "label": "Personified object, element or process",
+      "fr": "\\b(?:eau|rayon|roue|mur|turbine|machine|cuve|goutte|plaquette|vent|feu|flamme|gaz|chaleur|lumière|pièce|cloche|clapet|pompe|source|tuyau|ampoule|banc|terre)s?\\s+(?:qui\\s+)?(?:\\S+\\s)?(?:attend(?:ent)?|dort|dorment|s['’]endort|sourit|choisit|préfère|se repose|raconte|parle|a de la mémoire|n['’]a qu['’]une idée|regarde ailleurs|détourne la tête|tourne la tête|veille|souffre|triche|boude|obéit|se venge|aime|se met à parler|mange)\\b|\\bun mur qui a\\b|\\bnous attend\\b|\\bvous attend\\b|\\bn['’]attend que vous\\b|\\bpetites ouvrières\\b|\\bmilliers de sœurs\\b|\\bnos? (?:rayon|goutte|plaquette) (?:choisit|veut|préfère)\\b",
+      "en": "\\b(?:water|ray|wheel|wall|turbine|machine|tank|drop|chip|wind|fire|flame|gas|heat|light|room|bell|valve|pump|spring|pipe|bulb)(?:['’]s)?\\s+(?:\\S+\\s)?(?:waits?|is waiting|are waiting|sleeps?|smiles?|chooses?|prefers?|rests?|tells? (?:its|a) story|speaks?|has a memory|has only one idea|looks the other way|turns (?:its|his) face|watches?|suffers?|cheats?|sulks?|obeys?|takes revenge|loves?|is not done|isn['’]t done|eats)\\b|\\ba wall with a memory\\b|\\bis waiting\\b|\\btiny workers\\b|\\bthousands of sisters\\b|\\bchooses to take its time\\b",
+      "hold": 0.1,
+      "holdFilm": 0.2,
+      "perSegment": 1
+    },
+    {
+      "id": "P8-exclamation",
+      "label": "Exclamation mark",
+      "fr": "!",
+      "en": "!",
+      "hold": 0.3,
+      "holdFilm": 0.5,
+      "perSegment": 1
+    },
+    {
+      "id": "P9-short-exclamation",
+      "label": "Exclamation used as a beat (sentence of 28 characters or fewer ending in !)",
+      "fr": "(?:^|[.!?…:]\\s+)[^.!?…:]{1,28}\\s?!",
+      "en": "(?:^|[.!?…:]\\s+)[^.!?…:]{1,28}!",
+      "hold": 0.05,
+      "holdFilm": 0.2,
+      "perSegment": 1
+    },
+    {
+      "id": "P10-triplet",
+      "label": "Sentence made only of three parallel short items (a, b and c), each opened by an article or a number",
+      "fr": "(?:^|[.!?…:]\\s+)(?:un|une|le|la|les|l['’]|des|du|de la|deux|trois|quatre)\\b[^.!?…:,;]{2,30},\\s(?:un|une|le|la|les|l['’]|des|du|de la|deux|trois|quatre)\\b[^.!?…:,;]{2,30},\\s(?:et |ou )?(?:un|une|le|la|les|l['’]|des|du|de la|deux|trois|quatre)\\b[^.!?…:,;]{2,30}(?:[.!?…])",
+      "en": "(?:^|[.!?…:]\\s+)(?:a|an|the|one|two|three|four)\\b[^.!?…:,;]{2,30},\\s(?:a|an|the|one|two|three|four)\\b[^.!?…:,;]{2,30},\\s(?:and |or )?(?:a|an|the|one|two|three|four)\\b[^.!?…:,;]{2,30}(?:[.!?…])",
+      "hold": 0.1,
+      "holdFilm": 0.2,
+      "perSegment": 1
+    },
+    {
+      "id": "P11-anaphora",
+      "label": "Three consecutive sentences opened by the same word",
+      "fr": "(?:^|[.!?…]\\s+)(\\p{L}+)\\b[^.!?…]{0,60}[.!?…]\\s+\\1\\b[^.!?…]{0,60}[.!?…]\\s+\\1\\b",
+      "en": "(?:^|[.!?…]\\s+)(\\p{L}+)\\b[^.!?…]{0,60}[.!?…]\\s+\\1\\b[^.!?…]{0,60}[.!?…]\\s+\\1\\b",
+      "hold": 0.05,
+      "holdFilm": 0.2,
+      "perSegment": 1
+    },
+    {
+      "id": "P12-wonder-words",
+      "label": "Wonder and expert-voice vocabulary (astuce, elegant, the trick, the heart of, the strangest, the real hero)",
+      "fr": "\\b(?:astuce|astucieu(?:x|se)|élégant(?:e|es)?|ingénieu(?:x|se)|fascinant(?:e|s)?|incroyable|extraordinaire|remarquable|magnifique|magique|tour de magie|miracle|merveille|le vrai héros|le secret|la clé|tout se joue|change tout|le cœur de (?:la machine|l['’]affaire|l['’]histoire|toute)|le plus (?:étrange|curieux|grave|surprenant|beau)|la plus (?:élégante|grave|belle)|bon sens)\\b",
+      "en": "\\b(?:the trick|clever|ingenious|elegant|fascinating|incredible|extraordinary|remarkable|magnificent|magic(?:al)?|conjuring|miracle|marvel|the real hero|the secret|the key|where everything|changes everything|the heart of|the (?:strangest|oddest|gravest|most (?:elegant|surprising|curious))|common sense)\\b",
+      "hold": 0.15,
+      "holdFilm": 0.3,
+      "perSegment": 1
+    },
+    {
+      "id": "P13-ellipsis-beat",
+      "label": "Suspense ellipsis inside a sentence (… followed by a word)",
+      "fr": "\\S…\\s+\\p{L}",
+      "en": "\\S…\\s+\\p{L}",
+      "hold": 0.15,
+      "holdFilm": 1.0,
+      "perSegment": 1
+    },
+    {
+      "id": "P14-and-yet",
+      "label": "Stock turn (et pourtant, and yet, and that is not all, mais voilà)",
+      "fr": "\\bet pourtant\\b|(?:^|[.!?…]\\s+)Pourtant\\b|\\b(?:et )?ce n['’]est pas tout\\b|\\bmais voilà\\b|\\bet voilà\\b|\\bmais ce n['’]est pas fini\\b",
+      "en": "\\band yet\\b|(?:^|[.!?…]\\s+)Yet\\b|\\band that['’]s not all\\b|\\bbut wait\\b|\\bhere['’]s the thing\\b",
+      "hold": 0.05,
+      "holdFilm": 0.2,
+      "perSegment": 1
+    },
+    {
+      "id": "P15-announce",
+      "label": "Presentational announcement (voici, voilà, here is, this is the…)",
+      "fr": "(?:^|[.!?…:]\\s+)(?:Voici|Voilà)\\b",
+      "en": "(?:^|[.!?…:]\\s+)(?:Here (?:is|are)|Here['’]s|There (?:is|it is)|This is (?:the|where|what|why))\\b",
+      "hold": 0.25,
+      "holdFilm": 0.3,
+      "perSegment": 1
+    },
+    {
+      "id": "P16-watch-this",
+      "label": "Talking to the screen (voyez, regardez, watch, look, see)",
+      "fr": "(?:^|[.!?…:]\\s+)(?:Voyez|Regardez|Observez|Remarquez|Notez)\\b",
+      "en": "(?:^|[.!?…:]\\s+)(?:Watch|Look|See|Notice|Observe)\\b",
+      "hold": 0.3,
+      "holdFilm": 0.3,
+      "perSegment": 1
+    },
+    {
+      "id": "P17-invitation-formula",
+      "label": "Closing invitation formula (go on, X is waiting)",
+      "fr": "\\bAllez(?:-y)?,\\s[^.!?]{1,45}[.!]|\\bPrenez votre temps\\b|\\bà vous de jouer\\b",
+      "en": "\\bGo on,\\s[^.!?]{1,45}[.!]|\\bTake your time\\b|\\bover to you\\b|\\bit['’]s your turn\\b",
+      "hold": 0,
+      "holdFilm": 0,
+      "perSegment": 0
+    },
+    {
+      "id": "P18-lab-as-agent",
+      "label": "The lab speaks of itself as an actor (« ce lab ne choisit pas », « the lab keeps both »)",
+      "fr": "\\b(?:ce|le|notre) lab(?:oratoire)?\\b",
+      "en": "\\b(?:this|the|our) lab(?:oratory)?\\b",
+      "hold": 0.2,
+      "holdFilm": 0.2,
+      "perSegment": 1
+    },
+    {
+      "id": "P19-qa-pair",
+      "label": "Question answered at once by a fragment (The price? Fourteen per cent.)",
+      "fr": "(?:^|[.!?…:]\\s+)[^.!?…:]{1,30}\\?\\s+(?:[A-ZÀ-Ý][^.!?…]{0,30}[.!])",
+      "en": "(?:^|[.!?…:]\\s+)[^.!?…:]{1,30}\\?\\s+(?:[A-Z][^.!?…]{0,30}[.!])",
+      "hold": 0.1,
+      "holdFilm": 0.3,
+      "perSegment": 1
+    },
+    {
+      "id": "P20-colons",
+      "label": "Colon density (« X : Y » reveal in nearly every part)",
+      "fr": ":",
+      "en": ":",
+      "hold": 4.5,
+      "holdFilm": 3.5,
+      "perSegment": 99
+    },
+    {
+      "id": "P21-questions",
+      "label": "All question marks (a question must earn its place)",
+      "fr": "\\?",
+      "en": "\\?",
+      "hold": 0.35,
+      "holdFilm": 1.2,
+      "perSegment": 99
+    },
+    {
+      "id": "P22-ni-ni",
+      "label": "Sentence opened by « Ni X, ni Y » / « Neither X nor Y » (a negative cadence used as scene-setting)",
+      "fr": "(?:^|[.!?…:]\\s+)Ni [^.!?…]{1,30},\\s*ni\\b",
+      "en": "(?:^|[.!?…:]\\s+)(?:Neither [^.!?…]{1,30} nor|No [a-z]+, no [a-z]+)\\b",
+      "hold": 0.1,
+      "holdFilm": 0.2,
+      "perSegment": 1
+    }
+  ],
+  "lengths": {
+    "sentenceMax": 130,
+    "sentenceAverageRange": [
+      60,
+      85
+    ]
+  },
+  "extra": [
+    "Same sentence twice in one script (refrain): count it with a script, not a regex.",
+    "Titles and Short hooks: every title is a question or a plain statement of fact; none holds a colon-reveal, an « and the answer will surprise you » promise, or a second question."
+  ],
+  "calibration": "hold = Pelton Lab's own measured level where Pelton is clean on the pattern; below it where Pelton is the tic (exclamations 0.8, ellipsis, wonder words, « et pourtant »); zero where the pattern carries no information (stock opener, invitation formula)."
+}
