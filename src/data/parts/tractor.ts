@@ -359,8 +359,8 @@ export const TRACTOR_PARTS: PartInfo[] = [
       },
     ),
     tip: l(
-      'Sélectionnez la pompe : le capot passe en transparence, et elle se lit comme un contour à côté du bloc.',
-      'Select the pump: the bonnet fades, and it reads as an outline beside the block.',
+      'Sélectionnez la pompe : le moteur et la ligne de gaz passent en transparence, et elle se lit enfin.',
+      'Select the pump: the engine and the gas line fade, so that the pump can be read.',
     ),
     design: l(
       'Le point de cette pièce n’est pas la pompe : c’est qu’un tracteur transformé fait apparaître ses pannes à côté de ce qu’on y a ajouté. L’institut a vu la pompe tomber en panne près de la chaleur, et a mis un écran : c’est toute la leçon.',
