@@ -209,7 +209,7 @@ export class SimPanel implements PanelController {
 
     fill(
       this.el,
-      h('div', { class: 'eyebrow eyebrow--accent' }, st('simTitle')),
+      h('div', { class: 'eyebrow eyebrow--accent' }, st('simHeading')),
       hint('simIntro'),
       h('p', { class: 'hint' }, say(TAG_NOTE)),
       h(

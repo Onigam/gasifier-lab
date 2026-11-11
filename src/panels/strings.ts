@@ -17,7 +17,7 @@ import {
 // Nothing here is a size of the hot parts, a hearth load, a pilot or a timing, a dose or a time left for a person; `src/panels/sim.test.ts` holds the words of the panel, in both languages, against the same lists as the sheets.
 
 export const PANEL = {
-  simTitle: ['Simulation', 'Simulation'],
+  simHeading: ['Simulation', 'Simulation'],
   simIntro: [
     'La machine de l’institut suédois qui travaille : le gaz, le moteur, le filtre, et ce que devient une pièce quand elle s’arrête. Le modèle n’est réglé sur aucun chiffre : là où il s’écarte des mesures, le scénario ou la fiche le dit. Ici, on change des conditions de marche, jamais une pièce.',
     'The Swedish institute’s machine at work: the gas, the engine, the filter, and what becomes of a room when it stops. The model is set to no figure: where it differs from the measurements, the scenario or the sheet says so. Here you change working conditions, never a part.',
