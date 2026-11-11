@@ -270,14 +270,14 @@ export const GARAGE_PARTS: PartInfo[] = [
     maintenance: maint(
       {
         failure:
-          'Le cadran de ce lab n’imite aucun des indicateurs de l’époque que décrit le livre suédois (à combustion catalytique, dont un modèle fixe servant d’alarme dans les garages) : il ne dit rien de leur fidélité.',
+          'Le cadran de ce lab n’imite aucun des indicateurs de l’époque que décrit le livre suédois (à combustion catalytique, dont un modèle fixe servant d’alarme dans les garages) : il ne dit rien de leur précision.',
         check:
           'La limite française de 20 ppm, sur 8 heures, est faite pour un lieu de travail, et pas pour une chambre où l’on dort.',
         care: 'Aucune opération n’est décrite pour l’instrument.',
       },
       {
         failure:
-          'This lab’s dial copies none of the indicators of the period that the Swedish book describes (of the catalytic type, one of them a fixed model used as an alarm in garages): it says nothing of how faithful they were.',
+          'This lab’s dial copies none of the indicators of the period that the Swedish book describes (of the catalytic type, one of them a fixed model used as an alarm in garages): it says nothing of their accuracy.',
         check: 'The French limit of 20 ppm over 8 hours is made for a workplace, and not for a bedroom.',
         care: 'No operation is described for the instrument.',
       },

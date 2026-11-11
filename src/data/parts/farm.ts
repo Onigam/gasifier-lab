@@ -510,14 +510,14 @@ export const FARM_PARTS: PartInfo[] = [
         failure:
           'Ce que devenait l’eau noire des deux fermes de l’institut : aucune source lue ne le dit, et aucun chiffre ne le donne.',
         check:
-          'Les sources parlent de phénols de 1 500 à 3 000 mg/L dans l’eau noire ; elles ne disent pas ce qu’un fossé en fait.',
+          'Les sources donnent, pour l’eau d’un gazogène, des phénols typiquement de 1 500 à 3 000 mg/L ; elles ne disent pas ce qu’un fossé en fait.',
         care: 'Rien : ce n’est pas un sujet de maintenance.',
       },
       {
         failure:
           'What became of the black water of the institute’s two farms: no source we read says, and no figure gives it.',
         check:
-          'The sources speak of phenols at 1,500 to 3,000 mg/L in the black water; they do not say what a ditch makes of them.',
+          'The sources give, for a gasifier’s water, phenols typically at 1,500 to 3,000 mg/L; they do not say what a ditch makes of them.',
         care: 'Nothing: it is not a subject of maintenance.',
       },
     ),
