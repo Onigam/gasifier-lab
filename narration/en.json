@@ -37,7 +37,7 @@
       "scope": "scene:gasifier",
       "title": "The journey of a wood chip",
       "scene": "gasifier",
-      "text": "[[home]] [[lab:preset:mf-1100]] Here is the apparatus, always in section, and its travelling chip. [[frame:spring-lid]] It goes in through the lid, and there, [[frame:chip-column]] [[lab:journey:0.05]] the column draws it gently downwards: about an hour. [[frame:drying-zone]] [[lab:journey:0.15]] First it dries: the water vapour escapes. [[frame:pyrolysis-zone]] [[lab:journey:0.42]] Then it breaks down into charcoal and vapours. [[frame:oxidation-zone]] [[lab:journey:0.62]] Those vapours must cross the flame. [[frame:reduction-zone]] [[lab:journey:0.85]] After that the hot gas crosses red-hot charcoal, where it cools: that is where it becomes fuel. [[frame:ash-pit]] [[lab:journey:0.98]] A little ash is left: that is the end of the journey. [[lab:journey:0.62]] [[home]] The journey cursor and the drawings are not to scale: on purpose. The section is drawn to scale. [[flows:on]] Now watch the air come in, and the gas go out… [[flows:off]]"
+      "text": "[[home]] [[lab:preset:mf-1100]] Here is the apparatus, always in section, and its travelling chip. [[frame:spring-lid]] It goes in through the lid, and there, [[frame:chip-column]] [[lab:journey:0.05]] the column draws it gently downwards: about an hour. [[frame:drying-zone]] [[lab:journey:0.15]] First it dries: the water vapour escapes. [[frame:pyrolysis-zone]] [[lab:journey:0.42]] Then it breaks down into charcoal and vapours. [[frame:oxidation-zone]] [[lab:journey:0.62]] Those vapours must cross the flame. [[frame:reduction-zone]] [[lab:journey:0.85]] After that the hot gas crosses red-hot charcoal, where it cools: that is where it becomes fuel. [[frame:ash-pit]] [[lab:journey:0.98]] A little ash is left: that is the end of the journey. [[lab:journey:0.62]] [[home]] The journey cursor and the gasifier’s drawings are not to scale: on purpose. The section is drawn to scale. [[flows:on]] Now watch the air come in, and the gas go out… [[flows:off]]"
     },
     {
       "id": "scene-gas-train",
@@ -93,14 +93,14 @@
       "scope": "part:farmhouse",
       "title": "Farmhouse",
       "scene": "farm",
-      "text": "No source describes the farmhouse: this one is an estimate, two storeys of red boards. The Swedish book ranks among the worst accidents those of cars with a leaking lid. Parked under a room where people live. So the garage touches the house."
+      "text": "No source we read describes the farmhouse: this one is an estimate, two storeys of red boards. The Swedish book ranks among the worst accidents those of cars with a leaking lid. Parked under a room where people live. So the garage touches the house."
     },
     {
       "id": "part-farm-garage",
       "scope": "part:farm-garage",
       "title": "Farm garage",
       "scene": "farm",
-      "text": "Why a garage, in a lab about wood? In Sweden, two thousand eight hundred and sixty-five vehicles, most of them gasifier vehicles, caught fire in five years. Most often from an electrical fault. Many garage fires, often at night, had no known cause. In the first quarter of nineteen forty-two alone: nearly four a day."
+      "text": "Why a garage, in a lab about wood? In Sweden, two thousand eight hundred and sixty-five vehicles, most of them gasifier vehicles, caught fire in five years. Often from an electrical fault, says the Swedish book. Many garage fires, often at night, had no known cause. In the first quarter of nineteen forty-two alone: nearly four a day."
     },
     {
       "id": "part-ash-bin",
@@ -163,7 +163,7 @@
       "scope": "part:front-wheels",
       "title": "Front wheels",
       "scene": "tractor",
-      "text": "Watch: [[lab:scenario:engine-stops]] the engine stops, and the wheels stop rolling. They are smaller, and lightened: the institute removed the front weights, to make room for the cooler. How the steering took it, no source says. [[lab:preset:mf-1100]]"
+      "text": "Watch: [[lab:scenario:engine-stops]] the engine stops, and the wheels stop rolling. They are smaller, and lightened: the institute removed the front weights, to make room for the cooler. How the steering took it, no source we read says. [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-diesel-engine",
@@ -499,7 +499,7 @@
       "scope": "part:post-gas-plume",
       "title": "Post-gas plume",
       "scene": "garage",
-      "text": "The engine stops. [[lab:scenario:engine-stops]] Nothing draws any more, but the gas keeps forming in the hot bed. It pushes for about twenty minutes, says the Swedish book, sometimes for hours according to another manual. It comes out, even from a tight unit: twenty-three to twenty-seven per cent carbon monoxide. Its volume? Nobody measured it: the model starts from one cubic metre. It lets the push weaken without ever stopping: a choice, not a measurement. No source says when a room holds none of it: that is the sentence this lab cannot write. [[lab:preset:mf-1100]]"
+      "text": "The engine stops. [[lab:scenario:engine-stops]] Nothing draws any more, but the gas keeps forming in the hot bed. It pushes for about twenty minutes, says the Swedish book, sometimes for hours according to another manual. It comes out, even from a tight unit: twenty-three to twenty-seven per cent carbon monoxide. Its volume? Nobody measured it: the model starts from one cubic metre. It lets the push weaken without ever stopping: a choice, not a measurement. No source we read says when a room holds none of it: that is the sentence this lab cannot write. [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-exhaust-plume",

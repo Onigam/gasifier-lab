@@ -380,6 +380,11 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
               'pellets in a closed store; a leaking lid under a living room',
             ],
             [/qui faisaient attention|gens attentifs/, 'the source says « careless »'],
+            [
+              /le plus souvent par un défaut électrique/,
+              'the book’s « most » keeps its reserve out: « souvent, selon le livre »',
+            ],
+            [/aucune source ne (dit|décrit|le dit)/i, 'what the lab read, not every source: « aucune source lue »'],
           ]
         : [
             [
@@ -403,6 +408,11 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
               'pellets in a closed store; a leaking lid under a living room',
             ],
             [/people who were being careful/, 'the source says « careless »'],
+            [
+              /most often from an electrical fault/,
+              'the book’s « most » keeps its reserve out: « often, says the book »',
+            ],
+            [/\bno source (says|describes)/i, 'what the lab read, not every source: « no source we read »'],
           ];
     for (const [re, why] of retired) expect(where(re), why).toEqual([]);
 
@@ -413,7 +423,10 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
             ['intro', /roule au bois, avec un filet de gazole/],
             ['intro', /par le calcul, environ deux cent vingt/],
             ['intro', /d’un rapport sur cet institut, d’un livre suédois sur les gazogènes, et de manuels/],
-            ['scene-gasifier', /coupe, elle, est à l’échelle/],
+            [
+              'scene-gasifier',
+              /planches du gazogène ne sont pas à l’échelle : exprès\. La coupe, elle, est à l’échelle/,
+            ],
             ['part-wood-gas-tractor', /roule au bois, avec un filet de gazole/],
             ['part-wood-gas-tractor', /et son gazogène aussi/],
             ['part-chip-barn', /granulés stockés dans un local fermé/],
@@ -430,13 +443,17 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
               'part-post-gas-plume',
               /laisse la poussée s’affaiblir sans jamais s’arrêter : c’est un choix, pas une mesure/,
             ],
+            ['part-post-gas-plume', /Aucune source lue ne dit quand une pièce/],
+            ['part-farm-garage', /Souvent d’un défaut électrique, selon le livre suédois/],
+            ['part-farmhouse', /Aucune source lue ne décrit la maison/],
+            ['part-front-wheels', /aucune source lue ne le dit/],
             ['part-old-rescue-set', /années quarante/],
           ]
         : [
             ['intro', /runs on wood, with a thread of diesel/],
             ['intro', /by our sum, about two hundred and twenty/],
             ['intro', /a report on that institute, a Swedish book on gasifiers, and some handbooks/],
-            ['scene-gasifier', /section is drawn to scale/],
+            ['scene-gasifier', /gasifier’s drawings are not to scale: on purpose\. The section is drawn to scale/],
             ['part-wood-gas-tractor', /runs on wood, with a thread of diesel/],
             ['part-wood-gas-tractor', /and so does its gasifier/],
             ['part-chip-barn', /wood pellets kept in a closed store/],
@@ -450,6 +467,10 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
             ['part-cooler-condensate-vessel', /This tractor’s one serious failure/],
             ['part-filter-bags', /On the programme’s truck/],
             ['part-post-gas-plume', /lets the push weaken without ever stopping: a choice, not a measurement/],
+            ['part-post-gas-plume', /No source we read says when a room/],
+            ['part-farm-garage', /Often from an electrical fault, says the Swedish book/],
+            ['part-farmhouse', /No source we read describes the farmhouse/],
+            ['part-front-wheels', /no source we read says/],
             ['part-old-rescue-set', /nineteen forties/],
           ];
     for (const [id, re] of corrected) expect(spokenOf(seg(id)), `${id} lost a correction`).toMatch(re);
