@@ -49,8 +49,8 @@ export const LAB_STRINGS = {
   entryEyebrow: ['Avant d’entrer', 'Before you go in'],
   entryTitle: ['Ce lab parle d’un gaz qui tue', 'This lab is about a gas that kills'],
   entryGarage: [
-    'À l’arrêt du moteur, le gaz continue de se former et de sortir, même d’une machine qui paraissait étanche : en Suède, certains des pires accidents sont venus d’une voiture au couvercle qui fuyait, garée dans un garage sous une pièce où l’on vit.',
-    'When the engine stops, the gas goes on forming and coming out, even from a machine that looked tight: in Sweden, some of the worst accidents came from a car with a leaking lid, parked in a garage under a living room.',
+    'À l’arrêt du moteur, le gaz continue de se former et de sortir, même d’une machine qui paraissait étanche. En Suède, certains des pires accidents sont venus d’une voiture au couvercle qui fuyait, garée dans un garage sous une pièce où l’on vit.',
+    'When the engine stops, the gas goes on forming and coming out, even from a machine that looked tight. In Sweden, some of the worst accidents came from a car with a leaking lid, parked in a garage under a living room.',
   ],
   entryFire: [
     'De l’air qui rencontre le gaz, sous le couvercle, dans un appareil froid ou dans un filtre qui en garde, peut prendre feu ou exploser : un retour de flamme dans le filtre peut être violent.',

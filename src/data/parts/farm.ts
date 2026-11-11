@@ -368,14 +368,14 @@ export const FARM_PARTS: PartInfo[] = [
     maintenance: maint(
       {
         failure:
-          'Des incendies, par milliers : le livre suédois en compte 2 865, le plus souvent par un défaut du matériel électrique (court-circuit), et beaucoup la nuit en garage sans cause connue. Un couvercle qui ne ferme pas laisse un gazogène garé brûler comme un poêle. Les inspecteurs ont trouvé 155 gazogènes défectueux sur 230 contrôlés après des signalements de la police, au premier semestre de 1945.',
+          'Des incendies, par milliers : le livre suédois en compte 2 865, souvent par un défaut du matériel électrique, dit-il (court-circuit ; de 22 à 51 % des incendies selon le semestre, avec une réserve du livre), et beaucoup la nuit en garage sans cause connue. Un couvercle qui ne ferme pas laisse un gazogène garé brûler comme un poêle. Les inspecteurs ont trouvé 155 gazogènes défectueux sur 230 contrôlés après des signalements de la police, au premier semestre de 1945.',
         check:
           'Pour lancer le ventilateur ou le moteur, le livre suédois juge très insuffisants la porte ouverte, un tuyau passé par la fenêtre et un hangar ouvert sous un toit.',
         care: 'Ce lab ne décrit aucune règle de garage : aucune ne rendrait la machine acceptable.',
       },
       {
         failure:
-          'Fires, by the thousand: the Swedish book counts 2,865, most often from faulty electrical equipment (a short circuit), and many at night in garages with no known cause. A lid that does not seal lets a parked gasifier burn like a stove. Inspectors found 155 gasifiers faulty out of 230 checked after police reports, in the first half of 1945.',
+          'Fires, by the thousand: the Swedish book counts 2,865, often from faulty electrical equipment, it says (a short circuit; 22 to 51% of the fires by half-year, with a reservation of the book’s), and many at night in garages with no known cause. A lid that does not seal lets a parked gasifier burn like a stove. Inspectors found 155 gasifiers faulty out of 230 checked after police reports, in the first half of 1945.',
         check:
           'For fanning or starting, the Swedish book finds the open door, a hose passed through a window and an open shed under a roof all far from satisfactory.',
         care: 'This lab describes no rule for a garage: none would make the machine acceptable.',
@@ -400,8 +400,8 @@ export const FARM_PARTS: PartInfo[] = [
       'What the machine leaves: up to 3.5% of the fuel, and still hot.',
     ),
     description: lf(
-      'Le gazogène ne laisse pas que du gaz. Au cendrier, il reste jusqu’à 3,5 % du combustible, et ce résidu vaut environ 5 % de la puissance à plein régime : de la cendre, mais aussi du charbon qui n’a pas fini sa route. Le modèle compte {ashKgH} de résidu au maximum. Selon le journal de l’institut, la cendre était sortie toutes les 8 à 15 heures, pour 15 à 30 minutes de travail. Elle est chaude, et une source américaine range la cendre chaude parmi les risques d’incendie. Ce que devient cette cendre ensuite n’est pas l’affaire du lab : voyez votre autorité locale.',
-      'The gasifier leaves more than gas. In the ash pit there is up to 3.5% of the fuel, and this residue is worth about 5% of the power at full load: ash, but also charcoal that has not finished its journey. The model counts {ashKgH} of residue at the maximum. By the institute’s log, the ash was taken out every 8 to 15 hours, for 15 to 30 minutes of work. It is hot, and an American source lists hot ash among the fire risks. What becomes of that ash afterwards is not the lab’s business: ask your local authority.',
+      'Le gazogène ne laisse pas que du gaz. Au cendrier, il reste jusqu’à 3,5 % du combustible, et ce résidu vaut environ 5 % de la puissance à plein régime : de la cendre, mais aussi du charbon qui n’a pas fini sa route. Le modèle compte {ashKgH} de résidu au maximum. Selon les relevés de l’institut, la cendre était sortie toutes les 8 à 15 heures, pour 15 à 30 minutes de travail. Elle est chaude, et une source américaine range la cendre chaude parmi les risques d’incendie. Ce que devient cette cendre ensuite n’est pas l’affaire du lab : voyez votre autorité locale.',
+      'The gasifier leaves more than gas. In the ash pit there is up to 3.5% of the fuel, and this residue is worth about 5% of the power at full load: ash, but also charcoal that has not finished its journey. The model counts {ashKgH} of residue at the maximum. By the institute’s records, the ash was taken out every 8 to 15 hours, for 15 to 30 minutes of work. It is hot, and an American source lists hot ash among the fire risks. What becomes of that ash afterwards is not the lab’s business: ask your local authority.',
     ),
     material: l('Bac d’acier sur dalle, couvercle entrouvert', 'Steel bin on a slab, lid ajar'),
     specs: [
@@ -465,14 +465,14 @@ export const FARM_PARTS: PartInfo[] = [
         failure:
           'Un fût trop plein, ou un bac de refroidisseur qui déborde : la seule panne grave de ce moteur est probablement venue d’une eau aspirée par là.',
         check:
-          'Le niveau, dans la 3D : le bac du refroidisseur monte entre deux vidanges, toutes les 2 à 3 heures dans le journal de l’institut, celui de la chemise attendait de 8 à 10 heures.',
+          'Le niveau, dans la 3D : le bac du refroidisseur monte entre deux vidanges, toutes les 2 à 3 heures dans les relevés de l’institut, celui de la chemise attendait de 8 à 10 heures.',
         care: 'Le travail était sale et fréquent. Le lab n’en décrit aucun geste, et ne donne aucun conseil sur le sort de ce liquide.',
       },
       {
         failure:
           'An overfull barrel, or a cooler vessel that runs over: this engine’s one serious failure probably came from water sucked through there.',
         check:
-          'The level, in the 3D: the cooler’s vessel climbs between two emptyings, every 2 to 3 hours in the institute’s log, the jacket’s waited 8 to 10 hours.',
+          'The level, in the 3D: the cooler’s vessel climbs between two emptyings, every 2 to 3 hours in the institute’s records, the jacket’s waited 8 to 10 hours.',
         care: 'The work was dirty and frequent. The lab describes no gesture of it, and gives no advice on what becomes of this liquid.',
       },
     ),
@@ -491,12 +491,12 @@ export const FARM_PARTS: PartInfo[] = [
     category: 'site',
     name: l('Fossé', 'Field ditch'),
     short: l(
-      'Le fossé de drainage entre la cour et le champ : aucune source ne dit où l’eau noire allait.',
-      'The drainage ditch between the yard and the field: no source says where the black water went.',
+      'Le fossé de drainage entre la cour et le champ : aucune source lue ne dit où l’eau noire allait.',
+      'The drainage ditch between the yard and the field: no source we read says where the black water went.',
     ),
     description: lf(
-      'Un fossé borde presque toute ferme de plaine : il draine le champ vers un cours d’eau. Il est ici parce qu’aucune source ne dit où l’eau noire allait. Rien du lab ne coule dedans, ni point de condensat, ni flèche. Le fossé dessiné est une estimation : {ditchW} au fond, {ditchD} de profondeur, des berges en pente, et un filet d’eau qui n’est pas celui du modèle. Ce que devenait vraiment l’eau noire dans les deux fermes de l’institut n’est dit nulle part dans ce que nous avons lu.',
-      'A ditch borders almost every farm on flat land: it drains the field towards a stream. It is here because no source says where the black water went. Nothing from the lab runs into it, no dot of condensate, no arrow. The ditch as drawn is an estimate: {ditchW} wide at the bottom, {ditchD} deep, with sloping banks, and a trickle of water that is not the model’s. What became of the black water on the institute’s two farms is not said anywhere in what we read.',
+      'Un fossé borde presque toute ferme de plaine : il draine le champ vers un cours d’eau. Il est ici parce qu’aucune source lue ne dit où l’eau noire allait. Rien du lab ne coule dedans, ni point de condensat, ni flèche. Le fossé dessiné est une estimation : {ditchW} au fond, {ditchD} de profondeur, des berges en pente, et un filet d’eau qui n’est pas celui du modèle. Ce que devenait vraiment l’eau noire dans les deux fermes de l’institut n’est dit nulle part dans ce que nous avons lu.',
+      'A ditch borders almost every farm on flat land: it drains the field towards a stream. It is here because no source we read says where the black water went. Nothing from the lab runs into it, no dot of condensate, no arrow. The ditch as drawn is an estimate: {ditchW} wide at the bottom, {ditchD} deep, with sloping banks, and a trickle of water that is not the model’s. What became of the black water on the institute’s two farms is not said anywhere in what we read.',
     ),
     material: l('Terre, berges herbeuses', 'Earth, grassy banks'),
     specs: [
@@ -526,8 +526,8 @@ export const FARM_PARTS: PartInfo[] = [
       'The ditch is looked at from the yard, from above: select it, and the camera takes that side.',
     ),
     design: l(
-      'C’est une pièce qui ne fait rien, exprès : une machine qui laisse de l’eau noire en laisse aussi la question, et aucun chiffre ne dit où elle allait.',
-      'It is a part that does nothing, on purpose: a machine that leaves black water leaves the question too, and no figure says where it went.',
+      'C’est une pièce qui ne fait rien, exprès : une machine qui laisse de l’eau noire en laisse aussi la question, et aucune source lue ne dit où elle allait.',
+      'It is a part that does nothing, on purpose: a machine that leaves black water leaves the question too, and no source we read says where it went.',
     ),
   },
 ];

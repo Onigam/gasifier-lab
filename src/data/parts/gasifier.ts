@@ -425,16 +425,16 @@ export const GASIFIER_PARTS: PartInfo[] = [
     maintenance: maint(
       {
         failure:
-          'Un encrassement de la chemise : le journal de l’institut compte un nettoyage toutes les 75 à 135 heures.',
+          'Un encrassement de la chemise : les relevés de l’institut comptent un nettoyage toutes les 75 à 135 heures.',
         check:
           'La quantité d’eau tirée : le modèle compte {jacket8} à 8 % d’humidité, et le rapport dit que le bois en cède de 60 à 80 %.',
-        care: 'Le journal de l’institut note ce nettoyage, 1 à 2 heures chaque fois. La source ne décrit pas le geste, et le lab non plus.',
+        care: 'Les relevés de l’institut notent ce nettoyage, 1 à 2 heures chaque fois. La source ne décrit pas le geste, et le lab non plus.',
       },
       {
-        failure: 'A fouling of the jacket: the institute’s log counts a cleaning every 75 to 135 hours.',
+        failure: 'A fouling of the jacket: the institute’s records count a cleaning every 75 to 135 hours.',
         check:
           'The quantity of water drawn: the model counts {jacket8} at 8% moisture, and the report says the wood gives up 60 to 80%.',
-        care: 'The institute’s log notes that cleaning, 1 to 2 hours each time. The source does not describe the gesture, and neither does the lab.',
+        care: 'The institute’s records note that cleaning, 1 to 2 hours each time. The source does not describe the gesture, and neither does the lab.',
       },
     ),
     tip: l(
@@ -479,13 +479,13 @@ export const GASIFIER_PARTS: PartInfo[] = [
         failure:
           'Un bac qui déborde : de l’eau noire revient vers le lit après un arrêt. La seule panne grave de ce tracteur est venue, probablement, de l’autre bac, celui du refroidisseur.',
         check: 'Le niveau du bocal, dans la 3D : il suit les litres que compte le modèle.',
-        care: 'Le journal de l’institut note la vidange de la chemise toutes les 8 à 10 heures. Ce n’est pas un geste décrit, et le lab ne dit pas où va le liquide.',
+        care: 'Les relevés de l’institut notent la vidange de la chemise toutes les 8 à 10 heures. Ce n’est pas un geste décrit, et le lab ne dit pas où va le liquide.',
       },
       {
         failure:
           'A vessel that overflows: black water comes back to the bed after a stop. This tractor’s one serious failure probably came from the other vessel, the cooler’s.',
         check: 'The jar’s level, in the 3D: it follows the litres the model counts.',
-        care: 'The institute’s log notes the jacket’s emptying every 8 to 10 hours. It is not a gesture described, and the lab does not say where the liquid goes.',
+        care: 'The institute’s records note the jacket’s emptying every 8 to 10 hours. It is not a gesture described, and the lab does not say where the liquid goes.',
       },
     ),
     tip: l(
@@ -530,13 +530,13 @@ export const GASIFIER_PARTS: PartInfo[] = [
           'Un joint qui fuit : de l’air entre, et le modèle, avec {leakShare} du volume de gaz, brûle le monoxyde et l’hydrogène, la sortie passe de {outletModel} à {leakOutT}, et la toile du filtre dépasse ses 300 °C.',
         check:
           'La température de sortie : la direction est celle du rapport, la taille de la fuite est une supposition.',
-        care: 'Des joints étaient refaits vers 500 heures, selon le journal de l’institut : la source ne dit pas lesquels, et le lab ne décrit aucun geste.',
+        care: 'Des joints étaient refaits vers 500 heures, selon les relevés de l’institut : la source ne dit pas lesquels, et le lab ne décrit aucun geste.',
       },
       {
         failure:
           'A joint that leaks: air gets in, and the model, with {leakShare} of the gas volume, burns the carbon monoxide and the hydrogen, the outlet goes from {outletModel} to {leakOutT}, and the filter cloth passes its 300 °C.',
         check: 'The outlet temperature: the direction is the report’s, the size of the leak is a guess.',
-        care: 'Gaskets were redone at about 500 hours, by the institute’s log: the source does not say which, and the lab describes no gesture.',
+        care: 'Gaskets were redone at about 500 hours, by the institute’s records: the source does not say which, and the lab describes no gesture.',
       },
     ),
     tip: lf(

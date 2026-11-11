@@ -291,8 +291,8 @@ function draw(d: Drawing): void {
     y + 1,
     W_,
     l(
-      'Le foyer, l’anneau de gorge, la grille et les manches du filtre vivent de 400 à 1 000 heures ; l’enveloppe, de 2 000 à 4 000, rouille et dure le plus. Ce sont les durées entre deux pannes de la machine de l’institut, pas des garanties.',
-      'The firebox, the throat ring, the grate and the filter bags live 400 to 1,000 hours; the casing, 2,000 to 4,000, corrodes and lasts longest. These are the times between failures of the institute’s machine, not guarantees.',
+      'Le foyer, l’anneau de gorge, la grille et les manches du filtre vivent de 400 à 1 000 heures ; l’enveloppe, de 2 000 à 4 000, rouille et dure le plus. Ce sont les durées entre deux pannes de véhicules du programme, d’après l’expérience cumulée de plusieurs d’entre eux, pas des garanties.',
+      'The firebox, the throat ring, the grate and the filter bags live 400 to 1,000 hours; the casing, 2,000 to 4,000, corrodes and lasts longest. These are the times between failures of the programme’s vehicles, by the accumulated experience of several of them, not guarantees.',
     ),
     { size: 1.75 },
   );
