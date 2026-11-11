@@ -1,0 +1,75 @@
+# Data of the Gasifier Lab (author role)
+
+The texts of the lab, written in French and English together (`l(fr, en)`): **67 part sheets** (Overview, Specs, Maintenance, Design) for the 67 ids of `src/three/part-ids.ts`, two guides (**20 assembly steps, 10 installation steps**), five world overviews, **seven lessons with fourteen questions**, the Sources panel, the lab's interface strings, and the ten A3 sheets (`docs/drawings.md`). The machine is the Swedish F-5 wood gasifier on an MF 1100 tractor, rebuilt from a state institute's report. It **explains and gives no plan**: this is what sets most of the choices below.
+
+## Files
+
+| File                                 | What                                                                                                                                                                                                                                                 |
+| ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/data/figures.ts`                | `FIG`: about 150 figures, each with its value, its digits, its unit and its status (derived, model, elsewhere, estimate). The mark is decided here, once: † for derived and model, * for the rest. Read from `src/sim` and `dims.ts` where it can be |
+| `src/data/part-helpers.ts`           | `lf` (a text with `{figure}` placeholders, rendered with the mark), `sp`, `maint` (the three paragraphs: the failure to expect, what to check, the upkeep), `step(origin, …)`                                                                        |
+| `src/data/units.ts`                  | `nFr`, `nEn`: 7,5 and 7.5, 5 700 and 5,700                                                                                                                                                                                                           |
+| `src/data/lint.ts`                   | the rules of the visitor's texts, shared with `src/drawings`: `REPORTED` (the numbers a text may print with no mark, each tied to a research figure), `PROMISES`, `NOT_REPEATED`, `OPERATING_EN/FR`, `printedForms`                                  |
+| `src/data/parts/*.ts`                | `farm` (10), `tractor` (13), `gasifier` (20), `gastrain` (17), `garage` (7); `dim-specs.ts`: the drawn overall sizes of the sheets, read from `dims.ts`, all tagged as estimates, appended by `src/data/parts.ts`                                    |
+| `src/data/assembly.ts`, `install.ts` | « how it was put together » (20 steps), « what had to be true before the first run » (10 steps), in the past tense, each ending with its origin: `Origine : rapporté`, `pratique courante` or `notre lecture`                                        |
+| `src/data/overviews.ts`              | the side panel of each world, `{ title, text }`; the farm's carries the marks' legend and the plain line on carbon monoxide, the garage's the warning in full                                                                                        |
+| `src/data/lessons.ts`                | the seven lessons: `docs/lessons.md`                                                                                                                                                                                                                 |
+| `src/data/sources.ts`                | `sourcesPanel()`, `SOURCE_GROUPS`, `REFUSALS` (ten), `MODEL_LIMITS` (ten): the credits and links, the warning, what the lab refuses, what the model does not find                                                                                    |
+| `src/data/all-texts.ts`              | every text a visitor reads from `src/data`, labelled, for the tests and the guard of the refused sizes                                                                                                                                               |
+| `src/i18n/ui.ts`                     | `LAB_STRINGS`: the lab's own strings (title, worlds and shortcuts, the intros, the notices of the Sources panel). The template's four keys are kept until the lead rewires `src/lab.ts` and `src/panels/sim.ts`                                      |
+| `src/drawings/**`                    | the ten sheets: `docs/drawings.md`                                                                                                                                                                                                                   |
+
+## What `src/lab.ts` has to do with it (the lead's file)
+
+`parts: PARTS`; `assembly: { scene: …, steps: ASSEMBLY }` and `install` from `src/data/guide.ts` (a kit step plays in one world, so the steps are cut by world); the overview of each world from `OVERVIEWS[id]` with the shortcuts `goFarm`… `goGarage`; `lessons: LESSONS`; `plans: { sheets: SHEETS, groups: PLAN_GROUPS, intro: strL('plansIntro') }`; `about: sourcesPanel` (the panel is built from `h` and the lab's strings); `registerStrings(LAB_STRINGS)`. The title block's wording is set by `configureDrawings` in `src/drawings/index.ts`: `src/lab.ts` must not set the project name over it without keeping the disclaimer. The warning (`warning` in `LAB_STRINGS`) is for the lead to show on the way in as well as at the top of the Sources panel (research Q5). The standard's report (`src/standard.test.ts`) shows five `todo` lines: the worlds registered (1 of 4) and the installation guide (0 of 10) wait for that wiring, and the spoken guide and `public/lab.json` (tagline and tags) are the lead's.
+
+## Conventions
+
+- **Marks.** No mark: reported by a source and written in the text itself, from a list (`REPORTED`) where each number is tied to a research figure. `†`: computed from published figures, or the model where **this machine was measured** (the bench's three points). `*`: an estimate, or the same model where it was not measured (past 20 % moisture, in a fault, on another engine), and everything about the farm, the garage and the room above. A figure is written `{key}` and printed with its mark: a typed number with a `†` or `*` is caught by the test, and so is a number that is in no list.
+- **34 kg an hour first.** What the model burns at the bench's maximum is said first and flagged, then what the bench measured (41); no text says the model retrieves the machine. The flame never goes out in the model, and no text says it does.
+- **Said once.** « Independent educational reconstruction » and the warning in full: the Sources panel; the warning also in the garage's overview, with the emergency numbers (112; 15 in France; 144 in Switzerland). « This lab explains, it gives no plan »: the farm's overview. « Not a procedure »: the first step of each guide. « Not for construction »: the title block of each sheet. The law: one plain sentence in the panel. The carbon monoxide's source is named in the panel.
+- **The hot parts' sizes are printed nowhere**: the throat, the nozzles, the firebox, the grate, the zones' heights, the plenum and the hood, the lower casing. A text says what a hot part **does**, its life and its temperature. A test (`src/data/refusals.test.ts`) holds every printed form of every refused length, in either language, off every text of `src/data`, `src/drawings` and `src/i18n`, and holds that no module reads the hot geometry.
+- **No procedure.** No tool, no torque, no duration in a guide step; a lint rejects an imperative of an operating verb at the start of a sentence (light, fill, drain, weld…). The guides are told in the past tense, as the institute did it, and the first step of each says so. No sentence tells a visitor how to build, light, run or make safe a gasifier. No disposal advice for tar, ash or condensate: what they contain, and « ask your local authority ».
+- **Words that promise** (safe, harmless, clean gas, easy to build, and their French) and the source sentences the lab does not repeat (research §A.3) are held off every text by test.
+- **Names.** A research reference such as `(K22)` never reaches a visitor. Sources are named in words in the panel and, on the ladder, beside each rung. S4 (the American emergency manual) is cited by title and number and not linked; the amateur's construction videos are credited without a link; no image or footage is taken from a video.
+- **British English**, `draught`, `litre`, `metre`. The English is an adaptation, not a word-for-word translation; both languages carry the same numbers (a test compares them).
+
+## What rests on a source read only in summary
+
+The author and the physicist used the research's figures; the sources below were **not read** by those roles (`docs/physics.md` §9), and the fact-checker should read them before a visitor sees what leans on them.
+
+| Fact                                                                                                    | Source              | Where                                                                      |
+| ------------------------------------------------------------------------------------------------------- | ------------------- | -------------------------------------------------------------------------- |
+| French and EU limits (20 ppm over 8 h, 100 ppm short term); the detector alarms; the explosion limits   | S5 (INRS FT 47), S6 | the ladder (PL-G08), lesson 2, the garage's overview                       |
+| « Sometimes for hours », the phenols (1,500 to 3,000 mg/L), the deaths (17), the tar table              | S2 (Reed and Das)   | PL-G09, PL-G10, `condensate-*`, lesson 2                                   |
+| the fleet (73,853; 36.3 % on wood), the fires (2,865: 1,740, 1,025, 100), the chronic cases, 155 of 230 | S3 (pp. 302 to 321) | PL-G10: the rows were checked by adding, the OCR had scrambled the columns |
+| the oxidation band 1,200 to 1,500 °C and the start of pyrolysis at 250 °C                               | S1 §2.5             | PL-G05, the zones' sheets, lesson 3                                        |
+| Tables 3.5, 3.10 and 3.11 (the engines' powers on diesel and on gas): read as images by the physicist   | S1                  | PL-G07; the speeds are known for few engines                               |
+| Table 3.17 and its footnotes (the service intervals, the jobs counted inside another job)               | S1                  | PL-G04, the sheets' maintenance paragraphs                                 |
+| the lives between failures (firebox, throat ring, grate, bags, casing)                                  | S1 (research K43)   | PL-G04, the sheets' « Panne à prévoir »                                    |
+| the French emergency numbers                                                                            | general knowledge   | the garage's overview, the warning: to check (research §A.4)               |
+
+## Open questions
+
+1. **The fires per 1,000 vehicles by half-year** (PL-G10 plans a curve): the research read it from a scanned table whose title says « per year » and marks the page to check. Its two end values (about 20, about 3.4) are in words, no curve is drawn. Someone must read the page.
+2. **Is « sometimes for hours » S2's wording?** It is printed in quotation marks on PL-G09, attributed to Reed and Das (1988). If the page does not say it, the quotation goes.
+3. **The 1 m³ the stop leaves, the buildings, the exchange of air through the floor.** None has a source. Every number of the room carries `*`, and the sheets say the model's room mixes perfectly, which the real one does not (it is uneven, in layers).
+4. **The tar.** `tarCrackedShare` is a mechanism with rates from memory and a time the state never holds; the lab prints only the measured band (0.13 g/Nm³ at full power, 0.04 at part load, 0.17 at idle).
+5. **The model's engine on the MF 1100** (55 kW against 51) is the one agreement worth little: the sheets say why (47 to 60 kW by the efficiency chosen, +30 % on the fleet).
+6. **The jacket's size, the casing's surface and what the 15 % of loss is made of** are estimates: the casing's own surface loses about 12.5 kW* and the chemistry's `h` says 24 kW. They are said where they stand.
+7. **S3 p. 260 and p. 309** give a ventilation (four air changes an hour) and a wait (twenty minutes before the car goes into the garage). No text repeats them: they read as a way to make it acceptable (R3, R5).
+8. **No licensed footage.** Nothing is taken from a video.
+
+## Numbers left as estimates (`*`)
+
+The farm (house, ditch, heap), the garage and the room above, the machine's volume under the bonnet and the 50 m³ garage's free air, the 1 m³ post-gas source, the doors' exchange of air, the room's ppm at half an hour (3,500 in 50 m³, 200 in 1,000 m³, 670 above), the temperatures of the zones (100, 370, 1,076 and 710 °C), the flame without the wall (1,235 °C), the outlet (240 °C), the casing (210 °C), the filter's cloth (156 °C) and inlet (218 °C), the cooler's outlet (20 °C), the mixture (17 °C), the train's suction (72 mbar), the model's wood at 40 % moisture (57 kg an hour), the dew points, the leak's sizes, the engine's 47 to 60 kW, the spark engine's 31 kW, the service's 13 minutes an hour, and the throttle's idle friction (9 kW). The Sankey of the 3D has no figure on it: the strip and PL-G06 carry the numbers.
+
+## Departures from the research
+
+- **§0.5 and §4.6, the guides.** A kit step plays in one world, so the steps that touched two worlds (the bunker and the unit's lid, the fan and the engine bay) are cut apart; four steps of the assembly carry a warning (the bunker, the lid, the fan, the engine bay) and one of the installation (the stop). The first step of each says it is not a procedure.
+- **§0.6, the sheets.** Ten, not the eight of the standard (the research's plan); numbered group by group because the kit lists them so; sheet 4 is drawn against the journey's cursor and not a height (R2); sheet 10 is totals only.
+- **§0.6, the lessons.** Seven, not six, because the stop and the room deserved their own: the second.
+
+## Tests
+
+`npm test`: `src/data/data.test.ts` (the catalogue against the 67 ids, the structure of every sheet, parity of both languages, marks and numbers, no promise, no imperative, what is said once, the guides' origins and warnings, the overviews, the tools named per world), `src/data/figures.test.ts` (every figure recomputed from `src/sim` or `dims.ts`), `src/data/lessons.test.ts`, `src/data/sources.test.ts` (every link of the research but those not to be linked, the notices, the credits), `src/data/refusals.test.ts` (R2), `src/drawings/drawings.test.ts` (`docs/drawings.md`), and the standard's report (`src/standard.test.ts`).
