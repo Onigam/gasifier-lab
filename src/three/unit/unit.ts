@@ -260,7 +260,9 @@ export function buildUnit(opts: UnitOptions): Unit {
   const bed = bedMaterial();
   const metal = hotMetal(0x3b3632, { roughness: 0.62, metalness: 0.55 });
   const metalLight = hotMetal(0x5a5650, { roughness: 0.55, metalness: 0.6 });
-  const ceramic = hotMetal(0x6d6358, { roughness: 0.9, metalness: 0.05 });
+  const ceramic = hotMetal(0x4f463d, { roughness: 0.9, metalness: 0.05 });
+  // the cut face of a hot part: dark steel that takes the fire's glow like the rest of it, so that in the section it stands out from the bed's false colours (the casings' walls keep the pale face of every section)
+  const hotCut = hotMetal(0x3b342e, { roughness: 0.8, metalness: 0.15, glow: 0.5 });
 
   const keep = (z: number): boolean => !cut || z >= -1e-6;
 
@@ -446,7 +448,7 @@ export function buildUnit(opts: UnitOptions): Unit {
     for (const prof of [wall, hoodTop]) {
       const g = latheCrisp(prof, 56, phiStart, phiLength);
       box.add(mesh(g, metal));
-      if (cut) box.add(mesh(wallCap(prof, HEARTH.boxWall), cutMetal()));
+      if (cut) box.add(mesh(wallCap(prof, HEARTH.boxWall), hotCut));
     }
     // the ring the grate rests on, and the three brackets that carry the throat ring's support
     solid(
@@ -481,7 +483,7 @@ export function buildUnit(opts: UnitOptions): Unit {
       [HEARTH.ring.rimR, ty + HEARTH.ring.h],
       [HEARTH.throatR, ty],
     ];
-    solid(poly, ceramic, cut, ring, 56, cutMetal());
+    solid(poly, ceramic, cut, ring, 56, hotCut);
   }
 
   // ============================================================================================= nozzles and their plenum
@@ -500,8 +502,10 @@ export function buildUnit(opts: UnitOptions): Unit {
     const tilt = 15 * DEG;
     const tubes: THREE.BufferGeometry[] = [];
     const holes: THREE.BufferGeometry[] = [];
+      hotCut,
     for (let k = 0; k < HEARTH.nozzleCount; k++) {
-      const a = (k / HEARTH.nozzleCount) * TAU + 12 * DEG;
+      // the first nozzle lies in the plane of the cut, on the air's side (the intake feeds the plenum there), so that the section shows one whole nozzle along its axis, from the plenum to its tip
+      const a = (k / HEARTH.nozzleCount) * TAU + Math.PI;
       const dx = Math.cos(a);
       const dz = Math.sin(a);
       const tip = v3(dx * HEARTH.nozzleTipR, y, dz * HEARTH.nozzleTipR);
@@ -541,6 +545,7 @@ export function buildUnit(opts: UnitOptions): Unit {
     }
     // the flange where the primary-air valve bolts on
     const fl = cylX(-0.4, -0.392, 0.05, cut, 28);
+      hotCut,
     fl.translate(0, y, 0);
     intake.add(mesh(fl, darkSteel()));
     const bolts: THREE.BufferGeometry[] = [];
@@ -555,6 +560,43 @@ export function buildUnit(opts: UnitOptions): Unit {
     if (bolts.length) intake.add(mesh(joined(bolts), steel()));
   }
 
+      if (cut && Math.abs(tip.z) < 1e-6) {
+        // cut open along its axis: the two walls of the tube in the plane, the bore between them, as far as the tip
+        const wallT = 0.0025;
+        const ri = Math.min(HEARTH.nozzleBore / 2, 0.0095 - wallT);
+        const nz = group('nozzle-cut');
+        solid(
+          [
+            [ri, 0],
+            [0.0095, 0],
+            [0.0105, len],
+            [ri, len],
+          ],
+          metal,
+          true,
+          nz,
+          20,
+          hotCut,
+        );
+        // the cap stands a hair in front of the bed's, which is drawn at the same plane; so does the bore, dark: there are no chips in a nozzle
+        for (const c of nz.children) if ((c as THREE.Mesh).isMesh && c.castShadow === false) c.position.z = -0.0008;
+        const bore = mesh(
+          capPolygon([
+            [0, 0],
+            [ri, 0],
+            [ri, len],
+            [0, len],
+          ]),
+          blackPaint(),
+        );
+        bore.castShadow = false;
+        bore.position.z = -0.0004;
+        nz.add(bore);
+        nz.quaternion.setFromUnitVectors(v3(0, 1, 0), dir.clone().negate().normalize());
+        nz.position.copy(tip);
+        noz.add(nz);
+        continue;
+      }
   // ============================================================================================= the gas outlet
   const outlet = part('gas-outlet', [0.36, FITTINGS.outletY + 0.06, 0]);
   const outletEnd = v3(0.38, FITTINGS.outletY, 0);
@@ -662,7 +704,7 @@ export function buildUnit(opts: UnitOptions): Unit {
       }
     }
     grateRock.add(mesh(joined(bars), metal));
-    if (caps.length) grateRock.add(mesh(joined(caps), cutMetal()));
+    if (caps.length) grateRock.add(mesh(joined(caps), hotCut));
     // two rails under the bars, and the shaft along the middle out to the gas side
     const rails: THREE.BufferGeometry[] = [];
     for (const z of [-0.1, 0.1]) {
@@ -674,8 +716,7 @@ export function buildUnit(opts: UnitOptions): Unit {
     if (rails.length) grateRock.add(mesh(joined(rails), metalLight));
     const shaft = cylX(-inner * 0.95, R + 0.02, HEARTH.grate.shaftR, cut, 16);
     grateRock.add(mesh(shaft, steel()));
-    if (cut)
-      grateRock.add(mesh(rectCap(-inner * 0.95, R + 0.02, -HEARTH.grate.shaftR, HEARTH.grate.shaftR), cutMetal()));
+    if (cut) grateRock.add(mesh(rectCap(-inner * 0.95, R + 0.02, -HEARTH.grate.shaftR, HEARTH.grate.shaftR), hotCut));
   }
 
   // ============================================================================================= the linkage outside

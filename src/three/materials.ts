@@ -38,7 +38,7 @@ export const COLOURS = {
   black: 0x1b1c1e,
   hotBlack: 0x2b2824,
   unitUpper: 0x3a3f3b,
-  cutFace: 0xe8dfca,
+  cutFace: 0xcdd0d0,
   chip: 0xc9a46a,
   condensate: 0x2a1c12,
   flame: 0xffa040,

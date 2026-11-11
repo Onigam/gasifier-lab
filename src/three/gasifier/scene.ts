@@ -48,10 +48,18 @@ export const GASIFIER_REFUSED: ReadonlySet<string> = new Set([
   'outer-casing',
 ]);
 
-/** Where a part is looked at from. The unit stands with its open side towards −z. */
-const FRAMING: Record<UnitPartId, PartFraming> = Object.fromEntries(
-  UNIT_PARTS.map((id) => [id, { viewDir: viewFrom(14, 205) }]),
-) as Record<UnitPartId, PartFraming>;
+/** Where a part is looked at from. The unit stands with its open side towards −z. The hot parts are looked at from a little higher, so that the grate's bars and the ring's cone read and not an edge, and the intake from its own side. */
+const FRAMING: Record<UnitPartId, PartFraming> = {
+  ...(Object.fromEntries(UNIT_PARTS.map((id) => [id, { viewDir: viewFrom(14, 205) }])) as Record<
+    UnitPartId,
+    PartFraming
+  >),
+  'throat-ring': { viewDir: viewFrom(22, 200) },
+  'air-nozzles': { viewDir: viewFrom(26, 215) },
+  'fire-box': { viewDir: viewFrom(20, 205) },
+  grate: { viewDir: viewFrom(36, 200) },
+  'air-intake': { viewDir: viewFrom(20, 235) },
+};
 
 /** The explode: every part leaves along a vertical line or straight out of its place, so nothing goes through the casing. In metres of U. */
 export const EXPLODE: Record<UnitPartId, [number, number, number]> = {

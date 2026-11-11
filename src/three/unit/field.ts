@@ -77,6 +77,7 @@ const GLSL_COMMON = /* glsl */ `
   uniform float uKnotY[${KNOTS}];
   uniform float uKnotT[${KNOTS}];
   uniform float uLevel;
+  uniform float uGlow;
   varying float vUnitY;
   varying float vCapV;
   ${heatRampGlsl(STOPS)}
@@ -87,18 +88,27 @@ const GLSL_COMMON = /* glsl */ `
     }
     return uKnotT[${KNOTS - 1}];
   }
+  // the glow of hot metal: a dull cherry red from about 520 °C that turns orange only near the top of the ramp, so that a hot part stays metal beside the false colours of the bed, which are bright (docs/3d.md, « The hot parts »)
   vec3 incandescence( float T ) {
     float t = clamp( ( T - 520.0 ) / 760.0, 0.0, 1.0 );
-    return vec3( 1.0, 0.34 * t, 0.04 * t * t ) * t * t * 4.2;
+    return vec3( 1.0, 0.2 * t, 0.012 * t * t ) * t * t * 1.0;
   }
 `;
 
-function attach(mat: THREE.Material, key: string, clip: boolean, cap: boolean, offset?: { value: number }): void {
+function attach(
+  mat: THREE.Material,
+  key: string,
+  clip: boolean,
+  cap: boolean,
+  offset?: { value: number },
+  glow = 1,
+): void {
   patchMaterial(mat, key, (shader) => {
     if (offset) shader.uniforms.uOffset = offset;
     shader.uniforms.uKnotY = FIELD.uKnotY;
     shader.uniforms.uKnotT = FIELD.uKnotT;
     shader.uniforms.uLevel = FIELD.uLevel;
+    shader.uniforms.uGlow = { value: glow };
     shader.vertexShader = shader.vertexShader
       .replace(
         '#include <common>',
@@ -124,7 +134,7 @@ function attach(mat: THREE.Material, key: string, clip: boolean, cap: boolean, o
       .replace(
         '#include <emissivemap_fragment>',
         `#include <emissivemap_fragment>
-        totalEmissiveRadiance += incandescence( fieldT_ ) * ( 1.0 - vCapV ) + heat_ * 0.5 * vCapV;`,
+        totalEmissiveRadiance += incandescence( fieldT_ ) * uGlow * ( 1.0 - vCapV ) + heat_ * 0.5 * vCapV;`,
       );
   });
 }
@@ -144,7 +154,7 @@ export function bedMaterial(offset?: { value: number }): THREE.MeshStandardMater
 /** Metal that takes the fire's colour where it is hot: the ring, the firebox, the nozzles, the grate. Not clipped: it stands where the chips are not. */
 export function hotMetal(
   color: number,
-  opts: { roughness?: number; metalness?: number; map?: THREE.Texture | null } = {},
+  opts: { roughness?: number; metalness?: number; map?: THREE.Texture | null; glow?: number } = {},
 ): THREE.MeshStandardMaterial {
   const m = new THREE.MeshStandardMaterial({
     color,
@@ -154,6 +164,6 @@ export function hotMetal(
     side: THREE.DoubleSide,
   });
   m.userData.noShare = true;
-  attach(m, 'hot-metal', false, false);
+  attach(m, 'hot-metal', false, false, undefined, opts.glow ?? 1);
   return m;
 }
