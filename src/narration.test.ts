@@ -22,7 +22,7 @@ const MODES = ['explore', 'assembly', 'install', 'sim', 'plans', 'lessons'];
 const CAMERA_CUES = ['home', 'scene', 'frame', 'select'];
 /** Ceiling set by the owner for the spoken characters of one language, and what this guide aims for (the series' 17,000 to 24,000, with the French a little over: the fix pass of docs/fact-check.md put its hedges in). */
 const BUDGET = 30_000;
-const AIM = [17_000, 24_800] as const;
+const AIM = [17_000, 24_850] as const;
 /** generate.mjs refuses a longer segment. */
 const SEGMENT_CAP = 2_500;
 /** This lab's guide is in the local voice (generate.mjs --engine voicebox): a change of voice must be a decision, not an accident. */
@@ -362,7 +362,7 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
               /rien ne dit quand cela finit|aucune source ne dit que ce gaz s’en va|il n’y a pas de fin/i,
               'the sources give durations; « no end » is the model’s choice',
             ],
-            [/quinze à vingt pour cent du gazole/, 'the pilot quantity is refused (R4, QA D2)'],
+            [/gazole d’un diesel seul/, 'the pilot quantity is refused (R4, QA D2)'],
             [
               /un pour cent de puissance en plus pour trois degrés/,
               'the lab’s density-only figure, far from both sources',
@@ -391,7 +391,7 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
               /nothing says when it ends|no source says that this gas goes away|there is no end/i,
               'the sources give durations; « no end » is the model’s choice',
             ],
-            [/fifteen to twenty per cent of a diesel/, 'the pilot quantity is refused (R4, QA D2)'],
+            [/of a diesel’s fuel/, 'the pilot quantity is refused (R4, QA D2)'],
             [/one per cent more power for every three degrees/, 'the lab’s density-only figure, far from both sources'],
             [/how common it was/, 'nothing says that rescue sets hung in garages'],
             [/rescue set from nineteen forty\./, 'the book dates no apparatus: « the nineteen forties »'],
@@ -426,7 +426,10 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
             ['part-gas-cooler', /Selon le rapport, dix pour cent de température en moins/],
             ['part-cooler-condensate-vessel', /panne grave de ce tracteur/],
             ['part-filter-bags', /Sur le camion du programme/],
-            ['part-post-gas-plume', /c’est son choix, pas une mesure/],
+            [
+              'part-post-gas-plume',
+              /laisse la poussée s’affaiblir sans jamais s’arrêter : c’est un choix, pas une mesure/,
+            ],
             ['part-old-rescue-set', /années quarante/],
           ]
         : [
@@ -446,7 +449,7 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
             ['part-gas-cooler', /By the report, ten per cent less temperature/],
             ['part-cooler-condensate-vessel', /This tractor’s one serious failure/],
             ['part-filter-bags', /On the programme’s truck/],
-            ['part-post-gas-plume', /that is its choice, not a measurement/],
+            ['part-post-gas-plume', /lets the push weaken without ever stopping: a choice, not a measurement/],
             ['part-old-rescue-set', /nineteen forties/],
           ];
     for (const [id, re] of corrected) expect(spokenOf(seg(id)), `${id} lost a correction`).toMatch(re);

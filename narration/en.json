@@ -100,7 +100,7 @@
       "scope": "part:farm-garage",
       "title": "Farm garage",
       "scene": "farm",
-      "text": "Why a garage, in a lab about wood? In Sweden, two thousand eight hundred and sixty-five gasifier vehicles caught fire in five years. Most of them from an electrical fault. Many garage fires, often at night, had no known cause. In the first quarter of nineteen forty-two alone: nearly four a day."
+      "text": "Why a garage, in a lab about wood? In Sweden, two thousand eight hundred and sixty-five vehicles, most of them gasifier vehicles, caught fire in five years. Most often from an electrical fault. Many garage fires, often at night, had no known cause. In the first quarter of nineteen forty-two alone: nearly four a day."
     },
     {
       "id": "part-ash-bin",
@@ -499,7 +499,7 @@
       "scope": "part:post-gas-plume",
       "title": "Post-gas plume",
       "scene": "garage",
-      "text": "The engine stops. [[lab:scenario:engine-stops]] Nothing draws any more, but the gas keeps forming in the hot bed. It pushes for about twenty minutes, says the Swedish book, sometimes for hours according to another manual. It comes out, even from a tight unit: twenty-three to twenty-seven per cent carbon monoxide. Its volume? Nobody measured it: the model starts from one cubic metre. Its push weakens without stopping: that is its choice, not a measurement. No source says when a room holds none of it: that is the sentence this lab cannot write. [[lab:preset:mf-1100]]"
+      "text": "The engine stops. [[lab:scenario:engine-stops]] Nothing draws any more, but the gas keeps forming in the hot bed. It pushes for about twenty minutes, says the Swedish book, sometimes for hours according to another manual. It comes out, even from a tight unit: twenty-three to twenty-seven per cent carbon monoxide. Its volume? Nobody measured it: the model starts from one cubic metre. It lets the push weaken without ever stopping: a choice, not a measurement. No source says when a room holds none of it: that is the sentence this lab cannot write. [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-exhaust-plume",
