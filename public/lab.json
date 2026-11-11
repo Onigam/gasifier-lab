@@ -1,10 +1,20 @@
 {
   "id": "gasifier-lab",
-  "title": { "fr": "Gasifier Lab", "en": "Gasifier Lab" },
-  "tagline": { "fr": "Un lab à remplacer", "en": "A lab to replace" },
-  "tags": [],
-  "difficulty": 1,
-  "minutes": 10,
+  "title": {
+    "fr": "Le gazogène F-5 : un tracteur suédois au gaz de bois",
+    "en": "The F-5 gasifier: a Swedish tractor on wood gas"
+  },
+  "tagline": {
+    "fr": "Un tracteur suédois au gaz de bois, et ce que ça coûtait : un feu qui manque d’air exprès, le gaz qui tue quand le moteur s’arrête, 18 % de l’énergie à l’arbre. Il explique, il ne donne aucun plan.",
+    "en": "A Swedish tractor on wood gas, and what it cost: a fire short of air on purpose, the gas that kills when the engine stops, 18% of the energy at the shaft. It explains, it gives no plan."
+  },
+  "description": {
+    "fr": "Le gazogène F-5 d’un institut suédois sur un tracteur Massey Ferguson 1100, reconstitué d’après le rapport de la FAO : cinq mondes en 3D (la ferme, le tracteur, le gazogène en coupe où une plaquette descend à travers quatre zones, la ligne de gaz jusqu’au moteur, le garage), 67 pièces avec leur fiche, deux guides racontés au passé, sept leçons avec quiz, dix planches A3 et une simulation dont les chiffres ne sont réglés sur aucune cible. Il montre un moteur diesel qui garde un filet de gazole, une journée de travail qui coûtait 15 à 25 minutes de service par heure, et ce que fait la machine quand on l’arrête : elle fabrique du monoxyde de carbone. Reconstitution pédagogique indépendante d’une machine de l’histoire : ni plan, ni procédure, ni conseil.",
+    "en": "The F-5 gasifier of a Swedish institute on a Massey Ferguson 1100 tractor, rebuilt from the FAO’s report: five 3D worlds (the farm, the tractor, the gasifier in section where a chip falls through four zones, the gas line to the engine, the garage), 67 parts with a sheet each, two guides told in the past tense, seven lessons with a quiz, ten A3 sheets and a simulation whose figures are set to no target. It shows a diesel engine that keeps a thread of diesel, a working day that cost 15 to 25 minutes of service an hour, and what the machine does when it is stopped: it makes carbon monoxide. An independent educational reconstruction of a machine from history: no plan, no procedure, no advice."
+  },
+  "tags": ["wood", "gas", "fire", "engine"],
+  "difficulty": 3,
+  "minutes": 40,
   "status": "building",
   "energyProfile": null
 }

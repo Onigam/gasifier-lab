@@ -2,7 +2,7 @@
   "name": "gasifier-lab",
   "private": true,
   "version": "0.1.0",
-  "description": "Interactive 3D explanatory lab of a wood gasifier: how wood becomes engine fuel",
+  "description": "Interactive 3D lab of a Swedish wood gasifier on a tractor: how wood becomes engine fuel, what it cost, and what the machine does when it stops. It explains, it gives no plan.",
   "type": "module",
   "scripts": {
     "dev": "vite",
