@@ -775,8 +775,8 @@ export const GASIFIER_PARTS: PartInfo[] = [
       'It carries the bed of charcoal and lets ash and gas through: it moves, because a fixed grate clogged in under an hour.',
     ),
     description: l(
-      'Sous la zone de réduction, la grille porte le lit de charbon et laisse passer la cendre et le gaz. Elle bouge : d’après le rapport, les plaquettes bouchaient une grille fixe en moins d’une heure. Celle de l’institut bougeait, et sa vie était de 400 à 700 heures, la plus courte du foyer avec l’anneau de gorge. Dans la 3D, elle se balance avec sa manivelle, tant que le modèle dit qu’on la fait bouger.',
-      'Under the reduction zone, the grate carries the bed of charcoal and lets the ash and the gas through. It moves: by the report, chips clogged a fixed grate in under an hour. The institute’s moved, and its life was 400 to 700 hours, the shortest in the hearth with the throat ring. In the 3D it rocks with its crank, as long as the model says it is being moved.',
+      'Sous la zone de réduction, la grille porte le lit de charbon et laisse passer la cendre et le gaz. Elle bouge : d’après le rapport, les plaquettes bouchaient une grille fixe en moins d’une heure. Celle de l’institut bougeait ; le rapport lui donne 400 à 700 heures de vie, d’après l’expérience cumulée de plusieurs véhicules, la plus courte du foyer avec l’anneau de gorge. Dans la 3D, elle se balance avec sa manivelle, tant que le modèle dit qu’on la fait bouger.',
+      'Under the reduction zone, the grate carries the bed of charcoal and lets the ash and the gas through. It moves: by the report, chips clogged a fixed grate in under an hour. The institute’s moved; the report gives it 400 to 700 hours of life, from the accumulated experience of several vehicles, the shortest in the hearth with the throat ring. In the 3D it rocks with its crank, as long as the model says it is being moved.',
     ),
     material: l('Barres d’acier', 'Steel bars'),
     specs: [
