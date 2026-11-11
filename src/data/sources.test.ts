@@ -123,7 +123,7 @@ describe('the Sources panel', () => {
     for (const r of REFUSALS) for (const lang of LANGS) expect(r[lang].length).toBeGreaterThan(30);
     const text = textOf(panels.en);
     for (const r of REFUSALS) expect(text).toContain(r.en);
-    expect(REFUSALS[1]!.en).toMatch(/the 3D draws them to scale/);
+    expect(REFUSALS[1]!.en).toMatch(/the 3D section draws them to scale/);
     expect(REFUSALS[2]!.en).toMatch(/Only history, in the past tense, with durations/);
   });
 

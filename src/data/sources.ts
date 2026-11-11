@@ -52,8 +52,8 @@ export const SOURCE_GROUPS: SourceGroup[] = [
         label:
           'H. LaFontaine, G. P. Zimmerman, Construction of a Simplified Wood Gas Generator for Fueling Internal Combustion Engines in a Petroleum Emergency, ORNL-6404 (Oak Ridge, 1989)',
         note: l(
-          'Cité par son titre et son numéro, sans lien : c’est un manuel de fabrication, et il ne mesure ni gaz, ni puissance, ni goudron. Lu dans le texte, en partie, dans le dépôt du ministère américain de l’énergie. Utilisé pour quatre faits seulement : la flamme qui ne touche pas le bois, la tôle chaude comparée à un pot catalytique et l’herbe sèche, un tableau de symptômes du monoxyde, et ce que le manuel ne mesure pas.',
-          'Cited by title and number, with no link: it is a manual for making one, and it measures no gas, no power and no tar. Read as text, in part, on the American energy department’s repository. Used for four facts only: the flame that does not touch the wood, the hot sheet compared to a catalytic converter and the dry grass, a table of carbon monoxide symptoms, and what the manual does not measure.',
+          'Cité par son titre et son numéro, sans lien : c’est un manuel de fabrication, et il ne mesure ni gaz, ni puissance, ni goudron. Lu dans le texte, en partie, dans le dépôt du ministère américain de l’énergie. Utilisé pour cinq faits seulement : la flamme qui ne touche pas le bois, la tôle chaude comparée à un pot catalytique et l’herbe sèche, la cendre chaude parmi les risques d’incendie, un tableau de symptômes du monoxyde, et ce que le manuel ne mesure pas.',
+          'Cited by title and number, with no link: it is a manual for making one, and it measures no gas, no power and no tar. Read as text, in part, on the American energy department’s repository. Used for five facts only: the flame that does not touch the wood, the hot sheet compared to a catalytic converter and the dry grass, hot ash among the fire risks, a table of carbon monoxide symptoms, and what the manual does not measure.',
         ),
       },
     ],
@@ -65,8 +65,8 @@ export const SOURCE_GROUPS: SourceGroup[] = [
         href: 'https://inrs.fr/dam/ficheTox/FicheFicheTox/FICHETOX_47-1.pdf',
         label: 'INRS, Monoxyde de carbone, fiche toxicologique FT 47 (avril 2021)',
         note: l(
-          'La référence du lab sur la santé : propriétés, limites françaises et européennes, effets aigus et différés, séquelles, toxicité pour le fœtus. Lue dans le texte, en partie. Quand le rapport de la FAO dit qu’aucune séquelle n’est possible, le lab suit l’INRS.',
-          'The lab’s reference on health: properties, French and EU limits, acute and delayed effects, after-effects, toxicity to the fetus. Read as text, in part. Where the FAO’s report says no after-effect can occur, the lab follows INRS.',
+          'La référence du lab sur la santé : propriétés, limite française contraignante et valeurs de l’Union européenne, effets aigus et différés, séquelles, toxicité pour le fœtus. Lue dans le texte, en partie. Quand le rapport de la FAO dit qu’aucune séquelle n’est possible, le lab suit l’INRS.',
+          'The lab’s reference on health: properties, the French binding limit and the EU’s values, acute and delayed effects, after-effects, toxicity to the fetus. Read as text, in part. Where the FAO’s report says no after-effect can occur, the lab follows INRS.',
         ),
       },
       {
@@ -83,8 +83,8 @@ export const SOURCE_GROUPS: SourceGroup[] = [
         label:
           'UK Health and Safety Executive, Safety Alert OPSTD 3-2012, Carbon monoxide from wood pellets in storage (2012)',
         note: l(
-          'Au moins neuf morts dans des stockages de granulés en Europe depuis 2002, et pourquoi le bois en dégage. Lue par un résumé de page : à relire avant d’être citée ailleurs.',
-          'At least nine deaths in pellet stores in Europe since 2002, and why wood gives it off. Read through a page summary: to be re-read before it is quoted elsewhere.',
+          'Au moins neuf morts en Europe, depuis 2002 et jusqu’à cette alerte de novembre 2012, après l’entrée dans des stockages fermés de granulés de bois, et pourquoi le bois en dégage. Lue dans le texte.',
+          'At least nine deaths in Europe, since 2002 and up to this alert of November 2012, after entry into closed wood-pellet stores, and why wood gives it off. Read as text.',
         ),
       },
     ],
@@ -139,8 +139,8 @@ export const REFUSALS: L[] = [
     'No plan: no cut list, no material, no weld, no seal, no tool, no cost.',
   ),
   l(
-    'Aucune taille de la gorge, des tuyères, du foyer, de la grille ni des zones : la 3D les dessine à l’échelle, parce qu’un modèle faux ne répondrait à rien, mais aucune planche, fiche, leçon ni voix ne les imprime, et aucune règle ne va d’un moteur à l’une d’elles.',
-    'No size of the throat, the nozzles, the fire box, the grate or the zones: the 3D draws them to scale, because a false model would answer nothing, but no sheet, page, lesson or voice prints them, and no rule goes from an engine to any of them.',
+    'Aucune taille de la gorge, des tuyères, du foyer, de la grille ni des zones : la coupe en 3D les dessine à l’échelle, parce qu’un modèle faux ne répondrait à rien (le curseur du voyage et les planches PL-G03 et PL-G05, eux, rangent les zones dans l’ordre, pas à l’échelle), mais aucune planche, fiche, leçon ni voix ne les imprime, et aucune règle ne va d’un moteur à l’une d’elles.',
+    'No size of the throat, the nozzles, the fire box, the grate or the zones: the 3D section draws them to scale, because a false model would answer nothing (the journey slider and sheets PL-G03 and PL-G05, on the other hand, put the zones in order, not to scale), but no sheet, page, lesson or voice prints them, and no rule goes from an engine to any of them.',
   ),
   l(
     'Aucune procédure : ni allumage, ni ventilation, ni essai du gaz, ni remplissage, ni arrêt, ni vidange des cendres, ni redémarrage. Seulement de l’histoire, au passé, avec des durées.',
@@ -176,8 +176,8 @@ export const REFUSALS: L[] = [
 /** What the model does not find, in one place (docs/physics.md §3.3, §6, §7.3). Each item carries its marks; no item is a target. */
 export const MODEL_LIMITS: L[] = [
   lf(
-    'Le bois. À 40 kW, le modèle brûle {chipsModel} de plaquettes, le banc en a mesuré 41 : {woodGap} de moins. Ce tracteur a brûlé au banc environ {thirdMore} d’énergie de plus qu’un bon diesel, et le moteur du modèle ne l’imite pas ; le camion du même rapport brûlait à peu près comme au gazole. Aucun rendement ne fait les deux véhicules.',
-    'The wood. At 40 kW, the model burns {chipsModel} of chips, the bench measured 41: {woodGap} less. This tractor burned, on the bench, about {thirdMore} more energy than a good diesel, and the model’s engine does not imitate it; the truck of the same report burned about as on diesel. No single efficiency does both vehicles.',
+    'Le bois. À 40 kW, le modèle brûle {chipsModel} de plaquettes, le banc en a mesuré 41 : {woodGap} de moins. Ce tracteur a brûlé au banc environ {thirdMore} d’énergie de plus qu’un bon diesel : le moteur du modèle brûle mieux que celui du banc, et son gazogène aussi ; le camion du même rapport brûlait à peu près comme au gazole. Aucun rendement ne fait les deux véhicules.',
+    'The wood. At 40 kW, the model burns {chipsModel} of chips, the bench measured 41: {woodGap} less. This tractor burned, on the bench, about {thirdMore} more energy than a good diesel: the model’s engine burns better than the bench’s, and so does its gasifier; the truck of the same report burned about as on diesel. No single efficiency does both vehicles.',
   ),
   lf(
     'Le gaz. {gasModel} contre 5,60 MJ/Nm³ mesurés : {gasGap} de moins. Aucun bilan sur le bois de la formule du rapport ne ferme à la fois tous ses chiffres.',
@@ -188,8 +188,8 @@ export const MODEL_LIMITS: L[] = [
     'The flame. It never goes out: at {wetLimit} moisture the model’s gas falls to the 4.2 MJ/m³ engines ask for, but what stops a real hearth is not in it.',
   ),
   l(
-    'Le goudron. Il est porté, mesuré au banc, jamais prédit : le chiffre des vapeurs détruites est de l’arithmétique.',
-    'The tar. It is carried, measured on the bench, never predicted: the figure for vapours destroyed is arithmetic.',
+    'Le goudron. Il est porté, mesuré au banc, jamais prédit : la part du bois qu’il représente est de l’arithmétique.',
+    'The tar. It is carried, measured on the bench, never predicted: the share of the wood it makes up is arithmetic.',
   ),
   lf(
     'Le moteur. {powerModel} contre 51 kW mesurés n’est pas un succès : le même modèle lit environ {fleetHigh} trop haut les autres moteurs du livre. Il n’a ni flamme lente, ni cognement, ni calage, ni pilote autre que son énergie.',
@@ -204,8 +204,8 @@ export const MODEL_LIMITS: L[] = [
     'The service. The durations of the institute’s tables come to about {serviceModel} of service per hour in the model, when its report counts 15 to 25.',
   ),
   lf(
-    'Le garage. Sa source de gaz, {postGas}, est l’illustration du livre suédois : personne ne l’a mesurée sur cette machine, ni dans une pièce. La note de la Simulation dit le reste de la boîte.',
-    'The garage. Its source of gas, {postGas}, is the Swedish book’s illustration: nobody measured it on this machine, or in a room. The Simulation’s note says the rest of the box.',
+    'Le garage. Sa source de gaz, {postGas}, vient d’un exemple du livre suédois sur une concentration dans l’air : personne ne l’a mesurée sur cette machine, ni dans une pièce. La note de la Simulation dit le reste de la boîte.',
+    'The garage. Its source of gas, {postGas}, comes from the Swedish book’s example of a concentration in air: nobody measured it on this machine, or in a room. The Simulation’s note says the rest of the box.',
   ),
   l(
     'Le démarrage. Il n’y en a pas : une machine arrêtée depuis des heures et remise en marche marche, sans allumage, sans ventilateur, sans échauffement. Le lab n’en dit rien, exprès.',

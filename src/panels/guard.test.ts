@@ -124,19 +124,23 @@ describe('the words of the panels', () => {
 describe('the notice on the way in', () => {
   const entry = [LAB_STRINGS.warningFull, LAB_STRINGS.entryGarage, LAB_STRINGS.entryFire, LAB_STRINGS.entryBurns];
 
-  it('says carbon monoxide, the closed garage, the backfire and the burns, in both languages, and nothing softened', () => {
+  it('says carbon monoxide, the leaking lid under a living room, the backfire and the burns, in both languages, and nothing softened', () => {
     const fr = entry.map((e) => e[0]).join(' ');
     const en = entry.map((e) => e[1]).join(' ');
     expect(en).toMatch(/carbon monoxide/);
-    expect(en).toMatch(/closed garage/);
+    expect(en).toMatch(/leaking lid/);
+    expect(en).toMatch(/under a living room/);
     expect(en).toMatch(/backfire/);
     expect(en).toMatch(/scorching/);
     expect(fr).toMatch(/monoxyde de carbone/);
-    expect(fr).toMatch(/garage fermé/);
+    expect(fr).toMatch(/couvercle qui fuyait/);
+    expect(fr).toMatch(/sous une pièce où l’on vit/);
     expect(fr).toMatch(/retour de flamme/);
     expect(fr).toMatch(/brûlant/);
-    expect(en).toMatch(/killed people who were being careful/);
-    expect(fr).toMatch(/il a tué des gens qui faisaient attention/);
+    expect(en).toMatch(/it has killed people\./);
+    expect(en).not.toMatch(/being careful/);
+    expect(fr).toMatch(/il a tué des gens\./);
+    expect(fr).not.toMatch(/faisaient attention/);
   });
 
   it('gives the emergency numbers as they are in the warning: 112, 15 in France, 144 in Switzerland', () => {
