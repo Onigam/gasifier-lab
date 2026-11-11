@@ -39,7 +39,7 @@ export function panelTexts(): [string, L][] {
     'entryFire',
     'entryBurns',
     'entryEnter',
-    'warning',
+    'warningFull',
   ] as const)
     add(`ui ${k}`, LAB_STRINGS[k]);
   for (const [k, v] of Object.entries(PRESET_TEXTS)) add(`preset ${k}`, v);

@@ -228,7 +228,7 @@ export function sourcesPanel(): HTMLElement[] {
       tr(s.note),
     );
   return [
-    h('div', { class: 'callout callout--warn' }, icon(ICONS.warn, 16), h('span', {}, t('warning'))),
+    h('div', { class: 'callout callout--warn' }, icon(ICONS.warn, 16), h('span', {}, t('warningFull'))),
     h('h3', { class: 'section-title' }, t('refusalsTitle')),
     h('ul', { class: 'links' }, ...REFUSALS.map((r) => h('li', {}, tr(r)))),
     h('div', { class: 'callout callout--tip' }, h('span', {}, t('disclaimer'))),

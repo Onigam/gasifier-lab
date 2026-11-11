@@ -121,7 +121,7 @@ describe('the words of the panels', () => {
 });
 
 describe('the notice on the way in', () => {
-  const entry = [LAB_STRINGS.warning, LAB_STRINGS.entryGarage, LAB_STRINGS.entryFire, LAB_STRINGS.entryBurns];
+  const entry = [LAB_STRINGS.warningFull, LAB_STRINGS.entryGarage, LAB_STRINGS.entryFire, LAB_STRINGS.entryBurns];
 
   it('says carbon monoxide, the closed garage, the backfire and the burns, in both languages, and nothing softened', () => {
     const fr = entry.map((e) => e[0]).join(' ');
@@ -139,12 +139,12 @@ describe('the notice on the way in', () => {
   });
 
   it('gives the emergency numbers as they are in the warning: 112, 15 in France, 144 in Switzerland', () => {
-    expect(LAB_STRINGS.warning[1]).toMatch(/call 112 \(15 in France, 144 in Switzerland\)/);
-    expect(LAB_STRINGS.warning[0]).toMatch(/le 112 \(le 15 en France, le 144 en Suisse\)/);
+    expect(LAB_STRINGS.warningFull[1]).toMatch(/call 112 \(15 in France, 144 in Switzerland\)/);
+    expect(LAB_STRINGS.warningFull[0]).toMatch(/le 112 \(le 15 en France, le 144 en Suisse\)/);
   });
 
   it('is not a plan, a procedure or advice, and says no build or run would be allowed', () => {
-    expect(LAB_STRINGS.warning[1]).toMatch(/not a plan, a procedure or advice/);
-    expect(LAB_STRINGS.warning[1]).toMatch(/building or running one would be acceptable or allowed/);
+    expect(LAB_STRINGS.warningFull[1]).toMatch(/not a plan, a procedure or advice/);
+    expect(LAB_STRINGS.warningFull[1]).toMatch(/building or running one would be acceptable or allowed/);
   });
 });

@@ -15,7 +15,7 @@ export function entryNotice(onEnter: () => void): HTMLElement {
     { class: 'unsupported__card', role: 'document', 'aria-labelledby': 'entry-title' },
     h('div', { class: 'eyebrow eyebrow--accent' }, t('entryEyebrow')),
     h('h2', { class: 'panel-title', id: 'entry-title' }, t('entryTitle')),
-    h('p', { class: 'lead' }, t('warning')),
+    h('p', { class: 'lead' }, t('warningFull')),
     h('div', { class: 'callout callout--warn' }, h('span', {}, t('entryGarage'))),
     h('div', { class: 'callout callout--warn' }, h('span', {}, t('entryFire'))),
     h('div', { class: 'callout callout--warn' }, h('span', {}, t('entryBurns'))),

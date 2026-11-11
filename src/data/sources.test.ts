@@ -41,12 +41,12 @@ describe('the Sources panel', () => {
     for (const lang of LANGS) {
       const text = textOf(panels[lang]);
       expect(panels[lang].length, lang).toBeGreaterThan(14);
-      expect(text, lang).toContain(LAB_STRINGS.warning[lang === 'fr' ? 0 : 1].slice(0, 60));
+      expect(text, lang).toContain(LAB_STRINGS.warningFull[lang === 'fr' ? 0 : 1].slice(0, 60));
       expect(text, lang).toContain(LAB_STRINGS.legal[lang === 'fr' ? 0 : 1].slice(0, 60));
       expect(text, lang).toContain(LAB_STRINGS.noticeReading[lang === 'fr' ? 0 : 1].slice(0, 40));
       expect(text, lang).not.toMatch(/\*\*/);
     }
-    expect(plain(panels.fr[0]!.textContent)).toBe(LAB_STRINGS.warning[0]);
+    expect(plain(panels.fr[0]!.textContent)).toBe(LAB_STRINGS.warningFull[0]);
   });
 
   it('links every source over https, each once, and links none that gives instructions for making one: the American report and the amateur’s episodes have no link', () => {
@@ -139,7 +139,7 @@ describe('the Sources panel', () => {
   });
 
   it('says the warning in full, once, and the reconstruction once: nowhere else on a sheet, a guide, a lesson or an overview', () => {
-    const w = LAB_STRINGS.warning;
+    const w = LAB_STRINGS.warningFull;
     expect(w[1]).toMatch(/It is not a plan, a procedure or advice/);
     expect(w[1]).toMatch(/get into the open air, do not go back in, call 112/);
     expect(w[0]).toMatch(/à l’air libre, on ne retourne pas à l’intérieur, on appelle le 112/);

@@ -39,7 +39,8 @@ export const LAB_STRINGS = {
   ],
 
   // ---- the notices of the Sources panel, each said once
-  warning: [
+  // not `warning`: that is a key of the kit (the label of a guide step's warning), which `registerStrings` would overwrite
+  warningFull: [
     'Un gazogène fabrique du monoxyde de carbone, c’est sa raison d’être. Environ un cinquième du gaz dans ces tuyaux en est fait : il ne se voit pas, il ne se sent pas, et il a tué des gens qui faisaient attention. Ce lab explique une machine de l’histoire. Ce n’est ni un plan, ni une procédure, ni un conseil, et rien ici ne montre qu’en construire ou en faire tourner une serait acceptable ou permis. Certaines cotes et tous les gestes sont absents, volontairement. En cas de doute sur une intoxication : à l’air libre, on ne retourne pas à l’intérieur, on appelle le 112 (le 15 en France, le 144 en Suisse).',
     'A gasifier makes carbon monoxide: that is what it is for. About a fifth of the gas in these pipes is made of it: it cannot be seen, it cannot be smelt, and it has killed people who were being careful. This lab explains a machine from history. It is not a plan, a procedure or advice, and nothing here shows that building or running one would be acceptable or allowed. Some dimensions and every gesture are left out, on purpose. If you suspect poisoning: get into the open air, do not go back in, call 112 (15 in France, 144 in Switzerland).',
   ],
