@@ -20,15 +20,17 @@ A gravel yard under a low sun: the red farmhouse with its white corners and its 
 
 **The trees (instanced, all from unit geometries; nothing is a ball).**
 
-| Species | Count | Note                                                                                                                  |
-| ------- | ----- | --------------------------------------------------------------------------------------------------------------------- |
-| Birch   | 12    | a slender white trunk with dark marks, limbs that rise and fork, a narrow airy crown of small light leaves that droop |
-| Oak     | 2     | a stout trunk, wide limbs, a broad dense crown                                                                        |
-| Linden  | 1     | a rounded crown of broad leaves near the house                                                                        |
-| Apple   | 5     | short, a round crown, in a row behind the house                                                                       |
-| Pine    | 6     | a long bare trunk with orange bark, a flat crown at the top, at the edges                                             |
-| Spruce  | 47    | trunk, whorls of drooping boughs with a dark keel, in a shelterbelt along the north and west and by the lane's end    |
-| Far     | ~330  | two stacked cones, in dark groves round the clearing, kept off the field                                              |
+| Species | Count | Note                                                                                                                                                                            |
+| ------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Birch   | 12    | a slender white trunk with dark marks, limbs that rise and fork, a narrow airy crown of small light leaves that droop                                                           |
+| Oak     | 2     | a stout trunk, wide limbs, a broad dense crown                                                                                                                                  |
+| Linden  | 1     | a rounded crown of broad leaves near the house                                                                                                                                  |
+| Apple   | 5     | short, a round crown, in a row behind the house                                                                                                                                 |
+| Pine    | 6     | a long bare trunk with orange bark, a flat crown at the top, at the edges                                                                                                       |
+| Spruce  | 47    | trunk, whorls of drooping boughs with a dark keel (beyond 28 m a stack of skirts of the same height and reach), in a shelterbelt along the north and west and by the lane's end |
+| Far     | ~330  | two stacked cones, in dark groves round the clearing, kept off the field                                                                                                        |
+
+**The spruces by distance.** A spruce with its hundred and five thin boughs is what the picture shimmered with on a slow orbit and a dolly (docs/qa.md D16; the far spruces and the leaf cards were not the cause: hiding them changed nothing). Beyond `SPRUCE_COARSE_FROM` (28 m) from the eye a spruce is drawn as a stack of drooping skirts with a star-shaped hem and a dark lip under each (`spruceCoarse`), of the same height and reach: two instanced meshes, each tree in one of them by its distance, chosen each frame in `onBeforeRender` of the crowns (the eye's camera only: the shadow pass has none), with a margin of 12 % either way so that none flips at the limit (`lod.test.ts`). Near, the boughs; from the yard's overview, the skirts, which read as spruces at 25, 35 and 60 m.
 
 A crown is made of leaf cards (alpha-tested sprays of leaves on a transparent ground) on the limbs' ends and through an ellipsoid, each spray lit by the crown's own normal, so that a tree reads from every side. Every tree stands on `terrainHeight` and keeps off the buildings, the field and the lines from which a part of the yard is looked at (`blocksSight` in `farm/scene.ts`: 7 m either side of the line from the part along its viewing direction, out to 70 m; a test holds it): a click on the house brings the camera to a house, not to a crown.
 
