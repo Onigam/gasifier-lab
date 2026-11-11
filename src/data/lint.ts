@@ -183,6 +183,11 @@ export const REPORTED = new Set(
     '230',
     '10000',
     '2002',
+    '2012',
+    '1983',
+    // S5 (INRS FT 47): the years of the French binding limit and of the EU value
+    '2019',
+    '2017',
     // the room and the carbon monoxide: K48, K50, K51, K65; S5, S6
     '23',
     '27',
@@ -229,7 +234,10 @@ export const OPERATING_EN =
 export const OPERATING_FR =
   /(^|[.!?:;]\s+|\n)(allumez|ventilez|remplissez|videz|fermez|purgez|serrez|soudez|découpez|percez|construisez|boulonnez|assemblez|installez|mélangez|versez|brûlez|démarrez|arrêtez le)\b/i;
 
-/** No size of the hot parts, in any printed form (research §A.2, R2): the throat, the nozzles, the firebox, the heights of the zones, the ring, the plenum, the hood, the grate. Forms with a unit; a bare number can be a life or a temperature. */
+/**
+ * No size of the hot parts, in any printed form (research §A.2, R2): the throat, the nozzles, the firebox, the heights of the zones, the ring, the plenum, the hood, the grate. Forms with a unit; a bare number can be a life or a temperature.
+ * A length in metres is also printed as the first or the middle figure of « a × b m » (the dimension rows of src/data/parts/dim-specs.ts), where only the last figure carries the unit: those are read followed by their ×.
+ */
 export function printedForms(metres: number): string[] {
   const mm = Math.round(metres * 1000 * 100) / 100;
   const cm = Math.round(metres * 100 * 100) / 100;
@@ -243,6 +251,8 @@ export function printedForms(metres: number): string[] {
     `${fr(cm)} cm`,
     `${metres} m`,
     `${fr(metres)} m`,
+    `${metres} ×`,
+    `${fr(metres)} ×`,
   ];
   return out.concat(out.map((f) => f.replace(' ', ' ')));
 }

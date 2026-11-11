@@ -3,7 +3,7 @@
 // left empty while they are selected (`GASIFIER_REFUSED`). `src/data/refusals.test.ts` holds that this file never reads `HOT`, `HEARTH` or `ZONES`.
 import type { Spec } from '@onigam/lab-kit/content';
 import { l, type L } from '@onigam/lab-kit/i18n';
-import { GAUGE, UNIT } from '../../three/dims';
+import { GAUGE } from '../../three/dims';
 import { sp } from '../part-helpers';
 import { nEn, nFr } from '../units';
 
@@ -18,9 +18,6 @@ const lenM = (mark: '*' | '†' | '', ...m: number[]): L =>
   );
 
 export const DIM_SPECS: Record<string, Spec[]> = {
-  // the family's table has a row for 0.2 m³: that row's diameter and height are reported for the family, chosen by us from the volume
-  'fuel-casing': [
-    sp('Diamètre × hauteur de la soute', 'Bunker diameter × height', lenM('†', UNIT.bunkerR * 2, UNIT.bunkerH)),
-  ],
+  // `fuel-casing` has no row: a diameter and a height of the bunker would give a size the lab withholds (research §A.2, R2). The sheet keeps the volume and the mass, which are reported.
   'water-gauge': [sp('Hauteur dessinée', 'Height as drawn', lenM('*', GAUGE.h))],
 };

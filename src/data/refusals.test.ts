@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { HEARTH, HOT, UNIT, ZONES } from '../three/dims';
 import { allTexts } from './all-texts';
-import { printedForms } from './lint';
+import { isL, printedForms } from './lint';
+import { DIM_SPECS } from './parts/dim-specs';
 import { spokenToDigits } from './spoken';
 
 // The sizes of the throat, the nozzles, the firebox and the heights of the zones are drawn to scale in the 3D and printed nowhere (research §A.2, R2; docs/physics.md §9; `GASIFIER_REFUSED` in src/three). The guard of src/three/dims.test.ts holds the 3D's own modules; this one
@@ -52,6 +53,44 @@ describe('the sizes of the hot parts are printed nowhere (R2)', () => {
       }
     }
     expect(problems).toEqual([]);
+  });
+
+  it('no dimension row of a sheet prints one either: the rows are generated from dims.ts, which `allTexts` leaves out, so they are read here as they are shown', () => {
+    const problems: string[] = [];
+    for (const [id, rows] of Object.entries(DIM_SPECS))
+      for (const row of rows)
+        for (const lang of ['fr', 'en'] as const) {
+          const text = (isL(row.value) ? row.value[lang] : String(row.value)).replace(/[  ]/g, ' ');
+          for (const v of REFUSED)
+            for (const f of printedForms(v)) {
+              const re = new RegExp(
+                `(?<![\\d.,])${f.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?![\\p{L}²³\\d/]|\\s(?:par|a|an)\\s)`,
+                'u',
+              );
+              if (re.test(text)) problems.push(`${id} [${lang}] prints ${f}`);
+            }
+        }
+    expect(problems).toEqual([]);
+  });
+
+  it('is not blind to « a × b m »: a refused length that is the first or the middle figure of a dimension row is found, in either language', () => {
+    // only the last figure of « a × b m » carries its unit; the guard reads the others followed by their ×
+    const v = UNIT.lowerR * 2;
+    const fr = (x: number): string => String(x).replace('.', ',');
+    const rows = [
+      `${fr(v)} × 1,23 m`,
+      `${v} × 1.23 m`,
+      `1,23 × ${fr(v)} × 4,5 m`,
+      `1.23 × ${v} × 4.5 m`,
+      `${fr(v)} × 1,23 × 4,5 m`,
+    ];
+    for (const row of rows)
+      expect(
+        printedForms(v).some((f) =>
+          new RegExp(`(?<![\\d.,])${f.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?![\\p{L}²³\\d/])`, 'u').test(row),
+        ),
+        row,
+      ).toBe(true);
   });
 
   it('no text speaks of a hearth load, a nozzle count, a throat ratio or a rule from an engine to a size', () => {
