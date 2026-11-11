@@ -93,7 +93,7 @@
       "scope": "part:farmhouse",
       "title": "Farmhouse",
       "scene": "farm",
-      "text": "No source describes the farmhouse: this one is an estimate, two storeys of red boards. The Swedish book ranks among the worst accidents those of cars with a leaking lid, parked under a room where people live. So the garage touches the house."
+      "text": "No source describes the farmhouse: this one is an estimate, two storeys of red boards. The Swedish book ranks among the worst accidents those of cars with a leaking lid. Parked under a room where people live. So the garage touches the house."
     },
     {
       "id": "part-farm-garage",
@@ -492,7 +492,7 @@
       "scope": "part:room-above",
       "title": "Room above",
       "scene": "garage",
-      "text": "Above the garage, a bedroom with a made bed. The Swedish book says some of the country’s worst accidents came from a car with a leaking lid, under a living space. [[lab:scenario:closed-garage]] [[lab:speed:600]] The gas gets through the floor, at a rate nobody measured. The bedroom climbs to about six hundred and seventy parts per million, more than an hour after the garage’s peak. Nobody is drawn in it. [[lab:preset:mf-1100]]"
+      "text": "Above the garage, a bedroom with a made bed. The Swedish book says some of the country’s worst accidents came from a car with a leaking lid. Parked under a living space. [[lab:scenario:closed-garage]] [[lab:speed:600]] The gas gets through the floor, at a rate nobody measured. The bedroom climbs to about six hundred and seventy parts per million, more than an hour after the garage’s peak. Nobody is drawn in it. [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-post-gas-plume",
