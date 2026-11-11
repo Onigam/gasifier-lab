@@ -67,7 +67,8 @@ const HOTSPOTS: HotspotDef[] = [
   { id: 'farm-garage', fr: 'Garage', en: 'Farm garage', goto: 'garage' },
   { id: 'ash-bin', fr: 'Bac à cendres', en: 'Ash bin', minor: true },
   { id: 'condensate-barrel', fr: 'Fût de condensats', en: 'Condensate barrel', minor: true },
-  { id: 'field-ditch', fr: 'Fossé', en: 'Field ditch' },
+  // minor: the tractor drives along the ditch on its loop, and its name, which goes with it, would cross this one at some moment of the day at 390 px; the ditch's name shows with « all labels » and when it is selected
+  { id: 'field-ditch', fr: 'Fossé', en: 'Field ditch', minor: true },
 ];
 
 /** Where each part of the yard stands, to keep the way it is looked at free of trees. */
@@ -470,14 +471,15 @@ export function createFarmScene(opts: FarmOptions = {}): FarmScene {
     'condensate-barrel': barrel.group,
     'field-ditch': ditch,
   };
+  // Where each name stands, in its part's own frame. The names of the buildings are raised and drawn to one side so that none lies on another at home, at 1280, 768 and 390 px (the first set stood the house's name under the garage's: docs/qa.md D17); each still stands on or over the part it names.
   const anchorAt: Record<FarmId, [number, number, number]> = {
     'wood-gas-tractor': [0.6, 3.5, 0],
-    'chip-barn': [0, FARM.barn.wall + 4.2, FARM.barn.d / 2],
+    'chip-barn': [-4.6, FARM.barn.wall + 4, FARM.barn.d / 2 + 0.6],
     'drum-chipper': [0.2, 3.1, 0],
     'chip-sieve': [0, 2.4, 0],
     'clod-crusher': [0.0, 1.2, 0],
-    farmhouse: [0, FARM.house.wall + 3.4, FARM.house.d / 2],
-    'farm-garage': [0, 7.6, 0],
+    farmhouse: [-0.5, FARM.house.wall + 6, FARM.house.d / 2 - 2.3],
+    'farm-garage': [-0.45, 3.6, -0.6],
     'ash-bin': [0, 1.2, 0],
     'condensate-barrel': [0, 1.5, 0],
     'field-ditch': [-6, 1.2, FARM.ditch.z],

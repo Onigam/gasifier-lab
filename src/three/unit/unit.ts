@@ -1041,7 +1041,7 @@ export function buildUnit(opts: UnitOptions): Unit {
     bedMesh(z.y0, z.y1, g);
     bedGroups.set(id, g);
   }
-  const column = part('chip-column', [-0.1, 1.45, 0.0]);
+  const column = part('chip-column', [-0.05, 1.45, 0.03]);
   const colTop = ZONES.drying.y1;
   const colMax = RIM - COLUMN.freeboard;
   bedMesh(colTop, colMax, column);
