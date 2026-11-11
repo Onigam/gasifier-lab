@@ -1,4 +1,4 @@
-import { setLang } from '@onigam/lab-kit/i18n';
+import { getLang, setLang } from '@onigam/lab-kit/i18n';
 import { afterEach, beforeAll, describe, expect, it } from 'vitest';
 import { LAB_STRINGS } from '../i18n/ui';
 import { entryNotice, STORAGE_KEY, VERSION } from './entry';
@@ -24,9 +24,10 @@ describe('the notice on the way in', () => {
         expect(text, `${lang} ${k}`).toContain(plain(LAB_STRINGS[k][i]));
       expect(card.find('.callout--warn')).toHaveLength(3);
       const buttons = card.find('button');
-      expect(buttons).toHaveLength(1);
-      expect(buttons[0]!.textContent).toBe(LAB_STRINGS.entryEnter[i]);
-      buttons[0]!.click();
+      expect(buttons).toHaveLength(3);
+      const enter = buttons.find((b) => b.textContent === LAB_STRINGS.entryEnter[i])!;
+      expect(enter).toBeDefined();
+      enter.click();
       expect(closed).toBe(1);
     }
   });
@@ -39,6 +40,21 @@ describe('the notice on the way in', () => {
     expect(t.indexOf(LAB_STRINGS.entryFire[0])).toBeLessThan(t.indexOf(LAB_STRINGS.entryBurns[0]));
     expect(card.attrs.get('aria-labelledby')).toBe('entry-title');
     expect(card.find('h2')[0]!.attrs.get('id')).toBe('entry-title');
+  });
+
+  it('carries its own language switch, since the top bar is behind it: the language of the moment is pressed', () => {
+    for (const lang of ['fr', 'en'] as const) {
+      setLang(lang);
+      const card = entryNotice(() => undefined) as unknown as FakeElement;
+      const switchEl = card.find('.lang-switch')[0]!;
+      const [fr, en] = switchEl.find('button');
+      expect([fr!.textContent, en!.textContent]).toEqual(['FR', 'EN']);
+      expect(fr!.classList.contains('is-active')).toBe(lang === 'fr');
+      expect(en!.classList.contains('is-active')).toBe(lang === 'en');
+    }
+    const card = entryNotice(() => undefined) as unknown as FakeElement;
+    card.find('.lang-switch')[0]!.find('button')[1]!.click();
+    expect(getLang()).toBe('en');
   });
 
   it('is remembered per lab and per wording', () => {
