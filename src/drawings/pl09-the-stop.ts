@@ -50,8 +50,8 @@ function draw(d: Drawing): void {
   box(d, 154, 34, 120, 22, l('Environ 20 minutes', 'About 20 minutes'), {
     fill: FILL.hot,
     sub: l(
-      'la pression monte, le gaz sort par la prise d’air primaire',
-      'the pressure rises, the gas leaves by the primary-air intake',
+      'la pression monte, le gaz sort, notamment par la prise d’air primaire',
+      'the pressure rises, the gas leaves, particularly by the primary-air intake',
     ),
   });
   box(d, 290, 34, 116, 22, l('« Parfois pendant des heures »', '“Sometimes for hours”'), {
@@ -63,8 +63,8 @@ function draw(d: Drawing): void {
   p.text(
     [18, 62],
     l(
-      'Le gaz resté dans les tuyaux est de 23 à 27 % de monoxyde de carbone : il sort même d’un gazogène étanche.',
-      'The gas left in the pipes is 23 to 27% carbon monoxide: it comes out even from a tight gasifier.',
+      'Le gaz qui se forme après l’arrêt est de 23 à 27 % de monoxyde de carbone : il sort même d’un gazogène étanche.',
+      'The gas that forms after the stop is 23 to 27% carbon monoxide: it comes out even from a tight gasifier.',
     ),
     {
       size: 1.85,
@@ -179,8 +179,8 @@ export const theStop: DrawingSheet = {
   group: 'danger',
   title: l('L’arrêt et la pièce', 'The stop and the room'),
   description: l(
-    'Ce que fait la machine quand elle s’arrête : la pression monte une vingtaine de minutes et le gaz sort par la prise d’air primaire. Puis ce que le modèle met dans un garage fermé de 50 m³, dans un de 1 000 m³ et dans la chambre au-dessus du petit, en trois heures : des estimations, sans personne dans l’image, sur une échelle logarithmique. La feuille ne calcule aucun temps.',
-    'What the machine does when it stops: the pressure rises for some twenty minutes and the gas leaves by the primary-air intake. Then what the model puts in a closed 50 m³ garage, in a 1,000 m³ one and in the room above the small one, over three hours: estimates, nobody in the picture, on a logarithmic scale. The sheet computes no time.',
+    'Ce que fait la machine quand elle s’arrête : la pression monte une vingtaine de minutes et le gaz sort, notamment par la prise d’air primaire. Puis ce que le modèle met dans un garage fermé de 50 m³, dans un de 1 000 m³ et dans la chambre au-dessus du petit, en trois heures : des estimations, sans personne dans l’image, sur une échelle logarithmique. La feuille ne calcule aucun temps.',
+    'What the machine does when it stops: the pressure rises for some twenty minutes and the gas leaves, particularly by the primary-air intake. Then what the model puts in a closed 50 m³ garage, in a 1,000 m³ one and in the room above the small one, over three hours: estimates, nobody in the picture, on a logarithmic scale. The sheet computes no time.',
   ),
   scene: 'garage',
   parts: ['post-gas-plume', 'closed-garage', 'room-above', 'garage-door'],

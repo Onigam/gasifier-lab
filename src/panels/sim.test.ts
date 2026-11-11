@@ -7,8 +7,8 @@ import { roomRows, workRows } from '../sim/strip';
 import { ALARM_TEXTS, ROOM_NOTE } from '../sim/texts';
 import { analyserReadouts, band, mainReadouts, moreReadouts, niceCeil3, roomFacts, statusOf } from './model';
 import { SimPanel } from './sim';
-import { num, say, st, STRIP_ALARMS, sx } from './strings';
-import { rowsFor, setActiveScene, stripAlarms, stripClock, stripValues } from './strip';
+import { num, PANEL_ONLY, say, st, STRIP_ALARMS, sx } from './strings';
+import { GARAGE_VALUES, rowsFor, setActiveScene, stripAlarms, stripClock, stripValues } from './strip';
 import { FakeElement, installFakeDom } from './test-dom';
 
 // The panel rendered on a stand-in for the DOM: that it builds, what it offers, that it follows the simulation, that a click does what it says, in both languages; then the strip.
@@ -285,7 +285,11 @@ describe('the figures', () => {
 
 describe('the strip, in one line', () => {
   it('has a short form of every alarm, under fifty characters, and the sentence stays longer', () => {
-    expect(Object.keys(STRIP_ALARMS).sort()).toEqual(Object.keys(ALARM_TEXTS).sort());
+    expect(Object.keys(STRIP_ALARMS).sort()).toEqual(
+      Object.keys(ALARM_TEXTS)
+        .filter((k) => !(PANEL_ONLY as readonly string[]).includes(k))
+        .sort(),
+    );
     for (const [key, pair] of Object.entries(STRIP_ALARMS))
       for (const i of [0, 1] as const) {
         expect(pair[i].length, `${key} ${i}`).toBeLessThanOrEqual(48);
@@ -293,6 +297,21 @@ describe('the strip, in one line', () => {
           ALARM_TEXTS[key as keyof typeof ALARM_TEXTS].text[i].length,
         );
       }
+  });
+
+  it('keeps the alarms of the garage short enough to stand together in the strip at 1280 px, with the four figures it leaves them', () => {
+    // about 6 px a character and 40 px of chip, in about 500 px: the three together, and the fan beside the engine’s gas, stay under 50 characters, in both languages
+    const together = ['gasOutAfterStop', 'coLadder', 'coRoomAbove'] as const;
+    for (const i of [0, 1] as const)
+      expect(together.reduce((n, k) => n + STRIP_ALARMS[k][i].length, 0)).toBeLessThanOrEqual(50);
+    expect(GARAGE_VALUES).toBe(4);
+    // the door’s remark is the panel’s: no chip says it without its source
+    const sim = new GasifierSim();
+    sim.applyScenario('closed-garage');
+    sim.set({ door: 'open' });
+    advance(sim, 600);
+    expect(sim.state.alarms).toContain('coDoorOpen');
+    expect(stripAlarms(sim).map((a) => a.key)).not.toContain('coDoorOpen');
   });
 
   it('writes the numbers the way the language does: 1 855 and 2,2 in French, 1,855 and 2.2 in English', () => {
@@ -374,7 +393,11 @@ describe('the strip', () => {
   it('shows the room in the garage’s world, and a dash where the box holds nothing yet', () => {
     const sim = new GasifierSim();
     setActiveScene('garage');
-    expect(rowsFor(sim).map((r) => r.key)).toEqual(roomRows(sim.state).map((r) => r.key));
+    expect(rowsFor(sim).map((r) => r.key)).toEqual(
+      roomRows(sim.state)
+        .slice(0, GARAGE_VALUES)
+        .map((r) => r.key),
+    );
     const v = stripValues(sim);
     expect(v[0]!.value).toBe('—');
     expect(v[0]!.unit).toBe('');
@@ -389,7 +412,11 @@ describe('the strip', () => {
     const sim = new GasifierSim();
     sim.applyScenario('closed-garage');
     setActiveScene('farm');
-    expect(rowsFor(sim).map((r) => r.key)).toEqual(roomRows(sim.state).map((r) => r.key));
+    expect(rowsFor(sim).map((r) => r.key)).toEqual(
+      roomRows(sim.state)
+        .slice(0, GARAGE_VALUES)
+        .map((r) => r.key),
+    );
   });
 
   it('has a clock that says whether the engine runs, and alarms in words, both languages', () => {

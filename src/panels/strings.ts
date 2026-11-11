@@ -110,8 +110,8 @@ export const PANEL = {
   secJourney: ['Le voyage d’une plaquette', 'The journey of a chip'],
   journeyLabel: ['Position du curseur', 'Cursor position'],
   journeyHint: [
-    'Le curseur suit une plaquette et un analyseur lit le gaz autour d’elle. Les zones sont dans l’ordre et pas à l’échelle, exprès. La température et le gaz de chaque point sont des estimations, sauf aux deux bouts.',
-    'The cursor follows one chip and an analyser reads the gas around it. The zones are in order and not to scale, on purpose. The temperature and gas at each point are estimates, except at the two ends.',
+    'Le curseur suit une plaquette et un analyseur lit le gaz autour d’elle. Le curseur range les zones dans l’ordre, pas à l’échelle, exprès ; la coupe du monde « Gazogène », elle, est à l’échelle. La température et le gaz de chaque point sont des estimations, sauf aux deux bouts.',
+    'The cursor follows one chip and an analyser reads the gas around it. The cursor puts the zones in order, not to scale, on purpose; the section in the “Gasifier” world is to scale. The temperature and gas at each point are estimates, except at the two ends.',
   ],
   seeInGasifier: ['Voir dans le gazogène', 'See it in the gasifier'],
   anZone: ['Zone', 'Zone'],
@@ -140,8 +140,8 @@ export const PANEL = {
   lidLeak: ['Couvercle qui ne ferme pas (une panne)', 'Lid that does not seal (a fault)'],
   fanSource: ['Le ventilateur de démarrage comme source', 'The starting fan as a source'],
   roomHint: [
-    'La pièce ne reçoit du gaz que si la machine y est : choisissez « Au garage », ou le scénario du garage fermé. Le mètre cube que l’arrêt laisse sortir n’est pas une mesure, c’est l’illustration d’un livre : bougez-le et regardez ce que devient le chiffre. La sortie dure de l’ordre de 20 minutes d’après un livre, plusieurs heures d’après un autre : passé ce temps, le gaz n’a pas fini, il s’est dilué.',
-    'The room gets gas only if the machine is in it: choose “In the garage”, or the closed garage scenario. The cubic metre the stop lets out is no measurement, it is a book’s illustration: move it and watch what becomes of the figure. The outflow lasts about 20 minutes by one book and several hours by another: past that, the gas has not ended, it has thinned.',
+    'La pièce ne reçoit du gaz que si la machine y est : choisissez « Au garage », ou le scénario du garage fermé. Le mètre cube que l’arrêt laisse sortir n’est pas une mesure, il vient d’un exemple de livre : bougez-le et regardez ce que devient le chiffre. La sortie dure de l’ordre de 20 minutes d’après un livre, parfois des heures d’après un autre : aucune source ne dit à partir de quand une pièce n’en garde plus, et, dans le modèle, la poussée s’affaiblit sans s’arrêter : c’est un choix du modèle.',
+    'The room gets gas only if the machine is in it: choose “In the garage”, or the closed garage scenario. The cubic metre the stop lets out is no measurement, it comes from a book’s example: move it and watch what becomes of the figure. The outflow lasts about 20 minutes by one book and sometimes hours by another: no source says from when a room holds none of it, and in the model the push weakens without stopping: that is the model’s choice.',
   ],
   roomCoGarage: ['CO dans la boîte « garage »', 'CO in the “garage” box'],
   roomCoAbove: ['CO dans la boîte « pièce au-dessus »', 'CO in the “room above” box'],
@@ -179,8 +179,12 @@ export const PANEL = {
   noData: ['La courbe commence avec la course.', 'The curve begins with the run.'],
 } as const satisfies Record<string, readonly [string, string]>;
 
-/** The alarm of the bottom strip is one line: a short form of each, about forty characters. The panel keeps the sentence (src/sim/texts.ts), and `sim.test.ts` holds that the two lists have the same keys. */
-export const STRIP_ALARMS: Record<keyof typeof ALARM_TEXTS, Pair> = {
+/** The alarms the strip leaves to the panel: a remark on the door that no chip can carry with its source (the Swedes found it far from satisfactory to fan or start with the doors open), and which the panel's list says whole. */
+export type PanelOnly = 'coDoorOpen';
+export const PANEL_ONLY: readonly PanelOnly[] = ['coDoorOpen'];
+
+/** The alarm of the bottom strip is one line: a short form of each. The ones the garage raises together (the engine's gas, the ladder, the room above) stand in about 500 px at 1280, what four values leave the alarms in the kit's strip, so theirs are the shortest. The panel keeps the sentence (src/sim/texts.ts), and `sim.test.ts` holds that the two lists have the same keys and the garage's budget. */
+export const STRIP_ALARMS: Record<Exclude<keyof typeof ALARM_TEXTS, PanelOnly>, Pair> = {
   engineShort: ['Puissance demandée non atteinte', 'Power asked not reached'],
   gasTooPoor: ['Gaz sous 4,2 MJ/m³', 'Gas below 4.2 MJ/m³'],
   moistureAboveLimit: ['Plaquettes au-delà de 30 %', 'Chips past 30 % moisture'],
@@ -190,16 +194,15 @@ export const STRIP_ALARMS: Record<keyof typeof ALARM_TEXTS, Pair> = {
   filterAged: ['Poussière : résistance du filtre × 2', 'Dust: the filter’s resistance × 2'],
   airLeak: ['De l’air brûle le gaz chaud', 'Air is burning the hot gas'],
   vesselOverfull: ['Bac du refroidisseur trop plein', 'Cooler vessel overfull'],
-  gasOutAfterStop: ['Moteur arrêté : le gaz sort encore', 'Engine stopped: the gas still comes out'],
+  gasOutAfterStop: ['Le gaz sort encore', 'Gas still comes out'],
   lidLeak: ['Couvercle non étanche', 'Lid does not seal'],
-  fanOut: ['Ventilateur : environ 200 L de CO par minute', 'Starting fan: about 200 L of CO a minute'],
+  fanOut: ['Ventilateur : 200 L de CO/min', 'Starting fan: 200 L of CO/min'],
   exhaustIndoors: ['Moteur tournant dans un local', 'Engine running indoors'],
-  coWorkLimit: ['Au-delà de 20 ppm, limite sur 8 h', 'Past 20 ppm, the 8 h limit'],
-  coShortLimit: ['Au-delà de 100 ppm, limite à court terme', 'Past 100 ppm, the short-term limit'],
-  coLadder: ['Dans l’échelle des symptômes publiés', 'Inside the ladder of published symptoms'],
-  coRoomAbove: ['Le monoxyde a atteint la pièce du dessus', 'Carbon monoxide has reached the room above'],
-  coDoorOpen: ['Porte ouverte : jugé très insuffisant en Suède', 'Open door: found far from enough in Sweden'],
-  coNoAllClear: ['Un chiffre bas ne dit rien d’une vraie pièce', 'A low number says nothing of a real room'],
+  coWorkLimit: ['Au-delà de 20 ppm (travail)', 'Past 20 ppm (work limit)'],
+  coShortLimit: ['Au-delà de 100 ppm (travail)', 'Past 100 ppm (work limit)'],
+  coLadder: ['Symptômes publiés', 'Published symptoms'],
+  coRoomAbove: ['CO au-dessus', 'CO above'],
+  coNoAllClear: ['Un chiffre bas ne dit rien', 'A low number says nothing'],
 };
 
 registerStrings(PANEL);

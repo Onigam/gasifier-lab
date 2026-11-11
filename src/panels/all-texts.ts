@@ -58,7 +58,10 @@ export function panelTexts(): [string, L][] {
   add('note room', ROOM_NOTE);
   add('note below ladder', BELOW_LADDER);
   add('note outlet', OUTLET_NOTE);
-  CO_LADDER.forEach((r, i) => add(`ladder ${i}`, r.text));
+  CO_LADDER.forEach((r, i) => {
+    add(`ladder ${i}`, r.text);
+    add(`ladder ${i} (the line beside the room’s figure)`, r.plain);
+  });
   // the labels of the figures, read from a live state
   const s = new GasifierSim().state;
   for (const r of workRows(s)) add(`strip work ${r.key}`, r.label);

@@ -77,19 +77,22 @@ export const ALARM_TEXTS: Record<AlarmKey, { text: Pair; severe: boolean }> = {
   },
   exhaustIndoors: {
     text: [
-      'Moteur tournant dans un local : 5 à 8 % de monoxyde à l’échappement au ralenti',
-      'Engine running indoors: 5 to 8 % carbon monoxide in idling exhaust',
+      'Moteur tournant dans un local : le livre suédois lit 5 à 8 % de monoxyde à l’échappement au ralenti, sur des moteurs de la guerre',
+      'Engine running indoors: the Swedish book reads 5 to 8 % carbon monoxide in idling exhaust, on wartime engines',
     ],
     severe: true,
   },
   coWorkLimit: {
-    text: ['Au-delà de la limite légale sur 8 h au travail, 20 ppm', 'Past the legal limit over 8 h at work, 20 ppm'],
+    text: [
+      'Au-delà de la limite française (contraignante, 2019) et de la valeur de l’Union européenne (2017) sur 8 h au travail, 20 ppm',
+      'Past the French binding limit (2019) and the EU value (2017) over 8 h at work, 20 ppm',
+    ],
     severe: true,
   },
   coShortLimit: {
     text: [
-      'Au-delà de la limite légale à court terme au travail, 100 ppm',
-      'Past the legal short-term limit at work, 100 ppm',
+      'Au-delà de la limite française à court terme au travail, 100 ppm',
+      'Past the French short-term limit at work, 100 ppm',
     ],
     severe: true,
   },
@@ -103,8 +106,8 @@ export const ALARM_TEXTS: Record<AlarmKey, { text: Pair; severe: boolean }> = {
   },
   coDoorOpen: {
     text: [
-      'Porte ouverte : le chiffre de cette boîte baisse. L’expérience suédoise a jugé cela très insuffisant',
-      'Door open: this box’s number falls. Swedish experience found that far from satisfactory',
+      'Porte ouverte : le chiffre de cette boîte baisse. Les Suédois ont jugé très insuffisant de lancer le ventilateur ou le moteur portes de garage ouvertes',
+      'Door open: this box’s number falls. The Swedes found it far from satisfactory to fan or start with the garage doors open',
     ],
     severe: true,
   },
@@ -159,8 +162,8 @@ export const SCENARIO_TEXTS: Record<ScenarioId, { name: Pair; lesson: Pair }> = 
   'measured-hour': {
     name: ['L’heure mesurée', 'The measured hour'],
     lesson: [
-      'On donne au modèle la puissance et le régime du banc, 40 kW à 1 855 tr/min. Il trouve 34 kg † de plaquettes par heure, 5,3 MJ/Nm³ † contre 5,6 mesurés, et 21 % †. Le banc, lui, a pris à ce tracteur 41 kg de plaquettes et 2,2 kg de gazole en une heure : 221 kW † en entrée, 18 % à l’arbre. Le moteur du modèle brûle mieux que celui-ci, à peu près comme les autres moteurs du même livre : il n’atteint pas la table, et on ne l’y pousse pas.',
-      'The model is given the bench’s power and speed, 40 kW at 1,855 rpm. It finds 34 kg † of chips an hour, 5.3 MJ/Nm³ † against 5.6 measured, and 21 % †. The bench took 41 kg of chips and 2.2 kg of diesel an hour from this tractor: 221 kW † going in, 18 % at the shaft. The model’s engine burns better than this one did, about as the other engines of the same book do: it does not reach the table, and is not pushed there.',
+      'On donne au modèle la puissance et le régime du banc, 40 kW à 1 855 tr/min. Il trouve 34 kg † de plaquettes par heure, 5,3 MJ/Nm³ † contre 5,6 mesurés, et 21 % †. Le banc, lui, a pris à ce tracteur 41 kg de plaquettes et 2,2 kg de gazole en une heure : 221 kW † en entrée, 18 % à l’arbre. Le moteur du modèle brûle mieux que celui du banc, à peu près comme les autres moteurs du même livre, et son gazogène aussi : il n’atteint pas la table, et on ne l’y pousse pas.',
+      'The model is given the bench’s power and speed, 40 kW at 1,855 rpm. It finds 34 kg † of chips an hour, 5.3 MJ/Nm³ † against 5.6 measured, and 21 % †. The bench took 41 kg of chips and 2.2 kg of diesel an hour from this tractor: 221 kW † going in, 18 % at the shaft. The model’s engine burns better than the bench’s, about as the other engines of the same book do, and so does its gasifier: it does not reach the table, and is not pushed there.',
     ],
   },
   'part-load': {
@@ -173,8 +176,8 @@ export const SCENARIO_TEXTS: Record<ScenarioId, { name: Pair; lesson: Pair }> = 
   idling: {
     name: ['Le ralenti', 'Idling'],
     lesson: [
-      'Rien à l’arbre, et 8,5 kg de plaquettes avec 1,2 kg de gazole par heure : 55 kW † pour rien. Le frottement et le papillon en demandent 9 kW * environ. Le reste traverse le moteur sans brûler : le livre suédois lit 5 à 8 % de monoxyde dans l’échappement au ralenti, sur d’autres moteurs, soit les deux tiers * de celui du gaz. Avec ce seul chiffre, le modèle trouve 7 kg * de plaquettes.',
-      'Nothing at the shaft, and 8.5 kg of chips with 1.2 kg of diesel an hour: 55 kW † for nothing. Friction and the throttle ask about 9 kW *. The rest goes through the engine unburnt: the Swedish book reads 5 to 8 % carbon monoxide in idling exhaust, on other engines, which is two thirds * of what the gas held. With that one figure, the model finds 7 kg * of chips.',
+      'Rien à l’arbre, et 8,5 kg de plaquettes avec 1,2 kg de gazole par heure : 55 kW † pour rien. Le frottement et le papillon en demandent 9 kW * environ. Le modèle en conclut que le reste traverse le moteur sans brûler : le livre suédois lit 5 à 8 % de monoxyde dans l’échappement au ralenti, sur d’autres moteurs, soit les deux tiers * de celui du gaz. Avec ce seul chiffre, le modèle trouve 7 kg * de plaquettes.',
+      'Nothing at the shaft, and 8.5 kg of chips with 1.2 kg of diesel an hour: 55 kW † for nothing. Friction and the throttle ask about 9 kW *. The model concludes that the rest goes through the engine unburnt: the Swedish book reads 5 to 8 % carbon monoxide in idling exhaust, on other engines, which is two thirds * of what the gas held. With that one figure, the model finds 7 kg * of chips.',
     ],
   },
   'wet-chips': {
@@ -222,15 +225,15 @@ export const SCENARIO_TEXTS: Record<ScenarioId, { name: Pair; lesson: Pair }> = 
   'engine-stops': {
     name: ['Le moteur s’arrête', 'The engine stops'],
     lesson: [
-      'En marche, tout le système est en dépression : une fuite aspire de l’air. Le moteur s’arrête, l’aspiration finit, et le gaz continue de se former. La pression monte, environ 20 minutes selon le livre suédois, parfois des heures selon un autre, et le gaz sort, même d’un appareil étanche, à 23 à 27 % de monoxyde. Sur le bois, on l’a vu blanc ou jaune à la prise d’air. Personne n’a mesuré son volume sur cette machine : le mètre cube * d’ici est l’illustration du livre, et rien de plus.',
-      'Running, the whole system is under suction: a leak draws air in. The engine stops, the suction ends, and the gas goes on forming. The pressure rises, for about 20 minutes by the Swedish book, sometimes for hours by another, and the gas comes out, even from a tight unit, at 23 to 27 % carbon monoxide. On wood it has been seen white or yellow at the air intake. Nobody measured its volume on this machine: the cubic metre * here is the book’s illustration, and no more.',
+      'En marche, tout le système est en dépression : une fuite aspire de l’air. Le moteur s’arrête, l’aspiration finit, et le gaz continue de se former. La pression monte, environ 20 minutes selon le livre suédois, parfois des heures selon un autre, et le gaz sort, même d’un appareil étanche, à 23 à 27 % de monoxyde. Sur le bois, on l’a vu blanc ou jaune à la prise d’air. Personne n’a mesuré son volume sur cette machine : le mètre cube * d’ici vient d’un exemple du livre sur une concentration dans l’air, et rien de plus.',
+      'Running, the whole system is under suction: a leak draws air in. The engine stops, the suction ends, and the gas goes on forming. The pressure rises, for about 20 minutes by the Swedish book, sometimes for hours by another, and the gas comes out, even from a tight unit, at 23 to 27 % carbon monoxide. On wood it has been seen white or yellow at the air intake. Nobody measured its volume on this machine: the cubic metre * here comes from the book’s example of a concentration in air, and no more.',
     ],
   },
   'closed-garage': {
     name: ['Le garage fermé', 'The closed garage'],
     lesson: [
-      'Un mètre cube * de ce gaz dans un garage fermé de 50 m³ : la boîte monte à environ 3 500 ppm *, là où le gaz des tuyaux en compte 200 000. Dans 1 000 m³, environ 200 ppm *. Au-dessus, une pièce en reçoit par le plancher, sur une fuite supposée : elle monte à environ 670 ppm *, plus d’une heure après le plus haut du garage. Un couvercle qui ne ferme pas garde le gaz sortant tant qu’il y a du bois : deux heures après l’arrêt, de 5 000 à 50 000 ppm *, selon une fuite que personne n’a mesurée. Le livre suédois dit que certains des pires accidents du pays sont venus de là, avec une voiture sous une pièce à vivre. Une porte ouverte baisse le chiffre de la boîte, et les Suédois l’ont jugée très insuffisante.',
-      'A cubic metre * of this gas in a closed garage of 50 m³: the box climbs to about 3,500 ppm *, where the gas in the pipes holds 200,000. In 1,000 m³, about 200 ppm *. Above it, a room takes some through the floor, on a supposed leak: it climbs to about 670 ppm *, more than an hour after the garage’s own highest. A lid that does not seal keeps the gas coming while there is wood: two hours after the stop, from 5,000 to 50,000 ppm *, by a leak nobody measured. The Swedish book says some of the country’s worst accidents came this way, with a car under a living room. An open door lowers the box’s number, and the Swedes found it far from satisfactory.',
+      'Un mètre cube * de ce gaz dans un garage fermé de 50 m³ : la boîte monte à environ 3 500 ppm *, là où le gaz des tuyaux en compte 200 000. Dans 1 000 m³, environ 200 ppm *. Au-dessus, une pièce en reçoit par le plancher, sur une fuite supposée : elle monte à environ 670 ppm *, plus d’une heure après le plus haut du garage. Un couvercle qui ne ferme pas garde le gaz sortant tant qu’il y a du bois : deux heures après l’arrêt, de 5 000 à 50 000 ppm *, selon une fuite que personne n’a mesurée. Le livre suédois dit que certains des pires accidents du pays sont venus d’une voiture au couvercle qui fuyait, garée dans un garage sous une pièce à vivre. Une porte ouverte baisse le chiffre de la boîte ; les Suédois ont jugé très insuffisant de lancer le ventilateur ou le moteur portes ouvertes.',
+      'A cubic metre * of this gas in a closed garage of 50 m³: the box climbs to about 3,500 ppm *, where the gas in the pipes holds 200,000. In 1,000 m³, about 200 ppm *. Above it, a room takes some through the floor, on a supposed leak: it climbs to about 670 ppm *, more than an hour after the garage’s own highest. A lid that does not seal keeps the gas coming while there is wood: two hours after the stop, from 5,000 to 50,000 ppm *, by a leak nobody measured. The Swedish book says some of the country’s worst accidents came from a car with a leaking lid, parked in a garage under a living room. An open door lowers the box’s number; the Swedes found it far from satisfactory to fan or start with the doors open.',
     ],
   },
   truck: {

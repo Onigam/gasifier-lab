@@ -194,7 +194,7 @@ describe('the words', () => {
     for (const r of CO_LADDER) {
       expect(r.text[1]).not.toMatch(/below|under this|up to|at most|limit of exposure|never above/i);
     }
-    expect(CO_LADDER[0]!.text[1]).toMatch(/a legal line, not a border for the body/);
+    expect(CO_LADDER[0]!.text[1]).toMatch(/a limit for work, not a border for the body/);
     expect(BELOW_LADDER[1]).toMatch(/says nothing of a real room/);
   });
 });

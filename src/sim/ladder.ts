@@ -9,7 +9,10 @@ export interface Rung {
   ppmHigh?: number;
   /** Word of the figure. All reported. */
   source: 'S1 Table 2.9, S4 Table 3-2' | 'S5' | 'S3';
+  /** What the source says, for the ladder's own sheet (PL-G08), times included where it gives them. */
   text: Pair;
+  /** The same rung for the line beside the room's running figure: it names no time, so that « the box stands on this rung » is never read as « a person would collapse in so many hours ». */
+  plain: Pair;
 }
 
 export const CO_LADDER: readonly Rung[] = [
@@ -17,19 +20,31 @@ export const CO_LADDER: readonly Rung[] = [
     ppm: 20,
     source: 'S5',
     text: [
-      'Limite française et européenne sur 8 h, au travail : une borne légale, pas une frontière pour le corps',
-      'French and EU limit over 8 h, at work: a legal line, not a border for the body',
+      'Limite française (contraignante, 2019) et valeur de l’Union européenne (2017) sur 8 h, au travail : une borne de travail, pas une frontière pour le corps',
+      'French binding limit (2019) and EU value (2017) over 8 h, at work: a limit for work, not a border for the body',
+    ],
+    plain: [
+      'Limite française (contraignante, 2019) et valeur de l’Union européenne (2017), au travail : une borne de travail, pas une frontière pour le corps',
+      'French binding limit (2019) and EU value (2017), at work: a limit for work, not a border for the body',
     ],
   },
   {
     ppm: 100,
     source: 'S5',
-    text: ['Limite française et européenne à court terme, au travail', 'French and EU short-term limit, at work'],
+    text: [
+      'Limite française (contraignante, 2019) et valeur de l’Union européenne (2017) à court terme, au travail',
+      'French binding limit (2019) and EU value (2017), short term, at work',
+    ],
+    plain: [
+      'Limite française (contraignante, 2019) et valeur de l’Union européenne (2017) à court terme, au travail',
+      'French binding limit (2019) and EU value (2017), short term, at work',
+    ],
   },
   {
     ppm: 200,
     source: 'S1 Table 2.9, S4 Table 3-2',
     text: ['Publié : mal de tête léger possible en 2 à 3 h', 'Published: possibly a mild headache in 2 to 3 h'],
+    plain: ['Publié : mal de tête léger possible', 'Published: possibly a mild headache'],
   },
   {
     ppm: 800,
@@ -38,11 +53,16 @@ export const CO_LADDER: readonly Rung[] = [
       'Publié : mal de tête, vertige et nausée en 45 min, effondrement et perte de connaissance possible en 2 h',
       'Published: headache, dizziness and nausea in 45 min, collapse and possibly unconsciousness in 2 h',
     ],
+    plain: [
+      'Publié : mal de tête, vertige et nausée ; effondrement et perte de connaissance possibles',
+      'Published: headache, dizziness and nausea; collapse and possibly unconsciousness',
+    ],
   },
   {
     ppm: 3200,
     source: 'S1 Table 2.9, S4 Table 3-2',
     text: ['Publié : inconscience, danger de mort en 30 min', 'Published: unconsciousness, danger of death in 30 min'],
+    plain: ['Publié : inconscience, danger de mort', 'Published: unconsciousness, danger of death'],
   },
   {
     ppm: 12800,
@@ -51,18 +71,24 @@ export const CO_LADDER: readonly Rung[] = [
       'Publié : effet immédiat, perte de connaissance et danger de mort en 1 à 3 min',
       'Published: immediate effect, unconsciousness and danger of death in 1 to 3 min',
     ],
+    plain: [
+      'Publié : effet immédiat, perte de connaissance et danger de mort',
+      'Published: immediate effect, unconsciousness and danger of death',
+    ],
   },
   {
     ppm: 50000,
     ppmHigh: 80000,
     source: 'S3',
     text: ['Échappement au ralenti, publié pour ces moteurs', 'Idling exhaust, as published for such engines'],
+    plain: ['Échappement au ralenti, publié pour ces moteurs', 'Idling exhaust, as published for such engines'],
   },
   {
     ppm: 200000,
     ppmHigh: 300000,
     source: 'S3',
     text: ['Le gaz dans les tuyaux, et après l’arrêt 23 à 27 %', 'The gas in the pipes, and 23 to 27 % after a stop'],
+    plain: ['Le gaz dans les tuyaux, et après l’arrêt 23 à 27 %', 'The gas in the pipes, and 23 to 27 % after a stop'],
   },
 ];
 

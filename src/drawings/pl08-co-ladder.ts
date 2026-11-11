@@ -125,8 +125,8 @@ function draw(d: Drawing): void {
     y,
     W_,
     l(
-      'Chaque barreau dit ce que dit sa source, et rien d’autre. Aucun n’est un niveau sous lequel on peut rester : les limites légales valent pour le travail, les effets publiés pour une personne, et personne n’est dans la pièce du lab.',
-      'Each rung says what its source says, and nothing more. None is a level one may stay under: the legal limits are for work, the published effects for a person, and nobody stands in the lab’s room.',
+      'Chaque barreau dit ce que dit sa source, et rien d’autre. Aucun n’est un niveau sous lequel on peut rester : les limites valent pour le travail, les effets publiés pour une personne, et personne n’est dans la pièce du lab.',
+      'Each rung says what its source says, and nothing more. None is a level one may stay under: the limits are for work, the published effects for a person, and nobody stands in the lab’s room.',
     ),
     { size: 1.85 },
   );
@@ -150,7 +150,7 @@ function draw(d: Drawing): void {
   );
   y = marksLegend(d, X, y + 2, W_);
   const key: [string, L][] = [
-    [INKS.cool, l('une limite légale, pour le travail', 'a legal limit, for work')],
+    [INKS.cool, l('une limite de travail', 'a limit for work')],
     [INKS.hot, l('un effet publié, pour une personne', 'a published effect, for a person')],
     [
       INKS.diesel,

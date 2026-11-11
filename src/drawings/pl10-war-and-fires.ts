@@ -217,8 +217,8 @@ function draw(d: Drawing): void {
     168,
     232,
     l(
-      'Les chiffres sont ceux du livre suédois de 1950, dans sa traduction américaine, et de Reed et Das ; aucun n’est celui du modèle. Ce sont des comptes de l’époque, sur d’autres machines et d’autres gazogènes que ceux de l’institut : ils disent ce qui s’est passé, pas ce que ferait celui-ci.',
-      'The figures are those of the Swedish book of 1950, in its American translation, and of Reed and Das; none is the model’s. They are counts of the period, of other machines and other gasifiers than the institute’s: they say what happened, not what this one would do.',
+      'Les chiffres sont ceux du livre suédois de 1950, dans sa traduction américaine, de Reed et Das et, pour les 10 000 cas chroniques, du rapport de la FAO ; aucun n’est celui du modèle. Ce sont des comptes de l’époque, sur d’autres machines et d’autres gazogènes que ceux de l’institut : ils disent ce qui s’est passé, pas ce que ferait celui-ci.',
+      'The figures are those of the Swedish book of 1950, in its American translation, of Reed and Das and, for the 10,000 chronic cases, of the FAO’s report; none is the model’s. They are counts of the period, of other machines and other gasifiers than the institute’s: they say what happened, not what this one would do.',
     ),
     { size: 1.85 },
   );
@@ -233,8 +233,8 @@ export const warAndFires: DrawingSheet = {
     'Sweden at war: the vehicles, the fires, the people',
   ),
   description: l(
-    'Les comptes de la Suède en guerre, d’après son livre de 1950 et Reed et Das : combien de véhicules au gaz de bois et au charbon de bois, combien d’incendies, combien de morts et de malades. Des totaux seulement ; la courbe des incendies par semestre n’est pas dessinée, faute d’avoir pu revérifier la page, et le modèle n’y met rien.',
-    'The counts of Sweden at war, from its book of 1950 and Reed and Das: how many wood-gas and charcoal-gas vehicles, how many fires, how many dead and sick. Totals only; the curve of fires by half-year is not drawn, for want of a page that could be checked again, and the model adds nothing.',
+    'Les comptes de la Suède en guerre, d’après son livre de 1950, Reed et Das et la FAO : combien de véhicules au gaz de bois et au charbon de bois, combien d’incendies, combien de morts et de malades. Des totaux seulement ; la courbe des incendies par semestre n’est pas dessinée, faute d’avoir pu revérifier la page, et le modèle n’y met rien.',
+    'The counts of Sweden at war, from its book of 1950, Reed and Das and the FAO: how many wood-gas and charcoal-gas vehicles, how many fires, how many dead and sick. Totals only; the curve of fires by half-year is not drawn, for want of a page that could be checked again, and the model adds nothing.',
   ),
   scene: 'tractor',
   parts: ['gasifier-unit'],

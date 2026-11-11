@@ -2,7 +2,7 @@ import type { StripAlarm, StripValue } from '@onigam/lab-kit/ui';
 import type { GasifierSim } from '../sim/engine';
 import { SPEEDS } from '../sim/presets';
 import { roomRows, stripAlarms as alarmsOf, stripClock as clockOf, workRows, type StripRow } from '../sim/strip';
-import { num, say, STRIP_ALARMS } from './strings';
+import { num, PANEL_ONLY, say, STRIP_ALARMS } from './strings';
 
 // What the bottom strip shows: src/sim/strip.ts says what, this says it in the language of the moment. A value's mark follows its unit until the kit's `StripValue` has a tag of its own (docs/kit-requests.md, 4).
 // The strip does not know which world is open (docs/kit-requests.md, 5): `onFrame` of src/lab.ts tells it, and the garage's world shows the room's figures, not the work's.
@@ -32,9 +32,12 @@ function empty(row: StripRow, sim: GasifierSim): boolean {
   }
 }
 
+/** The garage's strip shows its first four figures: the kit's strip gives the alarms what its values leave, and the alarms the garage raises together (the engine's gas, the ladder, the room above) need about 500 px at 1280, which six figures leave no room for. The panel keeps all of them. */
+export const GARAGE_VALUES = 4;
+
 export function rowsFor(sim: GasifierSim, inScene = scene): StripRow[] {
   const s = sim.state;
-  return s.place === 'garage' || inScene === 'garage' ? roomRows(s) : workRows(s);
+  return s.place === 'garage' || inScene === 'garage' ? roomRows(s).slice(0, GARAGE_VALUES) : workRows(s);
 }
 
 /** A figure the way the language writes it (1 855 and 2,2 in French, 1,855 and 2.2 in English). */
@@ -60,11 +63,13 @@ export function stripClock(sim: GasifierSim): { time: string; sub: string } {
 }
 
 export function stripAlarms(sim: GasifierSim): StripAlarm[] {
-  return alarmsOf(sim.state).map((a) => ({
-    key: a.key,
-    label: say(STRIP_ALARMS[a.key as keyof typeof STRIP_ALARMS]),
-    severe: a.severe,
-  }));
+  return alarmsOf(sim.state)
+    .filter((a) => !(PANEL_ONLY as readonly string[]).includes(a.key))
+    .map((a) => ({
+      key: a.key,
+      label: say(STRIP_ALARMS[a.key as keyof typeof STRIP_ALARMS]),
+      severe: a.severe,
+    }));
 }
 
 export const STRIP_SPEEDS = SPEEDS;

@@ -144,7 +144,8 @@ export function roomFacts(s: GasState): RoomFacts {
     stopped: !s.engineOn,
     plumeLpm: s.plumeLpm,
     plumeCoLpm: s.plumeCoLpm,
-    rung: r ? { ppm: r.ppm, ppmHigh: r.ppmHigh, source: r.source, text: r.text } : null,
+    // the line beside the room's figure names no time (the ladder's sheet keeps the published sentences with theirs)
+    rung: r ? { ppm: r.ppm, ppmHigh: r.ppmHigh, source: r.source, text: r.plain } : null,
     latched: s.coLatched,
   };
 }
