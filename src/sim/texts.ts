@@ -159,8 +159,8 @@ export const SCENARIO_TEXTS: Record<ScenarioId, { name: Pair; lesson: Pair }> = 
   'measured-hour': {
     name: ['L’heure mesurée', 'The measured hour'],
     lesson: [
-      'Sur le banc, à 1 855 tr/min, ce tracteur a donné 40 kW pour 41 kg de plaquettes et 2,2 kg de gazole en une heure : 221 kW † en entrée, 18 % à l’arbre. On donne au modèle la puissance et le régime. Il trouve 34 kg † de plaquettes, 5,3 MJ/Nm³ † contre 5,6 mesurés, et 21 % †. Son moteur brûle mieux que celui-ci, à peu près comme les autres moteurs du même livre : il n’atteint pas la table, et on ne l’y pousse pas.',
-      'On the bench, at 1,855 rpm, this tractor gave 40 kW for 41 kg of chips and 2.2 kg of diesel in an hour: 221 kW † going in, 18 % at the shaft. The model is given the power and the speed. It finds 34 kg † of chips, 5.3 MJ/Nm³ † against 5.6 measured, and 21 % †. Its engine burns better than this one did, about as the other engines of the same book do: it does not reach the table, and is not pushed there.',
+      'On donne au modèle la puissance et le régime du banc, 40 kW à 1 855 tr/min. Il trouve 34 kg † de plaquettes par heure, 5,3 MJ/Nm³ † contre 5,6 mesurés, et 21 % †. Le banc, lui, a pris à ce tracteur 41 kg de plaquettes et 2,2 kg de gazole en une heure : 221 kW † en entrée, 18 % à l’arbre. Le moteur du modèle brûle mieux que celui-ci, à peu près comme les autres moteurs du même livre : il n’atteint pas la table, et on ne l’y pousse pas.',
+      'The model is given the bench’s power and speed, 40 kW at 1,855 rpm. It finds 34 kg † of chips an hour, 5.3 MJ/Nm³ † against 5.6 measured, and 21 % †. The bench took 41 kg of chips and 2.2 kg of diesel an hour from this tractor: 221 kW † going in, 18 % at the shaft. The model’s engine burns better than this one did, about as the other engines of the same book do: it does not reach the table, and is not pushed there.',
     ],
   },
   'part-load': {
