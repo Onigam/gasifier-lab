@@ -120,7 +120,8 @@ describe('the registry', () => {
     sel = 'spring-lid';
     expect(m.registry.bounds('spring-lid').isEmpty()).toBe(false);
     // the unit's reported envelope is on the sheet of the unit in the tractor world, not the hearth's
-    for (const id of ['throat-ring', 'air-nozzles', 'fire-box', 'reduction-zone'])
+    // and the lower casing, whose box the browser showed on its sheet (the lead, 2026-11-11)
+    for (const id of ['throat-ring', 'air-nozzles', 'fire-box', 'reduction-zone', 'outer-casing'])
       expect(GASIFIER_REFUSED.has(id), id).toBe(true);
   });
 });

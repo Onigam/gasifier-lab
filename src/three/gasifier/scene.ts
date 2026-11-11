@@ -44,6 +44,8 @@ export const GASIFIER_REFUSED: ReadonlySet<string> = new Set([
   'oxidation-zone',
   'pyrolysis-zone',
   'grate',
+  // the lower casing: its height and its diameter are the unit's lower body, listed beside the hot parts' sizes (research §3, « print: no »); the kit measured it for the sheet and printed 790 mm
+  'outer-casing',
 ]);
 
 /** Where a part is looked at from. The unit stands with its open side towards −z. */
@@ -77,7 +79,7 @@ export const EXPLODE: Record<UnitPartId, [number, number, number]> = {
 
 const HOTSPOTS: HotspotDef[] = [
   { id: 'spring-lid', fr: 'Couvercle à ressort', en: 'Spring lid' },
-  { id: 'fuel-casing', fr: 'Corps à combustible', en: 'Fuel casing' },
+  { id: 'fuel-casing', fr: 'Corps à combustible', en: 'Fuel casing', minor: true },
   { id: 'chip-column', fr: 'Colonne de plaquettes', en: 'Chip column' },
   { id: 'drying-zone', fr: 'Séchage', en: 'Drying' },
   { id: 'pyrolysis-zone', fr: 'Pyrolyse', en: 'Pyrolysis' },
@@ -85,17 +87,17 @@ const HOTSPOTS: HotspotDef[] = [
   { id: 'reduction-zone', fr: 'Réduction', en: 'Reduction' },
   { id: 'fuel-baffle', fr: 'Déflecteur', en: 'Fuel baffle', minor: true },
   { id: 'condensate-sleeve', fr: 'Manchon', en: 'Condensate sleeve', minor: true },
-  { id: 'condensate-drain', fr: 'Purge', en: 'Condensate drain' },
+  { id: 'condensate-drain', fr: 'Purge', en: 'Condensate drain', minor: true },
   { id: 'eccentric-lock', fr: 'Verrou à came', en: 'Eccentric lock', minor: true },
   { id: 'outer-casing', fr: 'Enveloppe', en: 'Outer casing', minor: true },
   { id: 'air-intake', fr: 'Prise d’air', en: 'Air intake', minor: true },
   { id: 'air-nozzles', fr: 'Tuyères', en: 'Air nozzles', minor: true },
   { id: 'fire-box', fr: 'Foyer', en: 'Fire box', minor: true },
   { id: 'throat-ring', fr: 'Anneau de gorge', en: 'Throat ring', minor: true },
-  { id: 'grate', fr: 'Grille', en: 'Grate' },
+  { id: 'grate', fr: 'Grille', en: 'Grate', minor: true },
   { id: 'grate-linkage', fr: 'Commande de grille', en: 'Grate linkage', minor: true },
   { id: 'ash-pit', fr: 'Cendrier', en: 'Ash pit' },
-  { id: 'gas-outlet', fr: 'Sortie de gaz', en: 'Gas outlet' },
+  { id: 'gas-outlet', fr: 'Sortie de gaz', en: 'Gas outlet', minor: true },
 ];
 
 export function createGasifierScene(opts: GasifierOptions = {}): SceneModule<GasState> & { unit: Unit } {
