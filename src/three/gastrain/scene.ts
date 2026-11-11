@@ -76,11 +76,11 @@ export type TrainId = (typeof TRAIN_IDS)[number];
 
 const HOTSPOTS: HotspotDef[] = [
   { id: 'hot-gas-pipe', fr: 'Conduite de gaz chaud', en: 'Hot gas pipe', minor: true },
-  { id: 'stop-valve', fr: 'Vanne d’arrêt', en: 'Stop valve' },
-  { id: 'starting-fan', fr: 'Ventilateur de démarrage', en: 'Starting fan' },
-  { id: 'fan-stack', fr: 'Cheminée du ventilateur', en: 'Fan stack' },
+  { id: 'stop-valve', fr: 'Vanne d’arrêt', en: 'Stop valve', minor: true },
+  { id: 'starting-fan', fr: 'Ventilateur de démarrage', en: 'Starting fan', minor: true },
+  { id: 'fan-stack', fr: 'Cheminée du ventilateur', en: 'Fan stack', minor: true },
   { id: 'primary-air-valve', fr: 'Vanne d’air primaire', en: 'Primary-air valve', minor: true },
-  { id: 'cyclone', fr: 'Cyclone', en: 'Cyclone' },
+  { id: 'cyclone', fr: 'Cyclone', en: 'Cyclone', minor: true },
   { id: 'filter-box', fr: 'Caisson de filtre', en: 'Filter box' },
   { id: 'filter-bags', fr: 'Manches', en: 'Filter bags', minor: true },
   { id: 'gas-cooler', fr: 'Refroidisseur', en: 'Gas cooler' },

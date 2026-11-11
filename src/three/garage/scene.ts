@@ -45,8 +45,8 @@ export const GARAGE_IDS = [
 export type GarageId = (typeof GARAGE_IDS)[number];
 
 const HOTSPOTS: HotspotDef[] = [
-  { id: 'closed-garage', fr: 'Garage fermé', en: 'Closed garage' },
-  { id: 'garage-door', fr: 'Porte', en: 'Garage door' },
+  { id: 'closed-garage', fr: 'Garage fermé', en: 'Closed garage', minor: true },
+  { id: 'garage-door', fr: 'Porte', en: 'Garage door', minor: true },
   { id: 'room-above', fr: 'Chambre au-dessus', en: 'Room above' },
   { id: 'post-gas-plume', fr: 'Panache après l’arrêt', en: 'Post-gas plume' },
   { id: 'exhaust-plume', fr: 'Gaz d’échappement', en: 'Exhaust plume', minor: true },
