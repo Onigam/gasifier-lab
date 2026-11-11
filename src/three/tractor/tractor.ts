@@ -29,6 +29,7 @@ import type { GasParams, GasState } from '../../sim/types';
 import { buildBody, type Body } from './body';
 import { buildConsoles, type Consoles } from './consoles';
 import {
+  BELT,
   buildEngine,
   buildExhaust,
   buildGovernor,
@@ -149,7 +150,8 @@ export function buildMachine(): Machine {
   pump.group.position.set(2.2, 1.0, -0.29);
   shield.group.position.set(2.0, 1.22, -0.435);
   shield.group.rotation.y = 0;
-  governor.group.position.set(ENGINE.fan.x - 0.03, 1.12, -0.24);
+  // behind the fan's blades (they sweep x of the fan ± 5 mm) and clear of the block's flank, so that the belt to the fan shaft's pulley has room
+  governor.group.position.set(ENGINE.fan.x - 0.05, 1.12, -0.29);
 
   // ---- the pipes
   const portsT: Record<string, Port> = {
@@ -207,6 +209,19 @@ export function buildMachine(): Machine {
   root.add(engine.engine, exhaust.group, pump.group, shield.group, governor.group, consoles.group, unit.root, line);
   void TRACTOR;
 
+  // the extra governor's V-belt: from the fan shaft's pulley, wherever the engine stands now, to the governor's own
+  const beltA = new THREE.Vector3();
+  const beltB = new THREE.Vector3();
+  const driveBelt = (): void => {
+    engine.engine.updateWorldMatrix(true, false);
+    governor.group.updateWorldMatrix(true, false);
+    // the belt's centre line rides half its thickness out from the groove's bottom
+    const rim = BELT.groove + BELT.t / 2;
+    const a = governor.group.worldToLocal(engine.engine.localToWorld(beltA.copy(engine.beltPulley.at)));
+    governor.belt.set(a, engine.beltPulley.r + rim, beltB.copy(governor.pulley.at), governor.pulley.r + rim);
+  };
+  driveBelt();
+
   let fanPhase = 0;
   let govPhase = 0;
   let pulleyPhase = 0;
@@ -214,6 +229,7 @@ export function buildMachine(): Machine {
   const update: Machine['update'] = (s, dt, o) => {
     const slow = o.slowMo;
     setField(s);
+    driveBelt();
     // the wheels roll at the ground speed the model gives, under the visual cap by construction (a third of a turn a second at the rear)
     const v = s.engineOn && !o.parked ? s.groundSpeedMs : 0;
     for (const w of body.wheels.rear) w.spin.rotation.z -= (v * dt * slow) / w.radius;

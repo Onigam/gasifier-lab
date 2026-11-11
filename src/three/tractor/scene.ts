@@ -3,6 +3,7 @@ import { group } from '@onigam/lab-kit/three';
 import type { Hotspot, SceneModule, ViewOpts } from '@onigam/lab-kit/three';
 import { ENGINE, TRACTOR, UNIT_AT } from '../dims';
 import { Followers } from '../followers';
+import { SeeThrough } from '../seethrough';
 import {
   PAPER,
   WorldRegistry,
@@ -98,7 +99,23 @@ const HOTSPOTS: HotspotDef[] = [
 /** The parts that stand under the bonnet: a click on one of them opens the bonnet to the ghost, so that it can be seen. */
 const UNDER_BONNET: ReadonlySet<string> = new Set(['diesel-engine', 'injection-pump', 'heat-shield', 'extra-governor']);
 
-/** Where each label stands, in T. */
+/**
+ * What stands between the eye and a part that is inside the engine bay, seen from where it is looked at (`FRAMING`): it goes to the ghost while that part is the one selected, so that the part reads as itself and not as an outline on the
+ * block's flank (the bonnet goes by `UNDER_BONNET`). The gas line is here for the cooler in front of the radiator and the pipe round the bonnet; the others of the three, where one stands in front of another.
+ */
+export const IN_FRONT: Partial<Record<TractorId, TractorId[]>> = {
+  'injection-pump': ['diesel-engine', 'gas-line-run'],
+  'heat-shield': ['diesel-engine', 'gas-line-run', 'injection-pump'],
+  'extra-governor': ['diesel-engine', 'gas-line-run'],
+};
+
+/** What the camera frames for the three parts that are small and inside the bay, in T with the parts assembled: the pump's body and its lines and filter, the governor and the belt to the fan shaft; closer than their whole boxes would bring it. */
+const TIGHT: Partial<Record<TractorId, THREE.Box3>> = {
+  'injection-pump': new THREE.Box3(new THREE.Vector3(2.05, 0.92, -0.42), new THREE.Vector3(2.62, 1.25, -0.16)),
+  'extra-governor': new THREE.Box3(new THREE.Vector3(2.88, 0.98, -0.4), new THREE.Vector3(3.06, 1.24, -0.1)),
+};
+
+/** Where each label stands, in T: the engine's and the unit's apart, so that « Moteur diesel » and « Gazogène » do not lie on each other at 768 and 390 px. */
 const ANCHORS: Record<TractorId, [number, number, number]> = {
   'tractor-chassis': [0.7, 1.5, 0.45],
   cab: [0.45, 2.55, -0.76],
@@ -106,13 +123,13 @@ const ANCHORS: Record<TractorId, [number, number, number]> = {
   'roof-headlights': [1.45, 3.05, -0.5],
   'rear-wheels': [0, 1.55, -1.35],
   'front-wheels': [2.59, 0.62, -1.05],
-  'diesel-engine': [2.35, 1.62, 0.25],
+  'diesel-engine': [2.32, 1.82, 0.27],
   'injection-pump': [2.15, 1.1, -0.4],
   'heat-shield': [1.8, 1.45, -0.44],
   'extra-governor': [3.0, 1.2, -0.3],
   'left-consoles': [1.6, 0.42, -1.06],
-  'gasifier-unit': [UNIT_AT.x, 2.0, UNIT_AT.z - 0.3],
-  'gas-line-run': [3.75, 1.14, -0.32],
+  'gasifier-unit': [UNIT_AT.x + 0.05, 1.49, UNIT_AT.z - 0.34],
+  'gas-line-run': [3.69, 1.13, -0.32],
 };
 
 export interface TractorScene extends SceneModule<GasState> {
@@ -136,6 +153,12 @@ export function createTractorScene(opts: TractorSceneOptions = {}): TractorScene
   scene.add(machine.root);
   const registry = new WorldRegistry(TRACTOR_REFUSED, opts.selected ?? (() => null));
   const followers = new Followers();
+  const seeThrough = new SeeThrough();
+  const beltPulley = machine.engine.pulleys[2]!;
+  const onBeltPulley = (m: THREE.Mesh): boolean => {
+    for (let o: THREE.Object3D | null = m; o; o = o.parent) if (o === beltPulley) return true;
+    return false;
+  };
 
   // the unit's core (the chips and the fire) is drawn with the unit and stays solid in X-ray
   const core = group('unit-core');
@@ -182,7 +205,7 @@ export function createTractorScene(opts: TractorSceneOptions = {}): TractorScene
             }
           }
         : undefined;
-    registry.add(id, g, new THREE.Vector3(...EXPLODE[id]), custom, FRAMING[id]);
+    registry.add(id, g, new THREE.Vector3(...EXPLODE[id]), custom, { ...FRAMING[id], frame: TIGHT[id] });
   }
   followers.add('diesel-engine', machine.body.bonnet, { shell: false, explode: 1 });
   followers.add('gasifier-unit', core, { shell: false, explode: 1 });
@@ -219,6 +242,12 @@ export function createTractorScene(opts: TractorSceneOptions = {}): TractorScene
       const sel = opts.selected?.() ?? null;
       followers.force(machine.body.bonnet, now.xray || now.exploded || (sel !== null && UNDER_BONNET.has(sel)));
       followers.update(registry);
+      // the governor's belt rides on the pulley of the fan's shaft, which stays solid under the ghost engine
+      seeThrough.update(
+        registry,
+        (sel !== null && IN_FRONT[sel as TractorId]) || [],
+        sel === 'extra-governor' ? onBeltPulley : undefined,
+      );
       // the floor's grid runs under the wheels
       const v = state.engineOn ? state.groundSpeedMs : 0;
       roll += v * dt * view.slowMo;

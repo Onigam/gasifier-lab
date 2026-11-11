@@ -34,6 +34,8 @@ export interface EnginePiece {
   pulleys: THREE.Group[];
   /** The point where the mixer's flange sits on the intake: in T. */
   intakeAt: THREE.Vector3;
+  /** The pulley on the fan's shaft that drives the extra governor's V-belt: its centre in the engine's frame, and its radius. */
+  beltPulley: { at: THREE.Vector3; r: number };
 }
 
 export function buildEngine(): EnginePiece {
@@ -170,7 +172,8 @@ export function buildEngine(): EnginePiece {
   const px = ENGINE.fan.x - 0.02;
   mkPulley(px, 0.8, 0, 0.09);
   mkPulley(px, 0.92, -0.27, 0.04);
-  mkPulley(px, ENGINE.fan.y + 0.0, 0.0, 0.05);
+  const shaftPulleyR = 0.05;
+  mkPulley(px, ENGINE.fan.y + 0.0, 0.0, shaftPulleyR);
   const belt = (a: THREE.Vector3, ra: number, c: THREE.Vector3, rc: number): void => {
     const d = c.clone().sub(a);
     const l = d.length();
@@ -195,7 +198,7 @@ export function buildEngine(): EnginePiece {
   belt(v3(px, 0.8 - 0.09, 0), 0.09, v3(px, ENGINE.fan.y - 0.05, 0), 0.05);
   void BODY;
   mergeStatic(engine, { name: engine.name });
-  return { engine, fan, fanBlur, pulleys, intakeAt: at };
+  return { engine, fan, fanBlur, pulleys, intakeAt: at, beltPulley: { at: v3(px, ENGINE.fan.y, 0), r: shaftPulleyR } };
 }
 
 // ============================================================================================= the injection pump and its filter
@@ -272,6 +275,10 @@ export function buildShield(): { group: THREE.Group; w: number; h: number } {
 
 export interface GovernorPiece {
   group: THREE.Group;
+  /** The V-belt from the fan shaft's pulley to the governor's: it stretches between the two when the parts come apart. */
+  belt: Belt;
+  /** The governor's pulley, in the group's frame: its centre and the radius the belt rides on. */
+  pulley: { at: THREE.Vector3; r: number };
   /** The belt's pulley on the governor, and its blur disc. */
   spin: THREE.Group;
   blur: THREE.Mesh;
@@ -298,6 +305,9 @@ export function buildGovernor(): GovernorPiece {
   key.translate(0, 0.018, 0);
   spin.add(mesh(key, steel()));
   g.add(spin);
+  // the V-belt from the fan shaft's pulley: its other end is drawn by `belt.set` from where that pulley stands now
+  const belt = buildBelt();
+  g.add(belt.mesh);
   const blur = dynamic(
     new THREE.Mesh(
       new THREE.CircleGeometry(0.043, 24),
@@ -320,7 +330,88 @@ export function buildGovernor(): GovernorPiece {
   g.add(mesh(softBox(-0.06, 0.105, 0.04, 0.012, 0.012, 0.09, 0.002), redLever()));
   g.add(mesh(new THREE.CylinderGeometry(0.01, 0.01, 0.018, 8), brassMat(), [-0.06, 0.105, 0.085]));
   mergeStatic(g, { name: g.name });
-  return { group: g, spin, blur, lever: v3(-0.06, 0.105, 0.085) };
+  return { group: g, belt, pulley: { at: v3(0.02, 0, 0), r: 0.04 }, spin, blur, lever: v3(-0.06, 0.105, 0.085) };
+}
+
+/** The V-belt's section, metres: its width and its thickness, and how far the groove's bottom stands off a pulley's rim. */
+export const BELT = { w: 0.011, t: 0.009, groove: 0.0035 } as const;
+
+export interface Belt {
+  mesh: THREE.Mesh;
+  /** Draw the belt round two pulleys (centres in the belt's parent frame, radii of their rims; axes along x). A belt that cannot stretch that far is left as it was. */
+  set(a: THREE.Vector3, ra: number, b: THREE.Vector3, rb: number): void;
+}
+
+/**
+ * A V-belt round two pulleys, as a closed band of a trapezoid section (wide outside, narrow against the rim): two arcs and the two straight runs between them. Its topology is fixed, so that it can be redrawn when the pulleys move
+ * apart (the explode) without a new geometry. `w` the width and `t` the thickness, metres.
+ */
+export function buildBelt(w: number = BELT.w, t: number = BELT.t, arc = 12): Belt {
+  const rings = 2 * (arc + 1);
+  const pos = new Float32Array(rings * 4 * 3);
+  const idx: number[] = [];
+  for (let i = 0; i < rings; i++) {
+    const j = (i + 1) % rings;
+    for (let k = 0; k < 4; k++) {
+      const k2 = (k + 1) % 4;
+      idx.push(i * 4 + k, j * 4 + k, j * 4 + k2, i * 4 + k, j * 4 + k2, i * 4 + k2);
+    }
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  geo.setIndex(idx);
+  const mat = new THREE.MeshStandardMaterial({
+    color: 0x17181a,
+    roughness: 0.92,
+    metalness: 0,
+    side: THREE.DoubleSide,
+  });
+  mat.userData.noShare = true;
+  const mesh = dynamic(new THREE.Mesh(geo, mat));
+  mesh.name = 'v-belt';
+  mesh.castShadow = true;
+  // it is redrawn from outside and moves with its part: never culled by a stale sphere
+  mesh.frustumCulled = false;
+  const last = new Float32Array(6).fill(NaN);
+  const ring = (i: number, x: number, cy: number, cz: number, r: number, th: number): void => {
+    const ny = Math.cos(th);
+    const nz = Math.sin(th);
+    const y = cy + ny * r;
+    const z = cz + nz * r;
+    // the section's four corners: outside left and right, against the rim right and left
+    const c: [number, number, number][] = [
+      [x - w / 2, t / 2, 0],
+      [x + w / 2, t / 2, 0],
+      [x + w * 0.3, -t / 2, 0],
+      [x - w * 0.3, -t / 2, 0],
+    ];
+    for (let k = 0; k < 4; k++) {
+      const o = (i * 4 + k) * 3;
+      pos[o] = c[k]![0];
+      pos[o + 1] = y + ny * c[k]![1];
+      pos[o + 2] = z + nz * c[k]![1];
+    }
+  };
+  const set: Belt['set'] = (a, ra, b, rb) => {
+    const key = [a.x, a.y, a.z, b.x, b.y, b.z];
+    if (key.every((v, i) => Math.abs(v - last[i]!) < 2e-4)) return;
+    const dy = b.y - a.y;
+    const dz = b.z - a.z;
+    const L = Math.hypot(dy, dz);
+    if (L < Math.abs(ra - rb) + 1e-3) return;
+    for (let i = 0; i < 6; i++) last[i] = key[i]!;
+    // the outer tangents: the normal of each run makes the angle `al` with the line of centres
+    const u = Math.atan2(dz, dy);
+    const al = Math.acos(Math.min(0.999, (ra - rb) / L));
+    // the arc round b (the far pulley), from one run to the other the short way, then round a the long way
+    for (let s = 0; s <= arc; s++) ring(s, b.x, b.y, b.z, rb, u + al - (2 * al * s) / arc);
+    for (let s = 0; s <= arc; s++) ring(arc + 1 + s, a.x, a.y, a.z, ra, u - al - ((2 * Math.PI - 2 * al) * s) / arc);
+    geo.attributes.position!.needsUpdate = true;
+    geo.computeVertexNormals();
+    geo.computeBoundingSphere();
+    geo.computeBoundingBox();
+  };
+  return { mesh, set };
 }
 
 function redLever(): THREE.Material {
