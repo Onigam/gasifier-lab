@@ -1,0 +1,3926 @@
+{
+  "lang": "en",
+  "model": "qwen3-tts-1.7B",
+  "generatedAt": "2026-11-11T06:21:36.486Z",
+  "voiceLabel": {
+    "fr": "Voix de synthèse",
+    "en": "Synthetic voice"
+  },
+  "totalSeconds": 1359.26,
+  "segments": [
+    {
+      "id": "intro",
+      "scope": "intro",
+      "title": "Introduction to the lab",
+      "scene": "farm",
+      "file": "intro.mp3",
+      "duration": 116.78,
+      "chars": 2005,
+      "hash": "803a1a3dcd2b8fb4",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 4.54,
+          "text": "Picture a June evening in the south of Sweden, more than half a century ago."
+        },
+        {
+          "t0": 4.54,
+          "t1": 6.64,
+          "text": "A tractor is coming home from the fields."
+        },
+        {
+          "t0": 6.64,
+          "t1": 9.04,
+          "text": "It hardly drinks any diesel: it eats wood!"
+        },
+        {
+          "t0": 9.04,
+          "t1": 11,
+          "text": "Let’s follow one small wood chip."
+        },
+        {
+          "t0": 11,
+          "t1": 14.12,
+          "text": "It waits in the dry of the barn, among thousands of sisters."
+        },
+        {
+          "t0": 14.12,
+          "t1": 16.78,
+          "text": "It was born under the knives of a chipper."
+        },
+        {
+          "t0": 16.78,
+          "t1": 19.94,
+          "text": "Now here it is on the tractor, which carries it off to the field."
+        },
+        {
+          "t0": 19.94,
+          "t1": 22.7,
+          "text": "It rides on the roof rack, before dropping into the bunker."
+        },
+        {
+          "t0": 22.7,
+          "t1": 24.04,
+          "text": "Its journey begins."
+        },
+        {
+          "t0": 24.04,
+          "t1": 26.56,
+          "text": "It sinks, gently: about an hour."
+        },
+        {
+          "t0": 26.56,
+          "t1": 27.42,
+          "text": "It dries."
+        },
+        {
+          "t0": 27.42,
+          "t1": 28.9,
+          "text": "It blackens and falls apart."
+        },
+        {
+          "t0": 28.9,
+          "t1": 33.36,
+          "text": "It passes under a flame: a fire short of air, on purpose."
+        },
+        {
+          "t0": 33.36,
+          "t1": 36.38,
+          "text": "Then, in a bed of red-hot charcoal, the gas cools…"
+        },
+        {
+          "t0": 36.38,
+          "t1": 37.96,
+          "text": "and becomes fuel!"
+        },
+        {
+          "t0": 37.96,
+          "t1": 40.2,
+          "text": "At the bottom, almost nothing is left."
+        },
+        {
+          "t0": 40.2,
+          "t1": 44.92,
+          "text": "The gas carries on, still very hot: it crosses a filter, then a cooler."
+        },
+        {
+          "t0": 44.92,
+          "t1": 47.96,
+          "text": "In the cylinder, a thread of diesel lights it."
+        },
+        {
+          "t0": 47.96,
+          "t1": 54.08,
+          "text": "On the test bench, a Swedish institute counted two hundred and twenty-one kilowatts going in for forty at the shaft."
+        },
+        {
+          "t0": 54.08,
+          "t1": 55.06,
+          "text": "Eighteen per cent."
+        },
+        {
+          "t0": 55.06,
+          "t1": 57.78,
+          "text": "And then, one evening, the engine stops."
+        },
+        {
+          "t0": 57.78,
+          "t1": 59.96,
+          "text": "But the gas does not stop with it."
+        },
+        {
+          "t0": 59.96,
+          "t1": 62.2,
+          "text": "This is the gravest story in this lab."
+        },
+        {
+          "t0": 62.2,
+          "t1": 63.76,
+          "text": "First, a few pointers."
+        },
+        {
+          "t0": 63.76,
+          "t1": 66.24,
+          "text": "There are five worlds, from the farm to the garage."
+        },
+        {
+          "t0": 66.24,
+          "t1": 69.82,
+          "text": "Click a part: its sheet opens, and you can listen to its story."
+        },
+        {
+          "t0": 69.82,
+          "t1": 75.88,
+          "text": "Assembly tells, in the past tense, how the system went together: a reading, not a procedure."
+        },
+        {
+          "t0": 75.88,
+          "t1": 78.76,
+          "text": "Installation says what had to be gathered before the first day."
+        },
+        {
+          "t0": 78.76,
+          "t1": 82.3,
+          "text": "The simulation lets you change the load and the moisture of the wood."
+        },
+        {
+          "t0": 82.3,
+          "t1": 84.62,
+          "text": "Seven lessons explain the physics."
+        },
+        {
+          "t0": 84.62,
+          "t1": 86.16,
+          "text": "Ten drawings sketch it."
+        },
+        {
+          "t0": 86.16,
+          "t1": 90.06,
+          "text": "One last thing: this laboratory is an independent educational reconstruction."
+        },
+        {
+          "t0": 90.06,
+          "t1": 93.02,
+          "text": "It is neither an official design nor a maker’s product."
+        },
+        {
+          "t0": 93.02,
+          "t1": 96.62,
+          "text": "It explains a machine from history, and gives no plans."
+        },
+        {
+          "t0": 96.62,
+          "t1": 102.86,
+          "text": "The published figures come from that institute’s report and from a Swedish book on the gasifiers of the war."
+        },
+        {
+          "t0": 102.86,
+          "t1": 105.34,
+          "text": "The others come out of the simulation."
+        },
+        {
+          "t0": 105.34,
+          "t1": 111.7,
+          "text": "On the sheets, a figure with no mark is published; a cross marks a calculation, a star an estimate."
+        },
+        {
+          "t0": 111.7,
+          "t1": 113.98,
+          "text": "The Sources panel says who said what."
+        },
+        {
+          "t0": 113.98,
+          "t1": 116.78,
+          "text": "Take your time: a chip takes an hour to come down."
+        }
+      ],
+      "cues": [
+        {
+          "t": 0,
+          "do": {
+            "home": true
+          }
+        },
+        {
+          "t": 0,
+          "do": {
+            "lab": "preset",
+            "arg": "mf-1100"
+          }
+        },
+        {
+          "t": 9.04,
+          "do": {
+            "frame": [
+              "chip-barn"
+            ]
+          }
+        },
+        {
+          "t": 14.12,
+          "do": {
+            "frame": [
+              "drum-chipper"
+            ]
+          }
+        },
+        {
+          "t": 16.78,
+          "do": {
+            "scene": "tractor"
+          }
+        },
+        {
+          "t": 19.94,
+          "do": {
+            "frame": [
+              "roof-rack"
+            ]
+          }
+        },
+        {
+          "t": 22.7,
+          "do": {
+            "scene": "gasifier"
+          }
+        },
+        {
+          "t": 26.56,
+          "do": {
+            "lab": "journey",
+            "arg": "0.15"
+          }
+        },
+        {
+          "t": 27.42,
+          "do": {
+            "lab": "journey",
+            "arg": "0.42"
+          }
+        },
+        {
+          "t": 28.9,
+          "do": {
+            "lab": "journey",
+            "arg": "0.62"
+          }
+        },
+        {
+          "t": 33.36,
+          "do": {
+            "lab": "journey",
+            "arg": "0.85"
+          }
+        },
+        {
+          "t": 37.96,
+          "do": {
+            "lab": "journey",
+            "arg": "0.98"
+          }
+        },
+        {
+          "t": 40.2,
+          "do": {
+            "scene": "gas-train"
+          }
+        },
+        {
+          "t": 42.38,
+          "do": {
+            "frame": [
+              "filter-box"
+            ]
+          }
+        },
+        {
+          "t": 44.92,
+          "do": {
+            "frame": [
+              "cylinder-cutaway"
+            ]
+          }
+        },
+        {
+          "t": 55.06,
+          "do": {
+            "scene": "garage"
+          }
+        },
+        {
+          "t": 57.78,
+          "do": {
+            "lab": "scenario",
+            "arg": "engine-stops"
+          }
+        },
+        {
+          "t": 57.78,
+          "do": {
+            "frame": [
+              "post-gas-plume"
+            ]
+          }
+        },
+        {
+          "t": 62.2,
+          "do": {
+            "lab": "preset",
+            "arg": "mf-1100"
+          }
+        },
+        {
+          "t": 62.2,
+          "do": {
+            "scene": "farm"
+          }
+        },
+        {
+          "t": 69.82,
+          "do": {
+            "mode": "assembly"
+          }
+        },
+        {
+          "t": 75.88,
+          "do": {
+            "mode": "install"
+          }
+        },
+        {
+          "t": 78.76,
+          "do": {
+            "mode": "sim"
+          }
+        },
+        {
+          "t": 82.3,
+          "do": {
+            "mode": "lessons"
+          }
+        },
+        {
+          "t": 84.62,
+          "do": {
+            "mode": "plans"
+          }
+        },
+        {
+          "t": 86.16,
+          "do": {
+            "mode": "explore"
+          }
+        },
+        {
+          "t": 113.98,
+          "do": {
+            "select": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "scene-farm",
+      "scope": "scene:farm",
+      "title": "The farm and its wood",
+      "scene": "farm",
+      "file": "scene-farm.mp3",
+      "duration": 35.12,
+      "chars": 606,
+      "hash": "fe360c80a0c0d4fd",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 3.94,
+          "text": "A large farm in the south of Sweden, around nineteen seventy."
+        },
+        {
+          "t0": 3.94,
+          "t1": 6.82,
+          "text": "The wood begins here, in the dry of the barn."
+        },
+        {
+          "t0": 6.82,
+          "t1": 11.02,
+          "text": "The chipper cuts it into small chips, and the sieve rids them of their fines."
+        },
+        {
+          "t0": 11.02,
+          "t1": 15.48,
+          "text": "The tractor carries them off, and drags a four-metre clod crusher behind it."
+        },
+        {
+          "t0": 15.48,
+          "t1": 21.06,
+          "text": "What the machine leaves behind, the ash, and some black water, ends up in a bin and in a barrel."
+        },
+        {
+          "t0": 21.06,
+          "t1": 23.92,
+          "text": "And there, built against the house, the garage."
+        },
+        {
+          "t0": 23.92,
+          "t1": 24.82,
+          "text": "Keep it in mind."
+        },
+        {
+          "t0": 24.82,
+          "t1": 29,
+          "text": "The farm has no source: its walls are drawn to the scale of a five-tonne tractor."
+        },
+        {
+          "t0": 29,
+          "t1": 35.12,
+          "text": "What is real is what the machine did there: more than two thousand five hundred hours in six years."
+        }
+      ],
+      "cues": [
+        {
+          "t": 0,
+          "do": {
+            "home": true
+          }
+        },
+        {
+          "t": 3.94,
+          "do": {
+            "flows": true
+          }
+        },
+        {
+          "t": 3.94,
+          "do": {
+            "frame": [
+              "chip-barn"
+            ]
+          }
+        },
+        {
+          "t": 6.82,
+          "do": {
+            "frame": [
+              "drum-chipper"
+            ]
+          }
+        },
+        {
+          "t": 8.46,
+          "do": {
+            "frame": [
+              "chip-sieve"
+            ]
+          }
+        },
+        {
+          "t": 11.02,
+          "do": {
+            "frame": [
+              "wood-gas-tractor"
+            ]
+          }
+        },
+        {
+          "t": 13.16,
+          "do": {
+            "frame": [
+              "clod-crusher"
+            ]
+          }
+        },
+        {
+          "t": 15.48,
+          "do": {
+            "frame": [
+              "ash-bin"
+            ]
+          }
+        },
+        {
+          "t": 17.68,
+          "do": {
+            "frame": [
+              "condensate-barrel"
+            ]
+          }
+        },
+        {
+          "t": 21.06,
+          "do": {
+            "flows": false
+          }
+        },
+        {
+          "t": 21.06,
+          "do": {
+            "frame": [
+              "farm-garage"
+            ]
+          }
+        },
+        {
+          "t": 24.82,
+          "do": {
+            "home": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "scene-tractor",
+      "scope": "scene:tractor",
+      "title": "The tractor and its system",
+      "scene": "tractor",
+      "file": "scene-tractor.mp3",
+      "duration": 24.16,
+      "chars": 417,
+      "hash": "ded9bb35eae2100a",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 2.82,
+          "text": "The machine, on paper, rolling on the spot."
+        },
+        {
+          "t0": 2.82,
+          "t1": 8.24,
+          "text": "An ordinary tractor, and on its left flank, the gasifier: four hundred and fifty kilos more."
+        },
+        {
+          "t0": 8.24,
+          "t1": 10.62,
+          "text": "Its top almost reaches the driver’s eye."
+        },
+        {
+          "t0": 10.62,
+          "t1": 12.36,
+          "text": "Watch the cab fade away!"
+        },
+        {
+          "t0": 12.36,
+          "t1": 15.12,
+          "text": "On the roof, a rack carries the day’s chips."
+        },
+        {
+          "t0": 15.12,
+          "t1": 18.68,
+          "text": "And the gas runs to the engine, through a filter and a cooler."
+        },
+        {
+          "t0": 18.68,
+          "t1": 21.76,
+          "text": "Let’s pull the parts apart a little, to see what carries what…"
+        },
+        {
+          "t0": 21.76,
+          "t1": 24.16,
+          "text": "Nothing floats: every part has its support."
+        }
+      ],
+      "cues": [
+        {
+          "t": 0,
+          "do": {
+            "home": true
+          }
+        },
+        {
+          "t": 2.82,
+          "do": {
+            "frame": [
+              "tractor-chassis"
+            ]
+          }
+        },
+        {
+          "t": 5.62,
+          "do": {
+            "frame": [
+              "gasifier-unit"
+            ]
+          }
+        },
+        {
+          "t": 8.24,
+          "do": {
+            "frame": [
+              "cab"
+            ]
+          }
+        },
+        {
+          "t": 10.62,
+          "do": {
+            "xray": true
+          }
+        },
+        {
+          "t": 12.36,
+          "do": {
+            "xray": false
+          }
+        },
+        {
+          "t": 12.36,
+          "do": {
+            "frame": [
+              "roof-rack"
+            ]
+          }
+        },
+        {
+          "t": 15.12,
+          "do": {
+            "frame": [
+              "gas-line-run"
+            ]
+          }
+        },
+        {
+          "t": 15.12,
+          "do": {
+            "flows": true
+          }
+        },
+        {
+          "t": 18.68,
+          "do": {
+            "flows": false
+          }
+        },
+        {
+          "t": 18.68,
+          "do": {
+            "home": true
+          }
+        },
+        {
+          "t": 18.68,
+          "do": {
+            "explode": 0.6
+          }
+        },
+        {
+          "t": 21.76,
+          "do": {
+            "explode": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "scene-gasifier",
+      "scope": "scene:gasifier",
+      "title": "The journey of a wood chip",
+      "scene": "gasifier",
+      "file": "scene-gasifier.mp3",
+      "duration": 32.48,
+      "chars": 530,
+      "hash": "2fc1c82461200c2f",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 4.42,
+          "text": "Here is the apparatus, always in section, and its travelling chip."
+        },
+        {
+          "t0": 4.42,
+          "t1": 10.32,
+          "text": "It goes in through the lid, and there, the column draws it gently downwards: about an hour."
+        },
+        {
+          "t0": 10.32,
+          "t1": 13.4,
+          "text": "First it dries: the water vapour escapes."
+        },
+        {
+          "t0": 13.4,
+          "t1": 16.34,
+          "text": "Then it breaks down into charcoal and vapours."
+        },
+        {
+          "t0": 16.34,
+          "t1": 18.42,
+          "text": "Those vapours must cross the flame."
+        },
+        {
+          "t0": 18.42,
+          "t1": 24.22,
+          "text": "After that the hot gas crosses red-hot charcoal, where it cools: that is where it becomes fuel."
+        },
+        {
+          "t0": 24.22,
+          "t1": 26.82,
+          "text": "A little ash is left: that is the end of the journey."
+        },
+        {
+          "t0": 26.82,
+          "t1": 30.38,
+          "text": "The zones are in order, not to scale: on purpose."
+        },
+        {
+          "t0": 30.38,
+          "t1": 32.48,
+          "text": "Now watch the air come in, and the gas go out…"
+        }
+      ],
+      "cues": [
+        {
+          "t": 0,
+          "do": {
+            "home": true
+          }
+        },
+        {
+          "t": 0,
+          "do": {
+            "lab": "preset",
+            "arg": "mf-1100"
+          }
+        },
+        {
+          "t": 4.42,
+          "do": {
+            "frame": [
+              "spring-lid"
+            ]
+          }
+        },
+        {
+          "t": 6.82,
+          "do": {
+            "frame": [
+              "chip-column"
+            ]
+          }
+        },
+        {
+          "t": 6.82,
+          "do": {
+            "lab": "journey",
+            "arg": "0.05"
+          }
+        },
+        {
+          "t": 10.32,
+          "do": {
+            "frame": [
+              "drying-zone"
+            ]
+          }
+        },
+        {
+          "t": 10.32,
+          "do": {
+            "lab": "journey",
+            "arg": "0.15"
+          }
+        },
+        {
+          "t": 13.4,
+          "do": {
+            "frame": [
+              "pyrolysis-zone"
+            ]
+          }
+        },
+        {
+          "t": 13.4,
+          "do": {
+            "lab": "journey",
+            "arg": "0.42"
+          }
+        },
+        {
+          "t": 16.34,
+          "do": {
+            "frame": [
+              "oxidation-zone"
+            ]
+          }
+        },
+        {
+          "t": 16.34,
+          "do": {
+            "lab": "journey",
+            "arg": "0.62"
+          }
+        },
+        {
+          "t": 18.42,
+          "do": {
+            "frame": [
+              "reduction-zone"
+            ]
+          }
+        },
+        {
+          "t": 18.42,
+          "do": {
+            "lab": "journey",
+            "arg": "0.85"
+          }
+        },
+        {
+          "t": 24.22,
+          "do": {
+            "frame": [
+              "ash-pit"
+            ]
+          }
+        },
+        {
+          "t": 24.22,
+          "do": {
+            "lab": "journey",
+            "arg": "0.98"
+          }
+        },
+        {
+          "t": 26.82,
+          "do": {
+            "lab": "journey",
+            "arg": "0.62"
+          }
+        },
+        {
+          "t": 26.82,
+          "do": {
+            "home": true
+          }
+        },
+        {
+          "t": 30.38,
+          "do": {
+            "flows": true
+          }
+        },
+        {
+          "t": 32.48,
+          "do": {
+            "flows": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "scene-gas-train",
+      "scope": "scene:gas-train",
+      "title": "The gas line",
+      "scene": "gas-train",
+      "file": "scene-gas-train.mp3",
+      "duration": 32.24,
+      "chars": 520,
+      "hash": "adad6b6c94090080",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 3.92,
+          "text": "The gas, from the outlet to the engine, laid flat and in order."
+        },
+        {
+          "t0": 3.92,
+          "t1": 9.3,
+          "text": "It leaves hot, and the pipe keeps it hot: cooled too soon, it would wet the filter."
+        },
+        {
+          "t0": 9.3,
+          "t1": 11.94,
+          "text": "Here, a cloth catches the fine dust."
+        },
+        {
+          "t0": 11.94,
+          "t1": 16.3,
+          "text": "Then the cooler drops it to about twenty degrees: colder, it is denser."
+        },
+        {
+          "t0": 16.3,
+          "t1": 18.38,
+          "text": "At the mixer, it meets fresh air again."
+        },
+        {
+          "t0": 18.38,
+          "t1": 20.94,
+          "text": "In the cylinder, a thread of diesel lights it."
+        },
+        {
+          "t0": 20.94,
+          "t1": 23.9,
+          "text": "Look at the floor: ribbons show where the energy goes."
+        },
+        {
+          "t0": 23.9,
+          "t1": 30.66,
+          "text": "The wood going in, the gas, the diesel, the work at the shaft, and in grey, the losses."
+        },
+        {
+          "t0": 30.66,
+          "t1": 32.24,
+          "text": "There is far more grey than work."
+        }
+      ],
+      "cues": [
+        {
+          "t": 0,
+          "do": {
+            "home": true
+          }
+        },
+        {
+          "t": 0,
+          "do": {
+            "lab": "preset",
+            "arg": "mf-1100"
+          }
+        },
+        {
+          "t": 3.92,
+          "do": {
+            "flows": true
+          }
+        },
+        {
+          "t": 3.92,
+          "do": {
+            "frame": [
+              "hot-gas-pipe"
+            ]
+          }
+        },
+        {
+          "t": 9.3,
+          "do": {
+            "frame": [
+              "filter-box"
+            ]
+          }
+        },
+        {
+          "t": 11.94,
+          "do": {
+            "frame": [
+              "gas-cooler"
+            ]
+          }
+        },
+        {
+          "t": 16.3,
+          "do": {
+            "frame": [
+              "gas-air-mixer"
+            ]
+          }
+        },
+        {
+          "t": 18.38,
+          "do": {
+            "frame": [
+              "cylinder-cutaway"
+            ]
+          }
+        },
+        {
+          "t": 20.94,
+          "do": {
+            "flows": false
+          }
+        },
+        {
+          "t": 20.94,
+          "do": {
+            "home": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "scene-garage",
+      "scope": "scene:garage",
+      "title": "What it does when you stop",
+      "scene": "garage",
+      "file": "scene-garage.mp3",
+      "duration": 32.24,
+      "chars": 565,
+      "hash": "2e44578c084b4e34",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 3.16,
+          "text": "The same tractor, parked in the garage, under a bedroom."
+        },
+        {
+          "t0": 3.16,
+          "t1": 4.42,
+          "text": "The engine is off."
+        },
+        {
+          "t0": 4.42,
+          "t1": 9.66,
+          "text": "But the gas keeps forming in the hot bed, and it comes out, even from a machine that looked tight."
+        },
+        {
+          "t0": 9.66,
+          "t1": 14.22,
+          "text": "Here is the indicator: its lamp lights as soon as carbon monoxide has touched the room,"
+        },
+        {
+          "t0": 14.22,
+          "t1": 16.14,
+          "text": "and it never goes out again."
+        },
+        {
+          "t0": 16.14,
+          "t1": 19.02,
+          "text": "Upstairs, the bedroom gets some in its turn, later."
+        },
+        {
+          "t0": 19.02,
+          "t1": 20.38,
+          "text": "And the door?"
+        },
+        {
+          "t0": 20.38,
+          "t1": 23.38,
+          "text": "The Swedes found open doors very unsatisfactory."
+        },
+        {
+          "t0": 23.38,
+          "t1": 28.6,
+          "text": "Still, let’s see what the model’s box says, where the air is well mixed: the figure falls fast."
+        },
+        {
+          "t0": 28.6,
+          "t1": 30.8,
+          "text": "That is what a box is built to say."
+        },
+        {
+          "t0": 30.8,
+          "t1": 32.24,
+          "text": "Nothing says when it ends."
+        }
+      ],
+      "cues": [
+        {
+          "t": 0,
+          "do": {
+            "home": true
+          }
+        },
+        {
+          "t": 0,
+          "do": {
+            "lab": "scenario",
+            "arg": "closed-garage"
+          }
+        },
+        {
+          "t": 3.16,
+          "do": {
+            "frame": [
+              "post-gas-plume"
+            ]
+          }
+        },
+        {
+          "t": 9.66,
+          "do": {
+            "flows": true
+          }
+        },
+        {
+          "t": 9.66,
+          "do": {
+            "lab": "speed",
+            "arg": "600"
+          }
+        },
+        {
+          "t": 9.66,
+          "do": {
+            "frame": [
+              "co-indicator"
+            ]
+          }
+        },
+        {
+          "t": 16.14,
+          "do": {
+            "frame": [
+              "room-above"
+            ]
+          }
+        },
+        {
+          "t": 19.02,
+          "do": {
+            "flows": false
+          }
+        },
+        {
+          "t": 19.02,
+          "do": {
+            "frame": [
+              "garage-door"
+            ]
+          }
+        },
+        {
+          "t": 27.58,
+          "do": {
+            "lab": "door",
+            "arg": "open"
+          }
+        },
+        {
+          "t": 30.8,
+          "do": {
+            "lab": "preset",
+            "arg": "mf-1100"
+          }
+        },
+        {
+          "t": 30.8,
+          "do": {
+            "home": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-wood-gas-tractor",
+      "scope": "part:wood-gas-tractor",
+      "title": "Wood-gas tractor",
+      "scene": "farm",
+      "file": "part-wood-gas-tractor.mp3",
+      "duration": 18.72,
+      "chars": 325,
+      "hash": "5e45fa2e72aabf4e",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 4.2,
+          "text": "Here is the whole machine: a five-tonne tractor that runs on wood!"
+        },
+        {
+          "t0": 4.2,
+          "t1": 9.08,
+          "text": "At forty kilowatts at the shaft, the model burns thirty-four kilos of chips an hour."
+        },
+        {
+          "t0": 9.08,
+          "t1": 11.22,
+          "text": "The institute’s bench measured forty-one."
+        },
+        {
+          "t0": 11.22,
+          "t1": 12.24,
+          "text": "Why the gap?"
+        },
+        {
+          "t0": 12.24,
+          "t1": 14.92,
+          "text": "The model’s engine burns better than the bench’s."
+        },
+        {
+          "t0": 14.92,
+          "t1": 18.72,
+          "text": "The regular drivers would not have it: it was slow, dirty and heavy."
+        }
+      ],
+      "cues": []
+    },
+    {
+      "id": "part-chip-barn",
+      "scope": "part:chip-barn",
+      "title": "Chip barn",
+      "scene": "farm",
+      "file": "part-chip-barn.mp3",
+      "duration": 14.24,
+      "chars": 231,
+      "hash": "6d6080e952c17b6a",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 2.42,
+          "text": "It all starts here, in the dry."
+        },
+        {
+          "t0": 2.42,
+          "t1": 6.32,
+          "text": "One eight-hour shift devours more than a cubic metre of chips."
+        },
+        {
+          "t0": 6.32,
+          "t1": 10.6,
+          "text": "Moisture matters as much as quantity: the institute stopped at thirty per cent."
+        },
+        {
+          "t0": 10.6,
+          "t1": 14.24,
+          "text": "And stored wood gives off carbon monoxide all by itself."
+        }
+      ],
+      "cues": []
+    },
+    {
+      "id": "part-drum-chipper",
+      "scope": "part:drum-chipper",
+      "title": "Drum chipper",
+      "scene": "farm",
+      "file": "part-drum-chipper.mp3",
+      "duration": 13.36,
+      "chars": 230,
+      "hash": "61d9592a31c873be",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 2.76,
+          "text": "A wood-gas tractor does not burn logs."
+        },
+        {
+          "t0": 2.76,
+          "t1": 7.62,
+          "text": "The chips are born here: a drum fitted with knives that cuts the wood into pieces."
+        },
+        {
+          "t0": 7.62,
+          "t1": 10.8,
+          "text": "Size matters, because the gas has to pass between them."
+        },
+        {
+          "t0": 10.8,
+          "t1": 13.36,
+          "text": "Most of them measured fifteen to thirty millimetres."
+        }
+      ],
+      "cues": []
+    },
+    {
+      "id": "part-chip-sieve",
+      "scope": "part:chip-sieve",
+      "title": "Chip sieve",
+      "scene": "farm",
+      "file": "part-chip-sieve.mp3",
+      "duration": 15.44,
+      "chars": 273,
+      "hash": "28e5bea06e056637",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 3.84,
+          "text": "Fines are the splinters and the dust: they block the gas’s way."
+        },
+        {
+          "t0": 3.84,
+          "t1": 8.14,
+          "text": "On a tractor of the same family, sieved chips gave a quarter more power."
+        },
+        {
+          "t0": 8.14,
+          "t1": 8.6,
+          "text": "The price?"
+        },
+        {
+          "t0": 8.6,
+          "t1": 11.22,
+          "text": "Fourteen per cent of the wood thrown away."
+        },
+        {
+          "t0": 11.22,
+          "t1": 15.44,
+          "text": "The model finds only ten per cent gain here: it has nothing but the pressure drop."
+        }
+      ],
+      "cues": []
+    },
+    {
+      "id": "part-clod-crusher",
+      "scope": "part:clod-crusher",
+      "title": "Clod crusher",
+      "scene": "farm",
+      "file": "part-clod-crusher.mp3",
+      "duration": 12.48,
+      "chars": 225,
+      "hash": "e014fa7284f67c08",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 5.78,
+          "text": "This is what the whole machine is for: a clod crusher four metres wide, dragged behind the tractor."
+        },
+        {
+          "t0": 5.78,
+          "t1": 9.38,
+          "text": "More than two thousand five hundred hours of tillage in six years."
+        },
+        {
+          "t0": 9.38,
+          "t1": 12.48,
+          "text": "See, it has stopped: the camera does not have to chase it."
+        }
+      ],
+      "cues": []
+    },
+    {
+      "id": "part-farmhouse",
+      "scope": "part:farmhouse",
+      "title": "Farmhouse",
+      "scene": "farm",
+      "file": "part-farmhouse.mp3",
+      "duration": 15.2,
+      "chars": 255,
+      "hash": "214f352a8ca3e2c0",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 5.6,
+          "text": "No source describes the farmhouse: this one is an estimate, two storeys of red boards."
+        },
+        {
+          "t0": 5.6,
+          "t1": 9.6,
+          "text": "The Swedish book counts a stopped engine among the country’s worst accidents."
+        },
+        {
+          "t0": 9.6,
+          "t1": 13.36,
+          "text": "The car is in the garage, under a room where people live."
+        },
+        {
+          "t0": 13.36,
+          "t1": 15.2,
+          "text": "So the garage touches the house."
+        }
+      ],
+      "cues": []
+    },
+    {
+      "id": "part-farm-garage",
+      "scope": "part:farm-garage",
+      "title": "Farm garage",
+      "scene": "farm",
+      "file": "part-farm-garage.mp3",
+      "duration": 14.48,
+      "chars": 229,
+      "hash": "ba3e87add4d65b97",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 2.82,
+          "text": "Why a garage, in a lab about wood?"
+        },
+        {
+          "t0": 2.82,
+          "t1": 9.02,
+          "text": "In Sweden, two thousand eight hundred and sixty-five gasifier vehicles caught fire in five years."
+        },
+        {
+          "t0": 9.02,
+          "t1": 10.64,
+          "text": "Often at night, in garages."
+        },
+        {
+          "t0": 10.64,
+          "t1": 14.48,
+          "text": "In the first quarter of nineteen forty-two alone: nearly four a day."
+        }
+      ],
+      "cues": []
+    },
+    {
+      "id": "part-ash-bin",
+      "scope": "part:ash-bin",
+      "title": "Ash bin",
+      "scene": "farm",
+      "file": "part-ash-bin.mp3",
+      "duration": 13.68,
+      "chars": 217,
+      "hash": "f400474c912859b0",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 2.42,
+          "text": "The gasifier does not leave only gas."
+        },
+        {
+          "t0": 2.42,
+          "t1": 8.78,
+          "text": "It leaves ash, and charcoal that never finished its journey: up to three point five per cent of the fuel."
+        },
+        {
+          "t0": 8.78,
+          "t1": 13.68,
+          "text": "And that ash is hot: the Swedish book lists hot ash among the fire risks."
+        }
+      ],
+      "cues": []
+    },
+    {
+      "id": "part-condensate-barrel",
+      "scope": "part:condensate-barrel",
+      "title": "Condensate barrel",
+      "scene": "farm",
+      "file": "part-condensate-barrel.mp3",
+      "duration": 17.04,
+      "chars": 299,
+      "hash": "51132b36657b5c67",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 5.54,
+          "text": "This is where the black water ends up: as it cools, the gas leaves water loaded with tars."
+        },
+        {
+          "t0": 5.54,
+          "t1": 10.26,
+          "text": "It holds one thousand five hundred to three thousand milligrams of phenols per litre."
+        },
+        {
+          "t0": 10.26,
+          "t1": 14.92,
+          "text": "That is one hundred and fifty to three hundred times wartime Sweden’s sewer limit."
+        },
+        {
+          "t0": 14.92,
+          "t1": 17.04,
+          "text": "For its fate, ask your local authority."
+        }
+      ],
+      "cues": []
+    },
+    {
+      "id": "part-field-ditch",
+      "scope": "part:field-ditch",
+      "title": "Field ditch",
+      "scene": "farm",
+      "file": "part-field-ditch.mp3",
+      "duration": 13.28,
+      "chars": 203,
+      "hash": "dcc60c0c7251d083",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 3.46,
+          "text": "A ditch runs beside almost every lowland farm."
+        },
+        {
+          "t0": 3.46,
+          "t1": 6.76,
+          "text": "This one does nothing, on purpose: nothing flows in it."
+        },
+        {
+          "t0": 6.76,
+          "t1": 10.26,
+          "text": "It only asks a question: where did the black water go?"
+        },
+        {
+          "t0": 10.26,
+          "t1": 13.28,
+          "text": "On the institute’s two farms, no source says."
+        }
+      ],
+      "cues": []
+    },
+    {
+      "id": "part-tractor-chassis",
+      "scope": "part:tractor-chassis",
+      "title": "Tractor chassis",
+      "scene": "tractor",
+      "file": "part-tractor-chassis.mp3",
+      "duration": 16,
+      "chars": 275,
+      "hash": "8dbe51a6e1d456b4",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 3.24,
+          "text": "Without its gasifier, this is an ordinary tractor."
+        },
+        {
+          "t0": 3.24,
+          "t1": 8.28,
+          "text": "The system adds four hundred and fifty kilos: nearly nine per cent of its mass."
+        },
+        {
+          "t0": 8.28,
+          "t1": 12.18,
+          "text": "Watch everything else leave the chassis, each along its own line!"
+        },
+        {
+          "t0": 12.18,
+          "t1": 16,
+          "text": "The institute also removed the front weights, and turned the air filter round."
+        }
+      ],
+      "cues": [
+        {
+          "t": 8.28,
+          "do": {
+            "explode": 0.7
+          }
+        },
+        {
+          "t": 12.18,
+          "do": {
+            "explode": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-cab",
+      "scope": "part:cab",
+      "title": "Cab",
+      "scene": "tractor",
+      "file": "part-cab.mp3",
+      "duration": 16,
+      "chars": 282,
+      "hash": "a01d0458c402dfba",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 1.02,
+          "text": "Where you drive."
+        },
+        {
+          "t0": 1.02,
+          "t1": 6.96,
+          "text": "The top of the gasifier comes right under the driver’s eye: three to eighteen centimetres of margin."
+        },
+        {
+          "t0": 6.96,
+          "t1": 11.26,
+          "text": "The cab fades away: the top of the gasifier reads right against the eye."
+        },
+        {
+          "t0": 11.26,
+          "t1": 13.26,
+          "text": "The view to the front left is slightly blocked."
+        },
+        {
+          "t0": 13.26,
+          "t1": 14.96,
+          "text": "And the air in the cab?"
+        },
+        {
+          "t0": 14.96,
+          "t1": 16,
+          "text": "Nobody measured it."
+        }
+      ],
+      "cues": [
+        {
+          "t": 6.96,
+          "do": {
+            "xray": true
+          }
+        },
+        {
+          "t": 11.26,
+          "do": {
+            "xray": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-roof-rack",
+      "scope": "part:roof-rack",
+      "title": "Roof rack",
+      "scene": "tractor",
+      "file": "part-roof-rack.mp3",
+      "duration": 13.28,
+      "chars": 227,
+      "hash": "948ade61d6e1349b",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 3.3,
+          "text": "The bunker holds only forty to fifty minutes of chips."
+        },
+        {
+          "t0": 3.3,
+          "t1": 9.58,
+          "text": "The rest rides on the roof, above the driver: one eight-hour shift takes more than two hundred kilos."
+        },
+        {
+          "t0": 9.58,
+          "t1": 13.28,
+          "text": "The lab does not say it was a good choice, only that it was necessary."
+        }
+      ],
+      "cues": []
+    },
+    {
+      "id": "part-roof-headlights",
+      "scope": "part:roof-headlights",
+      "title": "Roof headlights",
+      "scene": "tractor",
+      "file": "part-roof-headlights.mp3",
+      "duration": 15.76,
+      "chars": 260,
+      "hash": "994ce52f9c8d7b33",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 4.02,
+          "text": "A tiny part, to say that a tractor really gets modified."
+        },
+        {
+          "t0": 4.02,
+          "t1": 8.02,
+          "text": "The institute moved the headlights to the roof, without saying why."
+        },
+        {
+          "t0": 8.02,
+          "t1": 12.74,
+          "text": "Our reading: the gasifier takes the flank where a headlight would have shone."
+        },
+        {
+          "t0": 12.74,
+          "t1": 15.76,
+          "text": "It also changed the governor, and the injector’s cooling."
+        }
+      ],
+      "cues": []
+    },
+    {
+      "id": "part-rear-wheels",
+      "scope": "part:rear-wheels",
+      "title": "Rear wheels",
+      "scene": "tractor",
+      "file": "part-rear-wheels.mp3",
+      "duration": 12.4,
+      "chars": 209,
+      "hash": "5e7f8f1333e5439c",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 5.44,
+          "text": "Big wheels, to push the machine and its weight: tyres forty-seven centimetres wide."
+        },
+        {
+          "t0": 5.44,
+          "t1": 9.46,
+          "text": "On screen they make one turn about every three seconds, an estimate."
+        },
+        {
+          "t0": 9.46,
+          "t1": 12.4,
+          "text": "Slow enough that the eye never sees them turn backwards."
+        }
+      ],
+      "cues": []
+    },
+    {
+      "id": "part-front-wheels",
+      "scope": "part:front-wheels",
+      "title": "Front wheels",
+      "scene": "tractor",
+      "file": "part-front-wheels.mp3",
+      "duration": 12.08,
+      "chars": 198,
+      "hash": "0b6ae63bb1850291",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 3.46,
+          "text": "Watch: the engine stops, and the wheels stop rolling."
+        },
+        {
+          "t0": 3.46,
+          "t1": 9.72,
+          "text": "They are smaller, and lightened: the institute removed the front weights, to make room for the cooler."
+        },
+        {
+          "t0": 9.72,
+          "t1": 12.08,
+          "text": "How the steering took it, no source says."
+        }
+      ],
+      "cues": [
+        {
+          "t": 0.62,
+          "do": {
+            "lab": "scenario",
+            "arg": "engine-stops"
+          }
+        },
+        {
+          "t": 12.08,
+          "do": {
+            "lab": "preset",
+            "arg": "mf-1100"
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-diesel-engine",
+      "scope": "part:diesel-engine",
+      "title": "Diesel engine",
+      "scene": "tractor",
+      "file": "part-diesel-engine.mp3",
+      "duration": 20.08,
+      "chars": 362,
+      "hash": "a201134f85cddbda",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 6.7,
+          "text": "On diesel alone, this six-cylinder gives sixty-four kilowatts; on gas with a thread of diesel, fifty-one."
+        },
+        {
+          "t0": 6.7,
+          "t1": 12.6,
+          "text": "The model finds fifty-five, but that agreement is worth little: it reads thirty per cent too high on the other engines."
+        },
+        {
+          "t0": 12.6,
+          "t1": 13.64,
+          "text": "Why less?"
+        },
+        {
+          "t0": 13.64,
+          "t1": 17.96,
+          "text": "The gas and air mixture holds two thousand five hundred kilojoules per cubic metre."
+        },
+        {
+          "t0": 17.96,
+          "t1": 20.08,
+          "text": "Petrol holds three thousand eight hundred."
+        }
+      ],
+      "cues": []
+    },
+    {
+      "id": "part-injection-pump",
+      "scope": "part:injection-pump",
+      "title": "Injection pump",
+      "scene": "tractor",
+      "file": "part-injection-pump.mp3",
+      "duration": 13.2,
+      "chars": 230,
+      "hash": "cd76254ee6eee27d",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 4.96,
+          "text": "Even on gas, the diesel keeps its pump: it doses the thread of diesel the flame needs."
+        },
+        {
+          "t0": 4.96,
+          "t1": 7.64,
+          "text": "But it sits under the bonnet, right beside the gasifier…"
+        },
+        {
+          "t0": 7.64,
+          "t1": 8.8,
+          "text": "which is hot!"
+        },
+        {
+          "t0": 8.8,
+          "t1": 10.52,
+          "text": "At twenty-five hours, it seized."
+        },
+        {
+          "t0": 10.52,
+          "t1": 13.2,
+          "text": "The institute added a radiation shield."
+        }
+      ],
+      "cues": []
+    },
+    {
+      "id": "part-heat-shield",
+      "scope": "part:heat-shield",
+      "title": "Heat shield",
+      "scene": "tractor",
+      "file": "part-heat-shield.mp3",
+      "duration": 14,
+      "chars": 241,
+      "hash": "1c0d22115706d901",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 7.04,
+          "text": "A steel plate is silent, but it tells a story: nobody adds a shield until something has been seen to fry."
+        },
+        {
+          "t0": 7.04,
+          "t1": 11.38,
+          "text": "The gasifier’s casing reaches about two hundred and ten degrees, an estimate."
+        },
+        {
+          "t0": 11.38,
+          "t1": 14,
+          "text": "Neither the material nor the size of the shield is given."
+        }
+      ],
+      "cues": []
+    },
+    {
+      "id": "part-extra-governor",
+      "scope": "part:extra-governor",
+      "title": "Extra governor",
+      "scene": "tractor",
+      "file": "part-extra-governor.mp3",
+      "duration": 11.84,
+      "chars": 214,
+      "hash": "3e3879d0c474c651",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 3.68,
+          "text": "A diesel holds its speed with a governor that acts on the fuel."
+        },
+        {
+          "t0": 3.68,
+          "t1": 10,
+          "text": "Here most of the energy comes from the gas: our reading is that a second governor was needed, on the gas throttle."
+        },
+        {
+          "t0": 10,
+          "t1": 11.84,
+          "text": "A belt links it to the fan’s shaft."
+        }
+      ],
+      "cues": []
+    },
+    {
+      "id": "part-left-consoles",
+      "scope": "part:left-consoles",
+      "title": "Left consoles",
+      "scene": "tractor",
+      "file": "part-left-consoles.mp3",
+      "duration": 11.44,
+      "chars": 191,
+      "hash": "2e195e657b2eb6ee",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 4.58,
+          "text": "Four hundred and fifty kilos on one flank: that is an imbalance."
+        },
+        {
+          "t0": 4.58,
+          "t1": 7.34,
+          "text": "The report does not say how the institute dealt with it."
+        },
+        {
+          "t0": 7.34,
+          "t1": 11.44,
+          "text": "Bolted consoles carry the gasifier, fifty centimetres off the ground."
+        }
+      ],
+      "cues": []
+    },
+    {
+      "id": "part-gasifier-unit",
+      "scope": "part:gasifier-unit",
+      "title": "Gasifier unit",
+      "scene": "tractor",
+      "file": "part-gasifier-unit.mp3",
+      "duration": 17.68,
+      "chars": 279,
+      "hash": "91cf0bdca10e8647",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 5.14,
+          "text": "Here is the heart of the machine: two metres twenty-two tall, and it makes the gas!"
+        },
+        {
+          "t0": 5.14,
+          "t1": 8.08,
+          "text": "Chips go down into it, and gas comes out."
+        },
+        {
+          "t0": 8.08,
+          "t1": 10.56,
+          "text": "Watch the fire glow through the lower casing."
+        },
+        {
+          "t0": 10.56,
+          "t1": 17.68,
+          "text": "On the bench, the gas is worth five point six megajoules per cubic metre; the model finds five point three."
+        }
+      ],
+      "cues": [
+        {
+          "t": 8.08,
+          "do": {
+            "xray": true
+          }
+        },
+        {
+          "t": 10.56,
+          "do": {
+            "xray": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-gas-line-run",
+      "scope": "part:gas-line-run",
+      "title": "Gas line run",
+      "scene": "tractor",
+      "file": "part-gas-line-run.mp3",
+      "duration": 15.84,
+      "chars": 249,
+      "hash": "a2c2985c644a12eb",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 4.89,
+          "text": "The gas does not go straight from the gasifier to the engine: a hot pipe, a valve,"
+        },
+        {
+          "t0": 5.06,
+          "t1": 7.6,
+          "text": "a filter, a cooler, a mixer."
+        },
+        {
+          "t0": 7.6,
+          "t1": 10.8,
+          "text": "The dots follow it, and change colour as it cools."
+        },
+        {
+          "t0": 10.8,
+          "t1": 15.84,
+          "text": "All along, the engine sucks: about seventy-two millibars of loss at most, an estimate."
+        }
+      ],
+      "cues": [
+        {
+          "t": 7.6,
+          "do": {
+            "flows": true
+          }
+        },
+        {
+          "t": 10.8,
+          "do": {
+            "flows": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-spring-lid",
+      "scope": "part:spring-lid",
+      "title": "Spring lid",
+      "scene": "gasifier",
+      "file": "part-spring-lid.mp3",
+      "duration": 17.6,
+      "chars": 269,
+      "hash": "7cf129a71e8451c5",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 4.98,
+          "text": "A lid and a spring: the simplest part, and the heaviest in consequences."
+        },
+        {
+          "t0": 4.98,
+          "t1": 12.74,
+          "text": "If it does not close, air comes in at the top: the Swedish book says a parked gasifier then burns like a stove."
+        },
+        {
+          "t0": 12.74,
+          "t1": 17.6,
+          "text": "The model tries three leaks: the biggest lasts about six hours, while there is wood."
+        }
+      ],
+      "cues": []
+    },
+    {
+      "id": "part-fuel-casing",
+      "scope": "part:fuel-casing",
+      "title": "Fuel casing",
+      "scene": "gasifier",
+      "file": "part-fuel-casing.mp3",
+      "duration": 15.04,
+      "chars": 255,
+      "hash": "9a3755eb1d49dd67",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 5.56,
+          "text": "The bunker: the top of the gasifier, two hundred litres of chips, about thirty kilos."
+        },
+        {
+          "t0": 5.56,
+          "t1": 10.54,
+          "text": "At full load it empties in forty to fifty minutes: that is the rhythm of the day."
+        },
+        {
+          "t0": 10.54,
+          "t1": 15.04,
+          "text": "And people have died in one: two researchers who climbed down into a gasifier’s bunker."
+        }
+      ],
+      "cues": []
+    },
+    {
+      "id": "part-chip-column",
+      "scope": "part:chip-column",
+      "title": "Chip column",
+      "scene": "gasifier",
+      "file": "part-chip-column.mp3",
+      "duration": 15.68,
+      "chars": 264,
+      "hash": "cd698dc44e883193",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 2.32,
+          "text": "Here are the machine’s two speeds."
+        },
+        {
+          "t0": 2.32,
+          "t1": 7.42,
+          "text": "The column sinks about a centimetre and a half a minute: a chip takes an hour to come down."
+        },
+        {
+          "t0": 7.42,
+          "t1": 10.56,
+          "text": "The gas crosses the same bed in a few hundredths of a second."
+        },
+        {
+          "t0": 10.56,
+          "t1": 15.68,
+          "text": "Wood at a snail’s pace, gas in one breath: that ratio is what makes energy!"
+        }
+      ],
+      "cues": [
+        {
+          "t": 0,
+          "do": {
+            "lab": "journey",
+            "arg": "0.05"
+          }
+        },
+        {
+          "t": 15.68,
+          "do": {
+            "lab": "journey",
+            "arg": "0.62"
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-drying-zone",
+      "scope": "part:drying-zone",
+      "title": "Drying zone",
+      "scene": "gasifier",
+      "file": "part-drying-zone.mp3",
+      "duration": 19.36,
+      "chars": 326,
+      "hash": "d221211bb5369ba9",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 5.98,
+          "text": "At the top of the column, the fire’s heat drives the water out of the wood: it leaves as steam."
+        },
+        {
+          "t0": 5.98,
+          "t1": 10.28,
+          "text": "Beyond about forty per cent moisture, the report says, the gas no longer burns."
+        },
+        {
+          "t0": 10.28,
+          "t1": 15.2,
+          "text": "At forty per cent, the model burns fifty-seven kilos an hour, instead of thirty-four."
+        },
+        {
+          "t0": 15.2,
+          "t1": 19.36,
+          "text": "Its flame never goes out: what stops a real hearth is not in it."
+        }
+      ],
+      "cues": [
+        {
+          "t": 0,
+          "do": {
+            "lab": "journey",
+            "arg": "0.15"
+          }
+        },
+        {
+          "t": 10.28,
+          "do": {
+            "lab": "moisture",
+            "arg": "40"
+          }
+        },
+        {
+          "t": 19.36,
+          "do": {
+            "lab": "preset",
+            "arg": "mf-1100"
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-pyrolysis-zone",
+      "scope": "part:pyrolysis-zone",
+      "title": "Pyrolysis zone",
+      "scene": "gasifier",
+      "file": "part-pyrolysis-zone.mp3",
+      "duration": 14.56,
+      "chars": 259,
+      "hash": "efe5eddc18e3982b",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 2.84,
+          "text": "Lower down, the wood turns into something else."
+        },
+        {
+          "t0": 2.84,
+          "t1": 8.5,
+          "text": "From about two hundred and fifty degrees, it breaks down into charcoal, and vapours of gas and tar."
+        },
+        {
+          "t0": 8.5,
+          "t1": 13.14,
+          "text": "They are the gasifier’s real problem: left alone, tars stick to everything."
+        },
+        {
+          "t0": 13.14,
+          "t1": 14.56,
+          "text": "They still have to cross the flame."
+        }
+      ],
+      "cues": [
+        {
+          "t": 5.44,
+          "do": {
+            "lab": "journey",
+            "arg": "0.42"
+          }
+        },
+        {
+          "t": 14.56,
+          "do": {
+            "lab": "journey",
+            "arg": "0.62"
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-oxidation-zone",
+      "scope": "part:oxidation-zone",
+      "title": "Oxidation zone",
+      "scene": "gasifier",
+      "file": "part-oxidation-zone.mp3",
+      "duration": 23.6,
+      "chars": 437,
+      "hash": "9f4ef6956bcf75a3",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 1.13,
+          "text": "Here is the fire!"
+        },
+        {
+          "t0": 1.13,
+          "t1": 5.98,
+          "text": "One thousand two hundred to one thousand five hundred degrees, the report says."
+        },
+        {
+          "t0": 5.98,
+          "t1": 8.37,
+          "text": "The model finds one thousand two hundred and thirty-five,"
+        },
+        {
+          "t0": 8.41,
+          "t1": 12.5,
+          "text": "and one thousand and seventy-six with the wall’s loss."
+        },
+        {
+          "t0": 12.5,
+          "t1": 14.38,
+          "text": "The vapours must cross this flame."
+        },
+        {
+          "t0": 14.38,
+          "t1": 18.02,
+          "text": "More than ninety-nine per cent of the tars vanish there: that is arithmetic."
+        },
+        {
+          "t0": 18.02,
+          "t1": 21.82,
+          "text": "A fire short of air makes gas; a fire with enough air leaves only ashes."
+        },
+        {
+          "t0": 21.82,
+          "t1": 23.6,
+          "text": "The whole gasifier fits in that sentence."
+        }
+      ],
+      "cues": [
+        {
+          "t": 1.13,
+          "do": {
+            "lab": "journey",
+            "arg": "0.62"
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-reduction-zone",
+      "scope": "part:reduction-zone",
+      "title": "Reduction zone",
+      "scene": "gasifier",
+      "file": "part-reduction-zone.mp3",
+      "duration": 25.44,
+      "chars": 394,
+      "hash": "6fcb1685d2ab57d4",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 4.56,
+          "text": "Below the flame, a bed of red-hot charcoal, and a conjuring trick."
+        },
+        {
+          "t0": 4.56,
+          "t1": 8.24,
+          "text": "The gas cools here, and that is where it becomes fuel!"
+        },
+        {
+          "t0": 8.24,
+          "t1": 14.66,
+          "text": "Carbon dioxide takes back carbon and becomes carbon monoxide; steam becomes hydrogen."
+        },
+        {
+          "t0": 14.66,
+          "t1": 20,
+          "text": "These reactions take heat: the gas loses about three hundred and seventy degrees."
+        },
+        {
+          "t0": 20,
+          "t1": 25.44,
+          "text": "It leaves, according to the model, with a fifth carbon monoxide, a sixth hydrogen, nearly half nitrogen."
+        }
+      ],
+      "cues": [
+        {
+          "t": 4.56,
+          "do": {
+            "lab": "journey",
+            "arg": "0.85"
+          }
+        },
+        {
+          "t": 25.44,
+          "do": {
+            "lab": "journey",
+            "arg": "0.62"
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-fuel-baffle",
+      "scope": "part:fuel-baffle",
+      "title": "Fuel baffle",
+      "scene": "gasifier",
+      "file": "part-fuel-baffle.mp3",
+      "duration": 13.2,
+      "chars": 227,
+      "hash": "25a7ad6d1d8d1d6a",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 6.6,
+          "text": "Here is a part the lab draws without being able to cite it: the report shows it in a figure, without a word."
+        },
+        {
+          "t0": 6.6,
+          "t1": 11.48,
+          "text": "Our reading: it keeps the chips away from the cold wall, where water and tar stick."
+        },
+        {
+          "t0": 11.48,
+          "t1": 13.2,
+          "text": "But that is a reading, not a fact."
+        }
+      ],
+      "cues": []
+    },
+    {
+      "id": "part-condensate-sleeve",
+      "scope": "part:condensate-sleeve",
+      "title": "Condensate sleeve",
+      "scene": "gasifier",
+      "file": "part-condensate-sleeve.mp3",
+      "duration": 15.6,
+      "chars": 290,
+      "hash": "48e63e32c11fce34",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 2.26,
+          "text": "Here is a piece of sound common sense!"
+        },
+        {
+          "t0": 2.26,
+          "t1": 7.74,
+          "text": "Instead of letting the wood’s water run down into the fire and cool it, we make it condense elsewhere."
+        },
+        {
+          "t0": 7.74,
+          "t1": 12.3,
+          "text": "The steam crosses the perforations, touches the cold wall, and runs down to the drain."
+        },
+        {
+          "t0": 12.3,
+          "t1": 15.6,
+          "text": "Sixty to eighty per cent of the wood’s water leaves this way."
+        }
+      ],
+      "cues": [
+        {
+          "t": 7.74,
+          "do": {
+            "flows": true
+          }
+        },
+        {
+          "t": 12.3,
+          "do": {
+            "flows": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-condensate-drain",
+      "scope": "part:condensate-drain",
+      "title": "Condensate drain",
+      "scene": "gasifier",
+      "file": "part-condensate-drain.mp3",
+      "duration": 15.52,
+      "chars": 269,
+      "hash": "c7edd3a8a475532d",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 2.66,
+          "text": "The way out for the black water, to a bin."
+        },
+        {
+          "t0": 2.66,
+          "t1": 7.64,
+          "text": "Without the bin, the report says, it would come back and wet the charcoal bed after a stop."
+        },
+        {
+          "t0": 7.64,
+          "t1": 8.09,
+          "text": "How much?"
+        },
+        {
+          "t0": 8.09,
+          "t1": 14.16,
+          "text": "One point nine litres an hour at eight per cent moisture, five point seven at twenty, in the model."
+        },
+        {
+          "t0": 14.16,
+          "t1": 15.52,
+          "text": "The jar fills on screen."
+        }
+      ],
+      "cues": []
+    },
+    {
+      "id": "part-eccentric-lock",
+      "scope": "part:eccentric-lock",
+      "title": "Eccentric lock",
+      "scene": "gasifier",
+      "file": "part-eccentric-lock.mp3",
+      "duration": 22.64,
+      "chars": 373,
+      "hash": "d95a259991e125b5",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 6.04,
+          "text": "The gasifier is made of two bodies: the top holds the fuel, the bottom holds the fire."
+        },
+        {
+          "t0": 6.04,
+          "t1": 9.46,
+          "text": "A band holds them together, and this lock tightens the band."
+        },
+        {
+          "t0": 9.46,
+          "t1": 14.26,
+          "text": "But every joint lets air in, and that air burns the finished gas, near the grate."
+        },
+        {
+          "t0": 14.26,
+          "t1": 18.88,
+          "text": "Watch: the gas falls from five point three to four point two megajoules."
+        },
+        {
+          "t0": 18.88,
+          "t1": 22.64,
+          "text": "The size of the leak is a guess; the direction is not: hotter, weaker."
+        }
+      ],
+      "cues": [
+        {
+          "t": 6.04,
+          "do": {
+            "explode": 0.5
+          }
+        },
+        {
+          "t": 9.46,
+          "do": {
+            "explode": 0
+          }
+        },
+        {
+          "t": 9.46,
+          "do": {
+            "lab": "scenario",
+            "arg": "air-leak"
+          }
+        },
+        {
+          "t": 22.64,
+          "do": {
+            "lab": "preset",
+            "arg": "mf-1100"
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-outer-casing",
+      "scope": "part:outer-casing",
+      "title": "Outer casing",
+      "scene": "gasifier",
+      "file": "part-outer-casing.mp3",
+      "duration": 14.64,
+      "chars": 258,
+      "hash": "83c27cf961b3b926",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 5.42,
+          "text": "The gasifier’s hot outer skin: about two hundred and ten degrees at full load, in the model."
+        },
+        {
+          "t0": 5.42,
+          "t1": 9.28,
+          "text": "The upper body fades, and the fire glows through the lower casing."
+        },
+        {
+          "t0": 9.28,
+          "t1": 14.64,
+          "text": "Two accounts of its losses do not agree: the lab keeps both, and does not pick the one that suits."
+        }
+      ],
+      "cues": [
+        {
+          "t": 5.42,
+          "do": {
+            "xray": true
+          }
+        },
+        {
+          "t": 9.28,
+          "do": {
+            "xray": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-air-intake",
+      "scope": "part:air-intake",
+      "title": "Air intake",
+      "scene": "gasifier",
+      "file": "part-air-intake.mp3",
+      "duration": 19.04,
+      "chars": 310,
+      "hash": "c6714ab9aaa6b8db",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 5.4,
+          "text": "Here comes the fire’s air, drawn in by the engine: the whole line is under suction."
+        },
+        {
+          "t0": 5.4,
+          "t1": 9.26,
+          "text": "When the engine stops, the suction ends, and the gas keeps forming."
+        },
+        {
+          "t0": 9.26,
+          "t1": 14.12,
+          "text": "The direction reverses: white or yellow gas has been seen coming out here."
+        },
+        {
+          "t0": 14.12,
+          "t1": 19.04,
+          "text": "One opening, two directions, two moments: that is the whole business of the garage."
+        }
+      ],
+      "cues": []
+    },
+    {
+      "id": "part-air-nozzles",
+      "scope": "part:air-nozzles",
+      "title": "Air nozzles",
+      "scene": "gasifier",
+      "file": "part-air-nozzles.mp3",
+      "duration": 14,
+      "chars": 226,
+      "hash": "4ce887de1fabc7d8",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 4.16,
+          "text": "The fire’s air comes in through the nozzles, in a ring around the fire box."
+        },
+        {
+          "t0": 4.16,
+          "t1": 7.1,
+          "text": "No pressure pushes it: the engine draws it in."
+        },
+        {
+          "t0": 7.1,
+          "t1": 9.38,
+          "text": "Watch it go round, then share out."
+        },
+        {
+          "t0": 9.38,
+          "t1": 12.44,
+          "text": "Too much air, and all the wood would burn: no gas."
+        },
+        {
+          "t0": 12.44,
+          "t1": 14,
+          "text": "No air, no flame!"
+        }
+      ],
+      "cues": [
+        {
+          "t": 7.1,
+          "do": {
+            "flows": true
+          }
+        },
+        {
+          "t": 9.38,
+          "do": {
+            "flows": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-fire-box",
+      "scope": "part:fire-box",
+      "title": "Fire box",
+      "scene": "gasifier",
+      "file": "part-fire-box.mp3",
+      "duration": 14,
+      "chars": 255,
+      "hash": "0f810ff66589b331",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 1.7,
+          "text": "The pot that holds the fire."
+        },
+        {
+          "t0": 1.7,
+          "t1": 5.46,
+          "text": "The air passes between it and the casing before entering the fire."
+        },
+        {
+          "t0": 5.46,
+          "t1": 10.18,
+          "text": "It is the most tested part: it cracks between six hundred and a thousand hours."
+        },
+        {
+          "t0": 10.18,
+          "t1": 14,
+          "text": "The institute records the life of every part: that is one reason to believe it."
+        }
+      ],
+      "cues": []
+    },
+    {
+      "id": "part-throat-ring",
+      "scope": "part:throat-ring",
+      "title": "Throat ring",
+      "scene": "gasifier",
+      "file": "part-throat-ring.mp3",
+      "duration": 20.48,
+      "chars": 348,
+      "hash": "8ae3f2f58ed5b68f",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 4.88,
+          "text": "The constriction through which all the fire’s gas must pass, at the hottest point!"
+        },
+        {
+          "t0": 4.88,
+          "t1": 6.66,
+          "text": "Why insist on it?"
+        },
+        {
+          "t0": 6.66,
+          "t1": 9.34,
+          "text": "Vapours and tars come down with the wood."
+        },
+        {
+          "t0": 9.34,
+          "t1": 12.26,
+          "text": "If they skirted the flame, they would come out as they are."
+        },
+        {
+          "t0": 12.26,
+          "t1": 13.84,
+          "text": "The ring forces them through it."
+        },
+        {
+          "t0": 13.84,
+          "t1": 17.36,
+          "text": "It lasts about seven hundred hours, then is replaced."
+        },
+        {
+          "t0": 17.36,
+          "t1": 20.48,
+          "text": "This lab explains what this part does, not how to make it."
+        }
+      ],
+      "cues": []
+    },
+    {
+      "id": "part-grate",
+      "scope": "part:grate",
+      "title": "Grate",
+      "scene": "gasifier",
+      "file": "part-grate.mp3",
+      "duration": 13.04,
+      "chars": 230,
+      "hash": "fb97f7b80dacfd4b",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 4.78,
+          "text": "Under the charcoal bed, the grate carries the charcoal, and lets ash and gas through."
+        },
+        {
+          "t0": 4.78,
+          "t1": 9.88,
+          "text": "And it moves: according to the report, chips clogged a fixed grate in under an hour."
+        },
+        {
+          "t0": 9.88,
+          "t1": 13.04,
+          "text": "The institute’s lasted four hundred to seven hundred hours."
+        }
+      ],
+      "cues": []
+    },
+    {
+      "id": "part-grate-linkage",
+      "scope": "part:grate-linkage",
+      "title": "Grate linkage",
+      "scene": "gasifier",
+      "file": "part-grate-linkage.mp3",
+      "duration": 15.44,
+      "chars": 243,
+      "hash": "c67f898d3fb36020",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 5.96,
+          "text": "The grate is in the fire, and the crank outside: a shaft crosses the wall, on the gas side."
+        },
+        {
+          "t0": 5.96,
+          "t1": 9.14,
+          "text": "So the grate is worked from outside, without opening the body."
+        },
+        {
+          "t0": 9.14,
+          "t1": 15.44,
+          "text": "On screen, crank and grate turn on one axis: a crank attached to nothing would be a lie."
+        }
+      ],
+      "cues": []
+    },
+    {
+      "id": "part-ash-pit",
+      "scope": "part:ash-pit",
+      "title": "Ash pit",
+      "scene": "gasifier",
+      "file": "part-ash-pit.mp3",
+      "duration": 12.8,
+      "chars": 231,
+      "hash": "b2627be0e37b5b17",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 5.84,
+          "text": "The hollow under the grate receives what has not burned: ash, and charcoal that never finished its journey."
+        },
+        {
+          "t0": 5.84,
+          "t1": 8.38,
+          "text": "Up to three point five per cent of the fuel."
+        },
+        {
+          "t0": 8.38,
+          "t1": 12.8,
+          "text": "That is worth about five per cent of the power: eight kilowatts, at full load."
+        }
+      ],
+      "cues": [
+        {
+          "t": 5.84,
+          "do": {
+            "lab": "journey",
+            "arg": "0.98"
+          }
+        },
+        {
+          "t": 12.8,
+          "do": {
+            "lab": "journey",
+            "arg": "0.62"
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-gas-outlet",
+      "scope": "part:gas-outlet",
+      "title": "Gas outlet",
+      "scene": "gasifier",
+      "file": "part-gas-outlet.mp3",
+      "duration": 16.64,
+      "chars": 296,
+      "hash": "4c8206fb666da035",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 4.8,
+          "text": "Where the gas leaves the gasifier: about two hundred and forty degrees, still hot."
+        },
+        {
+          "t0": 4.8,
+          "t1": 9.34,
+          "text": "It goes down through the bed, under the grate, up along the casing, and out here."
+        },
+        {
+          "t0": 9.34,
+          "t1": 11,
+          "text": "That temperature is an estimate."
+        },
+        {
+          "t0": 11,
+          "t1": 16.64,
+          "text": "Hot enough that the gas does not condense in the filter, cool enough that its cloth does not burn."
+        }
+      ],
+      "cues": [
+        {
+          "t": 4.8,
+          "do": {
+            "flows": true
+          }
+        },
+        {
+          "t": 9.34,
+          "do": {
+            "flows": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-hot-gas-pipe",
+      "scope": "part:hot-gas-pipe",
+      "title": "Hot gas pipe",
+      "scene": "gas-train",
+      "file": "part-hot-gas-pipe.mp3",
+      "duration": 14.96,
+      "chars": 269,
+      "hash": "365666eb3aacd6a2",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 4.92,
+          "text": "The gas enters at about two hundred and forty degrees, and must stay above its dew point."
+        },
+        {
+          "t0": 4.92,
+          "t1": 7.24,
+          "text": "Below it, water and tar condense."
+        },
+        {
+          "t0": 7.24,
+          "t1": 11.26,
+          "text": "The filter cloth gets wet, and its resistance is multiplied by more than six."
+        },
+        {
+          "t0": 11.26,
+          "t1": 14.96,
+          "text": "The dots take the colour of the gas’s heat, and lose it as they go."
+        }
+      ],
+      "cues": [
+        {
+          "t": 11.26,
+          "do": {
+            "flows": true
+          }
+        },
+        {
+          "t": 14.96,
+          "do": {
+            "flows": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-stop-valve",
+      "scope": "part:stop-valve",
+      "title": "Stop valve",
+      "scene": "gas-train",
+      "file": "part-stop-valve.mp3",
+      "duration": 16.16,
+      "chars": 268,
+      "hash": "cb729481a268daed",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 4.22,
+          "text": "On the report’s diagram, a stop valve between the hot pipe and the filter."
+        },
+        {
+          "t0": 4.22,
+          "t1": 5.36,
+          "text": "What was it for?"
+        },
+        {
+          "t0": 5.36,
+          "t1": 9.38,
+          "text": "The report does not say, and this lab describes no use."
+        },
+        {
+          "t0": 9.38,
+          "t1": 13.4,
+          "text": "Our reading: it changes nothing about what forms in the apparatus."
+        },
+        {
+          "t0": 13.4,
+          "t1": 16.16,
+          "text": "A valve on a gas pipe gives an impression of control."
+        }
+      ],
+      "cues": []
+    },
+    {
+      "id": "part-starting-fan",
+      "scope": "part:starting-fan",
+      "title": "Starting fan",
+      "scene": "gas-train",
+      "file": "part-starting-fan.mp3",
+      "duration": 14.32,
+      "chars": 247,
+      "hash": "6fd809c688bcbefd",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 5.7,
+          "text": "When the engine is not yet pulling, a fan takes its place: it draws air through the apparatus."
+        },
+        {
+          "t0": 5.7,
+          "t1": 11.94,
+          "text": "It sends the gas up a stack: about two hundred litres of carbon monoxide a minute, says the Swedish book."
+        },
+        {
+          "t0": 11.94,
+          "t1": 14.32,
+          "text": "The lab keeps the trace, not the way to do it."
+        }
+      ],
+      "cues": []
+    },
+    {
+      "id": "part-fan-stack",
+      "scope": "part:fan-stack",
+      "title": "Fan stack",
+      "scene": "gas-train",
+      "file": "part-fan-stack.mp3",
+      "duration": 13.68,
+      "chars": 224,
+      "hash": "4743fcdeb1b511aa",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 4,
+          "text": "It leaves the hot pipe’s tee, and rises about two and a half metres."
+        },
+        {
+          "t0": 4,
+          "t1": 6,
+          "text": "It carries the fan’s gas upwards."
+        },
+        {
+          "t0": 6,
+          "t1": 11.54,
+          "text": "But a stack does not change the nature of that gas: about a fifth is carbon monoxide."
+        },
+        {
+          "t0": 11.54,
+          "t1": 13.68,
+          "text": "It moves the cloud, not the danger."
+        }
+      ],
+      "cues": []
+    },
+    {
+      "id": "part-primary-air-valve",
+      "scope": "part:primary-air-valve",
+      "title": "Primary-air valve",
+      "scene": "gas-train",
+      "file": "part-primary-air-valve.mp3",
+      "duration": 14.16,
+      "chars": 231,
+      "hash": "cf2925e7552af128",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 7.1,
+          "text": "On the report’s diagram, the fire’s air leaves the fan’s eye, passes this valve, then enters the gasifier."
+        },
+        {
+          "t0": 7.1,
+          "t1": 9.34,
+          "text": "The air dots follow that path."
+        },
+        {
+          "t0": 9.34,
+          "t1": 14.16,
+          "text": "This lab gives no position and no setting for this valve: that would be one setting too many."
+        }
+      ],
+      "cues": [
+        {
+          "t": 7.1,
+          "do": {
+            "flows": true
+          }
+        },
+        {
+          "t": 9.34,
+          "do": {
+            "flows": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-cyclone",
+      "scope": "part:cyclone",
+      "title": "Cyclone",
+      "scene": "gas-train",
+      "file": "part-cyclone.mp3",
+      "duration": 14.32,
+      "chars": 251,
+      "hash": "ec4f129406d59802",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 5.76,
+          "text": "A cyclone spins the gas and throws the dust against its walls: sixty to seventy per cent."
+        },
+        {
+          "t0": 5.76,
+          "t1": 10.48,
+          "text": "It appears on the programme’s fabric-filter system, not on this tractor’s diagram."
+        },
+        {
+          "t0": 10.48,
+          "t1": 11.4,
+          "text": "Did it have one?"
+        },
+        {
+          "t0": 11.4,
+          "t1": 14.32,
+          "text": "The report says nothing, and the photograph cannot settle it."
+        }
+      ],
+      "cues": []
+    },
+    {
+      "id": "part-filter-box",
+      "scope": "part:filter-box",
+      "title": "Filter box",
+      "scene": "gas-train",
+      "file": "part-filter-box.mp3",
+      "duration": 15.6,
+      "chars": 257,
+      "hash": "bb5d666c5954f196",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 2.88,
+          "text": "The box holds the cloth that stops the dust."
+        },
+        {
+          "t0": 2.88,
+          "t1": 8.02,
+          "text": "It was first two and a half square metres: cleaning it every twenty hours was too much."
+        },
+        {
+          "t0": 8.02,
+          "t1": 9.2,
+          "text": "They doubled it!"
+        },
+        {
+          "t0": 9.2,
+          "t1": 10.94,
+          "text": "See the bags, inside."
+        },
+        {
+          "t0": 10.94,
+          "t1": 15.6,
+          "text": "It is also a place where air can meet gas: a backfire into the filter can be violent."
+        }
+      ],
+      "cues": [
+        {
+          "t": 9.2,
+          "do": {
+            "xray": true
+          }
+        },
+        {
+          "t": 10.94,
+          "do": {
+            "xray": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-filter-bags",
+      "scope": "part:filter-bags",
+      "title": "Filter bags",
+      "scene": "gas-train",
+      "file": "part-filter-bags.mp3",
+      "duration": 16.4,
+      "chars": 271,
+      "hash": "49f43076c7bb0764",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 3.94,
+          "text": "The cloth is hung in flat bags: the gas passes through, the dust stays."
+        },
+        {
+          "t0": 3.94,
+          "t1": 8.76,
+          "text": "Behind it, only three tenths of a milligram of dust per cubic metre remains."
+        },
+        {
+          "t0": 8.76,
+          "t1": 10.78,
+          "text": "But the cloth has a price."
+        },
+        {
+          "t0": 10.78,
+          "t1": 16.4,
+          "text": "Watch it darken as dust settles in it: its resistance doubles around three thousand kilometres."
+        }
+      ],
+      "cues": [
+        {
+          "t": 10.78,
+          "do": {
+            "lab": "scenario",
+            "arg": "filter-ageing"
+          }
+        },
+        {
+          "t": 16.4,
+          "do": {
+            "lab": "preset",
+            "arg": "mf-1100"
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-gas-cooler",
+      "scope": "part:gas-cooler",
+      "title": "Gas cooler",
+      "scene": "gas-train",
+      "file": "part-gas-cooler.mp3",
+      "duration": 16.32,
+      "chars": 283,
+      "hash": "34f4c0ff4f7a027f",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 6.02,
+          "text": "After the filter, the gas is still hot: it rises through half the tubes and comes down through the other half."
+        },
+        {
+          "t0": 6.02,
+          "t1": 8.24,
+          "text": "Watch the dots turn from red to blue!"
+        },
+        {
+          "t0": 8.24,
+          "t1": 9.2,
+          "text": "Why cool it?"
+        },
+        {
+          "t0": 9.2,
+          "t1": 13.64,
+          "text": "Colder gas is denser: one per cent more power for every three degrees."
+        },
+        {
+          "t0": 13.64,
+          "t1": 16.32,
+          "text": "And water comes out: two point two litres an hour."
+        }
+      ],
+      "cues": [
+        {
+          "t": 6.02,
+          "do": {
+            "flows": true
+          }
+        },
+        {
+          "t": 8.24,
+          "do": {
+            "flows": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-cooler-condensate-vessel",
+      "scope": "part:cooler-condensate-vessel",
+      "title": "Condensate vessel",
+      "scene": "gas-train",
+      "file": "part-cooler-condensate-vessel.mp3",
+      "duration": 13.92,
+      "chars": 249,
+      "hash": "780a5f2e51b125c1",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 1.94,
+          "text": "The cooler’s black-water vessel."
+        },
+        {
+          "t0": 1.94,
+          "t1": 6.42,
+          "text": "The only serious breakdown of the whole programme probably came from it: overfull,"
+        },
+        {
+          "t0": 6.52,
+          "t1": 8.32,
+          "text": "it sent water into the engine."
+        },
+        {
+          "t0": 8.32,
+          "t1": 10.98,
+          "text": "The report had it emptied every two to three hours."
+        },
+        {
+          "t0": 10.98,
+          "t1": 13.92,
+          "text": "A simple level to watch: a long, dirty, heavy job."
+        }
+      ],
+      "cues": []
+    },
+    {
+      "id": "part-gas-air-mixer",
+      "scope": "part:gas-air-mixer",
+      "title": "Gas-air mixer",
+      "scene": "gas-train",
+      "file": "part-gas-air-mixer.mp3",
+      "duration": 14.96,
+      "chars": 241,
+      "hash": "edeb61c6e7fa436a",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 4.52,
+          "text": "Here the gas meets the air from the air filter, roughly volume for volume."
+        },
+        {
+          "t0": 4.52,
+          "t1": 10.8,
+          "text": "It takes one point zero eight of air to one of gas, by arithmetic; one point one two in the model."
+        },
+        {
+          "t0": 10.8,
+          "t1": 14.96,
+          "text": "No slider for this proportion: it is a fact of the gas, not a knob."
+        }
+      ],
+      "cues": []
+    },
+    {
+      "id": "part-gas-throttle",
+      "scope": "part:gas-throttle",
+      "title": "Gas throttle",
+      "scene": "gas-train",
+      "file": "part-gas-throttle.mp3",
+      "duration": 14.4,
+      "chars": 234,
+      "hash": "c5b31a57bfe9676d",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 3.6,
+          "text": "In an ordinary diesel, the driver’s foot sets the diesel."
+        },
+        {
+          "t0": 3.6,
+          "t1": 7.12,
+          "text": "Here it sets the gas: this throttle says how much comes in."
+        },
+        {
+          "t0": 7.12,
+          "t1": 8.84,
+          "text": "And it has a cost!"
+        },
+        {
+          "t0": 8.84,
+          "t1": 14.4,
+          "text": "At idle the lever almost closes, and yet fifty-five kilowatts go in, giving nothing to the shaft."
+        }
+      ],
+      "cues": [
+        {
+          "t": 8.84,
+          "do": {
+            "lab": "scenario",
+            "arg": "idling"
+          }
+        },
+        {
+          "t": 14.4,
+          "do": {
+            "lab": "preset",
+            "arg": "mf-1100"
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-secondary-air-throttle",
+      "scope": "part:secondary-air-throttle",
+      "title": "Secondary-air throttle",
+      "scene": "gas-train",
+      "file": "part-secondary-air-throttle.mp3",
+      "duration": 17.04,
+      "chars": 280,
+      "hash": "ec6d3fb2246b1dfa",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 6.26,
+          "text": "A second throttle, on the air added to the gas: secondary air, as against the fire’s primary air."
+        },
+        {
+          "t0": 6.26,
+          "t1": 9.56,
+          "text": "It sets the proportion, by hand according to the report."
+        },
+        {
+          "t0": 9.56,
+          "t1": 13.28,
+          "text": "It is a setting with an optimum, and this lab does not give it."
+        },
+        {
+          "t0": 13.28,
+          "t1": 17.04,
+          "text": "The fact remains: the engine runs well only in a narrow band."
+        }
+      ],
+      "cues": []
+    },
+    {
+      "id": "part-pilot-injector",
+      "scope": "part:pilot-injector",
+      "title": "Pilot injector",
+      "scene": "gas-train",
+      "file": "part-pilot-injector.mp3",
+      "duration": 16.8,
+      "chars": 270,
+      "hash": "3a613eb572ce95a4",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 5.62,
+          "text": "A diesel has no spark plug: it lights its charge by compressing it, then injecting diesel."
+        },
+        {
+          "t0": 5.62,
+          "t1": 10.6,
+          "text": "Gas and air do not light that way, but the thread of diesel does: it is the pilot."
+        },
+        {
+          "t0": 10.6,
+          "t1": 13.62,
+          "text": "It keeps fifteen to twenty per cent of a diesel’s fuel."
+        },
+        {
+          "t0": 13.62,
+          "t1": 15.04,
+          "text": "Is wood enough?"
+        },
+        {
+          "t0": 15.04,
+          "t1": 16.8,
+          "text": "The honest answer is no."
+        }
+      ],
+      "cues": []
+    },
+    {
+      "id": "part-cylinder-cutaway",
+      "scope": "part:cylinder-cutaway",
+      "title": "Cylinder cutaway",
+      "scene": "gas-train",
+      "file": "part-cylinder-cutaway.mp3",
+      "duration": 17.84,
+      "chars": 288,
+      "hash": "ba37b50d998e17d5",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 4.54,
+          "text": "This is where energy ends up as work: a cylinder cut in two."
+        },
+        {
+          "t0": 4.54,
+          "t1": 9.3,
+          "text": "The real engine turns thirty-one times a second: the eye would see nothing."
+        },
+        {
+          "t0": 9.3,
+          "t1": 12.1,
+          "text": "The one on screen turns at six per cent of that."
+        },
+        {
+          "t0": 12.1,
+          "t1": 17.84,
+          "text": "And the gas burns slowly: the report sees a limit near two thousand five hundred revolutions a minute."
+        }
+      ],
+      "cues": []
+    },
+    {
+      "id": "part-exhaust-pipe",
+      "scope": "part:exhaust-pipe",
+      "title": "Exhaust pipe",
+      "scene": "gas-train",
+      "file": "part-exhaust-pipe.mp3",
+      "duration": 16.24,
+      "chars": 277,
+      "hash": "5349c7c3d710f3cd",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 7.08,
+          "text": "At the engine’s exit, at work, very little carbon monoxide gets through: three tenths of a per cent in the model."
+        },
+        {
+          "t0": 7.08,
+          "t1": 10.54,
+          "text": "But at idle, the Swedish book read five to eight per cent."
+        },
+        {
+          "t0": 10.54,
+          "t1": 16.24,
+          "text": "That is because at idle, most of the gas crosses the engine unburnt: two thirds, according to the model."
+        }
+      ],
+      "cues": []
+    },
+    {
+      "id": "part-water-gauge",
+      "scope": "part:water-gauge",
+      "title": "Water gauge",
+      "scene": "gas-train",
+      "file": "part-water-gauge.mp3",
+      "duration": 17.04,
+      "chars": 303,
+      "hash": "468cc06c7599f7fa",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 5.4,
+          "text": "A U-tube full of water: the difference between the two levels gives the filter’s suction."
+        },
+        {
+          "t0": 5.4,
+          "t1": 8.38,
+          "text": "The model reads two hundred and sixteen millimetres of water."
+        },
+        {
+          "t0": 8.38,
+          "t1": 12.06,
+          "text": "Watch the gap between the columns grow, as the cloth clogs."
+        },
+        {
+          "t0": 12.06,
+          "t1": 17.04,
+          "text": "It says nothing about the gas, only that the filter resists: an instrument of rare honesty."
+        }
+      ],
+      "cues": [
+        {
+          "t": 8.38,
+          "do": {
+            "lab": "scenario",
+            "arg": "filter-ageing"
+          }
+        },
+        {
+          "t": 17.04,
+          "do": {
+            "lab": "preset",
+            "arg": "mf-1100"
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-closed-garage",
+      "scope": "part:closed-garage",
+      "title": "Closed garage",
+      "scene": "garage",
+      "file": "part-closed-garage.mp3",
+      "duration": 24.88,
+      "chars": 392,
+      "hash": "fb16db8a39a547f2",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 5.76,
+          "text": "Here is the room where the machine sleeps: fifty cubic metres of air, or a thousand."
+        },
+        {
+          "t0": 5.76,
+          "t1": 8.12,
+          "text": "The dots are the carbon monoxide."
+        },
+        {
+          "t0": 8.12,
+          "t1": 11.32,
+          "text": "The model puts one cubic metre of gas in it after the stop."
+        },
+        {
+          "t0": 11.32,
+          "t1": 16.9,
+          "text": "Half an hour later, in the small room: about three thousand five hundred parts per million."
+        },
+        {
+          "t0": 16.9,
+          "t1": 19.08,
+          "text": "In the large one: two hundred."
+        },
+        {
+          "t0": 19.08,
+          "t1": 24.88,
+          "text": "But this box is well mixed: a real garage holds this gas in layers, far more concentrated."
+        }
+      ],
+      "cues": [
+        {
+          "t": 5.76,
+          "do": {
+            "lab": "scenario",
+            "arg": "closed-garage"
+          }
+        },
+        {
+          "t": 5.76,
+          "do": {
+            "flows": true
+          }
+        },
+        {
+          "t": 24.88,
+          "do": {
+            "flows": false
+          }
+        },
+        {
+          "t": 24.88,
+          "do": {
+            "lab": "preset",
+            "arg": "mf-1100"
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-garage-door",
+      "scope": "part:garage-door",
+      "title": "Garage door",
+      "scene": "garage",
+      "file": "part-garage-door.mp3",
+      "duration": 21.04,
+      "chars": 365,
+      "hash": "90eda37a553a5314",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 1.68,
+          "text": "The door has three states."
+        },
+        {
+          "t0": 1.68,
+          "t1": 5.22,
+          "text": "Take fifty cubic metres, half an hour after the stop."
+        },
+        {
+          "t0": 5.22,
+          "t1": 9.92,
+          "text": "With the door shut, the model counts about three thousand five hundred parts per million."
+        },
+        {
+          "t0": 9.92,
+          "t1": 12.84,
+          "text": "The Swedes found open doors very unsatisfactory."
+        },
+        {
+          "t0": 12.84,
+          "t1": 16.9,
+          "text": "Still, let’s look: six hundred and ninety parts per million, far less."
+        },
+        {
+          "t0": 16.9,
+          "t1": 19.56,
+          "text": "That is what a well-mixed box is built to say."
+        },
+        {
+          "t0": 19.56,
+          "t1": 21.04,
+          "text": "A real garage is not a box."
+        }
+      ],
+      "cues": [
+        {
+          "t": 1.68,
+          "do": {
+            "lab": "scenario",
+            "arg": "closed-garage"
+          }
+        },
+        {
+          "t": 13.66,
+          "do": {
+            "lab": "door",
+            "arg": "open"
+          }
+        },
+        {
+          "t": 21.04,
+          "do": {
+            "lab": "preset",
+            "arg": "mf-1100"
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-room-above",
+      "scope": "part:room-above",
+      "title": "Room above",
+      "scene": "garage",
+      "file": "part-room-above.mp3",
+      "duration": 20.32,
+      "chars": 355,
+      "hash": "7e33292807f94e40",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 2.92,
+          "text": "Above the garage, a bedroom with a made bed."
+        },
+        {
+          "t0": 2.92,
+          "t1": 9.6,
+          "text": "The Swedish book says only that some of the country’s worst accidents came from a car parked under a living space."
+        },
+        {
+          "t0": 9.6,
+          "t1": 12.98,
+          "text": "The gas gets through the floor, at a rate nobody measured."
+        },
+        {
+          "t0": 12.98,
+          "t1": 16.4,
+          "text": "The bedroom climbs to about six hundred and seventy parts per million,"
+        },
+        {
+          "t0": 16.62,
+          "t1": 18.96,
+          "text": "more than an hour after the garage’s peak."
+        },
+        {
+          "t0": 18.96,
+          "t1": 20.32,
+          "text": "Nobody is drawn in it."
+        }
+      ],
+      "cues": [
+        {
+          "t": 9.6,
+          "do": {
+            "lab": "scenario",
+            "arg": "closed-garage"
+          }
+        },
+        {
+          "t": 9.6,
+          "do": {
+            "lab": "speed",
+            "arg": "600"
+          }
+        },
+        {
+          "t": 20.32,
+          "do": {
+            "lab": "preset",
+            "arg": "mf-1100"
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-post-gas-plume",
+      "scope": "part:post-gas-plume",
+      "title": "Post-gas plume",
+      "scene": "garage",
+      "file": "part-post-gas-plume.mp3",
+      "duration": 24.96,
+      "chars": 439,
+      "hash": "89d8ccb9c84f29cf",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 1.38,
+          "text": "The engine stops."
+        },
+        {
+          "t0": 1.38,
+          "t1": 5.04,
+          "text": "Nothing draws any more, but the gas keeps forming in the hot bed."
+        },
+        {
+          "t0": 5.04,
+          "t1": 10.78,
+          "text": "It pushes for about twenty minutes, says the Swedish book, sometimes for hours according to another manual."
+        },
+        {
+          "t0": 10.78,
+          "t1": 15.9,
+          "text": "It comes out, even from a tight unit: twenty-three to twenty-seven per cent carbon monoxide."
+        },
+        {
+          "t0": 15.9,
+          "t1": 17.32,
+          "text": "Its volume?"
+        },
+        {
+          "t0": 17.32,
+          "t1": 20.74,
+          "text": "Nobody measured it: the model starts from one cubic metre."
+        },
+        {
+          "t0": 20.74,
+          "t1": 24.96,
+          "text": "No source says that this gas goes away: that is the sentence this lab cannot write."
+        }
+      ],
+      "cues": [
+        {
+          "t": 1.38,
+          "do": {
+            "lab": "scenario",
+            "arg": "engine-stops"
+          }
+        },
+        {
+          "t": 24.96,
+          "do": {
+            "lab": "preset",
+            "arg": "mf-1100"
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-exhaust-plume",
+      "scope": "part:exhaust-plume",
+      "title": "Exhaust plume",
+      "scene": "garage",
+      "file": "part-exhaust-plume.mp3",
+      "duration": 15.84,
+      "chars": 263,
+      "hash": "be36807edabe1d3e",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 3.94,
+          "text": "An engine can also run in the garage, and its exhaust goes in."
+        },
+        {
+          "t0": 3.94,
+          "t1": 10.26,
+          "text": "At idle, the Swedish book read five to eight per cent carbon monoxide in the exhaust of wartime engines."
+        },
+        {
+          "t0": 10.26,
+          "t1": 13.36,
+          "text": "The grey plume exists only while the engine runs."
+        },
+        {
+          "t0": 13.36,
+          "t1": 15.84,
+          "text": "After that, the white of the stop takes over."
+        }
+      ],
+      "cues": [
+        {
+          "t": 0,
+          "do": {
+            "lab": "preset",
+            "arg": "mf-1100"
+          }
+        },
+        {
+          "t": 0,
+          "do": {
+            "lab": "place",
+            "arg": "garage"
+          }
+        },
+        {
+          "t": 13.36,
+          "do": {
+            "lab": "engine",
+            "arg": "off"
+          }
+        },
+        {
+          "t": 15.84,
+          "do": {
+            "lab": "preset",
+            "arg": "mf-1100"
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-co-indicator",
+      "scope": "part:co-indicator",
+      "title": "Carbon monoxide indicator",
+      "scene": "garage",
+      "file": "part-co-indicator.mp3",
+      "duration": 21.2,
+      "chars": 344,
+      "hash": "34b3fa17205c6658",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 4.98,
+          "text": "A dial on the wall: its needle follows the carbon monoxide of the model’s box."
+        },
+        {
+          "t0": 4.98,
+          "t1": 8.7,
+          "text": "The lamp lights as soon as carbon monoxide has been in the room."
+        },
+        {
+          "t0": 8.7,
+          "t1": 13.96,
+          "text": "Here, it never goes out again: a low figure in a box says nothing about a real room."
+        },
+        {
+          "t0": 13.96,
+          "t1": 17.06,
+          "text": "Watch the needle fall back, and the lamp stay."
+        },
+        {
+          "t0": 17.06,
+          "t1": 21.2,
+          "text": "No green zone: the dial says what the model knows, and nothing more."
+        }
+      ],
+      "cues": [
+        {
+          "t": 4.98,
+          "do": {
+            "lab": "scenario",
+            "arg": "closed-garage"
+          }
+        },
+        {
+          "t": 13.96,
+          "do": {
+            "lab": "speed",
+            "arg": "600"
+          }
+        },
+        {
+          "t": 21.2,
+          "do": {
+            "lab": "preset",
+            "arg": "mf-1100"
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-old-rescue-set",
+      "scope": "part:old-rescue-set",
+      "title": "1940s rescue set",
+      "scene": "garage",
+      "file": "part-old-rescue-set.mp3",
+      "duration": 18,
+      "chars": 297,
+      "hash": "5803d1f8bc07470c",
+      "captions": [
+        {
+          "t0": 0,
+          "t1": 3.38,
+          "text": "On the left, a rescue set from nineteen forty."
+        },
+        {
+          "t0": 3.38,
+          "t1": 8.98,
+          "text": "The doctors of the day treated the poisoned with methods this lab neither describes nor recommends."
+        },
+        {
+          "t0": 8.98,
+          "t1": 14.94,
+          "text": "It keeps the scale of the affair: about ten thousand chronic cases recorded in Sweden in five years."
+        },
+        {
+          "t0": 14.94,
+          "t1": 18,
+          "text": "A rescue set on a garage wall: how common it was."
+        }
+      ],
+      "cues": []
+    }
+  ]
+}

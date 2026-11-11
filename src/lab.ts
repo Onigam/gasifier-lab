@@ -40,8 +40,8 @@ const OPEN_LABEL = {
   garage: strL('goGarage'),
 } as const;
 
-/** The spoken guide is written after this: until `public/audio/<lang>/manifest.json` exists the kit is asked for none (a missing file would be a 404 in the console). The narrator flips these two when the audio is delivered. */
-const SPOKEN: Record<'fr' | 'en', boolean> = { fr: false, en: false };
+/** The spoken guide (narration/<lang>.json, audio in public/audio/<lang>/): the kit is asked for a manifest only where the file exists (a missing one would be a 404 in the console), and `src/lab.test.ts` ties each flag to its file. Both true since the audio was delivered (2026-11-11). */
+const SPOKEN: Record<'fr' | 'en', boolean> = { fr: true, en: true };
 
 export const lab: LabDefinition<GasifierSim> = {
   id: 'gasifier-lab',
