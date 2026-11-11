@@ -16,11 +16,14 @@ const REFUSED = [
   .filter((v) => v > 0 && v < 2 && !Number.isInteger(v))
   .sort();
 
-const sources = import.meta.glob(['./**/*.ts', '../drawings/**/*.ts', '../i18n/*.ts'], {
-  query: '?raw',
-  import: 'default',
-  eager: true,
-}) as Record<string, string>;
+const sources = import.meta.glob(
+  ['./**/*.ts', '../drawings/**/*.ts', '../i18n/*.ts', '../panels/*.ts', '../cues.ts', '../lab.ts', '../main.ts'],
+  {
+    query: '?raw',
+    import: 'default',
+    eager: true,
+  },
+) as Record<string, string>;
 
 describe('the sizes of the hot parts are printed nowhere (R2)', () => {
   it('knows what it guards: seven lengths of the hot parts and the zones, at least', () => {
