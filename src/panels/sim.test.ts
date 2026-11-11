@@ -261,7 +261,7 @@ describe('the figures', () => {
     expect(statusOf(sim.state)).toBe('statusRunning');
     sim.set({ engineMode: 'diesel' });
     expect(statusOf(sim.state)).toBe('statusDiesel');
-    sim.set({ engineOn: false });
+    sim.set({ engineMode: 'dual', engineOn: false });
     expect(statusOf(sim.state)).toBe('statusStopped');
   });
 });

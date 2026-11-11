@@ -369,11 +369,14 @@ export class SimPanel implements PanelController {
     fill(
       this.status,
       h('p', { class: 'hint' }, st(statusOf(s))),
-      ...s.alarms.map((key) =>
-        SEVERE.has(key)
-          ? h('div', { class: 'callout callout--warn' }, icon(ICONS.warn, 16), h('span', {}, sx('alarm', key)))
-          : h('div', { class: 'callout' }, h('span', {}, sx('alarm', key))),
-      ),
+      // the stop is in the status line above, with what the model does not say: the alarm of the strip is not said twice here
+      ...s.alarms
+        .filter((key) => key !== 'gasOutAfterStop')
+        .map((key) =>
+          SEVERE.has(key)
+            ? h('div', { class: 'callout callout--warn' }, icon(ICONS.warn, 16), h('span', {}, sx('alarm', key)))
+            : h('div', { class: 'callout' }, h('span', {}, sx('alarm', key))),
+        ),
     );
   }
 
@@ -406,21 +409,19 @@ export class SimPanel implements PanelController {
       ...analyserReadouts(s).map((r) => this.line(r)),
     );
     const f = roomFacts(s);
-    const span = (key: PanelKey, b: Band | null) =>
-      h(
-        'span',
-        {},
-        `${st(key)} `,
-        b ? h('b', {}, bandText(b), h('small', {}, ' ppm *')) : h('small', {}, st('roomEmpty')),
-      );
+    const span = (key: PanelKey, b: Band) =>
+      h('span', {}, `${st(key)} `, h('b', {}, bandText(b), h('small', {}, ' ppm *')));
+    const lpm = (v: number) => num(v, v < 10 ? 1 : 0);
     fill(
       this.room,
-      span('roomCoGarage', f.garage),
-      span('roomCoAbove', f.above),
+      // nothing has entered either box: one line, not a nought twice
+      f.garage || f.above ? null : h('span', {}, h('small', {}, st('roomEmpty'))),
+      f.garage ? span('roomCoGarage', f.garage) : null,
+      f.above ? span('roomCoAbove', f.above) : null,
       f.stopped ? h('span', {}, `${st('roomSince')} `, h('b', {}, num(f.sinceStop)), h('small', {}, ' min')) : null,
-      f.stopped ? h('span', {}, `${st('roomPlume')} `, h('b', {}, num(f.plumeLpm)), h('small', {}, ' L/min *')) : null,
+      f.stopped ? h('span', {}, `${st('roomPlume')} `, h('b', {}, lpm(f.plumeLpm)), h('small', {}, ' L/min *')) : null,
       f.stopped
-        ? h('span', {}, `${st('roomPlumeCo')} `, h('b', {}, num(f.plumeCoLpm)), h('small', {}, ' L/min *'))
+        ? h('span', {}, `${st('roomPlumeCo')} `, h('b', {}, lpm(f.plumeCoLpm)), h('small', {}, ' L/min *'))
         : null,
     );
     fill(this.rung, f.rung ? `${st('roomLadder')} : ${say(f.rung.text)}` : null);

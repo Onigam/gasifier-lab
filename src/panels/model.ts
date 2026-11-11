@@ -153,8 +153,9 @@ export function roomFacts(s: GasState): RoomFacts {
 export type StatusKey = 'statusRunning' | 'statusDiesel' | 'statusStopped';
 
 export function statusOf(s: GasState): StatusKey {
-  if (!s.engineOn) return 'statusStopped';
-  return s.engineMode === 'diesel' ? 'statusDiesel' : 'statusRunning';
+  // on diesel alone the gasifier has nothing to do, running or stopped
+  if (s.engineMode === 'diesel') return 'statusDiesel';
+  return s.engineOn ? 'statusRunning' : 'statusStopped';
 }
 
 // ------------------------------------------------------------------ the curves
