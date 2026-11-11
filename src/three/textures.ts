@@ -509,6 +509,25 @@ export const rustSteelMap = (): THREE.DataTexture =>
     return [k * (1 + 0.3 * rust) + 0.02 * rust, k * (1 - 0.05 * rust) + 0.006 * rust, k * (1 - 0.32 * rust)];
   });
 
+/** Plate that has been in a fire's heat for years: dark scaled steel, blued and browned in patches, soot streaks running up from the hot places, a few spots of rust, the seams of rolled plates faintly paler. U round, V along (up). To be tinted. */
+export const scaleSteelMap = (): THREE.DataTexture =>
+  map('scale-steel', 512, (u, v) => {
+    const patch = tf(u, v, 7, 4, 3);
+    const fine = tf(u, v, 70, 2) - 0.5;
+    const soot = smoothstep(0.6, 0.85, tf(u, v, 16, 3, 2)) * 0.3;
+    const blue = smoothstep(0.55, 0.8, tf(u, v, 5, 3, 2));
+    const rust = smoothstep(0.8, 0.93, tf(u, v, 26, 3, 6)) * 0.5;
+    // the rolled plates: a faint pale line round the casing every 0.55 of the tile
+    const cv = ((v * 1.8) % 1) - 0.5;
+    const course = Math.exp(-cv * cv * 900) * 0.06;
+    const k = 0.42 + 0.3 * (patch - 0.5) + 0.06 * fine - soot + course;
+    return [
+      k * (1 - 0.1 * blue + 0.5 * rust) + 0.006 * rust,
+      k * (1 + 0.02 * blue - 0.12 * rust),
+      k * (1 + 0.12 * blue - 0.5 * rust),
+    ];
+  });
+
 /** Red or grey paint on a tractor: a faint orange-peel, chips down to metal at the edges of nothing in particular, a film of dust low down. A colour to be tinted. */
 export const paintMap = (): THREE.DataTexture =>
   map('paint', 256, (u, v, i, j) => {

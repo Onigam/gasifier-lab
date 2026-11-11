@@ -11,6 +11,7 @@ import {
   latheCrisp,
   shellOf,
   solidLathe,
+  stick,
   tubeGeometry,
   turnOf,
   uvMetric,
@@ -34,6 +35,7 @@ import {
   steel,
   tarFilm,
   upperCasing,
+  weldBead,
   zincMat,
 } from '../materials';
 import { dynamic, mergeStatic } from '../merge';
@@ -169,6 +171,29 @@ const boltGeo = (r = 0.008, h = 0.006): THREE.BufferGeometry => {
   return g;
 };
 
+/** A round reinforcing pad on a casing's wall round a port, on the +x or −x side, with its ring of bolts: the plate fabricated vessels take where a pipe goes through. Whole unit only (the section's wall is cut there). `R` the wall's radius. */
+function pad(parent: THREE.Object3D, R: number, sx: number, y: number, r: number): void {
+  // a lathe faces outward when its profile runs up the outside: x from the smaller to the larger
+  const g = cylX(
+    Math.min(sx * (R - 0.01), sx * (R + 0.008)),
+    Math.max(sx * (R - 0.01), sx * (R + 0.008)),
+    r,
+    false,
+    32,
+  );
+  g.translate(0, y, 0);
+  parent.add(mesh(g, darkSteel()));
+  const bolts: THREE.BufferGeometry[] = [];
+  for (let k = 0; k < 8; k++) {
+    const a = (k / 8) * TAU + 0.2;
+    const b = boltGeo(0.007, 0.006);
+    b.rotateZ((-sx * Math.PI) / 2);
+    b.translate(sx * (R + 0.008), y + Math.cos(a) * (r - 0.014), Math.sin(a) * (r - 0.014));
+    bolts.push(b);
+  }
+  parent.add(mesh(joined(bolts), steel()));
+}
+
 /** A ring of polygon [r0, r1] × [y0, y1] as a closed profile of [r, y]. */
 const ringPoly = (r0: number, r1: number, y0: number, y1: number): [number, number][] => [
   [r0, y0],
@@ -265,6 +290,13 @@ export function buildUnit(opts: UnitOptions): Unit {
   const hotCut = hotMetal(0x3b342e, { roughness: 0.8, metalness: 0.15, glow: 0.5 });
 
   const keep = (z: number): boolean => !cut || z >= -1e-6;
+  /** The seam of a rolled plate: a weld bead standing a few millimetres proud of the wall, from y0 to y1, at the angle `theta`. */
+  const seam = (parent: THREE.Object3D, theta: number, radius: number, y0: number, y1: number): void => {
+    if (!keep(Math.sin(theta) * radius)) return;
+    const g = radial('seam', theta);
+    g.add(mesh(boxAt(radius - 0.001, y0, -0.006, radius + 0.003, y1, 0.006), weldBead()));
+    parent.add(g);
+  };
 
   // ============================================================================================= outer casing, the lower one
   const outer = part('outer-casing', [0.0, 0.62, R]);
@@ -309,12 +341,24 @@ export function buildUnit(opts: UnitOptions): Unit {
     // the gas port and the intake are cut through the wall: collars
     const collar = (x: number, y: number): void => {
       const sgn = Math.sign(x);
-      const g = cylX(sgn * (R - 0.004), sgn * (R + 0.012), 0.047, cut, 24);
+      const g = cylX(
+        Math.min(sgn * (R - 0.004), sgn * (R + 0.012)),
+        Math.max(sgn * (R - 0.004), sgn * (R + 0.012)),
+        0.047,
+        cut,
+        24,
+      );
       g.translate(0, y, 0);
       outer.add(mesh(g, darkSteel()));
     };
     collar(1, FITTINGS.outletY);
     collar(-1, FITTINGS.intakeY);
+    if (!cut) {
+      pad(outer, R, 1, FITTINGS.outletY, 0.075);
+      pad(outer, R, -1, FITTINGS.intakeY, 0.075);
+    }
+    // the seam of the rolled plate, a weld bead, up the side
+    for (const th of [300, 120]) seam(outer, th * DEG, R, 0.03, JY - 0.036);
   }
 
   // ============================================================================================= fuel casing
@@ -338,6 +382,7 @@ export function buildUnit(opts: UnitOptions): Unit {
       lugs.push(g);
     }
     fuel.add(mesh(joined(lugs), darkSteel()));
+    for (const th of [300, 120]) seam(fuel, th * DEG, RB, JY + 0.036, RIM - 0.03);
   }
 
   // ============================================================================================= the eccentric lock and the band
@@ -457,6 +502,7 @@ export function buildUnit(opts: UnitOptions): Unit {
       cut,
       box,
       56,
+      hotCut,
     );
     const br: THREE.BufferGeometry[] = [];
     for (let k = 0; k < 3; k++) {
@@ -498,11 +544,11 @@ export function buildUnit(opts: UnitOptions): Unit {
       cut,
       noz,
       56,
+      hotCut,
     );
     const tilt = 15 * DEG;
     const tubes: THREE.BufferGeometry[] = [];
     const holes: THREE.BufferGeometry[] = [];
-      hotCut,
     for (let k = 0; k < HEARTH.nozzleCount; k++) {
       // the first nozzle lies in the plane of the cut, on the air's side (the intake feeds the plenum there), so that the section shows one whole nozzle along its axis, from the plenum to its tip
       const a = (k / HEARTH.nozzleCount) * TAU + Math.PI;
@@ -514,52 +560,6 @@ export function buildUnit(opts: UnitOptions): Unit {
       if (!keep(tip.z)) continue;
       const dir = tip.clone().sub(root);
       const len = dir.length();
-      const g = new THREE.CylinderGeometry(0.0105, 0.0095, len, 14);
-      const q = new THREE.Quaternion().setFromUnitVectors(v3(0, 1, 0), dir.clone().normalize());
-      g.applyMatrix4(new THREE.Matrix4().compose(root.clone().add(tip).multiplyScalar(0.5), q, v3(1, 1, 1)));
-      tubes.push(g);
-      // the bore: a dark disc a hair inside the tip
-      const h = new THREE.CircleGeometry(HEARTH.nozzleBore / 2, 12);
-      const qh = new THREE.Quaternion().setFromUnitVectors(v3(0, 0, 1), dir.clone().normalize());
-      h.applyMatrix4(
-        new THREE.Matrix4().compose(tip.clone().addScaledVector(dir.clone().normalize(), 0.0006), qh, v3(1, 1, 1)),
-      );
-      holes.push(h);
-    }
-    noz.add(mesh(joined(tubes), metal));
-    noz.add(mesh(joined(holes), blackPaint()));
-  }
-
-  // ============================================================================================= the air intake
-  const intake = part('air-intake', [-0.36, FITTINGS.intakeY + 0.05, 0.0]);
-  const intakeEnd = v3(-0.4, FITTINGS.intakeY, 0);
-  {
-    const y = FITTINGS.intakeY;
-    const pr = 0.0275;
-    const pg = cylX(-0.4, -(HEARTH.plenum.r0 - HEARTH.boxWall - 0.034 + 0.01), pr, cut, 24, true);
-    pg.translate(0, y, 0);
-    intake.add(mesh(pg, darkSteel()));
-    if (cut) {
-      intake.add(mesh(rectCap(-0.4, -0.152, y + pr - 0.003, y + pr), cutMetal()));
-      intake.add(mesh(rectCap(-0.4, -0.152, y - pr, y - pr + 0.003), cutMetal()));
-    }
-    // the flange where the primary-air valve bolts on
-    const fl = cylX(-0.4, -0.392, 0.05, cut, 28);
-      hotCut,
-    fl.translate(0, y, 0);
-    intake.add(mesh(fl, darkSteel()));
-    const bolts: THREE.BufferGeometry[] = [];
-    for (let k = 0; k < 4; k++) {
-      const a = (k / 4) * TAU + Math.PI / 4;
-      if (!keep(Math.sin(a) * 0.04)) continue;
-      const g = boltGeo(0.006, 0.006);
-      g.rotateZ(Math.PI / 2);
-      g.translate(-0.4, y + Math.cos(a) * 0.04, Math.sin(a) * 0.04);
-      bolts.push(g);
-    }
-    if (bolts.length) intake.add(mesh(joined(bolts), steel()));
-  }
-
       if (cut && Math.abs(tip.z) < 1e-6) {
         // cut open along its axis: the two walls of the tube in the plane, the bore between them, as far as the tip
         const wallT = 0.0025;
@@ -597,6 +597,51 @@ export function buildUnit(opts: UnitOptions): Unit {
         noz.add(nz);
         continue;
       }
+      const g = new THREE.CylinderGeometry(0.0105, 0.0095, len, 14);
+      const q = new THREE.Quaternion().setFromUnitVectors(v3(0, 1, 0), dir.clone().normalize());
+      g.applyMatrix4(new THREE.Matrix4().compose(root.clone().add(tip).multiplyScalar(0.5), q, v3(1, 1, 1)));
+      tubes.push(g);
+      // the bore: a dark disc a hair inside the tip
+      const h = new THREE.CircleGeometry(HEARTH.nozzleBore / 2, 12);
+      const qh = new THREE.Quaternion().setFromUnitVectors(v3(0, 0, 1), dir.clone().normalize());
+      h.applyMatrix4(
+        new THREE.Matrix4().compose(tip.clone().addScaledVector(dir.clone().normalize(), 0.0006), qh, v3(1, 1, 1)),
+      );
+      holes.push(h);
+    }
+    noz.add(mesh(joined(tubes), metal));
+    noz.add(mesh(joined(holes), blackPaint()));
+  }
+
+  // ============================================================================================= the air intake
+  const intake = part('air-intake', [-0.36, FITTINGS.intakeY + 0.05, 0.0]);
+  const intakeEnd = v3(-0.4, FITTINGS.intakeY, 0);
+  {
+    const y = FITTINGS.intakeY;
+    const pr = 0.0275;
+    const pg = cylX(-0.4, -(HEARTH.plenum.r0 - HEARTH.boxWall - 0.034 + 0.01), pr, cut, 24, true);
+    pg.translate(0, y, 0);
+    intake.add(mesh(pg, darkSteel()));
+    if (cut) {
+      intake.add(mesh(rectCap(-0.4, -0.152, y + pr - 0.003, y + pr), cutMetal()));
+      intake.add(mesh(rectCap(-0.4, -0.152, y - pr, y - pr + 0.003), cutMetal()));
+    }
+    // the flange where the primary-air valve bolts on
+    const fl = cylX(-0.4, -0.392, 0.05, cut, 28);
+    fl.translate(0, y, 0);
+    intake.add(mesh(fl, darkSteel()));
+    const bolts: THREE.BufferGeometry[] = [];
+    for (let k = 0; k < 4; k++) {
+      const a = (k / 4) * TAU + Math.PI / 4;
+      if (!keep(Math.sin(a) * 0.04)) continue;
+      const g = boltGeo(0.006, 0.006);
+      g.rotateZ(Math.PI / 2);
+      g.translate(-0.4, y + Math.cos(a) * 0.04, Math.sin(a) * 0.04);
+      bolts.push(g);
+    }
+    if (bolts.length) intake.add(mesh(joined(bolts), steel()));
+  }
+
   // ============================================================================================= the gas outlet
   const outlet = part('gas-outlet', [0.36, FITTINGS.outletY + 0.06, 0]);
   const outletEnd = v3(0.38, FITTINGS.outletY, 0);
@@ -736,6 +781,20 @@ export function buildUnit(opts: UnitOptions): Unit {
     const bearing = cylX(R + 0.1, R + 0.125, 0.022, cut, 20);
     bearing.translate(0, shaftY, 0);
     link.add(mesh(bearing, darkSteel()));
+    // the bearing is carried: a plate bolted to the casing under the gland and an arm from it to the bearing's foot
+    const z0 = cut ? 0 : -0.05;
+    const bk: THREE.BufferGeometry[] = [];
+    bk.push(boxAt(R - 0.004, shaftY - 0.07, z0, R + 0.014, shaftY + 0.07, 0.05));
+    bk.push(boxAt(R + 0.004, shaftY - 0.034, cut ? 0 : -0.014, R + 0.112, shaftY - 0.02, 0.014));
+    for (const dy of [-0.05, 0.05])
+      for (const z of [-0.03, 0.03]) {
+        if (!keep(z)) continue;
+        const b = boltGeo(0.0065, 0.005);
+        b.rotateZ(-Math.PI / 2);
+        b.translate(R + 0.014, shaftY + dy, z);
+        bk.push(b);
+      }
+    link.add(mesh(joined(bk), darkSteel()));
     const crank = new THREE.BoxGeometry(0.022, 0.2, 0.012);
     crank.translate(R + 0.2, -0.1, 0.0);
     linkRock.add(mesh(crank, darkSteel()));
@@ -747,6 +806,8 @@ export function buildUnit(opts: UnitOptions): Unit {
     nut.rotateZ(Math.PI / 2);
     nut.translate(R + 0.208, 0, 0);
     linkRock.add(mesh(nut, bright()));
+    // a ball on the end of the handle, the grip the hand shakes the grate with
+    linkRock.add(mesh(new THREE.SphereGeometry(0.022, 16, 12), rubber(), [R + 0.2, -0.2, 0.1]));
   }
 
   // ============================================================================================= ash pit: the heap, the door
@@ -800,45 +861,66 @@ export function buildUnit(opts: UnitOptions): Unit {
     if (!cut) {
       const d = FITTINGS.ashDoor;
       const span = 34 * DEG;
-      const doorGeo = new THREE.CylinderGeometry(
-        R + 0.006,
-        R + 0.006,
-        d.y1 - d.y0,
-        28,
-        1,
-        false,
-        Math.PI - span,
-        2 * span,
-      );
-      doorGeo.translate(0, (d.y0 + d.y1) / 2, 0);
-      pit.add(mesh(doorGeo, hotCasing(1, 1)));
-      const frame = new THREE.CylinderGeometry(
-        R + 0.009,
-        R + 0.009,
-        d.y1 - d.y0 + 0.012,
-        28,
+      // the door: a steel plate standing proud of the wall on its frame, bolted round its edge, hinged on the gas side, latched on the air side with a bar handle
+      const dh = d.y1 - d.y0;
+      const dc = (d.y0 + d.y1) / 2;
+      const frameG = new THREE.CylinderGeometry(
+        R + 0.008,
+        R + 0.008,
+        dh + 0.03,
+        32,
         1,
         true,
-        Math.PI - span - 0.03,
-        2 * span + 0.06,
+        Math.PI - span - 0.07,
+        2 * span + 0.14,
       );
-      frame.translate(0, (d.y0 + d.y1) / 2, 0);
-      pit.add(mesh(frame, darkSteel()));
-      // hinge knuckles (+x), latch and handle (−x)
+      frameG.translate(0, dc, 0);
+      pit.add(mesh(frameG, darkSteel()));
+      const doorGeo = new THREE.CylinderGeometry(R + 0.015, R + 0.015, dh, 32, 1, false, Math.PI - span, 2 * span);
+      doorGeo.translate(0, dc, 0);
+      pit.add(mesh(doorGeo, steel()));
+      // what stands on the door's face, at an angle `phi` from its middle (towards the hinge, +x) and a height: the point and the way out
+      const onDoor = (phi: number, y: number, rho: number): { p: THREE.Vector3; out: THREE.Vector3 } => ({
+        p: v3(Math.sin(phi) * rho, y, -Math.cos(phi) * rho),
+        out: v3(Math.sin(phi), 0, -Math.cos(phi)),
+      });
+      const along = (o: THREE.Vector3): THREE.Quaternion => new THREE.Quaternion().setFromUnitVectors(v3(0, 1, 0), o);
+      // bolts round the door's edge
+      const edge: THREE.BufferGeometry[] = [];
+      for (const phi of [-(span - 0.1), span - 0.1])
+        for (const y of [d.y0 + 0.022, dc, d.y1 - 0.022]) {
+          const { p, out } = onDoor(phi, y, R + 0.015);
+          const g = boltGeo(0.0075, 0.006);
+          g.applyQuaternion(along(out));
+          g.translate(p.x, p.y, p.z);
+          edge.push(g);
+        }
+      pit.add(mesh(joined(edge), steel()));
+      // hinge knuckles (+x) and the latch (−x)
       const hk: THREE.BufferGeometry[] = [];
-      for (const y of [d.y0 + 0.02, (d.y0 + d.y1) / 2, d.y1 - 0.02]) {
-        const g = new THREE.CylinderGeometry(0.009, 0.009, 0.034, 10);
-        g.translate(Math.sin(span) * (R + 0.014), y, -Math.cos(span) * (R + 0.014));
+      for (const y of [d.y0 + 0.02, dc, d.y1 - 0.02]) {
+        const k = onDoor(span, y, R + 0.02).p;
+        const g = new THREE.CylinderGeometry(0.011, 0.011, 0.036, 10);
+        g.translate(k.x, k.y, k.z);
         hk.push(g);
       }
       pit.add(mesh(joined(hk), bright()));
-      const latch = new THREE.BoxGeometry(0.03, 0.05, 0.012);
-      latch.translate(-Math.sin(span) * (R + 0.016), (d.y0 + d.y1) / 2, -Math.cos(span) * (R + 0.016));
+      const lt = onDoor(-span, dc, R + 0.02).p;
+      const latch = new THREE.BoxGeometry(0.034, 0.06, 0.014);
+      latch.translate(lt.x, lt.y, lt.z);
       pit.add(mesh(latch, steel()));
-      const lever = new THREE.CylinderGeometry(0.008, 0.008, 0.07, 10);
-      lever.rotateZ(Math.PI / 2);
-      lever.translate(-Math.sin(span) * (R + 0.03) + 0.0, (d.y0 + d.y1) / 2, -Math.cos(span) * (R + 0.03));
-      pit.add(mesh(lever, blackPaint()));
+      // the handle: two posts and a bar across them, standing off the door by a few centimetres, along its free edge
+      const hp: THREE.BufferGeometry[] = [];
+      const ph = -span * 0.66;
+      const lift = 0.03;
+      for (const dy of [-0.055, 0.055]) {
+        const { p, out } = onDoor(ph, dc + dy, R + 0.015);
+        hp.push(stick(p, p.clone().addScaledVector(out, lift), 0.0055, 8));
+      }
+      const lo = onDoor(ph, dc - 0.07, R + 0.015 + lift);
+      const hi = onDoor(ph, dc + 0.07, R + 0.015 + lift);
+      hp.push(stick(lo.p, hi.p, 0.0075, 10));
+      pit.add(mesh(joined(hp), bright()));
     }
   }
 
@@ -885,6 +967,15 @@ export function buildUnit(opts: UnitOptions): Unit {
       const leg = new THREE.BoxGeometry(0.024, UNIT.height - RIM, 0.03);
       leg.translate(sx * (RB + 0.022), (UNIT.height + RIM) / 2, 0);
       lid.add(mesh(leg, darkSteel()));
+    }
+    // a carrying handle on the lid, off the middle: two posts and a bar, under the yoke's bar
+    {
+      const hx = 0.15;
+      const hy = L.dish * 0.75;
+      const hp: THREE.BufferGeometry[] = [];
+      for (const z of [-0.05, 0.05]) if (keep(z)) hp.push(stick(v3(hx, hy, z), v3(hx, hy + 0.04, z), 0.005, 8));
+      hp.push(stick(v3(hx, hy + 0.04, cut ? 0 : -0.05), v3(hx, hy + 0.04, 0.05), 0.0065, 10));
+      lidLift.add(mesh(joined(hp), bright()));
     }
     // the hinge pin (air side) and the latch lever (gas side)
     const pin = new THREE.CylinderGeometry(0.0075, 0.0075, 0.06, 12);

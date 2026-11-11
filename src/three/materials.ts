@@ -5,7 +5,7 @@ import {
   gravelMap,
   paintMap,
   perforatedAlpha,
-  rustSteelMap,
+  scaleSteelMap,
   soilMap,
   strawMap,
   tarRunsAlpha,
@@ -91,27 +91,31 @@ export const brassMat = (): THREE.MeshStandardMaterial =>
 export const zincMat = (): THREE.MeshStandardMaterial =>
   once('zinc', () => std({ color: 0xaab0b6, roughness: 0.38, metalness: 0.85 }));
 
-/** The unit's lower casing, dull from the fire: dark steel with runs of rust. Tiled: `around` times round, `along` times up. */
+/** A weld bead on a casing: a little lighter than the plate round it, whichever finish it is on. */
+export const weldBead = (): THREE.MeshStandardMaterial =>
+  once('weld-bead', () => std({ color: 0x7c817d, roughness: 0.55, metalness: 0.6 }));
+
+/** The unit's lower casing, dull from the fire: dark scaled steel, blued here and there, soot above the hot places, a few spots of rust. Tiled: `around` times round, `along` times up. */
 export function hotCasing(around = 6, along = 2): THREE.MeshStandardMaterial {
   return once(`hot-casing-${around}-${along}`, () =>
     std({
-      color: 0x7f7366,
-      map: tiled(rustSteelMap(), around, along),
-      roughness: 0.85,
-      metalness: 0.35,
+      color: 0xd8d2c8,
+      map: tiled(scaleSteelMap(), around, along),
+      roughness: 0.78,
+      metalness: 0.5,
       side: THREE.DoubleSide,
     }),
   );
 }
 
-/** The fuel casing: painted once, dark, rusting through at its seams. */
+/** The fuel casing: grey-green paint, once, worn at the seams and chipped, a film of dust low down. A different finish from the lower casing, so that the two read as two bodies bolted together. */
 export function upperCasing(around = 6, along = 2): THREE.MeshStandardMaterial {
   return once(`upper-casing-${around}-${along}`, () =>
     std({
-      color: 0x6f756f,
-      map: tiled(rustSteelMap(), around, along),
-      roughness: 0.8,
-      metalness: 0.3,
+      color: 0x6d8070,
+      map: tiled(paintMap(), around, along),
+      roughness: 0.58,
+      metalness: 0.2,
       side: THREE.DoubleSide,
     }),
   );
