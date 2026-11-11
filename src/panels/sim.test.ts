@@ -300,10 +300,16 @@ describe('the strip, in one line', () => {
   });
 
   it('keeps the alarms of the garage short enough to stand together in the strip at 1280 px, with the four figures it leaves them', () => {
-    // about 6 px a character and 40 px of chip, in about 500 px: the three together, and the fan beside the engine’s gas, stay under 50 characters, in both languages
-    const together = ['gasOutAfterStop', 'coLadder', 'coRoomAbove'] as const;
-    for (const i of [0, 1] as const)
-      expect(together.reduce((n, k) => n + STRIP_ALARMS[k][i].length, 0)).toBeLessThanOrEqual(50);
+    // about 6 px a character and 40 px of chip, in about 500 px: the engine’s gas, one rung of the ladder and the room above stay under 50 characters together, in both languages
+    for (const rung of ['coWorkLimit', 'coShortLimit', 'coLadder'] as const)
+      for (const i of [0, 1] as const)
+        expect(
+          [STRIP_ALARMS.gasOutAfterStop, STRIP_ALARMS[rung], STRIP_ALARMS.coRoomAbove].reduce(
+            (n, pair) => n + pair[i].length,
+            0,
+          ),
+          `${rung} ${i}`,
+        ).toBeLessThanOrEqual(50);
     expect(GARAGE_VALUES).toBe(4);
     // the door’s remark is the panel’s: no chip says it without its source
     const sim = new GasifierSim();
