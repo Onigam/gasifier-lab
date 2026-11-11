@@ -181,6 +181,24 @@ describe('what a click does', () => {
   });
 });
 
+describe('every scenario, in both languages', () => {
+  it('runs for a simulated hour under the panel: no error, no NaN, no « undefined » in anything it shows', () => {
+    for (const lang of ['fr', 'en'] as const)
+      for (const id of SCENARIO_IDS) {
+        const sim = new GasifierSim();
+        const { root, panel } = open(lang, sim);
+        button(root, sx('scenario', id)).click();
+        for (let i = 0; i < 240; i++) {
+          sim.step(0.25);
+          panel.tick(0.25);
+        }
+        const text = root.textContent;
+        expect(text, `${lang} ${id}`).not.toMatch(/NaN|undefined|Infinity|\[object/);
+        expect(text, `${lang} ${id}`).toContain(sx('lesson', id).slice(0, 30));
+      }
+  });
+});
+
 describe('the room, never a bare figure', () => {
   it('says that nothing has entered the box, and prints no « 0 ppm », while the machine is in the fields', () => {
     const { root, sim, panel } = open();
