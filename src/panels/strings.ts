@@ -65,9 +65,8 @@ export const PANEL = {
   moreCoolerT: ['Gaz après le refroidisseur', 'Gas after the cooler'],
   moreCasing: ['Enveloppe du gazogène', 'Gasifier casing'],
   moreBunker: ['Soute pleine', 'Bunker full'],
-  moreBunkerMin: ['Soute : reste', 'Bunker: left'],
+  moreBunkerMin: ['Autonomie de la soute', 'The bunker lasts'],
   moreTar: ['Goudron mesuré à cette charge', 'Tar measured at this load'],
-  moreCondensate: ['Condensats', 'Condensate'],
   moreMixture: ['Énergie du mélange', 'Energy of the mixture'],
   moreVsPetrol: ['Perdu contre l’essence', 'Lost against petrol'],
 
@@ -96,7 +95,10 @@ export const PANEL = {
   filterAges: ['Le filtre vieillit tout seul', 'The filter ages by itself'],
   filterWetFault: ['Toile mouillée (une panne)', 'Wet cloth (a fault)'],
   airLeak: ['Air sous la grille (une panne)', 'Air under the grate (a fault)'],
-  vesselNeglected: ['Vase du refroidisseur jamais vidé (une panne)', 'Cooler vessel never emptied (a fault)'],
+  vesselNeglected: [
+    'Bac de condensats du refroidisseur jamais vidé (une panne)',
+    'Cooler condensate vessel never emptied (a fault)',
+  ],
   faultsHint: [
     'Chaque panne est un cas que le rapport décrit : la direction vient de lui, la taille de la fuite est une supposition.',
     'Each fault is a case the report describes: the direction comes from it, the size of the leak is a guess.',
