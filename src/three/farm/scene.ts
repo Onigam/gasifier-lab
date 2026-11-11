@@ -63,7 +63,7 @@ const HOTSPOTS: HotspotDef[] = [
   { id: 'drum-chipper', fr: 'Déchiqueteuse', en: 'Drum chipper', minor: true },
   { id: 'chip-sieve', fr: 'Crible', en: 'Chip sieve', minor: true },
   { id: 'clod-crusher', fr: 'Brise-mottes', en: 'Clod crusher', minor: true },
-  { id: 'farmhouse', fr: 'Ferme', en: 'Farmhouse' },
+  { id: 'farmhouse', fr: 'Maison', en: 'Farmhouse' },
   { id: 'farm-garage', fr: 'Garage', en: 'Farm garage', goto: 'garage' },
   { id: 'ash-bin', fr: 'Bac à cendres', en: 'Ash bin', minor: true },
   { id: 'condensate-barrel', fr: 'Fût de condensats', en: 'Condensate barrel', minor: true },

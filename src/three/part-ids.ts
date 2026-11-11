@@ -19,7 +19,7 @@ export const PART_NAMES: PartName[] = [
   row('farm', 'drum-chipper', 'Déchiqueteuse', 'Drum chipper'),
   row('farm', 'chip-sieve', 'Crible', 'Chip sieve'),
   row('farm', 'clod-crusher', 'Brise-mottes', 'Clod crusher'),
-  row('farm', 'farmhouse', 'Ferme', 'Farmhouse'),
+  row('farm', 'farmhouse', 'Maison', 'Farmhouse'),
   row('farm', 'farm-garage', 'Garage', 'Farm garage'),
   row('farm', 'ash-bin', 'Bac à cendres', 'Ash bin'),
   row('farm', 'condensate-barrel', 'Fût de condensats', 'Condensate barrel'),
@@ -88,7 +88,7 @@ export const PART_NAMES: PartName[] = [
   row('garage', 'post-gas-plume', 'Panache après l’arrêt', 'Post-gas plume'),
   row('garage', 'exhaust-plume', 'Gaz d’échappement', 'Exhaust plume'),
   row('garage', 'co-indicator', 'Indicateur de CO', 'CO indicator'),
-  row('garage', 'old-rescue-set', 'Appareil de 1940', '1940s rescue set'),
+  row('garage', 'old-rescue-set', 'Appareil des années 1940', '1940s rescue set'),
 ];
 
 const BY_ID = new Map(PART_NAMES.map((p) => [p.id, p]));

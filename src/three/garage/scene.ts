@@ -51,7 +51,7 @@ const HOTSPOTS: HotspotDef[] = [
   { id: 'post-gas-plume', fr: 'Panache après l’arrêt', en: 'Post-gas plume' },
   { id: 'exhaust-plume', fr: 'Gaz d’échappement', en: 'Exhaust plume', minor: true },
   { id: 'co-indicator', fr: 'Indicateur de CO', en: 'CO indicator' },
-  { id: 'old-rescue-set', fr: 'Appareil de 1940', en: '1940s rescue set', minor: true },
+  { id: 'old-rescue-set', fr: 'Appareil des années 1940', en: '1940s rescue set', minor: true },
 ];
 
 /** How far open the door is for each state of the model: ajar is a gap, open is wide. */
