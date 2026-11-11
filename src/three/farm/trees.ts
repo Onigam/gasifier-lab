@@ -142,6 +142,52 @@ export function spruceGeometry(tiers: number, boughs: number, seed: number): THR
   return m.build();
 }
 
+/** The distance from the eye, metres, beyond which a spruce is drawn with its coarse model. */
+export const SPRUCE_COARSE_FROM = 28;
+
+/** A spruce seen from afar: a stack of drooping skirts with a star-shaped hem (the boughs' tips), a thin dark lip under each. Same height and reach as the detailed one, a few hundred triangles of broad faces instead of seven hundred thin ones. */
+export function spruceCoarse(tiers = 10, points = 7): THREE.BufferGeometry {
+  const m = new Mesher();
+  const r = rng(33);
+  const tipC = C(0x4a6c42);
+  const midC = C(0x2c4a30);
+  const inC = C(0x16241a);
+  const tmp = new THREE.Color();
+  for (let t = 0; t < tiers; t++) {
+    const f = t / (tiers - 1);
+    const y = 0.09 + 0.87 * f ** 0.92;
+    const reach = 0.205 * (1 - f) ** 0.85 + 0.03;
+    const droop = 0.026 + 0.045 * (1 - f);
+    const apex = m.vert(0, y + 0.06 * (1 - f) + 0.045, 0, midC);
+    const seg = points * 2;
+    const hem: number[] = [];
+    const under: number[] = [];
+    const turn = r() * 6.28;
+    for (let k = 0; k < seg; k++) {
+      const a = (k / seg) * Math.PI * 2 + turn;
+      const tip = k % 2 === 0;
+      const rad = reach * (tip ? 0.95 + 0.1 * r() : 0.66 + 0.1 * r());
+      tmp.copy(tipC).multiplyScalar(tip ? 0.9 + 0.2 * r() : 0.7);
+      hem.push(m.vert(Math.cos(a) * rad, y - droop * (tip ? 1.25 : 0.7), Math.sin(a) * rad, tmp));
+      under.push(m.vert(Math.cos(a) * reach * 0.5, y - droop * 1.7, Math.sin(a) * reach * 0.5, inC));
+    }
+    for (let k = 0; k < seg; k++) {
+      const k2 = (k + 1) % seg;
+      m.tri(apex, hem[k2]!, hem[k]!);
+      m.tri(hem[k]!, hem[k2]!, under[k]!);
+      m.tri(hem[k2]!, under[k2]!, under[k]!);
+    }
+  }
+  const top = m.vert(0, 1, 0, tipC);
+  const ring: number[] = [];
+  for (let s = 0; s < 5; s++) {
+    const a = (s / 5) * Math.PI * 2;
+    ring.push(m.vert(Math.cos(a) * 0.012, 0.93, Math.sin(a) * 0.012, midC));
+  }
+  for (let s = 0; s < 5; s++) m.tri(top, ring[(s + 1) % 5]!, ring[s]!);
+  return m.build();
+}
+
 export function spruceTrunk(): THREE.BufferGeometry {
   const m = new Mesher();
   tube(
@@ -551,6 +597,7 @@ function instance(
   leafMat: THREE.Material,
   feet: THREE.Vector3[],
   tintJitter = 0.12,
+  coarse?: { crown: THREE.BufferGeometry; from: number },
 ): void {
   plantings = plantings.filter((p) => !avoidAt(p.x, p.z));
   if (plantings.length === 0) return;
@@ -582,6 +629,71 @@ function instance(
     m.frustumCulled = false;
     parent.add(m);
   }
+  if (coarse) crownsByDistance(parent, ml, coarse.crown, coarse.from, feet.slice(feet.length - plantings.length));
+}
+
+/**
+ * The crowns of a species seen from far away are drawn with a coarser model: the same trees, two instanced meshes, each tree in one of them by its distance to the eye (with a margin, so that none flips back and forth). A tree's silhouette
+ * at 40 m made of a hundred and five thin boughs is what the picture shimmers with when the camera moves (docs/qa.md D16); a stack of skirts of the same reach and colour does not.
+ */
+function crownsByDistance(
+  parent: THREE.Group,
+  fine: THREE.InstancedMesh,
+  coarseGeo: THREE.BufferGeometry,
+  from: number,
+  at: THREE.Vector3[],
+): void {
+  const n = fine.count;
+  const far = new THREE.InstancedMesh(coarseGeo, fine.material, n);
+  far.castShadow = true;
+  far.receiveShadow = true;
+  far.name = `${fine.name}-coarse`;
+  far.frustumCulled = false;
+  far.instanceColor = new THREE.InstancedBufferAttribute(new Float32Array(n * 3), 3);
+  parent.add(far);
+  const mats: THREE.Matrix4[] = [];
+  const cols: THREE.Color[] = [];
+  for (let i = 0; i < n; i++) {
+    const mm = new THREE.Matrix4();
+    fine.getMatrixAt(i, mm);
+    mats.push(mm);
+    const c = new THREE.Color();
+    fine.getColorAt(i, c);
+    cols.push(c);
+  }
+  const isFar = new Uint8Array(n).fill(2);
+  far.count = 0;
+  fine.onBeforeRender = (_r, _s, camera) => {
+    // the eye's, not a light's (the shadow pass draws with an orthographic camera)
+    if (!(camera as THREE.PerspectiveCamera).isPerspectiveCamera) return;
+    let changed = false;
+    for (let i = 0; i < n; i++) {
+      const d = camera.position.distanceTo(at[i]!);
+      const want = d > from * (isFar[i] === 1 ? 0.88 : 1.12) ? 1 : 0;
+      if (isFar[i] !== want) {
+        isFar[i] = want;
+        changed = true;
+      }
+    }
+    if (!changed) return;
+    let a = 0;
+    let b = 0;
+    for (let i = 0; i < n; i++) {
+      if (isFar[i] === 1) {
+        far.setMatrixAt(b, mats[i]!);
+        far.setColorAt(b++, cols[i]!);
+      } else {
+        fine.setMatrixAt(a, mats[i]!);
+        fine.setColorAt(a++, cols[i]!);
+      }
+    }
+    fine.count = a;
+    far.count = b;
+    fine.instanceMatrix.needsUpdate = true;
+    far.instanceMatrix.needsUpdate = true;
+    if (fine.instanceColor) fine.instanceColor.needsUpdate = true;
+    if (far.instanceColor) far.instanceColor.needsUpdate = true;
+  };
 }
 
 /** Where no tree may stand (the world keeps the lines from which its parts are looked at free of crowns). Set by `buildTrees`. */
@@ -705,7 +817,11 @@ export function buildTrees(avoid: (x: number, z: number) => boolean = () => fals
   void sp;
   const spruceHeight = 24;
   const spruce: Species = { trunk: spruceTrunk(), crown: spruceGeometry(15, 7, 21), height: spruceHeight };
-  instance(group, spruce, 'spruce', spruces, barkSpruce, spruceMat, feet, 0.1);
+  // beyond SPRUCE_COARSE_FROM metres a spruce is drawn as a stack of skirts (`spruceCoarse`), nearer as its hundred and five boughs
+  instance(group, spruce, 'spruce', spruces, barkSpruce, spruceMat, feet, 0.1, {
+    crown: spruceCoarse(),
+    from: SPRUCE_COARSE_FROM,
+  });
 
   // far forest: a ring of crude spruces in dark groves, kept from the yard and the field
   const far: Planting[] = [];
