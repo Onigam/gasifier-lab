@@ -44,8 +44,8 @@ export const TRACTOR_IDS = [
 ] as const;
 export type TractorId = (typeof TRACTOR_IDS)[number];
 
-/** The sizes of the hot parts are never printed; this world holds none of them in a part's box: the unit's box is its envelope (reported heights). */
-export const TRACTOR_REFUSED: ReadonlySet<string> = new Set();
+/** The sizes of the hot parts are never printed; this world holds none of them in a part's box: the unit's box is its envelope (reported heights). One part's box, printed as « Encombrement », comes out at a length the lab withholds (`encombrement.test.ts`): its sheet does not print it. */
+export const TRACTOR_REFUSED: ReadonlySet<string> = new Set(['injection-pump']);
 
 /** How far each part leaves along its line when the tractor comes apart. T frame, metres. The wheels go out along their axles. */
 export const EXPLODE: Record<TractorId, [number, number, number]> = {

@@ -57,6 +57,9 @@ export const FARM_IDS = [
 ] as const;
 export type FarmId = (typeof FARM_IDS)[number];
 
+/** The part whose box, printed as « Encombrement », comes out at a length the lab withholds, to the figure that is printed, at some moment of the tractor's loop (`encombrement.test.ts` finds it): its sheet does not print it, the camera still frames it. */
+export const FARM_REFUSED: ReadonlySet<string> = new Set(['clod-crusher']);
+
 const HOTSPOTS: HotspotDef[] = [
   { id: 'wood-gas-tractor', fr: 'Tracteur à gaz de bois', en: 'Wood-gas tractor', goto: 'tractor' },
   { id: 'chip-barn', fr: 'Grange à plaquettes', en: 'Chip barn' },
@@ -250,7 +253,7 @@ export function createFarmScene(opts: FarmOptions = {}): FarmScene {
   scene.add(land.mesh);
   const trees = buildTrees(blocksSight);
   scene.add(trees.group);
-  const registry = new WorldRegistry(new Set(), opts.selected ?? (() => null));
+  const registry = new WorldRegistry(FARM_REFUSED, opts.selected ?? (() => null));
   const followers = new Followers();
   const scenery = group('scenery');
   scene.add(scenery);
