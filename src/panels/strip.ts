@@ -32,8 +32,8 @@ function empty(row: StripRow, sim: GasifierSim): boolean {
   }
 }
 
-/** The garage's strip shows its first four figures: the kit's strip gives the alarms what its values leave, and the alarms the garage raises together (the engine's gas, the ladder, the room above) need about 500 px at 1280, which six figures leave no room for. The panel keeps all of them. */
-export const GARAGE_VALUES = 4;
+/** The garage's strip shows its first two figures, the carbon monoxide of the two rooms: the kit's strip gives the alarms what its values leave, and the four alarms a visitor reaches (the engine's gas, a rung of the ladder, the room above, the lid's leak) need about 610 px at 1280 in French, which four values leave 467 of and three 558 (measured on the page, `docs/qa.md`, second pass). The panel keeps all the figures and every alarm. */
+export const GARAGE_VALUES = 2;
 
 export function rowsFor(sim: GasifierSim, inScene = scene): StripRow[] {
   const s = sim.state;

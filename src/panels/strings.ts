@@ -179,11 +179,14 @@ export const PANEL = {
   noData: ['La courbe commence avec la course.', 'The curve begins with the run.'],
 } as const satisfies Record<string, readonly [string, string]>;
 
-/** The alarms the strip leaves to the panel: a remark on the door that no chip can carry with its source (the Swedes found it far from satisfactory to fan or start with the doors open), and which the panel's list says whole. */
-export type PanelOnly = 'coDoorOpen';
-export const PANEL_ONLY: readonly PanelOnly[] = ['coDoorOpen'];
+/**
+ * The alarms the strip leaves to the panel: a remark on the door that no chip can carry with its source (the Swedes found it far from satisfactory to fan or start with the doors open), and the starting fan's 200 L of carbon monoxide a minute, whose chip needs
+ * 205 px beside the lid's leak when the strip has about 650 (measured on the page, `docs/qa.md`, second pass). The panel's list says both whole.
+ */
+export type PanelOnly = 'coDoorOpen' | 'fanOut';
+export const PANEL_ONLY: readonly PanelOnly[] = ['coDoorOpen', 'fanOut'];
 
-/** The alarm of the bottom strip is one line: a short form of each. The ones the garage raises together (the engine's gas, the ladder, the room above) stand in about 500 px at 1280, what four values leave the alarms in the kit's strip, so theirs are the shortest. The panel keeps the sentence (src/sim/texts.ts), and `sim.test.ts` holds that the two lists have the same keys and the garage's budget. */
+/** The alarm of the bottom strip is one line: a short form of each. The ones the garage raises together (the engine's gas, the ladder, the room above, and the lid's leak the visitor may choose) need about 610 px at 1280 in French, what two values leave the alarms in the kit's strip, so theirs are the shortest. The panel keeps the sentence (src/sim/texts.ts), and `sim.test.ts` holds that the two lists have the same keys and the garage's budget. */
 export const STRIP_ALARMS: Record<Exclude<keyof typeof ALARM_TEXTS, PanelOnly>, Pair> = {
   engineShort: ['Puissance demandée non atteinte', 'Power asked not reached'],
   gasTooPoor: ['Gaz sous 4,2 MJ/m³', 'Gas below 4.2 MJ/m³'],
@@ -196,7 +199,6 @@ export const STRIP_ALARMS: Record<Exclude<keyof typeof ALARM_TEXTS, PanelOnly>, 
   vesselOverfull: ['Bac du refroidisseur trop plein', 'Cooler vessel overfull'],
   gasOutAfterStop: ['Le gaz sort encore', 'Gas still comes out'],
   lidLeak: ['Couvercle non étanche', 'Lid does not seal'],
-  fanOut: ['Ventilateur : 200 L de CO/min', 'Starting fan: 200 L of CO/min'],
   exhaustIndoors: ['Moteur tournant dans un local', 'Engine running indoors'],
   coWorkLimit: ['Plus de 20 ppm', 'Over 20 ppm'],
   coShortLimit: ['Plus de 100 ppm', 'Over 100 ppm'],

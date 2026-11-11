@@ -299,8 +299,33 @@ describe('the strip, in one line', () => {
       }
   });
 
-  it('keeps the alarms of the garage short enough to stand together in the strip at 1280 px, with the four figures it leaves them', () => {
-    // about 6 px a character and 40 px of chip, in about 500 px: the engine’s gas, one rung of the ladder and the room above stay under 50 characters together, in both languages
+  it('keeps the alarms of the garage short enough to stand together in the strip at 1280 px, in every state a visitor can reach, with the two figures it leaves them', () => {
+    // the chips measured on the page: about 6 to 6.5 px a character and 37 px of chip and 6 of gap, in about 650 px with two figures: five chips of 68 characters in all fit (610 px measured); the closed garage's three, 431 px
+    expect(GARAGE_VALUES).toBe(2);
+    const worst = { fr: 0, en: 0 };
+    for (const engineOn of [false, true])
+      for (const lidLeak of [false, true])
+        for (const fanSource of [false, true])
+          for (const door of ['shut', 'ajar', 'open'] as const)
+            for (const garageVolume of [50, 1000] as const)
+              for (const t of [20, 120, 600, 1800, 7200]) {
+                const sim = new GasifierSim();
+                sim.applyScenario('closed-garage');
+                sim.set({ engineOn, lidLeak, fanSource, door, garageVolume });
+                advance(sim, t);
+                const keys = stripAlarms(sim).map((a) => a.key as keyof typeof STRIP_ALARMS);
+                for (const [i, lang] of [
+                  [0, 'fr'],
+                  [1, 'en'],
+                ] as const)
+                  worst[lang] = Math.max(
+                    worst[lang],
+                    keys.reduce((n, k) => n + STRIP_ALARMS[k][i].length, 0),
+                  );
+              }
+    expect(worst.fr).toBeLessThanOrEqual(70);
+    expect(worst.en).toBeLessThanOrEqual(70);
+    // and the three of the closed garage stay under 50 characters whatever rung of the ladder is reached
     for (const rung of ['coWorkLimit', 'coShortLimit', 'coLadder'] as const)
       for (const i of [0, 1] as const)
         expect(
@@ -310,14 +335,15 @@ describe('the strip, in one line', () => {
           ),
           `${rung} ${i}`,
         ).toBeLessThanOrEqual(50);
-    expect(GARAGE_VALUES).toBe(4);
-    // the door’s remark is the panel’s: no chip says it without its source
+    // the door’s remark and the starting fan are the panel’s: no chip says the door without its source, and the fan’s is too long for the strip
     const sim = new GasifierSim();
     sim.applyScenario('closed-garage');
-    sim.set({ door: 'open' });
+    sim.set({ door: 'open', fanSource: true });
     advance(sim, 600);
     expect(sim.state.alarms).toContain('coDoorOpen');
+    expect(sim.state.alarms).toContain('fanOut');
     expect(stripAlarms(sim).map((a) => a.key)).not.toContain('coDoorOpen');
+    expect(stripAlarms(sim).map((a) => a.key)).not.toContain('fanOut');
   });
 
   it('writes the numbers the way the language does: 1 855 and 2,2 in French, 1,855 and 2.2 in English', () => {
@@ -404,14 +430,15 @@ describe('the strip', () => {
         .slice(0, GARAGE_VALUES)
         .map((r) => r.key),
     );
+    // the strip keeps the carbon monoxide of the two rooms: a dash while the box holds nothing
     const v = stripValues(sim);
-    expect(v[0]!.value).toBe('—');
+    expect(v.map((x) => x.value)).toEqual(['—', '—']);
     expect(v[0]!.unit).toBe('');
-    // the engine runs: nothing has stopped
-    expect(v.find((x) => x.label === 'Depuis l’arrêt')!.value).toBe('—');
-    sim.set({ engineOn: false });
-    advance(sim, 120);
-    expect(stripValues(sim).find((x) => x.label === 'Depuis l’arrêt')!.value).not.toBe('—');
+    // the machine stands in the garage and has stopped: the box has had carbon monoxide
+    const stopped = new GasifierSim();
+    stopped.applyScenario('closed-garage');
+    advance(stopped, 300);
+    expect(stripValues(stopped)[0]!.value).not.toBe('—');
   });
 
   it('shows the room wherever the machine stands once it is in the garage', () => {
