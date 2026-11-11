@@ -1,12 +1,12 @@
 {
   "lang": "fr",
   "model": "qwen3-tts-1.7B",
-  "generatedAt": "2026-11-11T14:44:22.048Z",
+  "generatedAt": "2026-11-11T22:09:25.962Z",
   "voiceLabel": {
     "fr": "Voix de synthèse",
     "en": "Synthetic voice"
   },
-  "totalSeconds": 1438.42,
+  "totalSeconds": 1371.18,
   "segments": [
     {
       "id": "intro",
@@ -14,209 +14,179 @@
       "title": "Présentation du labo",
       "scene": "farm",
       "file": "intro.mp3",
-      "duration": 126.89,
-      "chars": 2154,
-      "hash": "2a0fcf7abcb47b69",
+      "duration": 116.7,
+      "chars": 1983,
+      "hash": "71522dd3599f2331",
       "captions": [
         {
           "t0": 0,
-          "t1": 5.32,
-          "text": "Imaginez un soir de juin, dans le sud de la Suède, il y a plus d’un demi-siècle."
+          "t1": 6.26,
+          "text": "Un soir de juin, dans le sud de la Suède, il y a plus d’un demi-siècle, un tracteur rentre des champs."
         },
         {
-          "t0": 5.32,
-          "t1": 7.3,
-          "text": "Un tracteur rentre des champs."
+          "t0": 6.26,
+          "t1": 8.96,
+          "text": "Il roule au bois, avec un filet de gazole."
         },
         {
-          "t0": 7.3,
-          "t1": 12.08,
-          "text": "Il roule au bois, avec un filet de gazole : un tracteur qui mange du bois !"
+          "t0": 8.96,
+          "t1": 13.72,
+          "text": "Une plaquette de bois est stockée au sec, dans la grange, avec des milliers d’autres."
         },
         {
-          "t0": 12.08,
-          "t1": 13.88,
-          "text": "Suivons une petite plaquette."
+          "t0": 13.72,
+          "t1": 16.48,
+          "text": "Elle a été coupée par les couteaux d’une déchiqueteuse."
         },
         {
-          "t0": 13.88,
-          "t1": 17.54,
-          "text": "Elle attend au sec, dans la grange, parmi des milliers de sœurs."
+          "t0": 16.48,
+          "t1": 18.84,
+          "text": "Le tracteur l’emporte vers le champ."
         },
         {
-          "t0": 17.54,
-          "t1": 20.2,
-          "text": "Elle est née sous les couteaux d’une déchiqueteuse."
-        },
-        {
-          "t0": 20.2,
-          "t1": 23.92,
-          "text": "La voici sur le tracteur, qui l’emporte vers le champ."
-        },
-        {
-          "t0": 23.92,
-          "t1": 27.94,
+          "t0": 18.84,
+          "t1": 22.14,
           "text": "Elle voyage sur la galerie du toit, avant de tomber dans la soute."
         },
         {
-          "t0": 27.94,
-          "t1": 29.21,
-          "text": "Son voyage commence."
+          "t0": 22.14,
+          "t1": 25.56,
+          "text": "La plaquette descend doucement, en une heure environ."
         },
         {
-          "t0": 29.21,
-          "t1": 32.92,
-          "text": "Elle descend, doucement : une heure environ."
-        },
-        {
-          "t0": 32.92,
-          "t1": 34.44,
+          "t0": 25.56,
+          "t1": 26.44,
           "text": "Elle sèche."
         },
         {
-          "t0": 34.44,
-          "t1": 36.1,
-          "text": "Elle noircit et se défait."
+          "t0": 26.44,
+          "t1": 28.12,
+          "text": "Puis elle noircit et se défait."
         },
         {
-          "t0": 36.1,
-          "t1": 40.32,
+          "t0": 28.12,
+          "t1": 33.84,
           "text": "Elle passe sous une flamme : un feu qui manque d’air, exprès."
         },
         {
-          "t0": 40.32,
-          "t1": 43.62,
-          "text": "Puis, dans un lit de charbon rouge, le gaz se refroidit…"
+          "t0": 33.84,
+          "t1": 38.2,
+          "text": "Dans un lit de charbon rouge, le gaz se refroidit et devient combustible."
         },
         {
-          "t0": 43.62,
-          "t1": 45.38,
-          "text": "et devient combustible !"
-        },
-        {
-          "t0": 45.38,
-          "t1": 47.16,
+          "t0": 38.2,
+          "t1": 40.12,
           "text": "Au fond, il ne reste presque rien."
         },
         {
-          "t0": 47.16,
-          "t1": 53.44,
+          "t0": 40.12,
+          "t1": 45.22,
           "text": "Le gaz, lui, continue sa route, bien chaud encore : il traverse un filtre, puis un refroidisseur."
         },
         {
-          "t0": 53.44,
-          "t1": 55.74,
+          "t0": 45.22,
+          "t1": 48.2,
           "text": "Dans le cylindre, ce filet de gazole l’allume."
         },
         {
-          "t0": 55.74,
-          "t1": 60.12,
+          "t0": 48.2,
+          "t1": 52.42,
           "text": "Au banc, quarante kilowatts à l’arbre : dix-huit pour cent, dit le rapport."
         },
         {
-          "t0": 60.12,
-          "t1": 64.16,
+          "t0": 52.42,
+          "t1": 56.86,
           "text": "Soit, par le calcul, environ deux cent vingt kilowatts en entrée."
         },
         {
-          "t0": 64.16,
-          "t1": 66.32,
-          "text": "Et puis, un soir, le moteur s’arrête."
+          "t0": 56.86,
+          "t1": 59.84,
+          "text": "Ce soir-là, au garage, le moteur s’arrête."
         },
         {
-          "t0": 66.32,
-          "t1": 68.78,
-          "text": "Mais le gaz, lui, ne s’arrête pas avec lui."
+          "t0": 59.84,
+          "t1": 64.04,
+          "text": "Le gaz ne s’arrête pas avec le moteur : le dernier monde y est consacré."
         },
         {
-          "t0": 68.78,
-          "t1": 70.66,
-          "text": "C’est l’histoire la plus grave de ce lab."
+          "t0": 64.04,
+          "t1": 65.34,
+          "text": "Quelques repères."
         },
         {
-          "t0": 70.66,
-          "t1": 72.08,
-          "text": "Voici quelques repères."
-        },
-        {
-          "t0": 72.08,
-          "t1": 74.78,
+          "t0": 65.34,
+          "t1": 68.54,
           "text": "Il y a cinq mondes, de la ferme au garage."
         },
         {
-          "t0": 74.78,
-          "t1": 79.1,
+          "t0": 68.54,
+          "t1": 72.94,
           "text": "Cliquez sur une pièce : sa fiche s’ouvre, et vous pouvez écouter son histoire."
         },
         {
-          "t0": 79.1,
-          "t1": 84.48,
-          "text": "Montage raconte, au passé, comment le système s’assemblait : une lecture, pas une procédure."
+          "t0": 72.94,
+          "t1": 77.78,
+          "text": "Montage raconte, au passé et sans procédure, comment le système s’assemblait."
         },
         {
-          "t0": 84.48,
-          "t1": 87.76,
+          "t0": 77.78,
+          "t1": 80.88,
           "text": "Installation dit ce qu’il fallait réunir avant le premier jour."
         },
         {
-          "t0": 87.76,
-          "t1": 90.53,
+          "t0": 80.88,
+          "t1": 84.19,
           "text": "La simulation vous laisse changer la charge et l’humidité du bois."
         },
         {
-          "t0": 90.53,
-          "t1": 92.7,
+          "t0": 84.19,
+          "t1": 85.93,
           "text": "Sept leçons expliquent la physique."
         },
         {
-          "t0": 92.7,
-          "t1": 94.24,
+          "t0": 85.93,
+          "t1": 87.58,
           "text": "Dix planches la dessinent."
         },
         {
-          "t0": 94.24,
-          "t1": 98.62,
+          "t0": 87.58,
+          "t1": 92.42,
           "text": "Une dernière chose : ce laboratoire est une reconstitution pédagogique indépendante."
         },
         {
-          "t0": 98.62,
-          "t1": 102.22,
+          "t0": 92.42,
+          "t1": 96.36,
           "text": "Ce n’est ni un plan officiel, ni le produit d’un constructeur."
         },
         {
-          "t0": 102.22,
-          "t1": 105.58,
+          "t0": 96.36,
+          "t1": 99.92,
           "text": "Il explique une machine de l’histoire, et ne donne aucun plan."
         },
         {
-          "t0": 105.58,
-          "t1": 108.54,
+          "t0": 99.92,
+          "t1": 102.59,
           "text": "Les chiffres publiés viennent d’un rapport sur cet institut,"
         },
         {
-          "t0": 108.66,
-          "t1": 112.22,
+          "t0": 102.7,
+          "t1": 106.76,
           "text": "d’un livre suédois sur les gazogènes, et de manuels."
         },
         {
-          "t0": 112.22,
-          "t1": 113.72,
+          "t0": 106.76,
+          "t1": 108.72,
           "text": "Les autres sortent de la simulation."
         },
         {
-          "t0": 113.72,
-          "t1": 121.04,
+          "t0": 108.72,
+          "t1": 114.76,
           "text": "Sur les fiches, un chiffre sans marque est publié ; une croix marque un calcul, une étoile une estimation."
         },
         {
-          "t0": 121.04,
-          "t1": 123.8,
+          "t0": 114.76,
+          "t1": 116.7,
           "text": "Le panneau Sources dit qui a dit quoi."
-        },
-        {
-          "t0": 123.8,
-          "t1": 126.89,
-          "text": "Prenez votre temps : une plaquette met une heure à descendre."
         }
       ],
       "cues": [
@@ -234,7 +204,7 @@
           }
         },
         {
-          "t": 12.08,
+          "t": 8.96,
           "do": {
             "frame": [
               "chip-barn"
@@ -242,7 +212,7 @@
           }
         },
         {
-          "t": 17.54,
+          "t": 13.72,
           "do": {
             "frame": [
               "drum-chipper"
@@ -250,13 +220,13 @@
           }
         },
         {
-          "t": 20.2,
+          "t": 16.48,
           "do": {
             "scene": "tractor"
           }
         },
         {
-          "t": 23.92,
+          "t": 18.84,
           "do": {
             "frame": [
               "roof-rack"
@@ -264,54 +234,54 @@
           }
         },
         {
-          "t": 27.94,
+          "t": 22.14,
           "do": {
             "scene": "gasifier"
           }
         },
         {
-          "t": 32.92,
+          "t": 25.56,
           "do": {
             "lab": "journey",
             "arg": "0.15"
           }
         },
         {
-          "t": 34.44,
+          "t": 26.44,
           "do": {
             "lab": "journey",
             "arg": "0.42"
           }
         },
         {
-          "t": 36.1,
+          "t": 28.12,
           "do": {
             "lab": "journey",
             "arg": "0.62"
           }
         },
         {
-          "t": 40.32,
+          "t": 33.84,
           "do": {
             "lab": "journey",
             "arg": "0.85"
           }
         },
         {
-          "t": 45.38,
+          "t": 38.2,
           "do": {
             "lab": "journey",
             "arg": "0.98"
           }
         },
         {
-          "t": 47.16,
+          "t": 40.12,
           "do": {
             "scene": "gas-train"
           }
         },
         {
-          "t": 50.52,
+          "t": 43.12,
           "do": {
             "frame": [
               "filter-box"
@@ -319,7 +289,7 @@
           }
         },
         {
-          "t": 53.44,
+          "t": 45.22,
           "do": {
             "frame": [
               "cylinder-cutaway"
@@ -327,20 +297,20 @@
           }
         },
         {
-          "t": 64.16,
+          "t": 56.86,
           "do": {
             "scene": "garage"
           }
         },
         {
-          "t": 66.32,
+          "t": 59.84,
           "do": {
             "lab": "scenario",
             "arg": "engine-stops"
           }
         },
         {
-          "t": 66.32,
+          "t": 59.84,
           "do": {
             "frame": [
               "post-gas-plume"
@@ -348,56 +318,56 @@
           }
         },
         {
-          "t": 70.66,
+          "t": 64.04,
           "do": {
             "lab": "preset",
             "arg": "mf-1100"
           }
         },
         {
-          "t": 70.66,
+          "t": 64.04,
           "do": {
             "scene": "farm"
           }
         },
         {
-          "t": 79.1,
+          "t": 72.94,
           "do": {
             "mode": "assembly"
           }
         },
         {
-          "t": 84.48,
+          "t": 77.78,
           "do": {
             "mode": "install"
           }
         },
         {
-          "t": 87.76,
+          "t": 80.88,
           "do": {
             "mode": "sim"
           }
         },
         {
-          "t": 90.53,
+          "t": 84.19,
           "do": {
             "mode": "lessons"
           }
         },
         {
-          "t": 92.7,
+          "t": 85.93,
           "do": {
             "mode": "plans"
           }
         },
         {
-          "t": 94.24,
+          "t": 87.58,
           "do": {
             "mode": "explore"
           }
         },
         {
-          "t": 123.8,
+          "t": 116.7,
           "do": {
             "select": null
           }
@@ -410,53 +380,58 @@
       "title": "La ferme et son bois",
       "scene": "farm",
       "file": "scene-farm.mp3",
-      "duration": 36.56,
+      "duration": 35.2,
       "chars": 620,
-      "hash": "cc55d615a885ee63",
+      "hash": "2c0c4ea2b7e297f2",
       "captions": [
         {
           "t0": 0,
-          "t1": 4,
+          "t1": 4.1,
           "text": "Une grande ferme du sud de la Suède, vers mille neuf cent soixante-dix."
         },
         {
-          "t0": 4,
-          "t1": 7.22,
+          "t0": 4.1,
+          "t1": 7.24,
           "text": "Le bois commence ici, au sec, dans la grange."
         },
         {
-          "t0": 7.22,
-          "t1": 11.64,
+          "t0": 7.24,
+          "t1": 11.58,
           "text": "La déchiqueteuse le coupe en plaquettes, et le crible les débarrasse de leurs fines."
         },
         {
-          "t0": 11.64,
-          "t1": 15.96,
+          "t0": 11.58,
+          "t1": 15.2,
           "text": "Le tracteur les emporte, et traîne un brise-mottes de quatre mètres de large."
         },
         {
-          "t0": 15.96,
-          "t1": 21.56,
+          "t0": 15.2,
+          "t1": 20.62,
           "text": "Ce que la machine laisse, la cendre, et une eau noire, finit dans un bac et dans un fût."
         },
         {
-          "t0": 21.56,
-          "t1": 24.52,
+          "t0": 20.62,
+          "t1": 23.62,
           "text": "Et là, collé à la maison, le garage."
         },
         {
-          "t0": 24.52,
-          "t1": 25.22,
-          "text": "Gardez-le en tête."
+          "t0": 23.62,
+          "t1": 24.78,
+          "text": "Nous y reviendrons."
         },
         {
-          "t0": 25.22,
-          "t1": 31,
-          "text": "La ferme n’a aucune source : ses murs sont dessinés à l’échelle d’un tracteur de cinq tonnes."
+          "t0": 24.78,
+          "t1": 26.06,
+          "text": "La ferme n’a aucune source."
         },
         {
-          "t0": 31,
-          "t1": 36.56,
+          "t0": 26.06,
+          "t1": 29.08,
+          "text": "Ses murs sont dessinés à l’échelle d’un tracteur de cinq tonnes."
+        },
+        {
+          "t0": 29.08,
+          "t1": 35.2,
           "text": "Ce qui est réel, c’est ce que la machine y a fait : plus de deux mille cinq cents heures en six ans."
         }
       ],
@@ -468,13 +443,13 @@
           }
         },
         {
-          "t": 4,
+          "t": 4.1,
           "do": {
             "flows": true
           }
         },
         {
-          "t": 4,
+          "t": 4.1,
           "do": {
             "frame": [
               "chip-barn"
@@ -482,7 +457,7 @@
           }
         },
         {
-          "t": 7.22,
+          "t": 7.24,
           "do": {
             "frame": [
               "drum-chipper"
@@ -490,7 +465,7 @@
           }
         },
         {
-          "t": 8.9,
+          "t": 9.24,
           "do": {
             "frame": [
               "chip-sieve"
@@ -498,7 +473,7 @@
           }
         },
         {
-          "t": 11.64,
+          "t": 11.58,
           "do": {
             "frame": [
               "wood-gas-tractor"
@@ -506,7 +481,7 @@
           }
         },
         {
-          "t": 13.58,
+          "t": 13.08,
           "do": {
             "frame": [
               "clod-crusher"
@@ -514,7 +489,7 @@
           }
         },
         {
-          "t": 15.96,
+          "t": 15.2,
           "do": {
             "frame": [
               "ash-bin"
@@ -522,7 +497,7 @@
           }
         },
         {
-          "t": 18.08,
+          "t": 17.02,
           "do": {
             "frame": [
               "condensate-barrel"
@@ -530,13 +505,13 @@
           }
         },
         {
-          "t": 21.56,
+          "t": 20.62,
           "do": {
             "flows": false
           }
         },
         {
-          "t": 21.56,
+          "t": 20.62,
           "do": {
             "frame": [
               "farm-garage"
@@ -544,7 +519,7 @@
           }
         },
         {
-          "t": 25.22,
+          "t": 24.78,
           "do": {
             "home": true
           }
@@ -557,49 +532,54 @@
       "title": "Le tracteur et son système",
       "scene": "tractor",
       "file": "scene-tractor.mp3",
-      "duration": 26.08,
-      "chars": 440,
-      "hash": "8c309259c4302d5c",
+      "duration": 26.4,
+      "chars": 423,
+      "hash": "00ead36cedfa1da8",
       "captions": [
         {
           "t0": 0,
-          "t1": 3.3,
+          "t1": 3.38,
           "text": "La machine, sur le papier, qui roule sur place."
         },
         {
-          "t0": 3.3,
-          "t1": 9.18,
+          "t0": 3.38,
+          "t1": 9.42,
           "text": "Un tracteur de série, et sur son flanc gauche, le gazogène : quatre cent cinquante kilos de plus."
         },
         {
-          "t0": 9.18,
-          "t1": 11.9,
+          "t0": 9.42,
+          "t1": 12.04,
           "text": "Son sommet arrive presque à l’œil du conducteur."
         },
         {
-          "t0": 11.9,
-          "t1": 13.92,
-          "text": "Voyez, la cabine s’efface !"
+          "t0": 12.04,
+          "t1": 13.4,
+          "text": "La cabine s’efface."
         },
         {
-          "t0": 13.92,
-          "t1": 16.54,
+          "t0": 13.4,
+          "t1": 16.24,
           "text": "Sur le toit, une galerie porte les plaquettes du jour."
         },
         {
-          "t0": 16.54,
-          "t1": 20.52,
+          "t0": 16.24,
+          "t1": 20.13,
           "text": "Et le gaz file vers le moteur, par un filtre et un refroidisseur."
         },
         {
-          "t0": 20.52,
-          "t1": 23.74,
-          "text": "Écartons un peu les pièces, pour voir qui porte quoi…"
+          "t0": 20.13,
+          "t1": 23.44,
+          "text": "Écartées, les pièces montrent qui porte quoi."
         },
         {
-          "t0": 23.74,
-          "t1": 26.08,
-          "text": "Rien ne flotte : chaque pièce a son appui."
+          "t0": 23.44,
+          "t1": 24.54,
+          "text": "Rien ne flotte."
+        },
+        {
+          "t0": 24.54,
+          "t1": 26.4,
+          "text": "Chaque pièce a son appui."
         }
       ],
       "cues": [
@@ -610,7 +590,7 @@
           }
         },
         {
-          "t": 3.3,
+          "t": 3.38,
           "do": {
             "frame": [
               "tractor-chassis"
@@ -618,7 +598,7 @@
           }
         },
         {
-          "t": 6.14,
+          "t": 6.24,
           "do": {
             "frame": [
               "gasifier-unit"
@@ -626,7 +606,7 @@
           }
         },
         {
-          "t": 9.18,
+          "t": 9.42,
           "do": {
             "frame": [
               "cab"
@@ -634,19 +614,19 @@
           }
         },
         {
-          "t": 11.9,
+          "t": 12.04,
           "do": {
             "xray": true
           }
         },
         {
-          "t": 13.92,
+          "t": 13.4,
           "do": {
             "xray": false
           }
         },
         {
-          "t": 13.92,
+          "t": 13.4,
           "do": {
             "frame": [
               "roof-rack"
@@ -654,7 +634,7 @@
           }
         },
         {
-          "t": 16.54,
+          "t": 16.24,
           "do": {
             "frame": [
               "gas-line-run"
@@ -662,31 +642,31 @@
           }
         },
         {
-          "t": 16.54,
+          "t": 16.24,
           "do": {
             "flows": true
           }
         },
         {
-          "t": 20.52,
+          "t": 20.13,
           "do": {
             "flows": false
           }
         },
         {
-          "t": 20.52,
+          "t": 20.13,
           "do": {
             "home": true
           }
         },
         {
-          "t": 20.52,
+          "t": 20.13,
           "do": {
             "explode": 0.6
           }
         },
         {
-          "t": 23.74,
+          "t": 23.44,
           "do": {
             "explode": 0
           }
@@ -699,59 +679,59 @@
       "title": "Le voyage d’une plaquette",
       "scene": "gasifier",
       "file": "scene-gasifier.mp3",
-      "duration": 38.72,
-      "chars": 626,
-      "hash": "08848bf739b4b18f",
+      "duration": 36.88,
+      "chars": 600,
+      "hash": "59c833452537e7d4",
       "captions": [
         {
           "t0": 0,
-          "t1": 3.96,
-          "text": "Voici l’appareil, toujours en coupe, et sa plaquette qui voyage."
+          "t1": 3.36,
+          "text": "L’appareil est toujours montré en coupe, avec sa plaquette."
         },
         {
-          "t0": 3.96,
-          "t1": 10.34,
-          "text": "Elle entre par le couvercle, et là, la colonne l’entraîne tout doucement vers le bas : une heure environ."
+          "t0": 3.36,
+          "t1": 9.62,
+          "text": "Elle entre par le couvercle, et là, la colonne l’entraîne tout doucement vers le bas, en une heure environ."
         },
         {
-          "t0": 10.34,
-          "t1": 13.66,
-          "text": "D’abord, elle sèche : la vapeur d’eau s’en va."
+          "t0": 9.62,
+          "t1": 13.14,
+          "text": "D’abord, elle sèche, et la vapeur d’eau s’en va."
         },
         {
-          "t0": 13.66,
-          "t1": 16.28,
+          "t0": 13.14,
+          "t1": 15.88,
           "text": "Puis elle se défait en charbon et en vapeurs."
         },
         {
-          "t0": 16.28,
-          "t1": 18.42,
+          "t0": 15.88,
+          "t1": 18.04,
           "text": "Ces vapeurs doivent traverser la flamme."
         },
         {
-          "t0": 18.42,
-          "t1": 24.74,
+          "t0": 18.04,
+          "t1": 24.36,
           "text": "Après quoi le gaz chaud traverse du charbon rouge, où il se refroidit : c’est là qu’il devient combustible."
         },
         {
-          "t0": 24.74,
-          "t1": 27.14,
-          "text": "Reste un peu de cendre : c’est la fin du voyage."
+          "t0": 24.36,
+          "t1": 26.76,
+          "text": "Il reste un peu de cendre, à la fin du voyage."
         },
         {
-          "t0": 27.14,
-          "t1": 32.96,
+          "t0": 26.76,
+          "t1": 32.78,
           "text": "Le curseur du voyage et les planches du gazogène ne sont pas à l’échelle : exprès."
         },
         {
-          "t0": 32.96,
-          "t1": 36.04,
+          "t0": 32.78,
+          "t1": 35.08,
           "text": "La coupe, elle, est à l’échelle."
         },
         {
-          "t0": 36.04,
-          "t1": 38.72,
-          "text": "Voyez maintenant l’air entrer, et le gaz sortir…"
+          "t0": 35.08,
+          "t1": 36.88,
+          "text": "L’air entre, le gaz sort."
         }
       ],
       "cues": [
@@ -769,7 +749,7 @@
           }
         },
         {
-          "t": 3.96,
+          "t": 3.36,
           "do": {
             "frame": [
               "spring-lid"
@@ -777,7 +757,7 @@
           }
         },
         {
-          "t": 6.36,
+          "t": 5.62,
           "do": {
             "frame": [
               "chip-column"
@@ -785,14 +765,14 @@
           }
         },
         {
-          "t": 6.36,
+          "t": 5.62,
           "do": {
             "lab": "journey",
             "arg": "0.05"
           }
         },
         {
-          "t": 10.34,
+          "t": 9.62,
           "do": {
             "frame": [
               "drying-zone"
@@ -800,14 +780,14 @@
           }
         },
         {
-          "t": 10.34,
+          "t": 9.62,
           "do": {
             "lab": "journey",
             "arg": "0.15"
           }
         },
         {
-          "t": 13.66,
+          "t": 13.14,
           "do": {
             "frame": [
               "pyrolysis-zone"
@@ -815,14 +795,14 @@
           }
         },
         {
-          "t": 13.66,
+          "t": 13.14,
           "do": {
             "lab": "journey",
             "arg": "0.42"
           }
         },
         {
-          "t": 16.28,
+          "t": 15.88,
           "do": {
             "frame": [
               "oxidation-zone"
@@ -830,14 +810,14 @@
           }
         },
         {
-          "t": 16.28,
+          "t": 15.88,
           "do": {
             "lab": "journey",
             "arg": "0.62"
           }
         },
         {
-          "t": 18.42,
+          "t": 18.04,
           "do": {
             "frame": [
               "reduction-zone"
@@ -845,14 +825,14 @@
           }
         },
         {
-          "t": 18.42,
+          "t": 18.04,
           "do": {
             "lab": "journey",
             "arg": "0.85"
           }
         },
         {
-          "t": 24.74,
+          "t": 24.36,
           "do": {
             "frame": [
               "ash-pit"
@@ -860,33 +840,33 @@
           }
         },
         {
-          "t": 24.74,
+          "t": 24.36,
           "do": {
             "lab": "journey",
             "arg": "0.98"
           }
         },
         {
-          "t": 27.14,
+          "t": 26.76,
           "do": {
             "lab": "journey",
             "arg": "0.62"
           }
         },
         {
-          "t": 27.14,
+          "t": 26.76,
           "do": {
             "home": true
           }
         },
         {
-          "t": 36.04,
+          "t": 35.08,
           "do": {
             "flows": true
           }
         },
         {
-          "t": 38.72,
+          "t": 36.88,
           "do": {
             "flows": false
           }
@@ -899,53 +879,53 @@
       "title": "La ligne de gaz",
       "scene": "gas-train",
       "file": "scene-gas-train.mp3",
-      "duration": 33.2,
-      "chars": 528,
-      "hash": "69c7674911178120",
+      "duration": 32.56,
+      "chars": 524,
+      "hash": "713e8d4d216f6f34",
       "captions": [
         {
           "t0": 0,
-          "t1": 3.56,
+          "t1": 4.04,
           "text": "Le gaz, de la sortie au moteur, à plat et dans l’ordre."
         },
         {
-          "t0": 3.56,
-          "t1": 9.1,
+          "t0": 4.04,
+          "t1": 9.96,
           "text": "Il sort chaud, et le tuyau le garde chaud : trop tôt refroidi, il mouillerait le filtre."
         },
         {
-          "t0": 9.1,
-          "t1": 11.26,
+          "t0": 9.96,
+          "t1": 12.56,
           "text": "Là, une toile arrête la poussière."
         },
         {
-          "t0": 11.26,
-          "t1": 16.96,
-          "text": "Puis le refroidisseur le fait tomber vers vingt degrés : plus froid, il est plus dense."
+          "t0": 12.56,
+          "t1": 17.66,
+          "text": "Puis le refroidisseur le fait tomber vers vingt degrés, car un gaz plus froid est plus dense."
         },
         {
-          "t0": 16.96,
-          "t1": 19.04,
+          "t0": 17.66,
+          "t1": 19.86,
           "text": "Au mélangeur, il retrouve de l’air."
         },
         {
-          "t0": 19.04,
-          "t1": 21.82,
+          "t0": 19.86,
+          "t1": 22.24,
           "text": "Dans le cylindre, un filet de gazole l’allume."
         },
         {
-          "t0": 21.82,
-          "t1": 25.54,
-          "text": "Regardez le sol : des rubans disent où va l’énergie."
+          "t0": 22.24,
+          "t1": 25.44,
+          "text": "Au sol, des rubans disent où va l’énergie."
         },
         {
-          "t0": 25.54,
-          "t1": 31.22,
+          "t0": 25.44,
+          "t1": 30.8,
           "text": "Le bois qui entre, le gaz, le gazole, le travail à l’arbre, et en gris, les pertes."
         },
         {
-          "t0": 31.22,
-          "t1": 33.2,
+          "t0": 30.8,
+          "t1": 32.56,
           "text": "Il y a bien plus de gris que de travail."
         }
       ],
@@ -964,13 +944,13 @@
           }
         },
         {
-          "t": 3.56,
+          "t": 4.04,
           "do": {
             "flows": true
           }
         },
         {
-          "t": 3.56,
+          "t": 4.04,
           "do": {
             "frame": [
               "hot-gas-pipe"
@@ -978,7 +958,7 @@
           }
         },
         {
-          "t": 9.1,
+          "t": 9.96,
           "do": {
             "frame": [
               "filter-box"
@@ -986,7 +966,7 @@
           }
         },
         {
-          "t": 11.26,
+          "t": 12.56,
           "do": {
             "frame": [
               "gas-cooler"
@@ -994,7 +974,7 @@
           }
         },
         {
-          "t": 16.96,
+          "t": 17.66,
           "do": {
             "frame": [
               "gas-air-mixer"
@@ -1002,7 +982,7 @@
           }
         },
         {
-          "t": 19.04,
+          "t": 19.86,
           "do": {
             "frame": [
               "cylinder-cutaway"
@@ -1010,13 +990,13 @@
           }
         },
         {
-          "t": 21.82,
+          "t": 22.24,
           "do": {
             "flows": false
           }
         },
         {
-          "t": 21.82,
+          "t": 22.24,
           "do": {
             "home": true
           }
@@ -1029,69 +1009,59 @@
       "title": "Ce qu’elle fait quand on s’arrête",
       "scene": "garage",
       "file": "scene-garage.mp3",
-      "duration": 38.16,
+      "duration": 36.16,
       "chars": 658,
-      "hash": "4a26f75e4ce4f018",
+      "hash": "51fade557d09f379",
       "captions": [
         {
           "t0": 0,
-          "t1": 4.04,
+          "t1": 3.38,
           "text": "Le même tracteur, garé dans le garage, sous une chambre."
         },
         {
-          "t0": 4.04,
-          "t1": 5.34,
+          "t0": 3.38,
+          "t1": 4.76,
           "text": "Le moteur est arrêté."
         },
         {
-          "t0": 5.34,
-          "t1": 11.1,
+          "t0": 4.76,
+          "t1": 10.4,
           "text": "Mais le gaz continue de se former dans le lit chaud, et il sort, même d’une machine qui paraissait étanche."
         },
         {
-          "t0": 11.1,
-          "t1": 16.98,
-          "text": "Voici l’indicateur : sa lampe s’allume dès que le monoxyde a touché la pièce, et elle ne s’éteint plus."
+          "t0": 10.4,
+          "t1": 15.56,
+          "text": "L’indicateur a une lampe, qui s’allume dès que le monoxyde a touché la pièce et ne s’éteint plus."
         },
         {
-          "t0": 16.98,
-          "t1": 20.12,
+          "t0": 15.56,
+          "t1": 18.86,
           "text": "Là-haut, la chambre en reçoit à son tour, plus tard."
         },
         {
-          "t0": 20.12,
-          "t1": 21.32,
-          "text": "Et la porte ?"
+          "t0": 18.86,
+          "t1": 24.94,
+          "text": "Pour la porte, les Suédois ont jugé très insuffisant de lancer le ventilateur ou le moteur portes de garage ouvertes."
         },
         {
-          "t0": 21.32,
-          "t1": 26.62,
-          "text": "Les Suédois ont jugé très insuffisant de lancer le ventilateur ou le moteur portes de garage ouvertes."
-        },
-        {
-          "t0": 26.62,
-          "t1": 28.98,
+          "t0": 24.94,
+          "t1": 27.44,
           "text": "Ici, le moteur est arrêté."
         },
         {
-          "t0": 28.98,
-          "t1": 33.66,
-          "text": "Voyons la boîte du modèle, où l’air est bien mélangé : le chiffre tombe vite."
+          "t0": 27.44,
+          "t1": 29.89,
+          "text": "Dans la boîte du modèle, où l’air est bien mélangé,"
         },
         {
-          "t0": 33.66,
-          "t1": 35.48,
-          "text": "C’est ce qu’une boîte est faite pour dire."
+          "t0": 30,
+          "t1": 33.46,
+          "text": "le chiffre tombe vite : une boîte bien mélangée donne toujours cela."
         },
         {
-          "t0": 35.48,
-          "t1": 37.08,
-          "text": "Pendant combien de temps ?"
-        },
-        {
-          "t0": 37.08,
-          "t1": 38.16,
-          "text": "Les sources divergent."
+          "t0": 33.46,
+          "t1": 36.16,
+          "text": "Quant à la durée de la poussée, les sources divergent."
         }
       ],
       "cues": [
@@ -1109,7 +1079,7 @@
           }
         },
         {
-          "t": 4.04,
+          "t": 3.38,
           "do": {
             "frame": [
               "post-gas-plume"
@@ -1117,20 +1087,20 @@
           }
         },
         {
-          "t": 11.1,
+          "t": 10.4,
           "do": {
             "flows": true
           }
         },
         {
-          "t": 11.1,
+          "t": 10.4,
           "do": {
             "lab": "speed",
             "arg": "600"
           }
         },
         {
-          "t": 11.1,
+          "t": 10.4,
           "do": {
             "frame": [
               "co-indicator"
@@ -1138,7 +1108,7 @@
           }
         },
         {
-          "t": 16.98,
+          "t": 15.56,
           "do": {
             "frame": [
               "room-above"
@@ -1146,13 +1116,13 @@
           }
         },
         {
-          "t": 20.12,
+          "t": 18.86,
           "do": {
             "flows": false
           }
         },
         {
-          "t": 20.12,
+          "t": 18.86,
           "do": {
             "frame": [
               "garage-door"
@@ -1160,21 +1130,21 @@
           }
         },
         {
-          "t": 32.18,
+          "t": 30,
           "do": {
             "lab": "door",
             "arg": "open"
           }
         },
         {
-          "t": 35.48,
+          "t": 33.46,
           "do": {
             "lab": "preset",
             "arg": "mf-1100"
           }
         },
         {
-          "t": 35.48,
+          "t": 33.46,
           "do": {
             "home": true
           }
@@ -1187,39 +1157,34 @@
       "title": "Tracteur à gaz de bois",
       "scene": "farm",
       "file": "part-wood-gas-tractor.mp3",
-      "duration": 23.12,
-      "chars": 412,
-      "hash": "632160d7e47681ff",
+      "duration": 21.92,
+      "chars": 406,
+      "hash": "b5aaef743cabb09e",
       "captions": [
         {
           "t0": 0,
-          "t1": 5.54,
-          "text": "Voici la machine entière : un tracteur de cinq tonnes qui roule au bois, avec un filet de gazole !"
+          "t1": 5.16,
+          "text": "La machine entière est un tracteur de cinq tonnes qui roule au bois, avec un filet de gazole."
         },
         {
-          "t0": 5.54,
-          "t1": 10.56,
+          "t0": 5.16,
+          "t1": 9.9,
           "text": "À quarante kilowatts à l’arbre, le modèle brûle trente-quatre kilos de plaquettes à l’heure."
         },
         {
-          "t0": 10.56,
-          "t1": 13.3,
+          "t0": 9.9,
+          "t1": 12.72,
           "text": "Le banc de l’institut en a mesuré quarante et un."
         },
         {
-          "t0": 13.3,
-          "t1": 14.74,
-          "text": "Pourquoi cet écart ?"
+          "t0": 12.72,
+          "t1": 17.88,
+          "text": "L’écart vient du modèle : son moteur brûle mieux que celui du banc, et son gazogène aussi."
         },
         {
-          "t0": 14.74,
-          "t1": 18.94,
-          "text": "Le moteur du modèle brûle mieux que celui du banc, et son gazogène aussi."
-        },
-        {
-          "t0": 18.94,
-          "t1": 23.12,
-          "text": "Les conducteurs habituels n’en voulaient pas : c’était long, sale et lourd."
+          "t0": 17.88,
+          "t1": 21.92,
+          "text": "Les conducteurs habituels n’en voulaient pas, car c’était long, sale et lourd."
         }
       ],
       "cues": []
@@ -1263,28 +1228,28 @@
       "title": "Déchiqueteuse",
       "scene": "farm",
       "file": "part-drum-chipper.mp3",
-      "duration": 15.84,
-      "chars": 278,
-      "hash": "20fe1d6d2e026e03",
+      "duration": 16,
+      "chars": 280,
+      "hash": "9408fb8670d7bb8d",
       "captions": [
         {
           "t0": 0,
-          "t1": 3.04,
+          "t1": 3,
           "text": "Un tracteur à gaz de bois ne brûle pas des bûches."
         },
         {
-          "t0": 3.04,
-          "t1": 8.42,
-          "text": "Les plaquettes naissent ici : un tambour garni de couteaux, qui coupe le bois en morceaux."
+          "t0": 3,
+          "t1": 8.2,
+          "text": "Les plaquettes se font ici, dans un tambour garni de couteaux qui coupe le bois en morceaux."
         },
         {
-          "t0": 8.42,
-          "t1": 11.46,
+          "t0": 8.2,
+          "t1": 11.56,
           "text": "La taille compte, car le gaz doit passer entre eux."
         },
         {
-          "t0": 11.46,
-          "t1": 15.84,
+          "t0": 11.56,
+          "t1": 16,
           "text": "Selon le rapport, les bonnes plaquettes font surtout de quinze à trente millimètres."
         }
       ],
@@ -1296,34 +1261,29 @@
       "title": "Crible",
       "scene": "farm",
       "file": "part-chip-sieve.mp3",
-      "duration": 18.16,
-      "chars": 309,
-      "hash": "dad0cf1a00a47793",
+      "duration": 18.32,
+      "chars": 324,
+      "hash": "c53af3a7cc1de4d7",
       "captions": [
         {
           "t0": 0,
-          "t1": 5.28,
-          "text": "Les fines, ce sont les éclats et la poussière : elles bouchent le chemin du gaz."
+          "t1": 4.94,
+          "text": "Les fines, ce sont les éclats et la poussière, qui bouchent le chemin du gaz."
         },
         {
-          "t0": 5.28,
-          "t1": 10.54,
+          "t0": 4.94,
+          "t1": 10.26,
           "text": "Sur un tracteur de la même famille, des plaquettes criblées ont donné un quart de puissance de plus."
         },
         {
-          "t0": 10.54,
-          "t1": 11.21,
-          "text": "Le prix ?"
+          "t0": 10.26,
+          "t1": 13.42,
+          "text": "Le coût : quatorze pour cent du bois jeté."
         },
         {
-          "t0": 11.21,
-          "t1": 14.16,
-          "text": "Quatorze pour cent du bois jeté."
-        },
-        {
-          "t0": 14.16,
-          "t1": 18.16,
-          "text": "Le modèle ne trouve que dix pour cent de gain ici : il n’a que la perte de pression."
+          "t0": 13.42,
+          "t1": 18.32,
+          "text": "Le modèle ne trouve que dix pour cent de gain ici, car il ne tient compte que de la perte de pression."
         }
       ],
       "cues": []
@@ -1334,29 +1294,29 @@
       "title": "Brise-mottes",
       "scene": "farm",
       "file": "part-clod-crusher.mp3",
-      "duration": 14.32,
-      "chars": 255,
-      "hash": "7e6fb1d2a6ffebc6",
+      "duration": 12.16,
+      "chars": 226,
+      "hash": "89c89495bb4d0f32",
       "captions": [
         {
           "t0": 0,
-          "t1": 4.21,
-          "text": "C’est la raison d’être de toute la machine : un brise-mottes de quatre mètres de large,"
+          "t1": 4.31,
+          "text": "La raison d’être de toute la machine, c’est un brise-mottes de quatre mètres de large,"
         },
         {
-          "t0": 4.4,
-          "t1": 6.34,
+          "t0": 4.46,
+          "t1": 6.28,
           "text": "traîné derrière le tracteur."
         },
         {
-          "t0": 6.34,
-          "t1": 10.7,
+          "t0": 6.28,
+          "t1": 10.54,
           "text": "Plus de deux mille cinq cents heures de service en six ans, transports compris."
         },
         {
-          "t0": 10.7,
-          "t1": 14.32,
-          "text": "Voyez, il s’est arrêté : la caméra ne court pas après lui."
+          "t0": 10.54,
+          "t1": 12.16,
+          "text": "À l’écran, il reste à l’arrêt."
         }
       ],
       "cues": []
@@ -1471,28 +1431,33 @@
       "title": "Fût de condensats",
       "scene": "farm",
       "file": "part-condensate-barrel.mp3",
-      "duration": 18,
-      "chars": 308,
-      "hash": "7013315514f0a66d",
+      "duration": 16.08,
+      "chars": 302,
+      "hash": "71d56b7a4e0b43a5",
       "captions": [
         {
           "t0": 0,
-          "t1": 5.5,
-          "text": "Voici où finit l’eau noire : en refroidissant, le gaz laisse de l’eau chargée de goudrons."
+          "t1": 1.78,
+          "text": "L’eau noire finit ici."
         },
         {
-          "t0": 5.5,
-          "t1": 10.58,
+          "t0": 1.78,
+          "t1": 5.38,
+          "text": "En refroidissant, le gaz laisse de l’eau chargée de goudrons."
+        },
+        {
+          "t0": 5.38,
+          "t1": 9.94,
           "text": "Typiquement, elle contient mille cinq cents à trois mille milligrammes de phénols par litre."
         },
         {
-          "t0": 10.58,
-          "t1": 15.08,
+          "t0": 9.94,
+          "t1": 13.8,
           "text": "C’est cent cinquante à trois cents fois la limite d’égout de la Suède en guerre."
         },
         {
-          "t0": 15.08,
-          "t1": 18,
+          "t0": 13.8,
+          "t1": 16.08,
           "text": "Pour son sort, voyez votre autorité locale."
         }
       ],
@@ -1504,28 +1469,28 @@
       "title": "Fossé",
       "scene": "farm",
       "file": "part-field-ditch.mp3",
-      "duration": 12.72,
-      "chars": 222,
-      "hash": "d8781cabf59804df",
+      "duration": 12.8,
+      "chars": 216,
+      "hash": "4a0fbd89f9c9b88f",
       "captions": [
         {
           "t0": 0,
-          "t1": 2.66,
+          "t1": 2.92,
           "text": "Un fossé borde presque toute ferme de plaine."
         },
         {
-          "t0": 2.66,
-          "t1": 5.94,
-          "text": "Celui-ci ne fait rien, exprès : rien n’y coule."
+          "t0": 2.92,
+          "t1": 6.02,
+          "text": "Celui-ci ne fait rien, exprès, et rien n’y coule."
         },
         {
-          "t0": 5.94,
-          "t1": 9,
-          "text": "Il ne pose qu’une question : où allait l’eau noire ?"
+          "t0": 6.02,
+          "t1": 8.86,
+          "text": "Reste une question : où allait l’eau noire ?"
         },
         {
-          "t0": 9,
-          "t1": 12.72,
+          "t0": 8.86,
+          "t1": 12.8,
           "text": "Dans les deux fermes de l’institut, rien de ce que nous avons lu ne le dit."
         }
       ],
@@ -1537,40 +1502,40 @@
       "title": "Châssis",
       "scene": "tractor",
       "file": "part-tractor-chassis.mp3",
-      "duration": 17.25,
-      "chars": 283,
-      "hash": "d7b39236e0bfa1f6",
+      "duration": 15.41,
+      "chars": 275,
+      "hash": "2f56a42eb264a3d9",
       "captions": [
         {
           "t0": 0,
-          "t1": 3.08,
+          "t1": 2.84,
           "text": "Sans son gazogène, c’est un tracteur de série."
         },
         {
-          "t0": 3.08,
-          "t1": 9,
+          "t0": 2.84,
+          "t1": 8.16,
           "text": "Le système pèse quatre cent cinquante kilos : presque neuf pour cent du tracteur en version gaz."
         },
         {
-          "t0": 9,
-          "t1": 13,
-          "text": "Voyez tout le reste quitter le châssis, chacun le long de sa ligne !"
+          "t0": 8.16,
+          "t1": 11.82,
+          "text": "Tout le reste quitte le châssis, chacun le long de sa ligne."
         },
         {
-          "t0": 13,
-          "t1": 17.25,
+          "t0": 11.82,
+          "t1": 15.41,
           "text": "L’institut a aussi retiré les masses avant, et tourné le filtre à air."
         }
       ],
       "cues": [
         {
-          "t": 9,
+          "t": 8.16,
           "do": {
             "explode": 0.7
           }
         },
         {
-          "t": 13,
+          "t": 11.82,
           "do": {
             "explode": 0
           }
@@ -1583,45 +1548,40 @@
       "title": "Cabine",
       "scene": "tractor",
       "file": "part-cab.mp3",
-      "duration": 13.52,
-      "chars": 227,
-      "hash": "249d33053f689906",
+      "duration": 13.12,
+      "chars": 221,
+      "hash": "a9e5305011f5ca22",
       "captions": [
         {
           "t0": 0,
-          "t1": 1.48,
+          "t1": 1.42,
           "text": "Là où l’on conduit."
         },
         {
-          "t0": 1.48,
-          "t1": 7.38,
+          "t0": 1.42,
+          "t1": 7.86,
           "text": "Le sommet du gazogène arrive juste sous l’œil du conducteur : de trois à dix-huit centimètres d’écart."
         },
         {
-          "t0": 7.38,
-          "t1": 10.44,
-          "text": "La cabine s’efface : le sommet se lit tout contre l’œil."
+          "t0": 7.86,
+          "t1": 11.18,
+          "text": "La cabine s’efface, et le sommet se lit tout contre l’œil."
         },
         {
-          "t0": 10.44,
-          "t1": 11.9,
-          "text": "Et l’air de la cabine ?"
-        },
-        {
-          "t0": 11.9,
-          "t1": 13.52,
-          "text": "Personne ne l’a mesuré."
+          "t0": 11.18,
+          "t1": 13.12,
+          "text": "Personne n’a mesuré l’air de la cabine."
         }
       ],
       "cues": [
         {
-          "t": 7.38,
+          "t": 7.86,
           "do": {
             "xray": true
           }
         },
         {
-          "t": 10.44,
+          "t": 11.18,
           "do": {
             "xray": false
           }
@@ -1634,24 +1594,24 @@
       "title": "Galerie",
       "scene": "tractor",
       "file": "part-roof-rack.mp3",
-      "duration": 15.28,
+      "duration": 13.04,
       "chars": 254,
-      "hash": "87574aaa8693dc8d",
+      "hash": "aaf9cc7c30917977",
       "captions": [
         {
           "t0": 0,
-          "t1": 3.84,
+          "t1": 3.34,
           "text": "La soute ne tient que quarante à cinquante minutes de plaquettes."
         },
         {
-          "t0": 3.84,
-          "t1": 11.18,
+          "t0": 3.34,
+          "t1": 9.9,
           "text": "Le reste voyage sur le toit, au-dessus du conducteur : un poste de huit heures en demande plus de deux cents kilos."
         },
         {
-          "t0": 11.18,
-          "t1": 15.28,
-          "text": "Le lab ne dit pas que c’était un bon choix, mais que c’était nécessaire."
+          "t0": 9.9,
+          "t1": 13.04,
+          "text": "On ne sait pas si c’était un bon choix ; c’était en tout cas nécessaire."
         }
       ],
       "cues": []
@@ -1718,41 +1678,41 @@
       "title": "Roues avant",
       "scene": "tractor",
       "file": "part-front-wheels.mp3",
-      "duration": 13.76,
-      "chars": 242,
-      "hash": "5f963742d1d6a1ed",
+      "duration": 12.56,
+      "chars": 236,
+      "hash": "ac2c9ebe207dcc94",
       "captions": [
         {
           "t0": 0,
-          "t1": 3.62,
-          "text": "Voyez : le moteur s’arrête, et les roues cessent de rouler."
+          "t1": 2.8,
+          "text": "Le moteur s’arrête, et les roues cessent de rouler."
         },
         {
-          "t0": 3.62,
-          "t1": 7.8,
-          "text": "Elles sont plus petites, et allégées : l’institut a retiré les masses avant,"
+          "t0": 2.8,
+          "t1": 4.67,
+          "text": "Elles sont plus petites, et allégées,"
         },
         {
-          "t0": 7.8,
-          "t1": 10.22,
-          "text": "pour faire place au refroidisseur."
+          "t0": 4.76,
+          "t1": 9.22,
+          "text": "car l’institut a retiré les masses avant pour faire place au refroidisseur."
         },
         {
-          "t0": 10.22,
-          "t1": 13.76,
+          "t0": 9.22,
+          "t1": 12.56,
           "text": "Comment la direction l’a pris, rien de ce que nous avons lu ne le dit."
         }
       ],
       "cues": [
         {
-          "t": 0.68,
+          "t": 0,
           "do": {
             "lab": "scenario",
             "arg": "engine-stops"
           }
         },
         {
-          "t": 13.76,
+          "t": 12.56,
           "do": {
             "lab": "preset",
             "arg": "mf-1100"
@@ -1766,44 +1726,39 @@
       "title": "Moteur diesel",
       "scene": "tractor",
       "file": "part-diesel-engine.mp3",
-      "duration": 21.44,
-      "chars": 380,
-      "hash": "1ec4f9db1c4bebff",
+      "duration": 21.52,
+      "chars": 390,
+      "hash": "14961c11892f5c7c",
       "captions": [
         {
           "t0": 0,
-          "t1": 3.75,
+          "t1": 4.14,
           "text": "Au gazole seul, ce six-cylindres donne soixante-quatre kilowatts ;"
         },
         {
-          "t0": 3.8,
-          "t1": 6.98,
+          "t0": 4.2,
+          "t1": 7.1,
           "text": "au gaz avec un filet de gazole, cinquante et un."
         },
         {
-          "t0": 6.98,
-          "t1": 8.74,
+          "t0": 7.1,
+          "t1": 12.84,
+          "text": "Le mélange de gaz et d’air contient moins d’énergie : deux mille cinq cents kilojoules par mètre cube."
+        },
+        {
+          "t0": 12.84,
+          "t1": 15.7,
+          "text": "Celui de l’essence en contient trois mille huit cents."
+        },
+        {
+          "t0": 15.7,
+          "t1": 17.49,
           "text": "Le modèle en trouve cinquante-cinq,"
         },
         {
-          "t0": 8.8,
-          "t1": 13.66,
+          "t0": 17.56,
+          "t1": 21.52,
           "text": "mais cet accord vaut peu : il lit trente pour cent trop haut les autres moteurs."
-        },
-        {
-          "t0": 13.66,
-          "t1": 14.86,
-          "text": "Pourquoi moins ?"
-        },
-        {
-          "t0": 14.86,
-          "t1": 19.06,
-          "text": "Le mélange de gaz et d’air contient deux mille cinq cents kilojoules par mètre cube."
-        },
-        {
-          "t0": 19.06,
-          "t1": 21.44,
-          "text": "L’essence en contient trois mille huit cents."
         }
       ],
       "cues": []
@@ -1814,33 +1769,28 @@
       "title": "Pompe d’injection",
       "scene": "tractor",
       "file": "part-injection-pump.mp3",
-      "duration": 15.12,
-      "chars": 252,
-      "hash": "ad2b17f7f4ad03de",
+      "duration": 14.08,
+      "chars": 239,
+      "hash": "d9af1aaa85be1f29",
       "captions": [
         {
           "t0": 0,
-          "t1": 6.1,
-          "text": "Même au gaz, le diesel garde sa pompe : c’est elle qui dose le filet de gazole dont la flamme a besoin."
+          "t1": 5.48,
+          "text": "Même au gaz, le diesel garde sa pompe, qui dose le filet de gazole dont la flamme a besoin."
         },
         {
-          "t0": 6.1,
-          "t1": 9.3,
-          "text": "Mais elle est sous le capot, tout près du gazogène…"
+          "t0": 5.48,
+          "t1": 9.36,
+          "text": "Mais elle est sous le capot, tout près du gazogène, qui est chaud."
         },
         {
-          "t0": 9.3,
-          "t1": 10.34,
-          "text": "qui est chaud !"
-        },
-        {
-          "t0": 10.34,
-          "t1": 12.58,
+          "t0": 9.36,
+          "t1": 11.64,
           "text": "À vingt-cinq heures, elle a grippé."
         },
         {
-          "t0": 12.58,
-          "t1": 15.12,
+          "t0": 11.64,
+          "t1": 14.08,
           "text": "L’institut a ajouté un écran de rayonnement."
         }
       ],
@@ -1852,23 +1802,23 @@
       "title": "Écran thermique",
       "scene": "tractor",
       "file": "part-heat-shield.mp3",
-      "duration": 13.6,
-      "chars": 240,
-      "hash": "0351d6503c8a64c5",
+      "duration": 13.2,
+      "chars": 217,
+      "hash": "06bde781ba580238",
       "captions": [
         {
           "t0": 0,
-          "t1": 6.5,
-          "text": "Une plaque d’acier est muette, mais elle raconte : on n’ajoute un écran qu’après avoir vu quelque chose griller."
+          "t1": 5.38,
+          "text": "Un écran n’est ajouté qu’après avoir vu quelque chose griller : celui-ci en est la trace."
         },
         {
-          "t0": 6.5,
-          "t1": 10.78,
+          "t0": 5.38,
+          "t1": 10.2,
           "text": "La tôle du gazogène atteint environ deux cent dix degrés, une estimation."
         },
         {
-          "t0": 10.78,
-          "t1": 13.6,
+          "t0": 10.2,
+          "t1": 13.2,
           "text": "Ni la matière, ni la taille de l’écran ne sont dites."
         }
       ],
@@ -1936,40 +1886,40 @@
       "title": "Gazogène",
       "scene": "tractor",
       "file": "part-gasifier-unit.mp3",
-      "duration": 16.88,
-      "chars": 284,
-      "hash": "aecbcd46c12edcb8",
+      "duration": 13.36,
+      "chars": 242,
+      "hash": "1743f7d0d5799e86",
       "captions": [
         {
           "t0": 0,
-          "t1": 5.2,
-          "text": "Voici le cœur de la machine : deux mètres vingt-deux de haut, et il fabrique le gaz !"
+          "t1": 2.86,
+          "text": "Le gazogène mesure deux mètres vingt-deux de haut."
         },
         {
-          "t0": 5.2,
-          "t1": 8.02,
+          "t0": 2.86,
+          "t1": 5.66,
           "text": "Des plaquettes y descendent, et il en sort du gaz."
         },
         {
-          "t0": 8.02,
-          "t1": 10.56,
-          "text": "Voyez le feu briller dans la tôle du bas."
+          "t0": 5.66,
+          "t1": 7.68,
+          "text": "Le feu brille dans la tôle du bas."
         },
         {
-          "t0": 10.56,
-          "t1": 16.88,
+          "t0": 7.68,
+          "t1": 13.36,
           "text": "Au banc, le gaz vaut cinq virgule six mégajoules par mètre cube ; le modèle en trouve cinq virgule trois."
         }
       ],
       "cues": [
         {
-          "t": 8.02,
+          "t": 5.66,
           "do": {
             "xray": true
           }
         },
         {
-          "t": 10.56,
+          "t": 7.68,
           "do": {
             "xray": false
           }
@@ -2028,23 +1978,23 @@
       "title": "Couvercle à ressort",
       "scene": "gasifier",
       "file": "part-spring-lid.mp3",
-      "duration": 16.4,
-      "chars": 280,
-      "hash": "46f162ac3b3cf1bf",
+      "duration": 15.12,
+      "chars": 264,
+      "hash": "aaa857dc94454a1a",
       "captions": [
         {
           "t0": 0,
-          "t1": 5.46,
-          "text": "Un couvercle et un ressort : la pièce la plus simple, et la plus lourde de conséquences."
+          "t1": 4.02,
+          "text": "Un couvercle et un ressort, c’est la pièce la plus simple de la machine."
         },
         {
-          "t0": 5.46,
-          "t1": 12.46,
+          "t0": 4.02,
+          "t1": 11.18,
           "text": "S’il ne ferme pas, l’air entre par le haut : le livre suédois dit qu’un gazogène garé brûle alors comme un poêle."
         },
         {
-          "t0": 12.46,
-          "t1": 16.4,
+          "t0": 11.18,
+          "t1": 15.12,
           "text": "Le modèle l’essaie sur trois fuites : la plus grande dure environ six heures."
         }
       ],
@@ -2084,29 +2034,29 @@
       "title": "Colonne de plaquettes",
       "scene": "gasifier",
       "file": "part-chip-column.mp3",
-      "duration": 16.08,
-      "chars": 309,
-      "hash": "c1e791e7cd34ee60",
+      "duration": 15.44,
+      "chars": 258,
+      "hash": "25498da75ceb5eba",
       "captions": [
         {
           "t0": 0,
-          "t1": 2.12,
-          "text": "Voici les deux vitesses de cette machine."
+          "t1": 2.2,
+          "text": "La machine a deux vitesses."
         },
         {
-          "t0": 2.12,
-          "t1": 7.5,
-          "text": "La colonne descend d’environ un centimètre et demi par minute : une plaquette met une heure à descendre."
+          "t0": 2.2,
+          "t1": 7.98,
+          "text": "La colonne descend d’environ un centimètre et demi par minute, et une plaquette met une heure à descendre."
         },
         {
-          "t0": 7.5,
-          "t1": 11.28,
+          "t0": 7.98,
+          "t1": 12.24,
           "text": "Le gaz, lui, traverse le même lit en quelques centièmes de seconde."
         },
         {
-          "t0": 11.28,
-          "t1": 16.08,
-          "text": "Le bois à l’allure d’un escargot, le gaz d’un trait : c’est ce rapport qui fait de l’énergie !"
+          "t0": 12.24,
+          "t1": 15.44,
+          "text": "Le bois va à l’allure d’un escargot, le gaz d’un trait."
         }
       ],
       "cues": [
@@ -2118,7 +2068,7 @@
           }
         },
         {
-          "t": 16.08,
+          "t": 15.44,
           "do": {
             "lab": "journey",
             "arg": "0.62"
@@ -2235,54 +2185,49 @@
       "title": "Zone d’oxydation",
       "scene": "gasifier",
       "file": "part-oxidation-zone.mp3",
-      "duration": 27.04,
-      "chars": 502,
-      "hash": "b5a6c54c32741208",
+      "duration": 24.32,
+      "chars": 453,
+      "hash": "65cc5ba711906910",
       "captions": [
         {
           "t0": 0,
-          "t1": 1.24,
-          "text": "Voici le feu !"
+          "t1": 0.9,
+          "text": "Le feu."
         },
         {
-          "t0": 1.24,
-          "t1": 4.56,
+          "t0": 0.9,
+          "t1": 4.52,
           "text": "De mille deux cents à quinze cents degrés, écrit le rapport."
         },
         {
-          "t0": 4.56,
-          "t1": 9.96,
+          "t0": 4.52,
+          "t1": 10.18,
           "text": "Le modèle trouve mille deux cent trente-cinq degrés, et mille soixante-seize avec la perte de la paroi."
         },
         {
-          "t0": 9.96,
-          "t1": 12.22,
+          "t0": 10.18,
+          "t1": 12.4,
           "text": "Les vapeurs doivent traverser cette flamme."
         },
         {
-          "t0": 12.22,
-          "t1": 17.16,
+          "t0": 12.4,
+          "t1": 17.08,
           "text": "Presque aucun goudron n’en sort : zéro virgule zéro trois pour cent du bois, au banc."
         },
         {
-          "t0": 17.16,
-          "t1": 20.08,
+          "t0": 17.08,
+          "t1": 20.24,
           "text": "Un gazogène à courant montant en laisse cinq à vingt pour cent."
         },
         {
-          "t0": 20.08,
-          "t1": 25.14,
+          "t0": 20.24,
+          "t1": 24.32,
           "text": "Un feu qui manque d’air fait du gaz ; un feu qui en a assez ne laisse que des cendres."
-        },
-        {
-          "t0": 25.14,
-          "t1": 27.04,
-          "text": "Tout le gazogène tient dans cette phrase."
         }
       ],
       "cues": [
         {
-          "t": 1.24,
+          "t": 0.9,
           "do": {
             "lab": "journey",
             "arg": "0.62"
@@ -2296,46 +2241,46 @@
       "title": "Zone de réduction",
       "scene": "gasifier",
       "file": "part-reduction-zone.mp3",
-      "duration": 24.56,
-      "chars": 421,
-      "hash": "5ddd1df051f50c7a",
+      "duration": 24.4,
+      "chars": 401,
+      "hash": "b6f076d0d66a26be",
       "captions": [
         {
           "t0": 0,
-          "t1": 3.8,
-          "text": "Sous la flamme, un lit de charbon rouge, et un tour de magie."
+          "t1": 2.78,
+          "text": "Sous la flamme, un lit de charbon rouge."
         },
         {
-          "t0": 3.8,
-          "t1": 7.22,
-          "text": "Le gaz s’y refroidit, et c’est là qu’il devient combustible !"
+          "t0": 2.78,
+          "t1": 6.34,
+          "text": "Le gaz s’y refroidit, et c’est là qu’il devient combustible."
         },
         {
-          "t0": 7.22,
-          "t1": 13.26,
+          "t0": 6.34,
+          "t1": 12.56,
           "text": "Le gaz carbonique reprend du carbone et devient du monoxyde ; la vapeur d’eau devient de l’hydrogène."
         },
         {
-          "t0": 13.26,
-          "t1": 18.46,
-          "text": "Ces réactions prennent de la chaleur : le gaz perd environ trois cent soixante-dix degrés."
+          "t0": 12.56,
+          "t1": 17.74,
+          "text": "Ces réactions prennent de la chaleur, et le gaz perd environ trois cent soixante-dix degrés."
         },
         {
-          "t0": 18.46,
-          "t1": 24.56,
+          "t0": 17.74,
+          "t1": 24.4,
           "text": "Il sort, selon le modèle, avec un cinquième de monoxyde, un sixième d’hydrogène, presque moitié d’azote."
         }
       ],
       "cues": [
         {
-          "t": 3.8,
+          "t": 2.78,
           "do": {
             "lab": "journey",
             "arg": "0.85"
           }
         },
         {
-          "t": 24.56,
+          "t": 24.4,
           "do": {
             "lab": "journey",
             "arg": "0.62"
@@ -2349,24 +2294,24 @@
       "title": "Déflecteur",
       "scene": "gasifier",
       "file": "part-fuel-baffle.mp3",
-      "duration": 14,
-      "chars": 246,
-      "hash": "a04eb96774259354",
+      "duration": 13.12,
+      "chars": 240,
+      "hash": "d49c14353dfb578a",
       "captions": [
         {
           "t0": 0,
-          "t1": 6.48,
-          "text": "Voici une pièce que le lab dessine sans pouvoir la citer : le rapport la montre sur une figure, sans un mot."
+          "t1": 6.28,
+          "text": "Cette pièce est dessinée sans qu’aucun texte la décrive : le rapport la montre sur une figure, sans un mot."
         },
         {
-          "t0": 6.48,
-          "t1": 12.3,
+          "t0": 6.28,
+          "t1": 11.48,
           "text": "Notre lecture : elle tient les plaquettes loin de la paroi froide, où l’eau et les goudrons collent."
         },
         {
-          "t0": 12.3,
-          "t1": 14,
-          "text": "Mais c’est une lecture, pas un fait."
+          "t0": 11.48,
+          "t1": 13.12,
+          "text": "Rien ne confirme cette lecture."
         }
       ],
       "cues": []
@@ -2377,40 +2322,35 @@
       "title": "Manchon de condensation",
       "scene": "gasifier",
       "file": "part-condensate-sleeve.mp3",
-      "duration": 16.48,
-      "chars": 295,
-      "hash": "154ce20a32e0b6a1",
+      "duration": 14.48,
+      "chars": 253,
+      "hash": "7343786b6bae1096",
       "captions": [
         {
           "t0": 0,
-          "t1": 1.84,
-          "text": "Voici une astuce de bon sens !"
+          "t1": 5.56,
+          "text": "Au lieu de laisser l’eau du bois descendre refroidir le feu, on la fait se condenser ailleurs."
         },
         {
-          "t0": 1.84,
-          "t1": 7.54,
-          "text": "Au lieu de laisser l’eau du bois descendre dans le feu et le refroidir, on la fait se condenser ailleurs."
-        },
-        {
-          "t0": 7.54,
-          "t1": 12.33,
+          "t0": 5.56,
+          "t1": 10.53,
           "text": "La vapeur traverse les perforations, touche la paroi froide, et coule vers la purge."
         },
         {
-          "t0": 12.33,
-          "t1": 16.48,
+          "t0": 10.53,
+          "t1": 14.48,
           "text": "Soixante à quatre-vingts pour cent de l’eau du bois peut ainsi s’évacuer."
         }
       ],
       "cues": [
         {
-          "t": 7.54,
+          "t": 5.56,
           "do": {
             "flows": true
           }
         },
         {
-          "t": 12.33,
+          "t": 10.53,
           "do": {
             "flows": false
           }
@@ -2423,29 +2363,24 @@
       "title": "Purge",
       "scene": "gasifier",
       "file": "part-condensate-drain.mp3",
-      "duration": 13.84,
-      "chars": 240,
-      "hash": "774ce04317dbb57b",
+      "duration": 12.8,
+      "chars": 231,
+      "hash": "e0f8d88f7db4cd85",
       "captions": [
         {
           "t0": 0,
-          "t1": 2.16,
+          "t1": 2.05,
           "text": "La sortie de l’eau noire, vers un bac."
         },
         {
-          "t0": 2.16,
-          "t1": 7.58,
+          "t0": 2.05,
+          "t1": 7.26,
           "text": "Sans bac, écrit le rapport, elle reviendrait mouiller le lit de charbon après un arrêt."
         },
         {
-          "t0": 7.58,
-          "t1": 8.38,
-          "text": "Combien ?"
-        },
-        {
-          "t0": 8.38,
-          "t1": 13.84,
-          "text": "Un virgule neuf litre à l’heure à huit pour cent d’humidité, cinq virgule sept à vingt, dans le modèle."
+          "t0": 7.26,
+          "t1": 12.8,
+          "text": "Le modèle compte un virgule neuf litre à l’heure à huit pour cent d’humidité, cinq virgule sept à vingt."
         }
       ],
       "cues": []
@@ -2456,58 +2391,58 @@
       "title": "Verrou à came",
       "scene": "gasifier",
       "file": "part-eccentric-lock.mp3",
-      "duration": 23.04,
-      "chars": 394,
-      "hash": "82c5c05dace41f1b",
+      "duration": 23.44,
+      "chars": 395,
+      "hash": "13b8aca530f19ed4",
       "captions": [
         {
           "t0": 0,
-          "t1": 5.4,
-          "text": "Le gazogène est fait de deux corps : le haut garde le combustible, le bas garde le feu."
+          "t1": 5.92,
+          "text": "Le gazogène est fait de deux corps, le haut qui garde le combustible et le bas qui garde le feu."
         },
         {
-          "t0": 5.4,
-          "t1": 8.28,
+          "t0": 5.92,
+          "t1": 8.84,
           "text": "Une bande les tient, et ce verrou serre la bande."
         },
         {
-          "t0": 8.28,
-          "t1": 13.4,
+          "t0": 8.84,
+          "t1": 14.1,
           "text": "Mais chaque joint laisse l’air entrer, et cet air brûle le gaz fini, près de la grille."
         },
         {
-          "t0": 13.4,
-          "t1": 18.5,
-          "text": "Voyez : le gaz tombe de cinq virgule trois à quatre virgule deux mégajoules."
+          "t0": 14.1,
+          "t1": 18.18,
+          "text": "Le gaz tombe de cinq virgule trois à quatre virgule deux mégajoules."
         },
         {
-          "t0": 18.5,
-          "t1": 23.04,
+          "t0": 18.18,
+          "t1": 23.44,
           "text": "La taille de la fuite est une supposition ; le sens ne l’est pas : plus chaud, plus faible."
         }
       ],
       "cues": [
         {
-          "t": 5.4,
+          "t": 5.92,
           "do": {
             "explode": 0.5
           }
         },
         {
-          "t": 8.28,
+          "t": 8.84,
           "do": {
             "explode": 0
           }
         },
         {
-          "t": 8.28,
+          "t": 8.84,
           "do": {
             "lab": "scenario",
             "arg": "air-leak"
           }
         },
         {
-          "t": 23.04,
+          "t": 23.44,
           "do": {
             "lab": "preset",
             "arg": "mf-1100"
@@ -2521,40 +2456,35 @@
       "title": "Enveloppe",
       "scene": "gasifier",
       "file": "part-outer-casing.mp3",
-      "duration": 15.2,
-      "chars": 267,
-      "hash": "49e5bef38e1ed2bc",
+      "duration": 12.8,
+      "chars": 232,
+      "hash": "0b10990014505986",
       "captions": [
         {
           "t0": 0,
-          "t1": 5.36,
-          "text": "La tôle chaude du gazogène : environ deux cent dix degrés à pleine charge, dans le modèle."
+          "t1": 5.4,
+          "text": "La tôle chaude du gazogène atteint environ deux cent dix degrés à pleine charge, dans le modèle."
         },
         {
-          "t0": 5.36,
-          "t1": 9.5,
+          "t0": 5.4,
+          "t1": 9.44,
           "text": "Le corps du haut s’efface, et le feu brille dans la tôle du bas."
         },
         {
-          "t0": 9.5,
-          "t1": 13.32,
-          "text": "Deux comptes de ses pertes ne se recoupent pas : le lab laisse les deux,"
-        },
-        {
-          "t0": 13.48,
-          "t1": 15.2,
-          "text": "il ne choisit pas celui qui l’arrange."
+          "t0": 9.44,
+          "t1": 12.8,
+          "text": "Deux comptes de ses pertes ne se recoupent pas : les deux sont gardés."
         }
       ],
       "cues": [
         {
-          "t": 5.36,
+          "t": 5.4,
           "do": {
             "xray": true
           }
         },
         {
-          "t": 9.5,
+          "t": 9.44,
           "do": {
             "xray": false
           }
@@ -2567,29 +2497,24 @@
       "title": "Prise d’air",
       "scene": "gasifier",
       "file": "part-air-intake.mp3",
-      "duration": 18.4,
-      "chars": 304,
-      "hash": "bb88b7c3dfb86b4b",
+      "duration": 14.64,
+      "chars": 225,
+      "hash": "5eb67baebe03d31f",
       "captions": [
         {
           "t0": 0,
-          "t1": 5.3,
+          "t1": 5.8,
           "text": "Par ici entre l’air du feu, aspiré par le moteur : toute la ligne est en dépression."
         },
         {
-          "t0": 5.3,
-          "t1": 10.04,
+          "t0": 5.8,
+          "t1": 10.86,
           "text": "Quand le moteur s’arrête, l’aspiration cesse, et le gaz continue de se former."
         },
         {
-          "t0": 10.04,
-          "t1": 14.02,
+          "t0": 10.86,
+          "t1": 14.64,
           "text": "Le sens s’inverse : on a vu sortir ici du gaz blanc ou jaune."
-        },
-        {
-          "t0": 14.02,
-          "t1": 18.4,
-          "text": "Une même ouverture, deux sens, deux moments : voilà toute l’affaire du garage."
         }
       ],
       "cues": []
@@ -2600,45 +2525,45 @@
       "title": "Tuyères",
       "scene": "gasifier",
       "file": "part-air-nozzles.mp3",
-      "duration": 14.96,
-      "chars": 256,
-      "hash": "33707bd538c43d89",
+      "duration": 14.08,
+      "chars": 227,
+      "hash": "e99a7f7d6fe9d4dd",
       "captions": [
         {
           "t0": 0,
-          "t1": 3.56,
+          "t1": 3.92,
           "text": "L’air du feu entre par les tuyères, en anneau autour du foyer."
         },
         {
-          "t0": 3.56,
-          "t1": 7.12,
-          "text": "Ce n’est pas une pression qui le pousse : c’est le moteur qui l’aspire."
+          "t0": 3.92,
+          "t1": 6.96,
+          "text": "Aucune pression ne le pousse : le moteur l’aspire."
         },
         {
-          "t0": 7.12,
-          "t1": 9.72,
-          "text": "Voyez-le faire le tour, puis se répartir."
+          "t0": 6.96,
+          "t1": 9.02,
+          "text": "Il fait le tour, puis se répartit."
         },
         {
-          "t0": 9.72,
-          "t1": 13.3,
+          "t0": 9.02,
+          "t1": 12.3,
           "text": "Trop d’air, et tout le bois brûlerait : plus de gaz."
         },
         {
-          "t0": 13.3,
-          "t1": 14.96,
-          "text": "Sans air, plus de flamme !"
+          "t0": 12.3,
+          "t1": 14.08,
+          "text": "Sans air, plus de flamme."
         }
       ],
       "cues": [
         {
-          "t": 7.12,
+          "t": 6.96,
           "do": {
             "flows": true
           }
         },
         {
-          "t": 9.72,
+          "t": 9.02,
           "do": {
             "flows": false
           }
@@ -2651,34 +2576,34 @@
       "title": "Foyer",
       "scene": "gasifier",
       "file": "part-fire-box.mp3",
-      "duration": 15.92,
-      "chars": 281,
-      "hash": "dcd208531a7ffbd3",
+      "duration": 13.36,
+      "chars": 253,
+      "hash": "60eb72af42866773",
       "captions": [
         {
           "t0": 0,
-          "t1": 1.88,
+          "t1": 1.72,
           "text": "Le pot qui contient le feu."
         },
         {
-          "t0": 1.88,
-          "t1": 5.54,
+          "t0": 1.72,
+          "t1": 5.2,
           "text": "L’air passe entre lui et l’enveloppe avant d’entrer dans le feu."
         },
         {
-          "t0": 5.54,
-          "t1": 9.58,
+          "t0": 5.2,
+          "t1": 9.15,
           "text": "C’est la pièce la plus éprouvée : elle se fissure entre six cents et mille heures,"
         },
         {
-          "t0": 9.58,
-          "t1": 11.9,
+          "t0": 9.3,
+          "t1": 10.78,
           "text": "d’après plusieurs véhicules."
         },
         {
-          "t0": 11.9,
-          "t1": 15.92,
-          "text": "Le rapport note la vie de chaque pièce : c’est une des raisons de le croire."
+          "t0": 10.78,
+          "t1": 13.36,
+          "text": "Le rapport note la durée de vie de chaque pièce."
         }
       ],
       "cues": []
@@ -2689,44 +2614,39 @@
       "title": "Anneau de gorge",
       "scene": "gasifier",
       "file": "part-throat-ring.mp3",
-      "duration": 20.4,
-      "chars": 371,
-      "hash": "e3351aa14e712913",
+      "duration": 18.56,
+      "chars": 352,
+      "hash": "9eb01195ff2476c1",
       "captions": [
         {
           "t0": 0,
-          "t1": 4.32,
-          "text": "L’étranglement par où passe tout le gaz du feu, au point le plus chaud !"
+          "t1": 3.9,
+          "text": "L’étranglement par où passe tout le gaz du feu, au point le plus chaud."
         },
         {
-          "t0": 4.32,
-          "t1": 5.46,
-          "text": "Pourquoi y tenir ?"
-        },
-        {
-          "t0": 5.46,
-          "t1": 8.06,
+          "t0": 3.9,
+          "t1": 6.64,
           "text": "Les vapeurs et les goudrons descendent avec le bois."
         },
         {
-          "t0": 8.06,
-          "t1": 11.1,
+          "t0": 6.64,
+          "t1": 9.7,
           "text": "S’ils contournaient la flamme, ils sortiraient tels quels."
         },
         {
-          "t0": 11.1,
-          "t1": 12.86,
+          "t0": 9.7,
+          "t1": 11.37,
           "text": "L’anneau les force à la traverser."
         },
         {
-          "t0": 12.86,
-          "t1": 16.86,
+          "t0": 11.37,
+          "t1": 15.58,
           "text": "Il tient environ sept cents heures, dit le rapport, puis se remplace."
         },
         {
-          "t0": 16.86,
-          "t1": 20.4,
-          "text": "Ce lab explique ce que fait cette pièce, pas comment la faire."
+          "t0": 15.58,
+          "t1": 18.56,
+          "text": "Ici, on dit ce que fait cette pièce, et rien de sa fabrication."
         }
       ],
       "cues": []
@@ -2928,34 +2848,24 @@
       "title": "Vanne d’arrêt",
       "scene": "gas-train",
       "file": "part-stop-valve.mp3",
-      "duration": 16.48,
-      "chars": 294,
-      "hash": "bfa3fb0c0d4a44da",
+      "duration": 12.88,
+      "chars": 228,
+      "hash": "82a614ff48208e1c",
       "captions": [
         {
           "t0": 0,
-          "t1": 4.66,
+          "t1": 5,
           "text": "Sur le schéma du rapport, une vanne d’arrêt entre le tuyau chaud et le filtre."
         },
         {
-          "t0": 4.66,
-          "t1": 6.16,
-          "text": "À quoi servait-elle ?"
+          "t0": 5,
+          "t1": 9.18,
+          "text": "Le rapport ne dit pas à quoi elle servait, et aucun usage n’en est décrit ici."
         },
         {
-          "t0": 6.16,
-          "t1": 9.84,
-          "text": "Le rapport ne le dit pas, et ce lab ne décrit aucun usage."
-        },
-        {
-          "t0": 9.84,
-          "t1": 13.42,
+          "t0": 9.18,
+          "t1": 12.88,
           "text": "Notre lecture : elle ne change rien à ce qui se forme dans l’appareil."
-        },
-        {
-          "t0": 13.42,
-          "t1": 16.48,
-          "text": "Une vanne sur un tuyau de gaz donne une impression de maîtrise."
         }
       ],
       "cues": []
@@ -2966,24 +2876,24 @@
       "title": "Ventilateur de démarrage",
       "scene": "gas-train",
       "file": "part-starting-fan.mp3",
-      "duration": 15.09,
-      "chars": 265,
-      "hash": "855daa010e3baaa2",
+      "duration": 15.57,
+      "chars": 279,
+      "hash": "5a545119d9b9d717",
       "captions": [
         {
           "t0": 0,
-          "t1": 6,
-          "text": "Quand le moteur ne tire pas encore, un ventilateur le remplace : il aspire de l’air à travers l’appareil."
+          "t1": 6.14,
+          "text": "Quand le moteur ne tire pas encore, un ventilateur le remplace, en aspirant de l’air à travers l’appareil."
         },
         {
-          "t0": 6,
-          "t1": 12.54,
+          "t0": 6.14,
+          "t1": 12.04,
           "text": "Il rejette le gaz par une cheminée : environ deux cents litres de monoxyde à la minute, dit le livre suédois."
         },
         {
-          "t0": 12.54,
-          "t1": 15.09,
-          "text": "Le lab en garde la trace, pas la marche à suivre."
+          "t0": 12.04,
+          "t1": 15.57,
+          "text": "Seule la trace en est gardée ici, sans aucune marche à suivre."
         }
       ],
       "cues": []
@@ -2994,29 +2904,24 @@
       "title": "Cheminée du ventilateur",
       "scene": "gas-train",
       "file": "part-fan-stack.mp3",
-      "duration": 14.4,
-      "chars": 272,
-      "hash": "771ff5b1dee96bc0",
+      "duration": 13.04,
+      "chars": 250,
+      "hash": "a95569d7eb78e132",
       "captions": [
         {
           "t0": 0,
-          "t1": 4.06,
+          "t1": 4.02,
           "text": "Elle part du té du tuyau chaud, et monte à environ deux mètres et demi."
         },
         {
-          "t0": 4.06,
-          "t1": 6.96,
+          "t0": 4.02,
+          "t1": 7.06,
           "text": "Elle emmène vers le haut le gaz que rejette le ventilateur."
         },
         {
-          "t0": 6.96,
-          "t1": 12.16,
-          "text": "Mais une cheminée ne change pas la nature de ce gaz : environ un cinquième est du monoxyde de carbone."
-        },
-        {
-          "t0": 12.16,
-          "t1": 14.4,
-          "text": "Elle déplace le nuage, pas le danger."
+          "t0": 7.06,
+          "t1": 13.04,
+          "text": "Mais une cheminée ne change pas la nature de ce gaz : environ un cinquième est du monoxyde de carbone, où qu’il aille."
         }
       ],
       "cues": []
@@ -3027,40 +2932,40 @@
       "title": "Vanne d’air primaire",
       "scene": "gas-train",
       "file": "part-primary-air-valve.mp3",
-      "duration": 14.72,
-      "chars": 238,
-      "hash": "e2b721782c0cf157",
+      "duration": 12.4,
+      "chars": 214,
+      "hash": "314d78a5c92361ee",
       "captions": [
         {
           "t0": 0,
-          "t1": 5.67,
+          "t1": 5.14,
           "text": "Sur le schéma du rapport, l’air du feu part de l’œil du ventilateur, passe par cette vanne,"
         },
         {
-          "t0": 5.76,
-          "t1": 7.72,
+          "t0": 5.24,
+          "t1": 7.14,
           "text": "puis entre au gazogène."
         },
         {
-          "t0": 7.72,
-          "t1": 9.58,
+          "t0": 7.14,
+          "t1": 8.94,
           "text": "Les points d’air suivent ce chemin."
         },
         {
-          "t0": 9.58,
-          "t1": 14.72,
-          "text": "Ce lab ne donne ni position, ni réglage de cette vanne : ce serait un réglage de plus."
+          "t0": 8.94,
+          "t1": 12.4,
+          "text": "Aucune position, aucun réglage de cette vanne n’est donné ici."
         }
       ],
       "cues": [
         {
-          "t": 7.72,
+          "t": 7.14,
           "do": {
             "flows": true
           }
         },
         {
-          "t": 9.58,
+          "t": 8.94,
           "do": {
             "flows": false
           }
@@ -3073,29 +2978,24 @@
       "title": "Cyclone",
       "scene": "gas-train",
       "file": "part-cyclone.mp3",
-      "duration": 16.29,
-      "chars": 277,
-      "hash": "2c80af0ccb271182",
+      "duration": 16.08,
+      "chars": 276,
+      "hash": "9472a7d3f0c8f7ae",
       "captions": [
         {
           "t0": 0,
-          "t1": 6.48,
+          "t1": 6.34,
           "text": "Un bon cyclone fait tourner le gaz et jette la poussière contre ses parois : soixante à soixante-dix pour cent."
         },
         {
-          "t0": 6.48,
-          "t1": 12.08,
+          "t0": 6.34,
+          "t1": 12,
           "text": "Il figure sur le système à filtre à toile du programme, pas sur le schéma de ce tracteur."
         },
         {
-          "t0": 12.08,
-          "t1": 13.32,
-          "text": "En avait-il un ?"
-        },
-        {
-          "t0": 13.32,
-          "t1": 16.29,
-          "text": "Le rapport ne dit rien, et la photographie ne tranche pas."
+          "t0": 12,
+          "t1": 16.08,
+          "text": "Le rapport ne dit pas s’il en avait un, et la photographie ne tranche pas."
         }
       ],
       "cues": []
@@ -3106,45 +3006,45 @@
       "title": "Caisson de filtre",
       "scene": "gas-train",
       "file": "part-filter-box.mp3",
-      "duration": 16.16,
-      "chars": 299,
-      "hash": "8c504dc883b860e8",
+      "duration": 16.72,
+      "chars": 294,
+      "hash": "4ecc86433d836c84",
       "captions": [
         {
           "t0": 0,
-          "t1": 2.92,
+          "t1": 2.7,
           "text": "Le caisson loge la toile qui arrête la poussière."
         },
         {
-          "t0": 2.92,
-          "t1": 7.86,
-          "text": "Elle faisait d’abord deux mètres carrés et demi : la nettoyer toutes les vingt heures, c’était trop."
+          "t0": 2.7,
+          "t1": 8.54,
+          "text": "Elle faisait d’abord deux mètres carrés et demi, et la nettoyer toutes les vingt heures, c’était trop."
         },
         {
-          "t0": 7.86,
-          "t1": 8.94,
-          "text": "On l’a doublée !"
+          "t0": 8.54,
+          "t1": 9.9,
+          "text": "On l’a doublée."
         },
         {
-          "t0": 8.94,
-          "t1": 10.76,
-          "text": "Voyez les manches, à l’intérieur."
+          "t0": 9.9,
+          "t1": 11.64,
+          "text": "À l’intérieur, les manches."
         },
         {
-          "t0": 10.76,
-          "t1": 16.16,
+          "t0": 11.64,
+          "t1": 16.72,
           "text": "C’est aussi un endroit où l’air peut rencontrer du gaz : un retour de flamme y peut être violent."
         }
       ],
       "cues": [
         {
-          "t": 8.94,
+          "t": 9.9,
           "do": {
             "xray": true
           }
         },
         {
-          "t": 10.76,
+          "t": 11.64,
           "do": {
             "xray": false
           }
@@ -3157,46 +3057,46 @@
       "title": "Manches",
       "scene": "gas-train",
       "file": "part-filter-bags.mp3",
-      "duration": 17.2,
-      "chars": 319,
-      "hash": "1234c87d20986de3",
+      "duration": 19.44,
+      "chars": 317,
+      "hash": "9654a1661b9490a3",
       "captions": [
         {
           "t0": 0,
-          "t1": 4.42,
+          "t1": 5.8,
           "text": "La toile est montée en manches plates : le gaz passe à travers, la poussière reste."
         },
         {
-          "t0": 4.42,
-          "t1": 8.68,
+          "t0": 5.8,
+          "t1": 10.46,
           "text": "Derrière elle, il n’en reste que trois dixièmes de milligramme par mètre cube."
         },
         {
-          "t0": 8.68,
-          "t1": 10.12,
-          "text": "Mais la toile se paie."
+          "t0": 10.46,
+          "t1": 12.2,
+          "text": "Mais la toile s’encrasse."
         },
         {
-          "t0": 10.12,
-          "t1": 13.22,
-          "text": "Voyez-la foncer à mesure que la poussière s’y dépose."
+          "t0": 12.2,
+          "t1": 15.04,
+          "text": "Elle fonce à mesure que la poussière s’y dépose."
         },
         {
-          "t0": 13.22,
-          "t1": 17.2,
+          "t0": 15.04,
+          "t1": 19.44,
           "text": "Sur le camion du programme, sa résistance doublait vers trois mille kilomètres."
         }
       ],
       "cues": [
         {
-          "t": 10.12,
+          "t": 12.2,
           "do": {
             "lab": "scenario",
             "arg": "filter-ageing"
           }
         },
         {
-          "t": 17.2,
+          "t": 19.44,
           "do": {
             "lab": "preset",
             "arg": "mf-1100"
@@ -3210,50 +3110,45 @@
       "title": "Refroidisseur",
       "scene": "gas-train",
       "file": "part-gas-cooler.mp3",
-      "duration": 20.6,
-      "chars": 355,
-      "hash": "054f8838611c5244",
+      "duration": 19.24,
+      "chars": 342,
+      "hash": "1f89be2ef9877161",
       "captions": [
         {
           "t0": 0,
-          "t1": 5.62,
-          "text": "Après le filtre, le gaz est encore chaud : il monte par la moitié des tubes, redescend par l’autre."
+          "t1": 5.48,
+          "text": "Après le filtre, le gaz encore chaud monte par la moitié des tubes et redescend par l’autre."
         },
         {
-          "t0": 5.62,
-          "t1": 7.82,
-          "text": "Voyez les points virer du rouge au bleu !"
+          "t0": 5.48,
+          "t1": 7.58,
+          "text": "Les points virent du rouge au bleu."
         },
         {
-          "t0": 7.82,
-          "t1": 9.52,
-          "text": "Pourquoi le refroidir ?"
+          "t0": 7.58,
+          "t1": 10.54,
+          "text": "On le refroidit parce qu’un gaz plus froid est plus dense."
         },
         {
-          "t0": 9.52,
-          "t1": 11.62,
-          "text": "Un gaz plus froid est plus dense."
-        },
-        {
-          "t0": 11.62,
-          "t1": 17.58,
+          "t0": 10.54,
+          "t1": 16.68,
           "text": "Selon le rapport, dix pour cent de température en moins donnent presque deux pour cent de puissance en plus."
         },
         {
-          "t0": 17.58,
-          "t1": 20.6,
-          "text": "Et de l’eau sort : deux litres deux à l’heure."
+          "t0": 16.68,
+          "t1": 19.24,
+          "text": "Et de l’eau sort, deux litres deux à l’heure."
         }
       ],
       "cues": [
         {
-          "t": 5.62,
+          "t": 5.48,
           "do": {
             "flows": true
           }
         },
         {
-          "t": 7.82,
+          "t": 7.58,
           "do": {
             "flows": false
           }
@@ -3304,24 +3199,24 @@
       "title": "Mélangeur",
       "scene": "gas-train",
       "file": "part-gas-air-mixer.mp3",
-      "duration": 15.44,
-      "chars": 257,
-      "hash": "f601e40a6cba220c",
+      "duration": 15.6,
+      "chars": 247,
+      "hash": "3b61bc3bd335f792",
       "captions": [
         {
           "t0": 0,
-          "t1": 4.52,
+          "t1": 4.94,
           "text": "Ici le gaz rencontre l’air du filtre à air, à peu près volume pour volume."
         },
         {
-          "t0": 4.52,
-          "t1": 11.2,
+          "t0": 4.94,
+          "t1": 12.14,
           "text": "Il en faut un virgule zéro huit d’air pour un de gaz, par arithmétique ; un virgule douze selon le modèle."
         },
         {
-          "t0": 11.2,
-          "t1": 15.44,
-          "text": "Pas de curseur pour cette proportion : c’est un fait du gaz, pas un bouton."
+          "t0": 12.14,
+          "t1": 15.6,
+          "text": "Aucun curseur pour cette proportion : elle vient du gaz lui-même."
         }
       ],
       "cues": []
@@ -3332,46 +3227,46 @@
       "title": "Papillon de gaz",
       "scene": "gas-train",
       "file": "part-gas-throttle.mp3",
-      "duration": 16.24,
+      "duration": 15.2,
       "chars": 253,
-      "hash": "142d570ae4f85374",
+      "hash": "29222a1eb50a0cc8",
       "captions": [
         {
           "t0": 0,
-          "t1": 4.38,
+          "t1": 3.76,
           "text": "Dans un diesel ordinaire, le pied du conducteur règle le gazole."
         },
         {
-          "t0": 4.38,
-          "t1": 8.8,
+          "t0": 3.76,
+          "t1": 8.06,
           "text": "Ici, il règle le gaz : ce papillon dit combien en entre."
         },
         {
-          "t0": 8.8,
-          "t1": 9.94,
-          "text": "Et il a un coût !"
+          "t0": 8.06,
+          "t1": 9.1,
+          "text": "Il a un coût."
         },
         {
-          "t0": 9.94,
-          "t1": 14.73,
-          "text": "Au ralenti, le levier se ferme presque, et pourtant cinquante-cinq kilowatts entrent,"
+          "t0": 9.1,
+          "t1": 13.7,
+          "text": "Au ralenti, le levier se ferme presque, mais cinquante-cinq kilowatts entrent quand même,"
         },
         {
-          "t0": 14.78,
-          "t1": 16.24,
+          "t0": 13.7,
+          "t1": 15.2,
           "text": "sans rien donner à l’arbre."
         }
       ],
       "cues": [
         {
-          "t": 9.94,
+          "t": 9.1,
           "do": {
             "lab": "scenario",
             "arg": "idling"
           }
         },
         {
-          "t": 16.24,
+          "t": 15.2,
           "do": {
             "lab": "preset",
             "arg": "mf-1100"
@@ -3385,29 +3280,29 @@
       "title": "Papillon d’air",
       "scene": "gas-train",
       "file": "part-secondary-air-throttle.mp3",
-      "duration": 13.17,
-      "chars": 225,
-      "hash": "9d1acb51dbb94c15",
+      "duration": 12.61,
+      "chars": 221,
+      "hash": "0ca87e37c9dbc2cd",
       "captions": [
         {
           "t0": 0,
-          "t1": 4.5,
-          "text": "Un deuxième papillon, sur l’air qu’on ajoute au gaz : l’air secondaire,"
+          "t1": 4.24,
+          "text": "Un deuxième papillon se trouve sur l’air qu’on ajoute au gaz, l’air secondaire,"
         },
         {
-          "t0": 4.5,
-          "t1": 6.94,
+          "t0": 4.42,
+          "t1": 6.7,
           "text": "par opposition à l’air primaire du feu."
         },
         {
-          "t0": 6.94,
-          "t1": 10.14,
+          "t0": 6.7,
+          "t1": 9.92,
           "text": "Il règle la proportion, à la main selon le rapport."
         },
         {
-          "t0": 10.14,
-          "t1": 13.17,
-          "text": "C’est un réglage qui a un optimum, et ce lab ne le donne pas."
+          "t0": 9.92,
+          "t1": 12.61,
+          "text": "Ce réglage a un optimum, qui n’est pas donné ici."
         }
       ],
       "cues": []
@@ -3418,29 +3313,24 @@
       "title": "Injecteur pilote",
       "scene": "gas-train",
       "file": "part-pilot-injector.mp3",
-      "duration": 15.52,
-      "chars": 262,
-      "hash": "c2bf86c38a2d59cb",
+      "duration": 13.6,
+      "chars": 242,
+      "hash": "3124cbfb16866eed",
       "captions": [
         {
           "t0": 0,
-          "t1": 5.24,
+          "t1": 5.76,
           "text": "Un diesel n’a pas de bougie : il allume sa charge en la comprimant, puis en y injectant du gazole."
         },
         {
-          "t0": 5.24,
-          "t1": 10.66,
+          "t0": 5.76,
+          "t1": 10.7,
           "text": "Le gaz et l’air ne s’allument pas ainsi, mais le filet de gazole, si : c’est le pilote."
         },
         {
-          "t0": 10.66,
-          "t1": 12.16,
-          "text": "Le bois suffit-il ?"
-        },
-        {
-          "t0": 12.16,
-          "t1": 15.52,
-          "text": "La réponse honnête est non : le pilote reste du gazole."
+          "t0": 10.7,
+          "t1": 13.6,
+          "text": "Le bois ne suffit donc pas : le pilote reste du gazole."
         }
       ],
       "cues": []
@@ -3451,28 +3341,28 @@
       "title": "Cylindre en coupe",
       "scene": "gas-train",
       "file": "part-cylinder-cutaway.mp3",
-      "duration": 17.76,
-      "chars": 293,
-      "hash": "f86d76acc9abf711",
+      "duration": 16.24,
+      "chars": 286,
+      "hash": "eaca945498a245a0",
       "captions": [
         {
           "t0": 0,
-          "t1": 4.62,
-          "text": "Voici où l’énergie finit en travail : un cylindre coupé en deux."
+          "t1": 4.02,
+          "text": "Ici l’énergie finit en travail : un cylindre coupé en deux."
         },
         {
-          "t0": 4.62,
-          "t1": 9.1,
-          "text": "Le vrai moteur fait trente et un tours par seconde : l’œil ne verrait rien."
+          "t0": 4.02,
+          "t1": 8.12,
+          "text": "Le vrai moteur fait trente et un tours par seconde, trop vite pour l’œil."
         },
         {
-          "t0": 9.1,
-          "t1": 11.48,
+          "t0": 8.12,
+          "t1": 10.76,
           "text": "Celui de l’écran tourne à six pour cent du vrai."
         },
         {
-          "t0": 11.48,
-          "t1": 17.76,
+          "t0": 10.76,
+          "t1": 16.24,
           "text": "Et le gaz brûle lentement : le rapport lui voit une limite vers deux mille cinq cents tours par minute."
         }
       ],
@@ -3512,41 +3402,41 @@
       "title": "Manomètre à eau",
       "scene": "gas-train",
       "file": "part-water-gauge.mp3",
-      "duration": 16.8,
-      "chars": 292,
-      "hash": "2e9309279a7b44d3",
+      "duration": 14.8,
+      "chars": 248,
+      "hash": "aa003c9bd87a9b70",
       "captions": [
         {
           "t0": 0,
-          "t1": 5.26,
+          "t1": 5.72,
           "text": "Un tube en U rempli d’eau : la différence des deux niveaux dit la dépression du filtre."
         },
         {
-          "t0": 5.26,
-          "t1": 7.68,
+          "t0": 5.72,
+          "t1": 8.68,
           "text": "Le modèle lit deux cent seize millimètres d’eau."
         },
         {
-          "t0": 7.68,
-          "t1": 11.44,
-          "text": "Voyez l’écart des colonnes grandir, quand la toile s’encrasse."
+          "t0": 8.68,
+          "t1": 11.54,
+          "text": "L’écart des colonnes grandit quand la toile s’encrasse."
         },
         {
-          "t0": 11.44,
-          "t1": 16.8,
-          "text": "Il ne dit rien du gaz, seulement que le filtre résiste : un instrument d’une honnêteté rare."
+          "t0": 11.54,
+          "t1": 14.8,
+          "text": "Il ne dit rien du gaz, seulement que le filtre résiste."
         }
       ],
       "cues": [
         {
-          "t": 7.68,
+          "t": 8.68,
           "do": {
             "lab": "scenario",
             "arg": "filter-ageing"
           }
         },
         {
-          "t": 16.8,
+          "t": 14.8,
           "do": {
             "lab": "preset",
             "arg": "mf-1100"
@@ -3560,63 +3450,63 @@
       "title": "Garage fermé",
       "scene": "garage",
       "file": "part-closed-garage.mp3",
-      "duration": 22.68,
-      "chars": 388,
-      "hash": "c7dac01b8c9854e8",
+      "duration": 21.6,
+      "chars": 382,
+      "hash": "52864ea9f8cd40ef",
       "captions": [
         {
           "t0": 0,
-          "t1": 4.52,
-          "text": "Voici la pièce où la machine dort : cinquante mètres cubes d’air, ou mille."
+          "t1": 4.28,
+          "text": "La pièce où la machine est garée : cinquante mètres cubes d’air, ou mille."
         },
         {
-          "t0": 4.52,
-          "t1": 6.68,
+          "t0": 4.28,
+          "t1": 6.38,
           "text": "Ces points, c’est le monoxyde."
         },
         {
-          "t0": 6.68,
-          "t1": 10.02,
+          "t0": 6.38,
+          "t1": 9.16,
           "text": "Le modèle y met un mètre cube de gaz après l’arrêt."
         },
         {
-          "t0": 10.02,
-          "t1": 15.8,
-          "text": "Une demi-heure plus tard, dans la petite pièce : environ trois mille cinq cents parties par million."
+          "t0": 9.16,
+          "t1": 14.6,
+          "text": "Une demi-heure plus tard, la petite pièce atteint environ trois mille cinq cents parties par million."
         },
         {
-          "t0": 15.8,
-          "t1": 17.78,
-          "text": "Dans la grande : deux cents."
+          "t0": 14.6,
+          "t1": 16.38,
+          "text": "La grande, deux cents."
         },
         {
-          "t0": 17.78,
-          "t1": 22.68,
+          "t0": 16.38,
+          "t1": 21.6,
           "text": "Mais cette boîte est bien mélangée : un vrai garage garde ce gaz en couches, bien plus concentrées."
         }
       ],
       "cues": [
         {
-          "t": 4.52,
+          "t": 4.28,
           "do": {
             "lab": "scenario",
             "arg": "closed-garage"
           }
         },
         {
-          "t": 4.52,
+          "t": 4.28,
           "do": {
             "flows": true
           }
         },
         {
-          "t": 22.68,
+          "t": 21.6,
           "do": {
             "flows": false
           }
         },
         {
-          "t": 22.68,
+          "t": 21.6,
           "do": {
             "lab": "preset",
             "arg": "mf-1100"
@@ -3630,68 +3520,63 @@
       "title": "Porte",
       "scene": "garage",
       "file": "part-garage-door.mp3",
-      "duration": 25.76,
-      "chars": 452,
-      "hash": "a6e5b8fc2abfcb13",
+      "duration": 24.24,
+      "chars": 414,
+      "hash": "6b56464c609933a9",
       "captions": [
         {
           "t0": 0,
-          "t1": 1.96,
+          "t1": 1.66,
           "text": "La porte a trois états."
         },
         {
-          "t0": 1.96,
-          "t1": 5.08,
-          "text": "Prenons cinquante mètres cubes, une demi-heure après l’arrêt."
+          "t0": 1.66,
+          "t1": 4.92,
+          "text": "Cinquante mètres cubes, une demi-heure après l’arrêt."
         },
         {
-          "t0": 5.08,
-          "t1": 9.72,
+          "t0": 4.92,
+          "t1": 9.98,
           "text": "Porte fermée, le modèle compte environ trois mille cinq cents parties par million."
         },
         {
-          "t0": 9.72,
-          "t1": 15.7,
+          "t0": 9.98,
+          "t1": 15.28,
           "text": "Les Suédois ont jugé très insuffisant de lancer le ventilateur ou le moteur portes de garage ouvertes."
         },
         {
-          "t0": 15.7,
-          "t1": 18.06,
-          "text": "Ici, le moteur est arrêté : voyons."
+          "t0": 15.28,
+          "t1": 17.24,
+          "text": "Ici, le moteur est arrêté."
         },
         {
-          "t0": 18.06,
-          "t1": 21.3,
-          "text": "Six cent quatre-vingt-dix parties par million, bien moins."
+          "t0": 17.24,
+          "t1": 21.58,
+          "text": "Porte ouverte, six cent quatre-vingt-dix parties par million, bien moins."
         },
         {
-          "t0": 21.3,
-          "t1": 24,
-          "text": "Une boîte bien mélangée est faite pour dire cela."
-        },
-        {
-          "t0": 24,
-          "t1": 25.76,
-          "text": "Un vrai garage n’est pas une boîte."
+          "t0": 21.58,
+          "t1": 24.24,
+          "text": "Un vrai garage n’est pas une boîte bien mélangée."
         }
       ],
       "cues": [
         {
-          "t": 1.96,
+          "t": 1.66,
           "do": {
             "lab": "scenario",
             "arg": "closed-garage"
           }
         },
         {
-          "t": 18.06,
+          "t": 17.24,
           "do": {
             "lab": "door",
             "arg": "open"
           }
         },
         {
-          "t": 25.76,
+          "t": 24.24,
           "do": {
             "lab": "preset",
             "arg": "mf-1100"
@@ -3775,61 +3660,56 @@
       "title": "Panache après l’arrêt",
       "scene": "garage",
       "file": "part-post-gas-plume.mp3",
-      "duration": 31.84,
-      "chars": 554,
-      "hash": "06fe22b3f70b0067",
+      "duration": 30.56,
+      "chars": 521,
+      "hash": "4572200c2f114e77",
       "captions": [
         {
           "t0": 0,
-          "t1": 1.24,
+          "t1": 1.32,
           "text": "Le moteur s’arrête."
         },
         {
-          "t0": 1.24,
-          "t1": 5.32,
+          "t0": 1.32,
+          "t1": 5.44,
           "text": "Plus rien n’aspire, mais le gaz continue de se former dans le lit chaud."
         },
         {
-          "t0": 5.32,
-          "t1": 11.2,
+          "t0": 5.44,
+          "t1": 11.6,
           "text": "Il pousse une vingtaine de minutes, dit le livre suédois, parfois des heures selon un autre manuel."
         },
         {
-          "t0": 11.2,
-          "t1": 16.14,
-          "text": "Il sort, même d’un appareil étanche : vingt-trois à vingt-sept pour cent de monoxyde."
+          "t0": 11.6,
+          "t1": 16.76,
+          "text": "Il sort, même d’un appareil étanche, avec vingt-trois à vingt-sept pour cent de monoxyde."
         },
         {
-          "t0": 16.14,
-          "t1": 17.2,
-          "text": "Son volume ?"
+          "t0": 16.76,
+          "t1": 23.98,
+          "text": "Personne n’a mesuré son volume : le modèle part d’un mètre cube et laisse la poussée s’affaiblir sans jamais s’arrêter."
         },
         {
-          "t0": 17.2,
-          "t1": 20.7,
-          "text": "Personne ne l’a mesuré : le modèle part d’un mètre cube."
+          "t0": 23.98,
+          "t1": 27.38,
+          "text": "Ce choix est le sien ; aucune mesure ne le donne."
         },
         {
-          "t0": 20.7,
-          "t1": 25.42,
-          "text": "Il laisse la poussée s’affaiblir sans jamais s’arrêter : c’est un choix, pas une mesure."
-        },
-        {
-          "t0": 25.42,
-          "t1": 31.84,
-          "text": "Rien de ce que nous avons lu ne dit quand une pièce n’en garde plus : c’est la phrase que ce lab ne peut pas écrire."
+          "t0": 27.38,
+          "t1": 30.56,
+          "text": "Rien de ce que nous avons lu ne dit quand une pièce n’en garde plus."
         }
       ],
       "cues": [
         {
-          "t": 1.24,
+          "t": 1.32,
           "do": {
             "lab": "scenario",
             "arg": "engine-stops"
           }
         },
         {
-          "t": 31.84,
+          "t": 30.56,
           "do": {
             "lab": "preset",
             "arg": "mf-1100"
@@ -3905,53 +3785,53 @@
       "title": "Indicateur de monoxyde",
       "scene": "garage",
       "file": "part-co-indicator.mp3",
-      "duration": 20.16,
-      "chars": 342,
-      "hash": "8ee67851aa67de4e",
+      "duration": 20.48,
+      "chars": 336,
+      "hash": "64e2f7e86d21e74a",
       "captions": [
         {
           "t0": 0,
-          "t1": 4.32,
-          "text": "Un cadran au mur : son aiguille suit le monoxyde de la boîte du modèle."
+          "t1": 4.46,
+          "text": "Au mur, un cadran dont l’aiguille suit le monoxyde de la boîte du modèle."
         },
         {
-          "t0": 4.32,
-          "t1": 7.82,
+          "t0": 4.46,
+          "t1": 7.7,
           "text": "La lampe s’allume dès que le monoxyde est passé dans la pièce."
         },
         {
-          "t0": 7.82,
-          "t1": 12.66,
+          "t0": 7.7,
+          "t1": 13.3,
           "text": "Ici, elle ne s’éteint plus : le chiffre bas d’une boîte ne dit rien d’une vraie pièce."
         },
         {
-          "t0": 12.66,
-          "t1": 15.82,
-          "text": "Voyez l’aiguille retomber, et la lampe rester."
+          "t0": 13.3,
+          "t1": 16.56,
+          "text": "L’aiguille retombe, et la lampe reste allumée."
         },
         {
-          "t0": 15.82,
-          "t1": 20.16,
-          "text": "Pas de zone verte : le cadran dit ce que le modèle sait, et rien de plus."
+          "t0": 16.56,
+          "t1": 20.48,
+          "text": "Pas de zone verte : le cadran ne montre que le chiffre du modèle."
         }
       ],
       "cues": [
         {
-          "t": 4.32,
+          "t": 4.46,
           "do": {
             "lab": "scenario",
             "arg": "closed-garage"
           }
         },
         {
-          "t": 12.66,
+          "t": 13.3,
           "do": {
             "lab": "speed",
             "arg": "600"
           }
         },
         {
-          "t": 20.16,
+          "t": 20.48,
           "do": {
             "lab": "preset",
             "arg": "mf-1100"
@@ -3965,24 +3845,24 @@
       "title": "Appareil des années 1940",
       "scene": "garage",
       "file": "part-old-rescue-set.mp3",
-      "duration": 14.32,
-      "chars": 270,
-      "hash": "ae39ecb252a8ecb2",
+      "duration": 14,
+      "chars": 255,
+      "hash": "0c14bdbc0ce55514",
       "captions": [
         {
           "t0": 0,
-          "t1": 3.02,
+          "t1": 2.96,
           "text": "À gauche, un appareil de secours des années quarante."
         },
         {
-          "t0": 3.02,
-          "t1": 8.61,
-          "text": "Les médecins de l’époque soignaient les intoxiqués avec des méthodes que ce lab ne décrit pas et ne recommande pas."
+          "t0": 2.96,
+          "t1": 8.68,
+          "text": "Les médecins de l’époque soignaient les intoxiqués avec des méthodes que l’on ne décrit ni ne recommande ici."
         },
         {
-          "t0": 8.61,
-          "t1": 14.32,
-          "text": "Il garde l’échelle de l’affaire : environ dix mille cas chroniques enregistrés en Suède en cinq ans."
+          "t0": 8.68,
+          "t1": 14,
+          "text": "L’échelle de l’affaire : environ dix mille cas chroniques enregistrés en Suède en cinq ans."
         }
       ],
       "cues": []
