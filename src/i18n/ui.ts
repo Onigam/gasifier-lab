@@ -1,8 +1,8 @@
 import { registerStrings, tx, type CommonKey } from '@onigam/lab-kit/i18n';
 
-// The lab's own interface strings, `key: [fr, en]`. The ones every lab shares (modes, toolbar, panels, guides) live in the kit; the simulation panel's words are the lead's. This file holds the frame's words for this lab: the title, the worlds and their shortcuts, the intros of the
-// Drawings and Lessons modes, and the notices of the Sources panel (the warning, the reconstruction, how to read the figures, the law, what the model does not find), each said once, here (docs/research.md §A.4, §7).
-// The warning is for the lead to show on the way in as well as at the top of the Sources panel (research Q5). « Not for construction » is said by the title block of every sheet, once per sheet.
+// The lab's own interface strings, `key: [fr, en]`. The ones every lab shares (modes, toolbar, panels, guides) live in the kit; the simulation panel's words are in src/panels/strings.ts. This file holds the frame's words for this lab: the title, the worlds and their shortcuts, the intros of the
+// Drawings and Lessons modes, the notices of the Sources panel (the warning, the reconstruction, how to read the figures, the law, what the model does not find), each said once, here (docs/research.md §A.4, §7), and the notice on the way in (research Q5: the warning once on entering, as well as at the top of the Sources panel and in the garage's overview).
+// « Not for construction » is said by the title block of every sheet, once per sheet.
 
 export const LAB_STRINGS = {
   // the top bar shows about 60 capitals at 1280 px and cuts the rest: the longer line is for the showcase, in public/lab.json
@@ -11,13 +11,6 @@ export const LAB_STRINGS = {
     'Un tracteur suédois au bois : comment, et ce que ça coûtait',
     'A Swedish tractor on wood: how it worked, and what it cost',
   ],
-
-  // ---- the template's keys, still read by src/lab.ts and src/panels/sim.ts (the lead's files, not yet wired): the lead deletes them with those files
-  sceneDevice: ['Dispositif', 'Device'],
-  simTitle: ['Simulation', 'Simulation'],
-  targetRpm: ['Vitesse cible', 'Target speed'],
-  liveRpm: ['Vitesse', 'Speed'],
-  groupDevice: ['Dispositif', 'Device'],
 
   // ---- the worlds and the shortcuts between them
   sceneFarm: ['La ferme', 'The farm'],
@@ -30,6 +23,7 @@ export const LAB_STRINGS = {
   goGasifier: ['Ouvrir le gazogène en coupe', 'Open the gasifier in section'],
   goGasTrain: ['Suivre le gaz jusqu’au moteur', 'Follow the gas to the engine'],
   goGarage: ['Voir ce qui se passe à l’arrêt', 'See what happens at a stop'],
+  goSimulation: ['Ouvrir la simulation', 'Open the simulation'],
 
   // ---- the kit's pill when no alarm is on says « Tout fonctionne » / « All good »: a model that raises no alert has said nothing about a room. `registerStrings` overwrites a common key
   allGood: ['Aucune alerte', 'No alert'],
@@ -49,6 +43,22 @@ export const LAB_STRINGS = {
     'Un gazogène fabrique du monoxyde de carbone, c’est sa raison d’être. Environ un cinquième du gaz dans ces tuyaux en est fait : il ne se voit pas, il ne se sent pas, et il a tué des gens qui faisaient attention. Ce lab explique une machine de l’histoire. Ce n’est ni un plan, ni une procédure, ni un conseil, et rien ici ne montre qu’en construire ou en faire tourner une serait acceptable ou permis. Certaines cotes et tous les gestes sont absents, volontairement. En cas de doute sur une intoxication : à l’air libre, on ne retourne pas à l’intérieur, on appelle le 112 (le 15 en France, le 144 en Suisse).',
     'A gasifier makes carbon monoxide: that is what it is for. About a fifth of the gas in these pipes is made of it: it cannot be seen, it cannot be smelt, and it has killed people who were being careful. This lab explains a machine from history. It is not a plan, a procedure or advice, and nothing here shows that building or running one would be acceptable or allowed. Some dimensions and every gesture are left out, on purpose. If you suspect poisoning: get into the open air, do not go back in, call 112 (15 in France, 144 in Switzerland).',
   ],
+  // ---- the notice on the way in (research Q5): the warning in full, then the other hazards, each once, and the button that closes it. Shown once per browser; nothing here softens it
+  entryEyebrow: ['Avant d’entrer', 'Before you go in'],
+  entryTitle: ['Ce lab parle d’un gaz qui tue', 'This lab is about a gas that kills'],
+  entryGarage: [
+    'À l’arrêt du moteur, le gaz continue de se former et de sortir, même d’une machine qui paraissait étanche : en Suède, certains des pires accidents sont venus d’un garage fermé.',
+    'When the engine stops, the gas goes on forming and coming out, even from a machine that looked tight: in Sweden, some of the worst accidents came from a closed garage.',
+  ],
+  entryFire: [
+    'De l’air qui rencontre le gaz, sous le couvercle, dans un appareil froid ou dans un filtre qui en garde, peut prendre feu ou exploser : un retour de flamme dans le filtre peut être violent.',
+    'Air meeting the gas, under the lid, in a cold unit or in a filter that still holds some, can catch fire or explode: a backfire into the filter can be violent.',
+  ],
+  entryBurns: [
+    'Le corps de l’appareil est brûlant, la cendre aussi, et une herbe sèche à côté peut s’enflammer.',
+    'The body of the unit is scorching, so is the ash, and dry grass beside it can catch fire.',
+  ],
+  entryEnter: ['J’ai lu, entrer dans le lab', 'I have read this, enter the lab'],
   refusalsTitle: ['Ce que ce lab ne donne pas, exprès', 'What this lab does not give, on purpose'],
   disclaimer: [
     'Reconstitution pédagogique indépendante d’un gazogène de l’histoire : ce n’est ni un plan officiel, ni le produit de ses constructeurs, et il n’y a aucune affiliation. Aucune image, aucun extrait et aucun dessin d’une source n’est repris : les figures sont redessinées à partir de nombres. Massey Ferguson, Perkins et Scania sont des noms de constructeurs cités par les sources, sans lien, sans logo.',

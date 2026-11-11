@@ -11,7 +11,7 @@ export interface StripRow {
   tag: '†' | '*' | '';
 }
 
-const room = (s: GasState): StripRow[] => [
+export const roomRows = (s: GasState): StripRow[] => [
   {
     key: 'garageCo',
     label: ['CO, garage', 'CO, garage'],
@@ -44,7 +44,7 @@ const room = (s: GasState): StripRow[] => [
   { key: 'casing', label: ['Enveloppe', 'Casing'], value: s.casingT.toFixed(0), unit: '°C', tag: s.roomTag },
 ];
 
-const work = (s: GasState): StripRow[] => {
+export const workRows = (s: GasState): StripRow[] => {
   const t = s.figureTag;
   return [
     { key: 'power', label: ['Puissance', 'Power'], value: s.powerKw.toFixed(0), unit: 'kW', tag: t },
@@ -65,7 +65,7 @@ const work = (s: GasState): StripRow[] => {
   ];
 };
 
-export const stripValues = (s: GasState): StripRow[] => (s.place === 'garage' ? room(s) : work(s));
+export const stripValues = (s: GasState): StripRow[] => (s.place === 'garage' ? roomRows(s) : workRows(s));
 
 const pad = (n: number): string => String(n).padStart(2, '0');
 

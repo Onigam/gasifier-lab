@@ -27,8 +27,6 @@ import { tarMeasured } from './reported';
 import { filterAgeFactor } from './train';
 import type { AlarmKey, GasParams, GasState, PresetId, ScenarioId, Scope } from './types';
 
-export { DemoSim, TAU, type DemoParams, type DemoState } from './demo';
-
 // GasifierSim: the machine as the kit's `LabSim`. One clock: the simulation moves on `dt × timeScale`, in fixed steps of a second, so that the same inputs give the same state on any machine (tested). The dots, the flames and the wheels are the 3D's, on `view.slowMo`, from the rates in the state. Deterministic: nothing is drawn at random, nothing reads a wall clock.
 // There is no gesture of use here. A stop is a change of the state, because it is what the lab's last world is about; nothing lights, fans, fills or empties at a visitor's hand (R3).
 
