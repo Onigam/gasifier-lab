@@ -20,9 +20,9 @@ const CUE = /\[\[([a-z]+)(?::([^\]]*))?\]\]/g;
 const BOOLEAN_CUES = ['xray', 'cutaway', 'flows', 'isolate'];
 const MODES = ['explore', 'assembly', 'install', 'sim', 'plans', 'lessons'];
 const CAMERA_CUES = ['home', 'scene', 'frame', 'select'];
-/** Ceiling set by the owner for the spoken characters of one language, and what this guide aims for (the series' 17,000 to 24,000, with the French a little over). */
+/** Ceiling set by the owner for the spoken characters of one language, and what this guide aims for (the series' 17,000 to 24,000, with the French a little over: the fix pass of docs/fact-check.md put its hedges in). */
 const BUDGET = 30_000;
-const AIM = [17_000, 24_500] as const;
+const AIM = [17_000, 24_800] as const;
 /** generate.mjs refuses a longer segment. */
 const SEGMENT_CAP = 2_500;
 /** This lab's guide is in the local voice (generate.mjs --engine voicebox): a change of voice must be a decision, not an accident. */
@@ -65,7 +65,7 @@ const ONCE: Record<string, Record<string, [RegExp, string]>> = {
     noPlan: [/ne donne aucun plan/i, 'intro'],
     sources: [/panneau Sources/i, 'intro'],
     marks: [/une croix marque/i, 'intro'],
-    bench: [/deux cent vingt et un kilowatts/i, 'intro'],
+    bench: [/environ deux cent vingt kilowatts/i, 'intro'],
     layers: [/en couches/i, 'part-closed-garage'],
     thirtyFour: [/trente-quatre kilos/i, 'part-wood-gas-tractor'],
     neverGoesOut: [/ne s’éteint jamais/i, 'part-drying-zone'],
@@ -78,7 +78,7 @@ const ONCE: Record<string, Record<string, [RegExp, string]>> = {
     noPlan: [/gives no plans/i, 'intro'],
     sources: [/Sources panel/i, 'intro'],
     marks: [/a cross marks/i, 'intro'],
-    bench: [/two hundred and twenty-one kilowatts/i, 'intro'],
+    bench: [/about two hundred and twenty kilowatts/i, 'intro'],
     layers: [/in layers/i, 'part-closed-garage'],
     thirtyFour: [/thirty-four kilos/i, 'part-wood-gas-tractor'],
     neverGoesOut: [/flame never goes out/i, 'part-drying-zone'],
@@ -336,12 +336,120 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
         ? /(porte|fenêtre)s?[^.!?]{0,30}\b(aide|aident|sauve|protège|suffit|suffisent|règle|réduit le danger)\b|ouvrez|aérez|aération|ventilez|ventilation/i
         : /(door|window)s?[^.!?]{0,30}\b(helps?|saves?|protects?|is enough|are enough|solves?)\b|open (a|the) (door|window)|ventilate|ventilation/i;
     expect(where(helps)).toEqual([]);
-    const verdict = lang === 'fr' ? /portes ouvertes très insuffisantes/ : /open doors very unsatisfactory/;
+    // what the Swedes judged: fanning, starting and idling with the doors open, not the post-gassing of a parked car (docs/fact-check.md §2 item 6)
+    const verdict =
+      lang === 'fr'
+        ? /très insuffisant de lancer le ventilateur ou le moteur portes de garage ouvertes/
+        : /far from satisfactory to fan or start with the garage doors open/;
     for (const s of script.segments) {
       const i = s.text.indexOf('[[lab:door:open]]');
       if (i < 0) continue;
       expect(s.text.slice(0, i), `${s.id}: the open door falls with no verdict before it`).toMatch(verdict);
     }
+  });
+
+  it('keeps what docs/fact-check.md corrected: each sentence that went past its source stays out, and each correction stays in', () => {
+    // [pattern that must be nowhere, why]
+    const retired: [RegExp, string][] =
+      lang === 'fr'
+        ? [
+            [
+              /portes ouvertes très insuffisantes/,
+              'the Swedes judged fanning and starting with the doors open, not a parked car',
+            ],
+            [/ne boit presque pas/, 'the hook overstated: a thread of diesel stays (QA D17)'],
+            [
+              /rien ne dit quand cela finit|aucune source ne dit que ce gaz s’en va|il n’y a pas de fin/i,
+              'the sources give durations; « no end » is the model’s choice',
+            ],
+            [/quinze à vingt pour cent du gazole/, 'the pilot quantity is refused (R4, QA D2)'],
+            [
+              /un pour cent de puissance en plus pour trois degrés/,
+              'the lab’s density-only figure, far from both sources',
+            ],
+            [/à quel point c’était courant/, 'nothing says that rescue sets hung in garages'],
+            [/appareil de secours de mille neuf cent quarante/, 'the book dates no apparatus: « des années quarante »'],
+            [
+              /plus de quatre-vingt-dix-neuf pour cent des goudrons/,
+              'the 99 per cent assumed what the pyrolysis releases',
+            ],
+            [/livre suédois (la range|range la cendre)/, 'hot ash among the fire risks is an American source’s'],
+            [/institut suédois a compté/, '221 kilowatts is the lab’s sum, not the report’s'],
+            [
+              /bois stocké dégage|arrêt de moteur, sous une pièce/,
+              'pellets in a closed store; a leaking lid under a living room',
+            ],
+            [/qui faisaient attention|gens attentifs/, 'the source says « careless »'],
+          ]
+        : [
+            [
+              /open doors very unsatisfactory/,
+              'the Swedes judged fanning and starting with the doors open, not a parked car',
+            ],
+            [/hardly drinks any diesel/, 'the hook overstated: a thread of diesel stays (QA D17)'],
+            [
+              /nothing says when it ends|no source says that this gas goes away|there is no end/i,
+              'the sources give durations; « no end » is the model’s choice',
+            ],
+            [/fifteen to twenty per cent of a diesel/, 'the pilot quantity is refused (R4, QA D2)'],
+            [/one per cent more power for every three degrees/, 'the lab’s density-only figure, far from both sources'],
+            [/how common it was/, 'nothing says that rescue sets hung in garages'],
+            [/rescue set from nineteen forty\./, 'the book dates no apparatus: « the nineteen forties »'],
+            [/more than ninety-nine per cent of the tars/, 'the 99 per cent assumed what the pyrolysis releases'],
+            [/Swedish book lists hot ash/, 'hot ash among the fire risks is an American source’s'],
+            [/Swedish institute counted/, '221 kilowatts is the lab’s sum, not the report’s'],
+            [
+              /stored wood gives off|counts a stopped engine/,
+              'pellets in a closed store; a leaking lid under a living room',
+            ],
+            [/people who were being careful/, 'the source says « careless »'],
+          ];
+    for (const [re, why] of retired) expect(where(re), why).toEqual([]);
+
+    // [segment, pattern that must be there]
+    const corrected: [string, RegExp][] =
+      lang === 'fr'
+        ? [
+            ['intro', /roule au bois, avec un filet de gazole/],
+            ['intro', /par le calcul, environ deux cent vingt/],
+            ['intro', /d’un rapport sur cet institut, d’un livre suédois sur les gazogènes, et de manuels/],
+            ['scene-gasifier', /coupe, elle, est à l’échelle/],
+            ['part-wood-gas-tractor', /roule au bois, avec un filet de gazole/],
+            ['part-wood-gas-tractor', /et son gazogène aussi/],
+            ['part-chip-barn', /granulés stockés dans un local fermé/],
+            ['part-farmhouse', /couvercle qui fuyait/],
+            ['part-room-above', /couvercle qui fuyait/],
+            ['part-ash-bin', /source américaine/],
+            ['part-condensate-barrel', /Typiquement/],
+            ['part-fuel-casing', /chercheurs sont morts du monoxyde de carbone, après être descendus/],
+            ['part-exhaust-pipe', /moteurs de la guerre/],
+            ['part-gas-cooler', /Selon le rapport, dix pour cent de température en moins/],
+            ['part-cooler-condensate-vessel', /panne grave de ce tracteur/],
+            ['part-filter-bags', /Sur le camion du programme/],
+            ['part-post-gas-plume', /c’est son choix, pas une mesure/],
+            ['part-old-rescue-set', /années quarante/],
+          ]
+        : [
+            ['intro', /runs on wood, with a thread of diesel/],
+            ['intro', /by our sum, about two hundred and twenty/],
+            ['intro', /a report on that institute, a Swedish book on gasifiers, and some handbooks/],
+            ['scene-gasifier', /section is drawn to scale/],
+            ['part-wood-gas-tractor', /runs on wood, with a thread of diesel/],
+            ['part-wood-gas-tractor', /and so does its gasifier/],
+            ['part-chip-barn', /wood pellets kept in a closed store/],
+            ['part-farmhouse', /leaking lid/],
+            ['part-room-above', /leaking lid/],
+            ['part-ash-bin', /American source/],
+            ['part-condensate-barrel', /Typically/],
+            ['part-fuel-casing', /researchers died of carbon monoxide after climbing/],
+            ['part-exhaust-pipe', /exhaust of wartime engines/],
+            ['part-gas-cooler', /By the report, ten per cent less temperature/],
+            ['part-cooler-condensate-vessel', /This tractor’s one serious failure/],
+            ['part-filter-bags', /On the programme’s truck/],
+            ['part-post-gas-plume', /that is its choice, not a measurement/],
+            ['part-old-rescue-set', /nineteen forties/],
+          ];
+    for (const [id, re] of corrected) expect(spokenOf(seg(id)), `${id} lost a correction`).toMatch(re);
   });
 
   it('keeps the warning out of the voice: no emergency number, no first aid, no what-to-do', () => {
