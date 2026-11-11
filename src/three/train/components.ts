@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { group, mesh } from '@onigam/lab-kit/three';
-import { TAU, boxAt, joined, latheCrisp, softBox, stick, tubeGeometry, v3 } from '../common';
+import { TAU, boxAt, joined, latheCrisp, softBox, solidLathe, stick, tubeGeometry, v3 } from '../common';
 import { COOLER, CYCLONE, FAN, FILTER, GAUGE, HOTPIPE, MIXER, PIPE, STOPVALVE } from '../dims';
 import { dynamic, mergeStatic } from '../merge';
 import {
@@ -299,20 +299,32 @@ export function buildCooler(): CoolerPiece {
   vessel.add(mesh(new THREE.CylinderGeometry(0.01, 0.01, 0.05, 10), brassMat(), [depth / 2, -0.06 - jarH - 0.028, 0]));
   const lever = new THREE.BoxGeometry(0.05, 0.008, 0.008);
   vessel.add(mesh(lever, brassMat(), [depth / 2 + 0.02, -0.06 - jarH - 0.045, 0]));
-  // a strap from the frame to the jar
-  vessel.add(
-    mesh(
-      boxAt(
-        depth / 2 - jarR - 0.004,
-        -0.06 - jarH * 0.7,
-        -jarR,
-        depth / 2 + jarR + 0.004,
-        -0.06 - jarH * 0.7 + 0.014,
-        jarR,
-      ),
-      darkSteel(),
-    ),
-  );
+  // a hanger from the frame to the jar: a band round the jar, an ear on each side of it, and a rod from each ear up to the cross bar of the frame (the bar under the lower box, y from -0.04 to 0), with a nut under the ear
+  {
+    const yBand = -0.06 - jarH * 0.7;
+    const bandH = 0.018;
+    const hanger: THREE.BufferGeometry[] = [];
+    hanger.push(
+      solidLathe(
+        [
+          [jarR + 0.001, yBand - bandH / 2],
+          [jarR + 0.007, yBand - bandH / 2],
+          [jarR + 0.007, yBand + bandH / 2],
+          [jarR + 0.001, yBand + bandH / 2],
+        ],
+        28,
+      ).translate(depth / 2, 0, 0),
+    );
+    for (const s of [-1, 1]) {
+      const zr = s * (jarR + 0.014);
+      hanger.push(boxAt(depth / 2 - 0.011, yBand - 0.009, zr - 0.009, depth / 2 + 0.011, yBand + 0.009, zr + 0.009));
+      hanger.push(stick(v3(depth / 2, yBand + 0.009, zr), v3(depth / 2, -0.028, zr), 0.0045, 8));
+      const nut = new THREE.CylinderGeometry(0.0085, 0.0085, 0.008, 6);
+      nut.translate(depth / 2, yBand - 0.013, zr);
+      hanger.push(nut);
+    }
+    vessel.add(mesh(joined(hanger), darkSteel()));
+  }
   const water = new THREE.CylinderGeometry(jarR - 0.002, jarR - 0.002, 1, 28);
   water.translate(0, 0.5, 0);
   const vesselWater = mesh(water, blackWater());
