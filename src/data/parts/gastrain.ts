@@ -21,7 +21,11 @@ export const GAS_TRAIN_PARTS: PartInfo[] = [
     material: l('Tuyau d’acier, brides', 'Steel pipe, flanges'),
     specs: [
       sp('Température d’entrée, modèle', 'Inlet temperature, model', v('{outletModel}')),
-      sp('Point de rosée, rapport', 'Dew point, report', l('45 à 60 °C', '45 to 60 °C')),
+      sp(
+        'Point de rosée, rapport, bois à 20–35 % d’humidité',
+        'Dew point, report, wood at 20–35% moisture',
+        l('45 à 60 °C', '45 to 60 °C'),
+      ),
       sp('Dimensions réelles', 'Real dimensions', l('inconnues', 'unknown')),
       sp('Tuyau équivalent du modèle', 'The model’s equivalent pipe', lf('{pipeD} × {pipeL}', '{pipeD} × {pipeL}')),
       sp('Perte du modèle', 'The model’s loss', v('{pipeMbar}')),
@@ -291,14 +295,14 @@ export const GAS_TRAIN_PARTS: PartInfo[] = [
         failure:
           'Un nettoyage trop fréquent : c’est ce qui a fait passer la surface de 2,5 à 4,9 m². Un gaz trop chaud brûle la toile ; un gaz trop froid la mouille.',
         check:
-          'La résistance, lue au manomètre à eau : elle double après environ 3 000 km, et sextuple si la toile se mouille.',
+          'La résistance, lue au manomètre à eau : sur le camion, elle doublait après environ 3 000 km, et elle est plus que sextuplée si la toile se mouille.',
         care: 'Le filtre était nettoyé toutes les 25 à 100 heures, pendant 30 à 60 minutes : une durée de l’institut, pas un geste décrit.',
       },
       {
         failure:
           'Cleaning too often: that is what took the area from 2.5 to 4.9 m². A gas too hot burns the cloth; a gas too cold wets it.',
         check:
-          'The resistance, read on the water gauge: it doubles after about 3,000 km, and rises sixfold if the cloth gets wet.',
+          'The resistance, read on the water gauge: on the truck it doubled after about 3,000 km, and it is more than sixfold if the cloth gets wet.',
         care: 'The filter was cleaned every 25 to 100 hours, for 30 to 60 minutes: an institute’s duration, not a gesture described.',
       },
     ),
@@ -343,14 +347,14 @@ export const GAS_TRAIN_PARTS: PartInfo[] = [
           'Une toile mouillée : la résistance multipliée par six d’un coup, et dans le modèle {filterWetLoss} de puissance en moins qu’avec un filtre neuf.',
         check:
           'Sur 3 000 km, soit 50 heures à 60 km/h, le modèle double la résistance de la toile, comme sur le camion : le moteur n’y perd que {filterAgeLoss}.',
-        care: 'Les manches tenaient de 500 à 1 000 heures dans le journal de l’institut.',
+        care: 'Les manches tenaient de 500 à 1 000 heures, d’après l’expérience cumulée de plusieurs véhicules du programme.',
       },
       {
         failure:
           'Wet cloth: the resistance multiplied by six at once, and in the model {filterWetLoss} less power than with a new filter.',
         check:
           'Over 3,000 km, which is 50 hours at 60 km/h, the model doubles the cloth’s resistance, as on the truck: the engine loses only {filterAgeLoss} for it.',
-        care: 'The bags lasted 500 to 1,000 hours in the institute’s log.',
+        care: 'The bags lasted 500 to 1,000 hours, by the accumulated experience of several of the programme’s vehicles.',
       },
     ),
     tip: l(
@@ -386,14 +390,14 @@ export const GAS_TRAIN_PARTS: PartInfo[] = [
     maintenance: maint(
       {
         failure:
-          'L’eau condensée : elle s’accumule dans le bac, et la seule panne grave du programme est probablement venue d’un bac trop plein.',
+          'L’eau condensée : elle s’accumule dans le bac, et la seule panne grave de ce tracteur est probablement venue d’un bac trop plein.',
         check:
           'Ce que vaut le refroidissement n’est pas dit pareil partout : presque 2 % de puissance pour une baisse de 10 % de la température selon le rapport, 1 % par 10 °F selon le manuel américain, et par la densité seule {coolRule}, ce que trouve aussi le modèle.',
         care: 'Le refroidisseur était nettoyé et ses joints refaits vers 500 heures, une à deux heures de travail.',
       },
       {
         failure:
-          'Condensed water: it builds up in the vessel, and the programme’s one serious failure probably came from an overfull vessel.',
+          'Condensed water: it builds up in the vessel, and this tractor’s one serious failure probably came from an overfull vessel.',
         check:
           'What cooling is worth is not said the same everywhere: almost 2% of power for a 10% drop in temperature by the report, 1% per 10 °F by the American handbook, and by density alone {coolRule}, which the model also finds.',
         care: 'The cooler was cleaned and its gaskets redone at about 500 hours, one to two hours of work.',
@@ -414,8 +418,8 @@ export const GAS_TRAIN_PARTS: PartInfo[] = [
     category: 'hydraulic',
     name: l('Bac de condensats', 'Condensate vessel'),
     short: l(
-      'Le bac d’eau noire du refroidisseur : trop plein, il a noyé un moteur, la seule panne grave du programme.',
-      'The cooler’s vessel of black water: overfull, it drowned an engine, the programme’s one serious failure.',
+      'Le bac d’eau noire du refroidisseur : trop plein, il a probablement noyé un moteur, la seule panne grave de ce tracteur.',
+      'The cooler’s vessel of black water: overfull, it probably drowned an engine, this tractor’s one serious failure.',
     ),
     description: lf(
       'L’eau que le refroidisseur tire du gaz tombe dans un bac. Le rapport dit que le bac était vidé toutes les 2 à 3 heures, et que la seule panne grave de ce moteur est probablement venue d’une eau aspirée d’un bac trop plein : elle est entrée dans le moteur avec le gaz. La taille du bac n’est dans aucune source. Le modèle compte {coolerLph} d’eau à pleine charge, un bac vidé toutes les {vesselHours}, et allume une alarme quand l’intervalle est dépassé. La 3D dessine un bocal dont le niveau suit le modèle : sa taille est une estimation, et le lab ne la donne pas comme une cote.',
@@ -450,8 +454,8 @@ export const GAS_TRAIN_PARTS: PartInfo[] = [
       'The vessel’s level rises between two emptyings, in the 3D. When the Simulation does not empty it, it goes over the rim, and the alarm lights.',
     ),
     design: l(
-      'Le bac est la seule pièce de cette ligne dont la panne a tué un moteur. Il tient à un détail : un niveau à regarder toutes les deux ou trois heures. C’est la forme même du travail, long, sale et lourd, dont parlaient les conducteurs.',
-      'The vessel is the only part of this line whose failure killed an engine. It hangs on a detail: a level to be looked at every two or three hours. It is the very shape of the time-consuming, dirty and heavy work the drivers spoke of.',
+      'Le bac est la seule pièce de cette ligne dont la panne a probablement tué un moteur. Il tient à un détail : un niveau à regarder toutes les deux ou trois heures. C’est la forme même du travail, long, sale et lourd, dont parlaient les conducteurs.',
+      'The vessel is the only part of this line whose failure probably killed an engine. It hangs on a detail: a level to be looked at every two or three hours. It is the very shape of the time-consuming, dirty and heavy work the drivers spoke of.',
     ),
   },
   {
@@ -464,8 +468,8 @@ export const GAS_TRAIN_PARTS: PartInfo[] = [
       'Where the gas meets the engine’s air: about as much of one as of the other.',
     ),
     description: lf(
-      'Au mélangeur, le gaz du refroidisseur rencontre l’air du filtre à air du tracteur. Il en faut à peu près autant de l’un que de l’autre : de 1 à 1,1 volume d’air pour un de gaz, selon un manuel américain. Par arithmétique sur la composition du rapport, on trouve {mixAir} ; le modèle, sur son propre gaz, {mixAirModel}. Le mélange contient environ {mixMJ} par mètre cube, quand le même volume d’essence et d’air en contient 3,8 : un tiers de moins avant tout le reste. Le mélangeur est sur le dessus du capot dans le dessin du lab, au-dessus du moteur, d’après le schéma, et son gabarit est une estimation.',
-      'At the mixer, the gas from the cooler meets the air from the tractor’s air cleaner. It takes about as much of one as of the other: 1 to 1.1 volumes of air for one of gas, by an American handbook. By arithmetic on the report’s composition, it comes to {mixAir}; the model, on its own gas, {mixAirModel}. The mixture holds about {mixMJ} per cubic metre, when the same volume of petrol and air holds 3.8: a third less before anything else. The mixer stands on the top of the bonnet in the lab’s drawing, above the engine, from the schematic, and its size is an estimate.',
+      'Au mélangeur, le gaz du refroidisseur rencontre l’air du filtre à air du tracteur. Il y entre à peu près autant de l’un que de l’autre : de 1 à 1,1 volume d’air pour un de gaz, selon un manuel américain. Par arithmétique sur la composition du rapport, on trouve {mixAir} ; le modèle, sur son propre gaz, {mixAirModel}. Le mélange contient environ {mixMJ} par mètre cube, quand le même volume d’essence et d’air en contient 3,8 : un tiers de moins avant tout le reste. Le mélangeur est sur le dessus du capot dans le dessin du lab, au-dessus du moteur, d’après le schéma, et son gabarit est une estimation.',
+      'At the mixer, the gas from the cooler meets the air from the tractor’s air cleaner. About as much of one as of the other goes in: 1 to 1.1 volumes of air for one of gas, by an American handbook. By arithmetic on the report’s composition, it comes to {mixAir}; the model, on its own gas, {mixAirModel}. The mixture holds about {mixMJ} per cubic metre, when the same volume of petrol and air holds 3.8: a third less before anything else. The mixer stands on the top of the bonnet in the lab’s drawing, above the engine, from the schematic, and its size is an estimate.',
     ),
     material: l('Corps métallique, deux entrées', 'Metal body, two inlets'),
     specs: [
@@ -598,15 +602,15 @@ export const GAS_TRAIN_PARTS: PartInfo[] = [
       'A thread of diesel that lights the gas: without it, a diesel does not burn its mixture.',
     ),
     description: lf(
-      'Un diesel n’a pas de bougie : il allume sa charge en la comprimant, puis en y injectant du gazole. Le gaz et l’air ne s’allument pas ainsi, mais le filet de gazole, si. C’est le pilote : il garde de 15 à 20 % du gazole que le moteur aurait brûlé, et donne 79 % de sa puissance. Au banc, il compte {dieselShareMax} de l’énergie qui entre à pleine charge, 15 % à charge partielle, 26 % au ralenti. Le tableau du rapport imprime 18,9 % pour la première ligne, mais ses propres chiffres ne le portent pas : une coquille probable. Le lab ne donne ni quantité par coup, ni réglage.',
-      'A diesel has no spark plug: it lights its charge by compressing it, then injecting diesel into it. Gas and air do not light that way, but the thread of diesel does. It is the pilot: it keeps 15 to 20% of the diesel the engine would have burned, and gives 79% of its power. On the bench it counts for {dieselShareMax} of the energy going in at full load, 15% at part load, 26% at idle. The report’s table prints 18.9% for the first line, but its own figures do not bear it out: a probable misprint. The lab gives no quantity per stroke, and no setting.',
+      'Un diesel n’a pas de bougie : il allume sa charge en la comprimant, puis en y injectant du gazole. Le gaz et l’air ne s’allument pas ainsi, mais le filet de gazole, si. C’est le pilote : un diesel a encore besoin d’un filet de gazole, et le moteur donne ainsi 79 % de sa puissance. Au banc, il compte {dieselShareMax} de l’énergie qui entre à pleine charge, 15 % à charge partielle, 26 % au ralenti. Le tableau du rapport imprime 18,9 % pour la première ligne, mais ses propres chiffres ne le portent pas : une coquille probable. Le lab ne donne ni quantité par coup, ni réglage.',
+      'A diesel has no spark plug: it lights its charge by compressing it, then injecting diesel into it. Gas and air do not light that way, but the thread of diesel does. It is the pilot: a diesel still needs a thread of diesel, and the engine gives 79% of its power that way. On the bench it counts for {dieselShareMax} of the energy going in at full load, 15% at part load, 26% at idle. The report’s table prints 18.9% for the first line, but its own figures do not bear it out: a probable misprint. The lab gives no quantity per stroke, and no setting.',
     ),
     material: l('Injecteur de diesel, un jet fin', 'Diesel injector, a fine jet'),
     specs: [
       sp(
-        'Gazole gardé',
-        'Diesel kept',
-        l('15 à 20 % du gazole d’un diesel seul', '15 to 20% of the diesel of a diesel alone'),
+        'Gazole',
+        'Diesel',
+        l('un filet reste nécessaire pour allumer le gaz', 'a thread is still needed to light the gas'),
       ),
       sp('Part de l’énergie, pleine charge', 'Share of energy, full load', v('{dieselShareMax}')),
       sp('Part de l’énergie, charge partielle', 'Share of energy, part load', l('15 %', '15%')),
@@ -617,13 +621,13 @@ export const GAS_TRAIN_PARTS: PartInfo[] = [
       {
         failure: 'Le refroidissement de l’injecteur a été changé par l’institut : le rapport ne dit pas pourquoi.',
         check:
-          'Le gazole économisé : 80 à 85 % d’un diesel seul, selon le rapport ; le modèle trouve environ {substModel} à pleine charge.',
+          'Le gazole, au banc : 2,2 kg/h à pleine charge, 1,9 à charge partielle, 1,2 au ralenti. Ce sont des résultats d’essai, pas un réglage.',
         care: 'Aucune opération n’est décrite, et aucun réglage n’est donné.',
       },
       {
         failure: 'The injector’s cooling was changed by the institute: the report does not say why.',
         check:
-          'The diesel saved: 80 to 85% of a diesel alone, by the report; the model finds about {substModel} at full load.',
+          'The diesel, on the bench: 2.2 kg/h at full load, 1.9 at part load, 1.2 at idle. Those are test results, not a setting.',
         care: 'No operation is described, and no setting is given.',
       },
     ),
@@ -699,12 +703,12 @@ export const GAS_TRAIN_PARTS: PartInfo[] = [
     category: 'mechanical',
     name: l('Échappement', 'Exhaust pipe'),
     short: l(
-      'Au ralenti, un échappement à gaz de bois contient de 5 à 8 % de monoxyde de carbone.',
-      'At idle, a wood-gas exhaust holds 5 to 8% carbon monoxide.',
+      'Au ralenti, l’échappement des moteurs à gaz de bois de la guerre contient de 5 à 8 % de monoxyde de carbone.',
+      'At idle, the exhaust of wartime wood-gas engines holds 5 to 8% carbon monoxide.',
     ),
     description: lf(
-      'À la sortie du moteur, au travail, il ne passe que très peu de monoxyde : le modèle compte {exhaustWork}. Mais au ralenti, le livre suédois a lu de 5 à 8 % de monoxyde de carbone dans l’échappement, sur les moteurs de la guerre, et le juge bien plus dangereux que celui d’un moteur à essence. C’est qu’au ralenti l’essentiel du gaz traverse le moteur sans brûler : {twoThirds}, d’après le modèle, qui lit ainsi ce chiffre. Aucun chiffre d’échappement moderne n’est donné ici.',
-      'At the engine’s outlet, at work, very little carbon monoxide passes: the model counts {exhaustWork}. But at idle, the Swedish book read 5 to 8% carbon monoxide in the exhaust, on wartime engines, and judges it far more dangerous than a petrol engine’s. At idle, most of the gas goes through the engine unburnt: {twoThirds}, by the model, which reads that figure that way. No modern exhaust figure is given here.',
+      'À la sortie du moteur, au travail, il ne passe que très peu de monoxyde : le modèle compte {exhaustWork}. Mais au ralenti, le livre suédois a lu de 5 à 8 % de monoxyde de carbone dans l’échappement, sur les moteurs de la guerre, et le juge bien plus dangereux que celui d’un moteur à essence. Le modèle en tire qu’au ralenti l’essentiel du gaz traverse le moteur sans brûler, {twoThirds} : une valeur qu’il règle sur ce chiffre, donc pas une preuve. Aucun chiffre d’échappement moderne n’est donné ici.',
+      'At the engine’s outlet, at work, very little carbon monoxide passes: the model counts {exhaustWork}. But at idle, the Swedish book read 5 to 8% carbon monoxide in the exhaust, on wartime engines, and judges it far more dangerous than a petrol engine’s. The model takes from it that at idle most of the gas goes through the engine unburnt, {twoThirds}: a value it sets on that figure, so not a proof. No modern exhaust figure is given here.',
     ),
     material: l('Tuyau d’acier, collecteur', 'Steel pipe, manifold'),
     specs: [
@@ -720,12 +724,13 @@ export const GAS_TRAIN_PARTS: PartInfo[] = [
     maintenance: maint(
       {
         failure:
-          'Un moteur qui tourne au ralenti dans un local : le livre suédois lit de 5 à 8 % de monoxyde à l’échappement.',
+          'Un moteur qui tourne au ralenti dans un local : le livre suédois lit de 5 à 8 % de monoxyde à l’échappement des moteurs de la guerre.',
         check: 'Le monoxyde ne se voit pas : le nuage gris de l’échappement n’en dit pas la part.',
         care: 'Aucune opération n’est décrite pour cet échappement.',
       },
       {
-        failure: 'An engine idling in a room: the Swedish book reads 5 to 8% carbon monoxide in the exhaust.',
+        failure:
+          'An engine idling in a room: the Swedish book reads 5 to 8% carbon monoxide in the exhaust of wartime engines.',
         check: 'Carbon monoxide cannot be seen: the grey cloud of the exhaust does not say its share.',
         care: 'No operation is described for this exhaust.',
       },
@@ -735,8 +740,8 @@ export const GAS_TRAIN_PARTS: PartInfo[] = [
       'In “Garage”, with the engine running, the 3D shows the exhaust’s grey plume: it is apart from the stop’s white one.',
     ),
     design: lf(
-      'L’échappement est le seul endroit de cette ligne où le gaz sort pour de bon. Un moteur qui brûle mal au ralenti le rejette presque tel quel : c’est une des raisons pour lesquelles le ralenti, dans ce lab, brûle {idleIn} pour rien.',
-      'The exhaust is the only place on this line where the gas really leaves. An engine that burns badly at idle throws it out almost as it is: it is one of the reasons why idling, in this lab, burns {idleIn} for nothing.',
+      'L’échappement est le seul endroit de cette ligne où le gaz sort pour de bon. Dans le modèle, un moteur qui brûle mal au ralenti le rejette presque tel quel : c’est une des raisons pour lesquelles le ralenti, dans ce lab, brûle {idleIn} pour rien.',
+      'The exhaust is the only place on this line where the gas really leaves. In the model, an engine that burns badly at idle throws it out almost as it is: it is one of the reasons why idling, in this lab, burns {idleIn} for nothing.',
     ),
   },
   {

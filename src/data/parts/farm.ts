@@ -15,8 +15,8 @@ export const FARM_PARTS: PartInfo[] = [
       'A 5-tonne tractor that burns wood chips: a gasifier on its flank, a thread of diesel to light the gas.',
     ),
     description: lf(
-      'Voici la machine entière. Un tracteur Massey Ferguson 1100, inscrit sous 1968, pèse 5 090 kg dans sa version à gaz, avec 450 kg de système ajouté. Dans le programme d’un institut suédois d’essais de machines agricoles, il a travaillé plus de 2 500 heures en six ans, dans deux grandes fermes du sud du pays : brise-mottes, herse, disques, rouleau, betteraves, céréales, engrais. À 40 kW à l’arbre, le modèle trouve {chipsModel} de plaquettes ; le banc de l’institut en a mesuré 41, avec 2,2 kg de gazole : {kwIn} en entrée pour 40 en sortie, soit 18 %. Le bois seul ne suffit pas : un diesel garde un filet de gazole pour allumer le gaz, de 15 à 20 % de ce qu’il aurait brûlé. Cliquez la machine : elle ouvre son propre monde.',
-      'Here is the whole machine. A Massey Ferguson 1100 tractor, listed under 1968, weighs 5,090 kg in its gas version, with 450 kg of system added. In the programme of a Swedish institute for testing farm machinery, it worked more than 2,500 hours over six years, on two large farms in the south of the country: clod crusher, harrow, discs, roller, beets, grain, fertiliser. At 40 kW at the shaft, the model finds {chipsModel} of chips; the institute’s bench measured 41, with 2.2 kg of diesel: {kwIn} going in for 40 coming out, which is 18%. Wood alone is not enough: a diesel keeps a thread of its own fuel to light the gas, 15 to 20% of what it would have burned. Click the machine: it opens its own world.',
+      'Voici la machine entière. Un tracteur Massey Ferguson 1100, inscrit sous 1968, pèse 5 090 kg dans sa version à gaz, avec 450 kg de système ajouté. Dans le programme d’un institut suédois d’essais de machines agricoles, il a travaillé plus de 2 500 heures en six ans, dans deux grandes fermes du sud du pays : brise-mottes, herse, disques, rouleau, betteraves, céréales, engrais. À 40 kW à l’arbre, le modèle trouve {chipsModel} de plaquettes ; le banc de l’institut en a mesuré 41, avec 2,2 kg de gazole : {kwIn} en entrée pour 40 en sortie, soit 18 %. Le bois seul ne suffit pas : un diesel a encore besoin d’un filet de gazole pour allumer le gaz. Cliquez la machine : elle ouvre son propre monde.',
+      'Here is the whole machine. A Massey Ferguson 1100 tractor, listed under 1968, weighs 5,090 kg in its gas version, with 450 kg of system added. In the programme of a Swedish institute for testing farm machinery, it worked more than 2,500 hours over six years, on two large farms in the south of the country: clod crusher, harrow, discs, roller, beets, grain, fertiliser. At 40 kW at the shaft, the model finds {chipsModel} of chips; the institute’s bench measured 41, with 2.2 kg of diesel: {kwIn} going in for 40 coming out, which is 18%. Wood alone is not enough: a diesel still needs a thread of diesel to light the gas. Click the machine: it opens its own world.',
     ),
     material: l('Acier et fonte, 5 090 kg avec le système', 'Steel and cast iron, 5,090 kg with the system'),
     specs: [
@@ -63,8 +63,8 @@ export const FARM_PARTS: PartInfo[] = [
       'Click the tractor: the “Tractor” world opens. In “Flows”, the chips follow their way, from the chipper to the roof rack.',
     ),
     design: lf(
-      'Les conducteurs habituels n’en voulaient pas : c’était long, sale et lourd. Ce sont des élèves de l’école d’agriculture qui l’ont conduit, après une à deux semaines d’apprentissage. Le modèle lit ce tracteur autrement que le banc. Au banc, ce tracteur a brûlé environ {thirdMore} d’énergie de plus qu’un bon diesel pour le même travail, et le moteur du modèle ne l’imite pas : c’est la raison de l’écart sur les plaquettes. Le lab ne cache pas cet écart : il le montre.',
-      'The regular drivers did not want it: it was time-consuming, dirty and heavy. Agricultural students drove it, after one to two weeks of training. The model reads this tractor differently from the bench. On the bench, this tractor burned about {thirdMore} more energy than a good diesel for the same work, and the model’s engine does not imitate it: that is the reason for the gap on the chips. The lab does not hide the gap: it shows it.',
+      'Les conducteurs habituels n’en voulaient pas : c’était long, sale et lourd. Ce sont des élèves de l’école d’agriculture qui l’ont conduit, après une à deux semaines d’apprentissage. Le modèle lit ce tracteur autrement que le banc. Au banc, ce tracteur a brûlé environ {thirdMore} d’énergie de plus qu’un bon diesel pour le même travail. Le moteur du modèle brûle mieux que celui du banc, et son gazogène aussi : ce sont les deux raisons de l’écart sur les plaquettes. Le lab ne cache pas cet écart : il le montre.',
+      'The regular drivers did not want it: it was time-consuming, dirty and heavy. Agricultural students drove it, after one to two weeks of training. The model reads this tractor differently from the bench. On the bench, this tractor burned about {thirdMore} more energy than a good diesel for the same work. The model’s engine burns better than the bench’s, and so does its gasifier: those are the two reasons for the gap on the chips. The lab does not hide the gap: it shows it.',
     ),
   },
   {
@@ -73,12 +73,12 @@ export const FARM_PARTS: PartInfo[] = [
     category: 'structure',
     name: l('Grange à plaquettes', 'Chip barn'),
     short: l(
-      'La réserve de plaquettes sèches : un poste de travail en demande plus d’un mètre cube, et le bois stocké fait lui-même du monoxyde.',
-      'The store of dry chips: one working shift takes more than a cubic metre, and stored wood gives off carbon monoxide itself.',
+      'La réserve de plaquettes sèches : un poste de travail en demande plus d’un mètre cube, et du bois stocké peut dégager du monoxyde.',
+      'The store of dry chips: one working shift takes more than a cubic metre, and stored wood can give off carbon monoxide.',
     ),
     description: lf(
-      'Tout part d’ici, au sec. Les plaquettes d’essai de l’institut tenaient 8 % d’humidité, et pesaient 152 kg le mètre cube. Un poste de huit heures, à 27 à 41 kg l’heure, en demande de {shiftKg}, soit {shiftM3}. C’est beaucoup de volume pour un seul tracteur, et la galerie du toit n’en porte qu’une partie. L’humidité compte autant que la quantité : l’institut s’arrêtait à 30 % pour ses plaquettes, et disait qu’au-delà d’environ 40 % le gaz ne brûle plus. Ces pourcentages se comptent sur le bois humide. Un bois qui attend dans un tas fermé n’est pas inerte : le bois stocké dégage du monoxyde de carbone, et une alerte britannique compte au moins neuf morts dans des stockages de granulés en Europe depuis 2002.',
-      'Everything starts here, dry. The institute’s test chips held 8% moisture, and weighed 152 kg a cubic metre. A shift of eight hours, at 27 to 41 kg an hour, takes {shiftKg}, which is {shiftM3}. That is a lot of volume for one tractor, and the roof rack carries only part of it. Moisture counts as much as quantity: the institute stopped at 30% for its chips, and said that past about 40% the gas no longer burns. Those percentages are counted on the wet wood. Wood waiting in a closed heap is not inert: stored wood gives off carbon monoxide, and a British safety alert counts at least nine deaths in pellet stores in Europe since 2002.',
+      'Tout part d’ici, au sec. Les plaquettes d’essai de l’institut tenaient 8 % d’humidité, et pesaient 152 kg le mètre cube. Un poste de huit heures, à 27 à 41 kg l’heure, en demande de {shiftKg}, soit {shiftM3}. C’est beaucoup de volume pour un seul tracteur, et la galerie du toit n’en porte qu’une partie. L’humidité compte autant que la quantité : l’institut s’arrêtait à 30 % pour ses plaquettes, et disait qu’au-delà d’environ 40 % le gaz ne brûle plus. Ces pourcentages se comptent sur le bois humide. Le bois stocké peut dégager du monoxyde de carbone : une alerte britannique de 2012 compte au moins neuf morts, depuis 2002, après l’entrée dans des stockages fermés de granulés en Europe (des granulés, pas des plaquettes).',
+      'Everything starts here, dry. The institute’s test chips held 8% moisture, and weighed 152 kg a cubic metre. A shift of eight hours, at 27 to 41 kg an hour, takes {shiftKg}, which is {shiftM3}. That is a lot of volume for one tractor, and the roof rack carries only part of it. Moisture counts as much as quantity: the institute stopped at 30% for its chips, and said that past about 40% the gas no longer burns. Those percentages are counted on the wet wood. Stored wood can give off carbon monoxide: a British safety alert of 2012 counts at least nine deaths since 2002 after entry into closed wood-pellet stores in Europe (pellets, not chips).',
     ),
     material: l('Bardage et toit, à l’échelle d’une grande ferme', 'Boards and a roof, at the scale of a large farm'),
     specs: [
@@ -113,8 +113,8 @@ export const FARM_PARTS: PartInfo[] = [
       'Set the moisture slider to 40% in the Simulation: the barn does not change, but the heap goes down faster.',
     ),
     design: l(
-      'La grange, la ferme et le garage n’ont aucune source : ils sont dessinés pour donner l’échelle d’un tracteur de cinq tonnes sur plusieurs centaines d’hectares. Seuls comptent ici le volume des plaquettes et leur humidité. Le chiffre de neuf morts vient d’une source lue en résumé, à relire avant d’être cité ailleurs.',
-      'The barn, the farm and the garage have no source: they are drawn to give the scale of a five-tonne tractor over several hundred hectares. Only the volume of the chips and their moisture count here. The figure of nine deaths comes from a source read in summary, to be re-read before it is quoted elsewhere.',
+      'La grange, la ferme et le garage n’ont aucune source : ils sont dessinés pour donner l’échelle d’un tracteur de cinq tonnes sur plusieurs centaines d’hectares. Seuls comptent ici le volume des plaquettes et leur humidité. Le chiffre de neuf morts est celui d’une alerte britannique de 2012 : il compte les morts depuis 2002 jusqu’à cette date, et il parle de granulés de bois.',
+      'The barn, the farm and the garage have no source: they are drawn to give the scale of a five-tonne tractor over several hundred hectares. Only the volume of the chips and their moisture count here. The figure of nine deaths is that of a British alert of 2012: it counts the deaths since 2002 up to that date, and it is about wood pellets.',
     ),
   },
   {
@@ -127,15 +127,18 @@ export const FARM_PARTS: PartInfo[] = [
       'Where the fuel begins: a drum with knives that cuts wood into chips the size of a fingertip.',
     ),
     description: l(
-      'Un tracteur à gaz de bois ne brûle pas des bûches. Il brûle des plaquettes, et celles-ci se font ici : un tambour garni de couteaux, sur une remorque, qui tourne vite et coupe le bois en morceaux. Les plaquettes du programme de l’institut avaient pour l’essentiel une taille de 15 à 30 mm, et c’est cette taille qui compte pour le gazogène : des morceaux qui laissent passer le gaz entre eux, ni de la poussière, ni des éclats trop longs. Aucune source ne décrit la déchiqueteuse de cette ferme. Celle du lab est dessinée d’après l’usage courant des fermes de ce temps.',
-      'A wood-gas tractor does not burn logs. It burns chips, and they are made here: a drum fitted with knives, on a trailer, that spins fast and cuts wood into pieces. The institute’s chips were mostly 15 to 30 mm in size, and that size matters to the gasifier: pieces that let the gas pass between them, neither dust nor splinters too long. No source describes this farm’s chipper. The lab’s is drawn from the usual practice of farms of the day.',
+      'Un tracteur à gaz de bois ne brûle pas des bûches. Il brûle des plaquettes, et celles-ci se font ici : un tambour garni de couteaux, sur une remorque, qui tourne vite et coupe le bois en morceaux. Des plaquettes convenables, dans une répartition type du rapport, ont pour l’essentiel une taille de 15 à 30 mm, et c’est cette taille qui compte pour le gazogène : des morceaux qui laissent passer le gaz entre eux, ni de la poussière, ni des éclats trop longs. Aucune source ne décrit la déchiqueteuse de cette ferme. Celle du lab est dessinée d’après l’usage courant des fermes de ce temps.',
+      'A wood-gas tractor does not burn logs. It burns chips, and they are made here: a drum fitted with knives, on a trailer, that spins fast and cuts wood into pieces. Suitable chips, in a typical distribution of the report, are mostly 15 to 30 mm in size, and that size matters to the gasifier: pieces that let the gas pass between them, neither dust nor splinters too long. No source describes this farm’s chipper. The lab’s is drawn from the usual practice of farms of the day.',
     ),
     material: l('Acier, tambour à couteaux', 'Steel, a drum with knives'),
     specs: [
       sp(
         'Taille de plaquette la plus fréquente',
         'Most frequent chip size',
-        l('15 à 30 mm (l’essentiel de la masse)', '15 to 30 mm (most of the mass)'),
+        l(
+          '15 à 30 mm (l’essentiel de la masse, répartition type)',
+          '15 to 30 mm (most of the mass, typical distribution)',
+        ),
       ),
       sp(
         'Origine de cette machine',
@@ -244,8 +247,8 @@ export const FARM_PARTS: PartInfo[] = [
       'Four metres wide: the work the whole thing was built for, behind the tractor.',
     ),
     description: lf(
-      'C’est la raison d’être de la machine. Le tracteur traînait un brise-mottes de 4 m de large, une herse de 5 m, des disques de 2 m, un rouleau de 6 à 10 m, sur des betteraves, des céréales, de l’engrais. Du travail du sol, des journées entières : plus de 2 500 heures en six ans. Le modèle le prend à environ {groundKmh}, une estimation : l’institut ne donne pas l’allure. Le brise-mottes de la ferme avance à ce pas dans le monde « Ferme », et ses anneaux roulent comme les roues. Quand on sélectionne le tracteur ou lui, ils s’arrêtent : la caméra n’a pas à courir après.',
-      'This is the reason for the machine. The tractor pulled a clod crusher 4 m wide, a harrow of 5 m, discs of 2 m, a roller of 6 to 10 m, over beets, grain and fertiliser. Soil work, whole days of it: more than 2,500 hours in six years. The model takes it at about {groundKmh}, an estimate: the institute does not give the pace. The farm’s crusher goes at that pace in the “Farm” world, and its rings roll as the wheels do. When the tractor or the crusher is selected, they stand still: the camera does not have to chase them.',
+      'C’est la raison d’être de la machine. Le tracteur traînait un brise-mottes de 4 m de large, une herse de 5 m, des disques de 2 m, un rouleau de 6 à 10 m, sur des betteraves, des céréales, de l’engrais. Du travail du sol, des journées entières : plus de 2 500 heures de service en six ans, transports de betteraves, de céréales et d’engrais compris. Le modèle le prend à environ {groundKmh}, une estimation : l’institut ne donne pas l’allure. Le brise-mottes de la ferme avance à ce pas dans le monde « Ferme », et ses anneaux roulent comme les roues. Quand on sélectionne le tracteur ou lui, ils s’arrêtent : la caméra n’a pas à courir après.',
+      'This is the reason for the machine. The tractor pulled a clod crusher 4 m wide, a harrow of 5 m, discs of 2 m, a roller of 6 to 10 m, over beets, grain and fertiliser. Soil work, whole days of it: more than 2,500 hours of service in six years, transport of beets, grain and fertiliser included. The model takes it at about {groundKmh}, an estimate: the institute does not give the pace. The farm’s crusher goes at that pace in the “Farm” world, and its rings roll as the wheels do. When the tractor or the crusher is selected, they stand still: the camera does not have to chase them.',
     ),
     material: l('Acier, anneaux sur essieu', 'Steel, rings on an axle'),
     specs: [
@@ -286,14 +289,14 @@ export const FARM_PARTS: PartInfo[] = [
     id: 'farmhouse',
     scene: 'farm',
     category: 'structure',
-    name: l('Ferme', 'Farmhouse'),
+    name: l('Maison', 'Farmhouse'),
     short: l(
       'La maison de la ferme : l’échelle de tout le reste, et les gens qui dorment à côté du garage.',
       'The farmhouse: the scale of everything else, and the people who sleep beside the garage.',
     ),
     description: lf(
-      'Aucune source ne décrit la ferme : ce qui est dessiné ici est une estimation, deux étages de planches peintes en rouge, à peu près {houseSize}, avec un toit gris et une cheminée de brique. Elle est là pour une raison. Le livre suédois range parmi les pires accidents du pays ceux d’un arrêt de moteur : la voiture est au garage, par exemple sous une pièce à vivre, et le gaz continue de sortir. Le garage de la ferme touche donc la maison, et la chambre qui le surmonte est cette pièce-là. Personne n’y est dessiné.',
-      'No source describes the farm: what is drawn here is an estimate, two storeys of red-painted boards, about {houseSize}, with a grey roof and a brick chimney. It is here for a reason. The Swedish book ranks among the country’s worst accidents those that followed an engine stopping: the car is in the garage, for instance under a living room, and the gas goes on coming out. So the farm’s garage touches the house, and the bedroom over it is that room. Nobody is drawn in it.',
+      'Aucune source ne décrit la ferme : ce qui est dessiné ici est une estimation, deux étages de planches peintes en rouge, à peu près {houseSize}, avec un toit gris et une cheminée de brique. Elle est là pour une raison. Le livre suédois range parmi les pires accidents du pays ceux d’une voiture au couvercle qui fuyait, garée dans un garage, par exemple sous une pièce à vivre : le gaz continue de sortir après l’arrêt du moteur. Le garage de la ferme touche donc la maison, et la chambre qui le surmonte est cette pièce-là. Personne n’y est dessiné.',
+      'No source describes the farm: what is drawn here is an estimate, two storeys of red-painted boards, about {houseSize}, with a grey roof and a brick chimney. It is here for a reason. The Swedish book ranks among the country’s worst accidents those of a car with a leaking lid, parked in a garage, for instance under a living room: the gas goes on coming out after the engine stops. So the farm’s garage touches the house, and the bedroom over it is that room. Nobody is drawn in it.',
     ),
     material: l('Planches rouges, toit de tôle', 'Red boards, sheet roof'),
     specs: [
@@ -339,8 +342,8 @@ export const FARM_PARTS: PartInfo[] = [
       'Where the tractor slept: a garage against the house, with a bedroom over it.',
     ),
     description: lf(
-      'En Suède, 2 865 véhicules à gazogène ont pris feu entre octobre 1939 et septembre 1944, beaucoup la nuit, dans des garages. Au seul premier trimestre de 1942, environ 350 incendies, dont 120 dans des garages : presque quatre par jour. C’est pour cette raison que ce garage existe. Les deux tailles de la source sont 50 et 1 000 m³ ; le garage dessiné ajoute à l’air libre le volume que le tracteur déplace, {machineM3}, ce qui fait {grossRoom} pour la petite pièce. Un couvercle qui ne ferme pas laisse un gazogène garé brûler comme un poêle. Cliquez le garage : le monde « Garage » s’ouvre.',
-      'In Sweden, 2,865 gasifier vehicles caught fire between October 1939 and September 1944, many of them at night, in garages. In the first quarter of 1942 alone, about 350 fires, 120 of them in garages: almost four a day. That is why this garage exists. The source’s two sizes are 50 and 1,000 m³; the garage as drawn adds to the free air the volume the tractor displaces, {machineM3}, which makes {grossRoom} for the small room. A lid that does not seal lets a parked gasifier burn like a stove. Click the garage: the “Garage” world opens.',
+      'En Suède, 2 865 incendies de véhicules ont été comptés entre octobre 1939 et septembre 1944, la plupart sur des véhicules à gazogène ; le livre suédois parle de nombreux feux de garage, souvent la nuit et sans cause connue. Au seul premier trimestre de 1942, environ 350 incendies, dont 120 dans des garages : presque quatre par jour. Les deux tailles de la source sont 50 et 1 000 m³ ; le garage dessiné ajoute à l’air libre le volume que le tracteur déplace, {machineM3}, ce qui fait {grossRoom} pour la petite pièce. Un couvercle qui ne ferme pas laisse un gazogène garé brûler comme un poêle. Cliquez le garage : le monde « Garage » s’ouvre.',
+      'In Sweden, 2,865 vehicle fires were counted between October 1939 and September 1944, most of them on gasifier vehicles; the Swedish book speaks of many garage fires, often at night and of no known cause. In the first quarter of 1942 alone, about 350 fires, 120 of them in garages: almost four a day. The source’s two sizes are 50 and 1,000 m³; the garage as drawn adds to the free air the volume the tractor displaces, {machineM3}, which makes {grossRoom} for the small room. A lid that does not seal lets a parked gasifier burn like a stove. Click the garage: the “Garage” world opens.',
     ),
     material: l('Murs enduits, portes en planches', 'Rendered walls, board doors'),
     specs: [
@@ -352,8 +355,8 @@ export const FARM_PARTS: PartInfo[] = [
       sp('Volume déplacé par le tracteur', 'Volume the tractor displaces', v('{machineM3}')),
       sp('Pièce dessinée, petite', 'Room as drawn, small', v('{grossRoom}')),
       sp(
-        'Incendies suédois',
-        'Swedish fires',
+        'Incendies de véhicules, Suède',
+        'Vehicle fires, Sweden',
         l('2 865, octobre 1939 à septembre 1944', '2,865, October 1939 to September 1944'),
       ),
       sp(
@@ -365,16 +368,16 @@ export const FARM_PARTS: PartInfo[] = [
     maintenance: maint(
       {
         failure:
-          'Un feu de nuit, un couvercle qui ne ferme pas, une machine chaude rentrée trop vite : les Suédois ont compté ces cas par milliers, et leurs inspecteurs ont trouvé 155 gazogènes défectueux sur 230 contrôlés au premier semestre de 1945.',
+          'Des incendies, par milliers : le livre suédois en compte 2 865, le plus souvent par un défaut du matériel électrique (court-circuit), et beaucoup la nuit en garage sans cause connue. Un couvercle qui ne ferme pas laisse un gazogène garé brûler comme un poêle. Les inspecteurs ont trouvé 155 gazogènes défectueux sur 230 contrôlés après des signalements de la police, au premier semestre de 1945.',
         check:
-          'Le livre suédois note que ni la porte ouverte, ni un tuyau passé par la fenêtre, ni un hangar ouvert sous un toit n’ont suffi.',
+          'Pour lancer le ventilateur ou le moteur, le livre suédois juge très insuffisants la porte ouverte, un tuyau passé par la fenêtre et un hangar ouvert sous un toit.',
         care: 'Ce lab ne décrit aucune règle de garage : aucune ne rendrait la machine acceptable.',
       },
       {
         failure:
-          'A fire at night, a lid that does not seal, a hot machine brought in too soon: the Swedes counted such cases in thousands, and their inspectors found 155 gasifiers faulty out of 230 checked in the first half of 1945.',
+          'Fires, by the thousand: the Swedish book counts 2,865, most often from faulty electrical equipment (a short circuit), and many at night in garages with no known cause. A lid that does not seal lets a parked gasifier burn like a stove. Inspectors found 155 gasifiers faulty out of 230 checked after police reports, in the first half of 1945.',
         check:
-          'The Swedish book notes that neither the open door, nor a hose passed through a window, nor an open shed under a roof was enough.',
+          'For fanning or starting, the Swedish book finds the open door, a hose passed through a window and an open shed under a roof all far from satisfactory.',
         care: 'This lab describes no rule for a garage: none would make the machine acceptable.',
       },
     ),
@@ -397,8 +400,8 @@ export const FARM_PARTS: PartInfo[] = [
       'What the machine leaves: up to 3.5% of the fuel, and still hot.',
     ),
     description: lf(
-      'Le gazogène ne laisse pas que du gaz. Au cendrier, il reste jusqu’à 3,5 % du combustible, et ce résidu vaut environ 5 % de la puissance à plein régime : de la cendre, mais aussi du charbon qui n’a pas fini sa route. Le modèle compte {ashKgH} de résidu au maximum. Selon le journal de l’institut, la cendre était sortie toutes les 8 à 15 heures, pour 15 à 30 minutes de travail. Elle est chaude, et le livre suédois compte la cendre chaude parmi les risques d’incendie. Ce que devient cette cendre ensuite n’est pas l’affaire du lab : voyez votre autorité locale.',
-      'The gasifier leaves more than gas. In the ash pit there is up to 3.5% of the fuel, and this residue is worth about 5% of the power at full load: ash, but also charcoal that has not finished its journey. The model counts {ashKgH} of residue at the maximum. By the institute’s log, the ash was taken out every 8 to 15 hours, for 15 to 30 minutes of work. It is hot, and the Swedish book counts hot ash among the fire hazards. What becomes of that ash afterwards is not the lab’s business: ask your local authority.',
+      'Le gazogène ne laisse pas que du gaz. Au cendrier, il reste jusqu’à 3,5 % du combustible, et ce résidu vaut environ 5 % de la puissance à plein régime : de la cendre, mais aussi du charbon qui n’a pas fini sa route. Le modèle compte {ashKgH} de résidu au maximum. Selon le journal de l’institut, la cendre était sortie toutes les 8 à 15 heures, pour 15 à 30 minutes de travail. Elle est chaude, et une source américaine range la cendre chaude parmi les risques d’incendie. Ce que devient cette cendre ensuite n’est pas l’affaire du lab : voyez votre autorité locale.',
+      'The gasifier leaves more than gas. In the ash pit there is up to 3.5% of the fuel, and this residue is worth about 5% of the power at full load: ash, but also charcoal that has not finished its journey. The model counts {ashKgH} of residue at the maximum. By the institute’s log, the ash was taken out every 8 to 15 hours, for 15 to 30 minutes of work. It is hot, and an American source lists hot ash among the fire risks. What becomes of that ash afterwards is not the lab’s business: ask your local authority.',
     ),
     material: l('Bac d’acier sur dalle, couvercle entrouvert', 'Steel bin on a slab, lid ajar'),
     specs: [
@@ -413,13 +416,12 @@ export const FARM_PARTS: PartInfo[] = [
     ],
     maintenance: maint(
       {
-        failure:
-          'Une cendre encore chaude dans un bac : le livre suédois la range parmi les causes d’incendie, avec la machine elle-même.',
+        failure: 'Une cendre encore chaude dans un bac : une source américaine la range parmi les risques d’incendie.',
         check: 'La hauteur du tas, dans la 3D : elle suit le modèle, et monte au fil de la journée.',
         care: 'La cendre est chaude : l’institut ne décrit aucun geste, et le lab non plus.',
       },
       {
-        failure: 'Ash still hot in a bin: the Swedish book ranks it among the causes of fire, with the machine itself.',
+        failure: 'Ash still hot in a bin: an American source lists it among the fire risks.',
         check: 'The height of the heap, in the 3D: it follows the model, and rises through the day.',
         care: 'The ash is hot: the institute describes no gesture, and the lab does not either.',
       },
@@ -439,16 +441,16 @@ export const FARM_PARTS: PartInfo[] = [
     category: 'hydraulic',
     name: l('Fût de condensats', 'Condensate barrel'),
     short: l(
-      'L’eau noire qui sort du gaz : des centaines de fois la limite d’égout de la Suède en guerre.',
-      'The black water that comes out of the gas: hundreds of times Sweden’s wartime sewer limit.',
+      'L’eau noire qui sort du gaz : typiquement plus de cent fois la limite d’égout de la Suède en guerre.',
+      'The black water that comes out of the gas: typically over a hundred times Sweden’s wartime sewer limit.',
     ),
     description: lf(
-      'Le gaz traîne l’eau du bois et ses goudrons. En refroidissant, tout cela se condense dans la chemise du gazogène, le refroidisseur et les tuyaux : de l’eau noire. Elle contient de 1 500 à 3 000 mg de phénols par litre, quand la limite pour les égouts, dans la Suède de la guerre, était de 10 mg/L : soit {phenolRatio} cette limite. Certains goudrons sont cancérigènes. Ce liquide ne doit rejoindre ni le sol, ni un égout, ni l’eau. Le modèle tire de la chemise {jacket8} à 8 % d’humidité, et {jacket20} à 20 %. Les goudrons et les huiles pèsent moins de 0,1 % de ce qui entre, et la source principale dit n’avoir aucune donnée dure sur leur sort. Voyez votre autorité locale.',
-      'The gas drags the wood’s water and its tars. Cooling, all of it condenses in the gasifier’s jacket, the cooler and the pipes: black water. It holds 1,500 to 3,000 mg of phenols per litre, when the limit for sewers in wartime Sweden was 10 mg/L: that is {phenolRatio} the limit. Some tars cause cancer. This liquid must reach neither the ground, nor a sewer, nor water. The model draws {jacket8} from the jacket at 8% moisture, and {jacket20} at 20%. Tars and oils weigh less than 0.1% of what goes in, and the main source says it has no hard data on what became of them. Ask your local authority.',
+      'Le gaz traîne l’eau du bois et ses goudrons. En refroidissant, tout cela se condense dans la chemise du gazogène, le refroidisseur et les tuyaux : de l’eau noire. Typiquement, l’eau d’un gazogène contient de 1 500 à 3 000 mg de phénols par litre, quand la limite pour les égouts, dans la Suède de la guerre, était de 10 mg/L : soit {phenolRatio} cette limite. Certains goudrons sont cancérigènes. Le modèle tire de la chemise {jacket8} à 8 % d’humidité, et {jacket20} à 20 %. Les goudrons et les huiles pèsent moins de 0,1 % de ce qui entre, et la source principale dit n’avoir aucune donnée dure sur leur biodégradation. Voyez votre autorité locale.',
+      'The gas drags the wood’s water and its tars. Cooling, all of it condenses in the gasifier’s jacket, the cooler and the pipes: black water. Typically, a gasifier’s water holds 1,500 to 3,000 mg of phenols per litre, when the limit for sewers in wartime Sweden was 10 mg/L: that is {phenolRatio} the limit. Some tars cause cancer. The model draws {jacket8} from the jacket at 8% moisture, and {jacket20} at 20%. Tars and oils weigh less than 0.1% of what goes in, and the main source says it has no hard data on their bio-degradation. Ask your local authority.',
     ),
     material: l('Fût de tôle sur deux liteaux', 'A sheet-metal drum on two battens'),
     specs: [
-      sp('Phénols', 'Phenols', l('1 500 à 3 000 mg/L', '1,500 to 3,000 mg/L')),
+      sp('Phénols, typiquement', 'Phenols, typically', l('1 500 à 3 000 mg/L', '1,500 to 3,000 mg/L')),
       sp('Limite d’égout, Suède en guerre', 'Sewer limit, wartime Sweden', '10 mg/L'),
       sp('Rapport', 'Ratio', v('{phenolRatio}')),
       sp(
@@ -489,12 +491,12 @@ export const FARM_PARTS: PartInfo[] = [
     category: 'site',
     name: l('Fossé', 'Field ditch'),
     short: l(
-      'Le fossé de drainage entre la cour et le champ : l’endroit où l’eau noire ne doit pas aller.',
-      'The drainage ditch between the yard and the field: the place the black water must not go.',
+      'Le fossé de drainage entre la cour et le champ : aucune source ne dit où l’eau noire allait.',
+      'The drainage ditch between the yard and the field: no source says where the black water went.',
     ),
     description: lf(
-      'Un fossé borde presque toute ferme de plaine : il draine le champ vers un cours d’eau. Il est ici pour dire où l’eau noire ne doit pas aller : les condensats ne doivent atteindre ni le sol, ni les égouts, ni l’eau, dit le manuel de référence. Rien du lab ne coule dedans, ni point de condensat, ni flèche. Le fossé dessiné est une estimation : {ditchW} au fond, {ditchD} de profondeur, des berges en pente, et un filet d’eau qui n’est pas celui du modèle. Ce que devenait vraiment l’eau noire dans les deux fermes de l’institut n’est dit nulle part dans ce que nous avons lu.',
-      'A ditch borders almost every farm on flat land: it drains the field towards a stream. It is here to say where the black water must not go: condensates must reach neither the ground, nor the sewers, nor water, says the reference handbook. Nothing from the lab runs into it, no dot of condensate, no arrow. The ditch as drawn is an estimate: {ditchW} wide at the bottom, {ditchD} deep, with sloping banks, and a trickle of water that is not the model’s. What became of the black water on the institute’s two farms is not said anywhere in what we read.',
+      'Un fossé borde presque toute ferme de plaine : il draine le champ vers un cours d’eau. Il est ici parce qu’aucune source ne dit où l’eau noire allait. Rien du lab ne coule dedans, ni point de condensat, ni flèche. Le fossé dessiné est une estimation : {ditchW} au fond, {ditchD} de profondeur, des berges en pente, et un filet d’eau qui n’est pas celui du modèle. Ce que devenait vraiment l’eau noire dans les deux fermes de l’institut n’est dit nulle part dans ce que nous avons lu.',
+      'A ditch borders almost every farm on flat land: it drains the field towards a stream. It is here because no source says where the black water went. Nothing from the lab runs into it, no dot of condensate, no arrow. The ditch as drawn is an estimate: {ditchW} wide at the bottom, {ditchD} deep, with sloping banks, and a trickle of water that is not the model’s. What became of the black water on the institute’s two farms is not said anywhere in what we read.',
     ),
     material: l('Terre, berges herbeuses', 'Earth, grassy banks'),
     specs: [
@@ -506,17 +508,17 @@ export const FARM_PARTS: PartInfo[] = [
     maintenance: maint(
       {
         failure:
-          'Un fossé qui reçoit ce qu’il ne devrait pas : c’est ce que la source craint, sans pouvoir le chiffrer.',
+          'Ce que devenait l’eau noire des deux fermes de l’institut : aucune source lue ne le dit, et aucun chiffre ne le donne.',
         check:
           'Les sources parlent de phénols de 1 500 à 3 000 mg/L dans l’eau noire ; elles ne disent pas ce qu’un fossé en fait.',
-        care: 'Rien : ce n’est pas un sujet de maintenance, mais de ce qu’on laisse y arriver.',
+        care: 'Rien : ce n’est pas un sujet de maintenance.',
       },
       {
         failure:
-          'A ditch that receives what it should not: that is what the source fears, without being able to put a figure to it.',
+          'What became of the black water of the institute’s two farms: no source we read says, and no figure gives it.',
         check:
           'The sources speak of phenols at 1,500 to 3,000 mg/L in the black water; they do not say what a ditch makes of them.',
-        care: 'Nothing: it is not a subject of maintenance, but of what is allowed to reach it.',
+        care: 'Nothing: it is not a subject of maintenance.',
       },
     ),
     tip: l(
@@ -524,8 +526,8 @@ export const FARM_PARTS: PartInfo[] = [
       'The ditch is looked at from the yard, from above: select it, and the camera takes that side.',
     ),
     design: l(
-      'C’est une pièce qui ne fait rien, exprès : une machine qui laisse de l’eau noire doit montrer où cette eau ne doit pas aller, et aucun chiffre ne dit où elle allait.',
-      'It is a part that does nothing, on purpose: a machine that leaves black water has to show where that water must not go, and no figure says where it went.',
+      'C’est une pièce qui ne fait rien, exprès : une machine qui laisse de l’eau noire en laisse aussi la question, et aucun chiffre ne dit où elle allait.',
+      'It is a part that does nothing, on purpose: a machine that leaves black water leaves the question too, and no figure says where it went.',
     ),
   },
 ];

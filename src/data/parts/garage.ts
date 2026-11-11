@@ -15,8 +15,8 @@ export const GARAGE_PARTS: PartInfo[] = [
       'A room of 50 or 1,000 m³ of air: carbon monoxide climbs fast, and a garage holds this gas in layers.',
     ),
     description: lf(
-      'Voici la pièce où la machine dort. Le livre suédois donne deux tailles de garage, 50 et 1 000 m³ d’air. Le modèle y met un mètre cube de gaz après l’arrêt, l’illustration de ce livre : il monte à environ {ppm50} dans 50 m³ en une demi-heure, et à environ {ppm1000} dans 1 000 m³. Le gaz des tuyaux en compte 200 000 ppm. Le livre suédois ajoute que, dans un garage, le monoxyde n’est pas bien mélangé à l’air : il se tient en couches ou en zones bien plus concentrées. La boîte du modèle, elle, est bien mélangée, et ne voit pas ces zones. Le garage dessiné ajoute au volume d’air celui que le tracteur déplace, {machineM3}.',
-      'Here is the room where the machine sleeps. The Swedish book gives two sizes of garage, 50 and 1,000 m³ of air. The model puts a cubic metre of gas in it after the stop, that book’s illustration: it climbs to about {ppm50} in 50 m³ in half an hour, and to about {ppm1000} in 1,000 m³. The gas in the pipes holds 200,000 ppm. The Swedish book adds that, in a garage, carbon monoxide is not well mixed with the air: it sits in layers or in zones of far higher concentration. The model’s box is well mixed, and does not see those zones. The garage as drawn adds to the air’s volume the volume the tractor displaces, {machineM3}.',
+      'Voici la pièce où la machine dort. Le livre suédois donne deux tailles de garage, 50 et 1 000 m³ d’air. Le modèle y met un mètre cube de gaz après l’arrêt, pris d’un exemple de ce livre sur une concentration dans l’air, et non d’une mesure : il monte à environ {ppm50} dans 50 m³ en une demi-heure, et à environ {ppm1000} dans 1 000 m³. Le gaz des tuyaux en compte 200 000 ppm. Le livre suédois ajoute que, dans un garage, le monoxyde n’est pas bien mélangé à l’air : il se tient en couches ou en zones bien plus concentrées. La boîte du modèle, elle, est bien mélangée, et ne voit pas ces zones. Le garage dessiné ajoute au volume d’air celui que le tracteur déplace, {machineM3}.',
+      'Here is the room where the machine sleeps. The Swedish book gives two sizes of garage, 50 and 1,000 m³ of air. The model puts a cubic metre of gas in it after the stop, taken from that book’s example of a concentration in air and not from a measurement: it climbs to about {ppm50} in 50 m³ in half an hour, and to about {ppm1000} in 1,000 m³. The gas in the pipes holds 200,000 ppm. The Swedish book adds that, in a garage, carbon monoxide is not well mixed with the air: it sits in layers or in zones of far higher concentration. The model’s box is well mixed, and does not see those zones. The garage as drawn adds to the air’s volume the volume the tractor displaces, {machineM3}.',
     ),
     material: l('Murs enduits, portes en planches, plafond d’une dalle', 'Rendered walls, board doors, a slab ceiling'),
     specs: [
@@ -33,14 +33,14 @@ export const GARAGE_PARTS: PartInfo[] = [
     maintenance: maint(
       {
         failure:
-          'Un garage fermé avec un moteur arrêté dedans : le livre suédois range parmi les pires accidents du pays ceux qui sont venus de là.',
+          'Un couvercle de remplissage qui fuit, une voiture garée dans un garage sous une pièce où l’on vit : le livre suédois dit que certains des pires accidents d’intoxication de Suède sont venus de ces circonstances.',
         check:
           'Une vraie pièce n’est jamais une boîte : les couches, les coins, un escalier, un plancher qui laisse passer le gaz, le modèle ne les a pas.',
         care: 'Ce lab ne décrit aucun arrangement de garage, et aucun ne rendrait la machine acceptable.',
       },
       {
         failure:
-          'A closed garage with a stopped engine in it: the Swedish book ranks among the country’s worst accidents those that came from there.',
+          'A filling lid that leaks, a car put into a garage under a living room: the Swedish book says that some of Sweden’s worst poisoning accidents came from such circumstances.',
         check:
           'A real room is never a box: the layers, the corners, a stair, a floor that lets the gas through, the model has none of them.',
         care: 'This lab describes no arrangement of a garage, and none would make the machine acceptable.',
@@ -65,8 +65,8 @@ export const GARAGE_PARTS: PartInfo[] = [
       'The door shut, ajar or open: the model’s figure falls, but an open door is not an answer.',
     ),
     description: lf(
-      'La porte a trois états. Dans le modèle, l’air qu’elle laisse passer est une hypothèse large : {achShut} porte fermée, {achAjar} entrouverte, {achOpen} ouverte. À 50 m³, au bout d’une demi-heure, le modèle compte environ {shut30} porte fermée, {ajar30} entrouverte, {open30} ouverte. Le chiffre baisse vite, car c’est ce qu’une boîte bien mélangée est faite pour dire. Les Suédois, qui ont connu cela, ont jugé les portes ouvertes très insuffisantes. Le lab ne montre jamais la ligne de la porte ouverte sans cette phrase : l’alarme de la Simulation la porte aussi.',
-      'The door has three states. In the model, the air it lets through is a wide assumption: {achShut} with the door shut, {achAjar} ajar, {achOpen} open. At 50 m³, after half an hour, the model counts about {shut30} with the door shut, {ajar30} ajar, {open30} open. The figure falls fast, because that is what a well-mixed box is made to say. The Swedes, who knew this, found open doors far from satisfactory. The lab never shows the open door’s line without that sentence: the Simulation’s alarm carries it too.',
+      'La porte a trois états. Dans le modèle, l’air qu’elle laisse passer est une hypothèse large : {achShut} porte fermée, {achAjar} entrouverte, {achOpen} ouverte. À 50 m³, au bout d’une demi-heure, le modèle compte environ {shut30} porte fermée, {ajar30} entrouverte, {open30} ouverte. Le chiffre baisse vite, car c’est ce qu’une boîte bien mélangée est faite pour dire. Les Suédois ont jugé très insuffisant de lancer le ventilateur ou le moteur portes de garage ouvertes : ce n’est pas une mesure de ce modèle, mais le lab ne montre jamais la ligne de la porte ouverte sans cette phrase, et l’alarme de la Simulation la porte aussi.',
+      'The door has three states. In the model, the air it lets through is a wide assumption: {achShut} with the door shut, {achAjar} ajar, {achOpen} open. At 50 m³, after half an hour, the model counts about {shut30} with the door shut, {ajar30} ajar, {open30} open. The figure falls fast, because that is what a well-mixed box is made to say. The Swedes found it far from satisfactory to fan or start with the garage doors open: that is not a measurement of this model, but the lab never shows the open door’s line without that sentence, and the Simulation’s alarm carries it too.',
     ),
     material: l('Deux battants de planches, ferrures de fer', 'Two board leaves, iron straps'),
     specs: [
@@ -111,8 +111,8 @@ export const GARAGE_PARTS: PartInfo[] = [
       'The room the Swedish book names: “for instance under a living room”. It receives gas through the floor, later.',
     ),
     description: lf(
-      'Au-dessus du garage, une chambre : un lit fait, une table de nuit, une fenêtre. Le livre suédois ne la décrit pas : il écrit seulement que certains des pires accidents du pays sont venus d’une voiture garée sous une pièce à vivre. Le modèle lui donne {aboveM3}, un air renouvelé {aboveAch}, et un plancher qui laisse passer le gaz à un rythme que personne n’a mesuré, de {floorEx}. Dans le garage de 50 m³ porte fermée, elle monte à environ {abovePeak}, plus d’une heure après le plus haut du garage. Personne n’est dessiné dans cette chambre.',
-      'Above the garage, a bedroom: a made bed, a bedside table, a window. The Swedish book does not describe it: it only writes that some of the country’s worst accidents came from a car parked under a living room. The model gives it {aboveM3}, air renewed {aboveAch}, and a floor that lets the gas through at a rate no one measured, {floorEx}. With the 50 m³ garage shut, it climbs to about {abovePeak}, more than an hour after the garage’s own highest. Nobody is drawn in this bedroom.',
+      'Au-dessus du garage, une chambre : un lit fait, une table de nuit, une fenêtre. Le livre suédois ne la décrit pas : il écrit seulement que certains des pires accidents du pays sont venus d’une voiture au couvercle qui fuyait, garée dans un garage sous une pièce à vivre. Le modèle lui donne {aboveM3}, un air renouvelé {aboveAch}, et un plancher qui laisse passer le gaz à un rythme que personne n’a mesuré, de {floorEx}. Dans le garage de 50 m³ porte fermée, elle monte à environ {abovePeak}, plus d’une heure après le plus haut du garage. Personne n’est dessiné dans cette chambre.',
+      'Above the garage, a bedroom: a made bed, a bedside table, a window. The Swedish book does not describe it: it only writes that some of the country’s worst accidents came from a car with a leaking lid, parked in a garage under a living room. The model gives it {aboveM3}, air renewed {aboveAch}, and a floor that lets the gas through at a rate no one measured, {floorEx}. With the 50 m³ garage shut, it climbs to about {abovePeak}, more than an hour after the garage’s own highest. Nobody is drawn in this bedroom.',
     ),
     material: l('Dalle de plafond, lit, fenêtre', 'Ceiling slab, bed, window'),
     specs: [
@@ -154,8 +154,8 @@ export const GARAGE_PARTS: PartInfo[] = [
       'The engine stops, and the machine that looked sealed goes on pushing its gas out: 23 to 27% carbon monoxide.',
     ),
     description: lf(
-      'Le moteur s’arrête. En marche, tout le système était en dépression : une fuite aspirait de l’air. Maintenant, plus rien n’aspire, et le gaz continue de se former dans le lit chaud. La pression monte pendant environ 20 minutes selon le livre suédois, parfois des heures selon un autre manuel, et le gaz sort, même d’un appareil étanche. C’est du gaz de gazogène, de 23 à 27 % de monoxyde. Sur le bois, on l’a vu blanc ou jaune ; sur le charbon de bois, on ne le voyait pas. Personne n’a mesuré son volume sur cette machine : le modèle part de {postGas}, l’illustration du livre suédois, avec un curseur de 0,2 à 5 m³. Il n’y a pas de fin : passé 20 minutes, la poussée n’a pas cessé, elle s’est affaiblie.',
-      'The engine stops. When running, the whole system was under suction: a leak drew air in. Now nothing draws, and the gas goes on forming in the hot bed. The pressure rises for about 20 minutes by the Swedish book, sometimes for hours by another handbook, and the gas comes out, even from a tight apparatus. It is gasifier gas, 23 to 27% carbon monoxide. On wood it was seen white or yellow; on charcoal it could not be seen. No one measured its volume on this machine: the model starts from {postGas}, the Swedish book’s illustration, with a slider from 0.2 to 5 m³. There is no end: past 20 minutes the push has not ceased, it has weakened.',
+      'Le moteur s’arrête. En marche, tout le système était en dépression : une fuite aspirait de l’air. Maintenant, plus rien n’aspire, et le gaz continue de se former dans le lit chaud. La pression monte pendant environ 20 minutes selon le livre suédois, parfois des heures selon un autre manuel, et le gaz sort, même d’un appareil étanche. C’est du gaz de gazogène, de 23 à 27 % de monoxyde. Sur le bois, on l’a vu blanc ou jaune ; sur le charbon de bois, on ne le voyait pas. Personne n’a mesuré son volume sur cette machine : le modèle part de {postGas}, pris d’un exemple du livre suédois sur une concentration dans l’air, avec un curseur de 0,2 à 5 m³. Dans le modèle, la poussée s’affaiblit sans s’arrêter : c’est un choix du modèle, pas une mesure.',
+      'The engine stops. When running, the whole system was under suction: a leak drew air in. Now nothing draws, and the gas goes on forming in the hot bed. The pressure rises for about 20 minutes by the Swedish book, sometimes for hours by another handbook, and the gas comes out, even from a tight apparatus. It is gasifier gas, 23 to 27% carbon monoxide. On wood it was seen white or yellow; on charcoal it could not be seen. No one measured its volume on this machine: the model starts from {postGas}, taken from the Swedish book’s example of a concentration in air, with a slider from 0.2 to 5 m³. In the model the push weakens without stopping: that is the model’s choice, not a measurement.',
     ),
     material: l('Gaz chaud, 23 à 27 % de monoxyde', 'Hot gas, 23 to 27% carbon monoxide'),
     specs: [
@@ -172,17 +172,17 @@ export const GARAGE_PARTS: PartInfo[] = [
     maintenance: maint(
       {
         failure:
-          'Le gaz de l’arrêt, dans un garage fermé, sous une pièce à vivre : le livre suédois range parmi les pires accidents du pays ceux qui en sont venus.',
+          'Le gaz de l’arrêt, avec un couvercle qui fuyait, dans un garage sous une pièce à vivre : le livre suédois range parmi les pires accidents du pays ceux qui en sont venus.',
         check:
-          'Le monoxyde est incolore et sans odeur, et sa densité, 0,97 contre l’air, fait qu’il ne se pose pas et ne s’écarte pas : il reste dans la pièce. Aucun œil et aucun nez ne le jugent.',
-        care: 'Aucune consigne, aucun délai : le lab ne dit pas quand ce gaz aurait fini, parce qu’aucune source ne le dit.',
+          'Le monoxyde est incolore et sans odeur ; sa densité, 0,97 contre l’air, est presque celle de l’air : il se mêle à l’air de la pièce, et un garage le garde en couches (livre suédois). Aucun œil et aucun nez ne le jugent.',
+        care: 'Aucune consigne, aucun délai. Les sources ne s’accordent pas sur la durée (une vingtaine de minutes, parfois des heures) : aucune ne dit à partir de quand une pièce n’en garde plus.',
       },
       {
         failure:
-          'The gas of the stop, in a closed garage, under a living room: the Swedish book ranks among the country’s worst accidents those that came from it.',
+          'The gas of the stop, with a leaking lid, in a garage under a living room: the Swedish book ranks among the country’s worst accidents those that came from it.',
         check:
-          'Carbon monoxide is colourless and odourless, and its density, 0.97 against air, means it neither settles nor clears away: it stays in the room. No eye and no nose judges it.',
-        care: 'No instruction, no delay: the lab does not say when this gas would be done, because no source does.',
+          'Carbon monoxide is colourless and odourless; its density, 0.97 against air, is almost air’s: it mixes into the room’s air, and a garage holds it in layers (Swedish book). No eye and no nose judges it.',
+        care: 'No instruction, no delay. The sources do not agree on how long it lasts (about twenty minutes, sometimes hours): none says from when a room holds none of it.',
       },
     ),
     tip: l(
@@ -190,8 +190,8 @@ export const GARAGE_PARTS: PartInfo[] = [
       'Run “The engine stops”: at the top of the gasifier and at the air intake, the gas comes out, and the lid lifts a few millimetres.',
     ),
     design: l(
-      'Le panache est dessiné d’après le modèle : sa quantité suit le débit, sa couleur est celle du livre suédois pour le bois, sa forme est du lab. Le dessin dit combien sort, jamais comment cela se déplace. Aucune source ne dit que ce gaz s’en va : c’est la phrase que le lab ne peut pas écrire.',
-      'The plume is drawn from the model: its quantity follows the flow, its colour is the Swedish book’s for wood, its shape is the lab’s. The drawing says how much comes out, never how it moves. No source says that this gas goes away: it is the sentence the lab cannot write.',
+      'Le panache est dessiné d’après le modèle : sa quantité suit le débit, sa couleur est celle du livre suédois pour le bois, sa forme est du lab. Le dessin dit combien sort, jamais comment cela se déplace. Les sources ne s’accordent pas sur la durée, et aucune ne dit quand une pièce n’en garde plus : c’est la phrase que ce lab ne peut pas écrire.',
+      'The plume is drawn from the model: its quantity follows the flow, its colour is the Swedish book’s for wood, its shape is the lab’s. The drawing says how much comes out, never how it moves. The sources disagree on how long, and none says when a room holds none of it: that is the sentence this lab cannot write.',
     ),
   },
   {
@@ -200,8 +200,8 @@ export const GARAGE_PARTS: PartInfo[] = [
     category: 'site',
     name: l('Gaz d’échappement', 'Exhaust plume'),
     short: l(
-      'Un moteur qui tourne dans un garage : au ralenti, 5 à 8 % de monoxyde sort par son échappement.',
-      'An engine running in a garage: at idle, 5 to 8% carbon monoxide comes out of its exhaust.',
+      'Un moteur de la guerre qui tourne dans un garage : au ralenti, 5 à 8 % de monoxyde sort par son échappement.',
+      'A wartime engine running in a garage: at idle, 5 to 8% carbon monoxide comes out of its exhaust.',
     ),
     description: l(
       'Le moteur peut tourner dans le garage, et son échappement y entre. Au ralenti, le livre suédois a lu de 5 à 8 % de monoxyde de carbone dans l’échappement des moteurs de la guerre, soit 50 000 à 80 000 ppm : l’avant-dernier barreau de l’échelle publiée, juste sous le gaz des tuyaux. Le panache gris de la 3D n’existe que pendant que le moteur tourne, et il est à part de celui, blanc, de l’arrêt. Ce que le modèle ne sait pas dire, c’est ce qu’un vrai moteur de ce tracteur rejetait : il n’y a aucune mesure sur cette machine.',
@@ -231,8 +231,8 @@ export const GARAGE_PARTS: PartInfo[] = [
       'In “Garage”, the grey plume leaves the exhaust as long as the engine runs, then goes out: it is the white of the gas that takes over.',
     ),
     design: l(
-      'Le livre suédois juge l’échappement d’un gazogène au ralenti bien plus dangereux que celui d’un moteur à essence, parce qu’il rejette un gaz qui n’a pas brûlé. Le lab garde la seule chose que cette phrase permet de dessiner : un panache, et un ordre de grandeur.',
-      'The Swedish book judges the exhaust of a gasifier at idle far more dangerous than that of a petrol engine, because it throws out a gas that has not burned. The lab keeps the only thing that sentence lets it draw: a plume, and an order of magnitude.',
+      'Le livre suédois juge l’échappement d’un gazogène au ralenti bien plus dangereux que celui d’un moteur à essence. Le lab garde la seule chose que cette phrase permet de dessiner : un panache, et un ordre de grandeur.',
+      'The Swedish book judges the exhaust of a gasifier at idle far more dangerous than that of a petrol engine. The lab keeps the only thing that sentence lets it draw: a plume, and an order of magnitude.',
     ),
   },
   {
@@ -245,12 +245,16 @@ export const GARAGE_PARTS: PartInfo[] = [
       'A dial on the wall: it warns whoever is there, it does not protect, and its lamp, here, never goes out again.',
     ),
     description: l(
-      'Sur le mur du fond, un indicateur à cadran : son aiguille suit le monoxyde de la boîte du modèle, sur une échelle logarithmique sans aucun chiffre, et sa lampe s’allume dès que le monoxyde a été dans la pièce. Dans ce lab, elle ne s’éteint plus : il n’y a pas de retour à la normale, parce que le chiffre bas d’une boîte ne dit rien d’une vraie pièce. Le dessin du cadran est de nous : aucune source lue ne décrit un instrument de l’époque. Un détecteur, ancien ou récent, prévient ceux qui sont là : il ne rend pas une machine acceptable, et il ne remplace rien.',
-      'On the back wall, a dial indicator: its needle follows the carbon monoxide of the model’s box, on a logarithmic scale with no figures at all, and its lamp lights as soon as carbon monoxide has been in the room. In this lab it never goes out again: there is no return to normal, because the low figure of a box says nothing of a real room. The dial’s drawing is ours: no source we read describes an instrument of the period. A detector, old or new, warns whoever is there: it does not make a machine acceptable, and it replaces nothing.',
+      'Sur le mur du fond, un indicateur à cadran : son aiguille suit le monoxyde de la boîte du modèle, sur une échelle logarithmique sans aucun chiffre, et sa lampe s’allume dès que le monoxyde a été dans la pièce. Dans ce lab, elle ne s’éteint plus : il n’y a pas de retour à la normale, parce que le chiffre bas d’une boîte ne dit rien d’une vraie pièce. Le livre suédois décrit des indicateurs de l’époque, à combustion catalytique, dont un modèle fixe servant d’alarme dans les garages ; le cadran dessiné ici est de nous et n’imite aucun d’eux. Un détecteur, ancien ou récent, prévient ceux qui sont là : il ne rend pas une machine acceptable, et il ne remplace rien.',
+      'On the back wall, a dial indicator: its needle follows the carbon monoxide of the model’s box, on a logarithmic scale with no figures at all, and its lamp lights as soon as carbon monoxide has been in the room. In this lab it never goes out again: there is no return to normal, because the low figure of a box says nothing of a real room. The Swedish book describes indicators of the period, of the catalytic type, one of them a fixed model used as an alarm in garages; the dial drawn here is ours and copies none of them. A detector, old or new, warns whoever is there: it does not make a machine acceptable, and it replaces nothing.',
     ),
     material: l('Boîtier, cadran et lampe', 'Case, dial and lamp'),
     specs: [
-      sp('Limite française et européenne, 8 h, au travail', 'French and EU limit, 8 h, at work', '20 ppm'),
+      sp(
+        'Limite française (contraignante, 2019) et valeur de l’Union européenne (2017) sur 8 h, au travail',
+        'French binding limit (2019) and EU value (2017) over 8 h, at work',
+        '20 ppm',
+      ),
       sp('Limite à court terme, au travail', 'Short-term limit, at work', '100 ppm'),
       sp(
         'Alarmes conseillées dans les locaux de gazogènes professionnels',
@@ -266,15 +270,15 @@ export const GARAGE_PARTS: PartInfo[] = [
     maintenance: maint(
       {
         failure:
-          'Aucun détecteur de l’époque n’est décrit dans ce que nous avons lu : on ne sait ni ce qu’il mesurait, ni à quel niveau il prévenait.',
+          'Le cadran de ce lab n’imite aucun des indicateurs de l’époque que décrit le livre suédois (à combustion catalytique, dont un modèle fixe servant d’alarme dans les garages) : il ne dit rien de leur fidélité.',
         check:
-          'La limite légale de 20 ppm, sur 8 heures, est faite pour un lieu de travail, et pas pour une chambre où l’on dort.',
+          'La limite française de 20 ppm, sur 8 heures, est faite pour un lieu de travail, et pas pour une chambre où l’on dort.',
         care: 'Aucune opération n’est décrite pour l’instrument.',
       },
       {
         failure:
-          'No detector of the period is described in what we read: it is not known what it measured, or at what level it warned.',
-        check: 'The legal limit of 20 ppm over 8 hours is made for a workplace, and not for a bedroom.',
+          'This lab’s dial copies none of the indicators of the period that the Swedish book describes (of the catalytic type, one of them a fixed model used as an alarm in garages): it says nothing of how faithful they were.',
+        check: 'The French limit of 20 ppm over 8 hours is made for a workplace, and not for a bedroom.',
         care: 'No operation is described for the instrument.',
       },
     ),
@@ -283,22 +287,22 @@ export const GARAGE_PARTS: PartInfo[] = [
       'In “Garage”, run “The closed garage”: the needle rises, the lamp lights, and even when the needle falls back, it stays lit.',
     ),
     design: l(
-      'Aucune ligne de l’échelle publiée n’est un côté sur lequel se tenir : la plus basse est une limite légale de travail, pas une frontière pour le corps. Le cadran du lab n’a donc pas de zone verte, et sa lampe pas de retour : il montre ce que le modèle sait, et rien de ce qu’il ne sait pas.',
-      'No line of the published ladder is a side to stand on: the lowest is a legal limit for work, not a border for the body. So the lab’s dial has no green zone, and its lamp no return: it shows what the model knows, and nothing of what it does not.',
+      'Aucune ligne de l’échelle publiée n’est un côté sur lequel se tenir : la plus basse est une limite de travail, pas une frontière pour le corps. Le cadran du lab n’a donc pas de zone verte, et sa lampe pas de retour : il montre ce que le modèle sait, et rien de ce qu’il ne sait pas.',
+      'No line of the published ladder is a side to stand on: the lowest is a limit for work, not a border for the body. So the lab’s dial has no green zone, and its lamp no return: it shows what the model knows, and nothing of what it does not.',
     ),
   },
   {
     id: 'old-rescue-set',
     scene: 'garage',
     category: 'site',
-    name: l('Appareil de 1940', '1940s rescue set'),
+    name: l('Appareil des années 1940', '1940s rescue set'),
     short: l(
       'Un appareil de secours de l’époque, au mur : de l’histoire, pas un conseil.',
       'A rescue set of the period, on the wall: history, not advice.',
     ),
     description: l(
-      'À gauche, sur sa planche, un appareil de secours de 1940. Les médecins suédois de l’époque soignaient les intoxiqués avec des méthodes qui s’appelaient Karbogen ou lobéline ; le livre suédois en parle dans son chapitre médical. Ce lab ne les décrit pas, et ne les recommande pas : ce sont des traitements de 1940, pas des gestes d’aujourd’hui. Ce qu’il garde, c’est l’échelle de l’affaire : environ 10 000 cas chroniques enregistrés en Suède de 1941 à 1945, des cliniques ouvertes pour eux, dès 1941, à Sabbatsberg et ailleurs. L’appareil dessiné est une image de l’époque, sans mode d’emploi.',
-      'On the left, on its board, a 1940s rescue set. The Swedish doctors of the day treated the poisoned with methods called Karbogen or lobeline; the Swedish book speaks of them in its medical chapter. This lab does not describe them, and does not recommend them: they are 1940 treatments, not gestures for today. What it keeps is the scale of the affair: about 10,000 chronic cases recorded in Sweden from 1941 to 1945, clinics opened for them, from 1941, at Sabbatsberg and elsewhere. The set drawn is a picture of the period, with no instructions.',
+      'À gauche, sur sa planche, un appareil de secours des années 1940. Les médecins suédois de l’époque soignaient les intoxiqués avec des méthodes qui s’appelaient Karbogen ou lobéline ; le livre suédois en parle dans son chapitre médical. Ce lab ne les décrit pas, et ne les recommande pas : ce sont des traitements des années 1940, pas des gestes d’aujourd’hui. Ce qu’il garde, c’est l’échelle de l’affaire : environ 10 000 cas chroniques enregistrés en Suède de 1941 à 1945, des cliniques ouvertes pour eux, dès 1941, à Sabbatsberg et ailleurs. L’appareil dessiné est une image de l’époque, sans mode d’emploi.',
+      'On the left, on its board, a 1940s rescue set. The Swedish doctors of the day treated the poisoned with methods called Karbogen or lobeline; the Swedish book speaks of them in its medical chapter. This lab does not describe them, and does not recommend them: they are 1940s treatments, not gestures for today. What it keeps is the scale of the affair: about 10,000 chronic cases recorded in Sweden from 1941 to 1945, clinics opened for them, from 1941, at Sabbatsberg and elsewhere. The set drawn is a picture of the period, with no instructions.',
     ),
     material: l('Boîtier de bois et de métal, notre dessin', 'Wooden and metal case, our drawing'),
     specs: [
@@ -316,13 +320,13 @@ export const GARAGE_PARTS: PartInfo[] = [
         failure: 'Rien n’est rapporté sur l’appareil lui-même dans ce que nous avons lu.',
         check:
           'Ce que disent les chiffres de l’époque : des milliers de cas enregistrés, et un petit nombre de troubles mentaux durables, d’après le livre suédois.',
-        care: 'Aucun protocole : un traitement de 1940 n’est pas un conseil. Ce qu’on fait aujourd’hui est dit une fois, dans l’avertissement des Sources.',
+        care: 'Aucun protocole : un traitement des années 1940 n’est pas un conseil. Ce qu’on fait aujourd’hui est dit une fois, dans l’avertissement des Sources.',
       },
       {
         failure: 'Nothing is reported of the set itself in what we read.',
         check:
           'What the figures of the day say: thousands of cases recorded, and a small number of lasting mental disorders, by the Swedish book.',
-        care: 'No protocol: a 1940 treatment is not advice. What is done today is said once, in the Sources’ warning.',
+        care: 'No protocol: a 1940s treatment is not advice. What is done today is said once, in the Sources’ warning.',
       },
     ),
     tip: l(
@@ -330,8 +334,8 @@ export const GARAGE_PARTS: PartInfo[] = [
       'The board is on the left wall, behind the tractor: select it, and the camera moves into the room to read it face on.',
     ),
     design: l(
-      'Un appareil de secours au mur d’un garage dit à quel point l’affaire était courante. Ce lab le garde comme un document : il montre qu’on soignait, et ne dit rien de comment.',
-      'A rescue set on a garage wall says how common the business was. This lab keeps it as a document: it shows that people were treated, and says nothing of how.',
+      'Ce lab garde l’appareil comme un document : il montre qu’on soignait, et ne dit rien de comment.',
+      'This lab keeps the set as a document: it shows that people were treated, and says nothing of how.',
     ),
   },
 ];

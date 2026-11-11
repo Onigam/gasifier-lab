@@ -70,7 +70,6 @@ export const FIG = {
   fallHours: words('derived', 'une heure', 'an hour'),
   gasTime: words('derived', 'quelques centièmes de seconde', 'hundredths of a second'),
   tarShare: d(0.03, 2, pct), // 0.13 g/Nm³ × 2.17 Nm³/kg
-  tarGone: d(99, 0, pct), // against the updraught's 5 to 20 %
   reactEnth: d(165, 0, ' kJ/mol'), // C + CO₂ → 2 CO, from the report's heating values
   woodMJ: d(17.1, 1, ' MJ/kg'), // gasifier losses ÷ (1 − cold-gas efficiency) over the chips' flow
   phenolRatio: words('derived', '150 à 300 fois', '150 to 300 times'), // 1,500 to 3,000 against 10 mg/L

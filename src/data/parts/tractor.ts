@@ -11,12 +11,12 @@ export const TRACTOR_PARTS: PartInfo[] = [
     category: 'structure',
     name: l('Châssis', 'Tractor chassis'),
     short: l(
-      'Le tracteur sous le système : un engin de 5 t qui porte 450 kg de plus que ce pour quoi il a été construit.',
-      'The tractor under the system: a 5-tonne machine carrying 450 kg more than it was built for.',
+      'Le tracteur sous le système : un engin de 5 t, dont 450 kg de système.',
+      'The tractor under the system: a 5-tonne machine, 450 kg of which is the system.',
     ),
     description: lf(
-      'Sans son gazogène, c’est un Massey Ferguson 1100 de série. Un site tiers lui donne un empattement de 2,59 m, 4,09 m de long, 2,70 m de large (cette largeur ressemble à la voie maximale : à vérifier) et 0,43 m de garde au sol. Aucune notice de constructeur n’a été trouvée. Le système ajoute 450 kg à un engin de 5 090 kg, soit {systemShare} de sa masse. L’institut a retiré les masses avant pour faire place au refroidisseur, déplacé les phares, tourné le filtre à air. Dans le dessin du lab, le moteur, la boîte et le pont arrière forment le cadre, sans longerons : c’est une lecture, pas une cote.',
-      'Without its gasifier it is a stock Massey Ferguson 1100. A third-party site gives it a wheelbase of 2.59 m, a length of 4.09 m, a width of 2.70 m (that width looks like the maximum tread: to be checked) and 0.43 m of ground clearance. No maker’s brochure was found. The system adds 450 kg to a machine of 5,090 kg, which is {systemShare} of its mass. The institute removed the front weights to make room for the cooler, moved the headlights, turned the air filter round. In the lab’s drawing the engine, the gearbox and the rear axle housing form the frame, with no side members: that is a reading, not a dimension.',
+      'Sans son gazogène, c’est un Massey Ferguson 1100 de série. Un site tiers lui donne un empattement de 2,59 m, 4,09 m de long, 2,70 m de large (cette largeur ressemble à la voie maximale : à vérifier) et 0,43 m de garde au sol. Aucune notice de constructeur n’a été trouvée. Le système de 450 kg fait partie des 5 090 kg du tracteur en version gaz, soit {systemShare} de sa masse. L’institut a retiré les masses avant pour faire place au refroidisseur, déplacé les phares, tourné le filtre à air. Dans le dessin du lab, le moteur, la boîte et le pont arrière forment le cadre, sans longerons : c’est une lecture, pas une cote.',
+      'Without its gasifier it is a stock Massey Ferguson 1100. A third-party site gives it a wheelbase of 2.59 m, a length of 4.09 m, a width of 2.70 m (that width looks like the maximum tread: to be checked) and 0.43 m of ground clearance. No maker’s brochure was found. The 450 kg system is part of the gas version’s 5,090 kg, which is {systemShare} of its mass. The institute removed the front weights to make room for the cooler, moved the headlights, turned the air filter round. In the lab’s drawing the engine, the gearbox and the rear axle housing form the frame, with no side members: that is a reading, not a dimension.',
     ),
     material: l('Fonte et acier, blocs porteurs', 'Cast iron and steel, load-bearing castings'),
     specs: [
@@ -507,8 +507,8 @@ export const TRACTOR_PARTS: PartInfo[] = [
       'The heart of the machine, 2.22 m high: it makes the gas. It opens the world where it is seen in section.',
     ),
     description: lf(
-      'Voici l’appareil, de type F-5 : une soute de 0,2 m³ au-dessus, un foyer dessous, et à 2,22 m du sol son sommet, à 0,50 m son pied. Des plaquettes y descendent, sèchent, brûlent à moitié faute d’air, et sortent en gaz : au banc 5,60 MJ/Nm³, et le modèle trouve {gasModel}. Le gaz froid contient 71 % de l’énergie du bois au banc ; le modèle trouve {cgeModel}. Il sort vers {outletModel}, une valeur que le modèle tient dans la bande du rapport par une estimation : ce n’est pas un résultat. Le goudron à la sortie était de 0,13 g/Nm³ à pleine charge. Cliquez le gazogène : le monde « Gazogène » s’ouvre, en coupe.',
-      'Here is the apparatus, of type F-5: a 0.2 m³ bunker above, a hearth below, and its top at 2.22 m from the ground, its foot at 0.50 m. Chips go down into it, dry, burn by half for want of air, and leave as gas: 5.60 MJ/Nm³ on the bench, and the model finds {gasModel}. The cold gas holds 71% of the wood’s energy on the bench; the model finds {cgeModel}. It leaves at about {outletModel}, a value the model holds in the report’s band by an estimate: it is not a result. The tar at the outlet was 0.13 g/Nm³ at full load. Click the gasifier: the “Gasifier” world opens, in section.',
+      'Voici l’appareil, de type F-5 : une soute de 0,2 m³ au-dessus, un foyer dessous, et à 2,22 m du sol son sommet, à 0,50 m son pied. Des plaquettes y descendent, sèchent, brûlent en partie faute d’air, et sortent en gaz : au banc 5,60 MJ/Nm³, et le modèle trouve {gasModel}. Le gaz froid contient 71 % de l’énergie du bois au banc ; le modèle trouve {cgeModel}. Il sort vers {outletModel}, une valeur que le modèle tient dans la bande du rapport par une estimation : ce n’est pas un résultat. Le goudron à la sortie était de 0,13 g/Nm³ à pleine charge. Cliquez le gazogène : le monde « Gazogène » s’ouvre, en coupe.',
+      'Here is the apparatus, of type F-5: a 0.2 m³ bunker above, a hearth below, and its top at 2.22 m from the ground, its foot at 0.50 m. Chips go down into it, dry, burn in part for want of air, and leave as gas: 5.60 MJ/Nm³ on the bench, and the model finds {gasModel}. The cold gas holds 71% of the wood’s energy on the bench; the model finds {cgeModel}. It leaves at about {outletModel}, a value the model holds in the report’s band by an estimate: it is not a result. The tar at the outlet was 0.13 g/Nm³ at full load. Click the gasifier: the “Gasifier” world opens, in section.',
     ),
     material: l('Tôle d’acier en deux corps, boulonnée', 'Sheet steel in two casings, bolted'),
     specs: [
@@ -571,16 +571,16 @@ export const TRACTOR_PARTS: PartInfo[] = [
     maintenance: maint(
       {
         failure:
-          'L’eau dans le moteur : la seule panne grave du programme est probablement venue d’un bac de condensats trop plein, sur cette ligne.',
+          'L’eau dans le moteur : la seule panne grave de ce tracteur est probablement venue d’un bac de condensats trop plein, sur cette ligne.',
         check:
-          'La résistance du filtre, au manomètre à eau : elle double après environ 3 000 km, et sextuple si la toile se mouille.',
+          'La résistance du filtre, au manomètre à eau : sur le camion, elle doublait après environ 3 000 km, et elle est plus que sextuplée si la toile se mouille.',
         care: 'Le filtre était nettoyé toutes les 25 à 100 heures, pendant 30 à 60 minutes ; le refroidisseur et les joints, vers 500 heures.',
       },
       {
         failure:
-          'Water in the engine: the programme’s one serious failure probably came from an overfull condensate vessel, on this line.',
+          'Water in the engine: this tractor’s one serious failure probably came from an overfull condensate vessel, on this line.',
         check:
-          'The filter’s resistance, on the water gauge: it doubles after about 3,000 km, and rises sixfold if the cloth gets wet.',
+          'The filter’s resistance, on the water gauge: on the truck it doubled after about 3,000 km, and it is more than sixfold if the cloth gets wet.',
         care: 'The filter was cleaned every 25 to 100 hours, for 30 to 60 minutes; the cooler and the gaskets, at about 500 hours.',
       },
     ),

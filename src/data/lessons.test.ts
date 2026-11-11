@@ -175,13 +175,14 @@ describe('what the lessons must say, and not say', () => {
     expect(body(les('the-match'), 'en')).toMatch(/does not reach the table/);
   });
 
-  it('lesson 2 gives about 20 minutes and sometimes hours, no end, and none of the source’s advice: no wait, no delay, no cooling, no air changes, no ground floor', () => {
+  it('lesson 2 gives about 20 minutes and sometimes hours, says the sources do not agree and none says when a room holds none of it, and none of the source’s advice: no wait, no delay, no cooling, no air changes, no ground floor', () => {
     const fr = body(les('the-gas-that-kills'), 'fr');
     const en = body(les('the-gas-that-kills'), 'en');
     expect(en).toMatch(/about 20 minutes/);
     expect(en).toMatch(/sometimes for hours/);
     expect(fr).toMatch(/parfois des heures/);
-    expect(en).toMatch(/No figure says when it ends/);
+    expect(en).toMatch(/The sources do not agree on how long it lasts/);
+    expect(en).toMatch(/none says from when a room holds none of it/);
     expect(en).not.toMatch(/allow|let it cool|cool for|air changes|ground floor|wait\b|safe/i);
     expect(fr).not.toMatch(/laisser refroidir|rez-de-chaussée|attendre|renouvellements d’air/i);
     // the reason of the refusals is said here, plainly, and the lesson explains the machine: it does not say how to make or run it
@@ -223,9 +224,9 @@ describe('what the lessons must say, and not say', () => {
     expect(en).toMatch(/the lab takes the curve, and says so/);
   });
 
-  it('lesson 7 says the honest answer: not alone, and dear, and that the lab does not sell it', () => {
+  it('lesson 7 says the honest answer: not alone, and at a loss in the report’s costing for Sweden, and that the lab does not sell it', () => {
     const en = body(les('what-a-day-costs'), 'en');
-    expect(en).toMatch(/not alone, and dear/);
+    expect(en).toMatch(/not alone, and, in the report’s costing for Sweden, at a loss/);
     expect(en).toMatch(/does not sell it/);
     expect(en).toMatch(/students/i);
   });

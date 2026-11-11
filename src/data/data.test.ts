@@ -366,7 +366,7 @@ describe('the world overviews', () => {
   it('say once what the 3D role asked: the farm has no source, the parts under the bonnet are estimates, the zones are in order and not to scale, the cyclone is apart', () => {
     expect(OVERVIEWS.farm.text.en).toMatch(/The farm has no source/);
     expect(OVERVIEWS.tractor.text.en).toMatch(/their sizes are estimates/);
-    expect(OVERVIEWS.gasifier.text.en).toMatch(/in order and not to scale, on purpose/);
+    expect(OVERVIEWS.gasifier.text.en).toMatch(/in order, not to scale, on purpose: this world’s section is to scale/);
     expect(OVERVIEWS['gas-train'].text.en).toMatch(/Apart, the \*\*cyclone\*\*/);
     for (const id of ['farm', 'tractor', 'gasifier', 'gas-train', 'garage'] as const)
       expect(OVERVIEWS[id].text.en.match(/not to scale/g)?.length ?? 0, id).toBeLessThanOrEqual(1);

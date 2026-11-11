@@ -31,8 +31,8 @@ export const LESSONS: Lesson[] = [
         'It all comes down to the lack of air. In the fire, about 30% of the wood burns, with an equivalence ratio of about 0.25 by one handbook: a fire short of air, on purpose. The rest, heated by that fire, becomes char and vapours, then a gas whose carbon monoxide makes up 17 to 22%, with hydrogen, a little methane, and above all the nitrogen of the air.',
       ),
       lf(
-        'Lancez « L’heure mesurée ». À 40 kW à l’arbre, le modèle trouve {chipsModel} de plaquettes, un gaz de {gasModel} et un rendement de {effModel}. Le banc a mesuré 41 kg, 5,60 MJ/Nm³ et 18 %. Le moteur du modèle brûle mieux que celui du banc, comme les autres moteurs du même livre : il n’atteint pas la table, et on ne l’y pousse pas.',
-        'Run “The measured hour”. At 40 kW at the shaft, the model finds {chipsModel} of chips, a gas of {gasModel} and an efficiency of {effModel}. The bench measured 41 kg, 5.60 MJ/Nm³ and 18%. The model’s engine burns better than the bench’s did, as do the other engines of the same book: it does not reach the table, and is not pushed there.',
+        'Lancez « L’heure mesurée ». À 40 kW à l’arbre, le modèle trouve {chipsModel} de plaquettes, un gaz de {gasModel} et un rendement de {effModel}. Le banc a mesuré 41 kg, 5,60 MJ/Nm³ et 18 %. Le moteur du modèle brûle mieux que celui du banc, comme les autres moteurs du même livre, et son gazogène aussi : il n’atteint pas la table, et on ne l’y pousse pas.',
+        'Run “The measured hour”. At 40 kW at the shaft, the model finds {chipsModel} of chips, a gas of {gasModel} and an efficiency of {effModel}. The bench measured 41 kg, 5.60 MJ/Nm³ and 18%. The model’s engine burns better than the bench’s did, as do the other engines of the same book, and so does its gasifier: it does not reach the table, and is not pushed there.',
       ),
       l(
         'C’est pourquoi cette machine mérite une leçon sur le gaz, pas sur le feu. Elle ne brûle pas le bois : elle le fait parler. En quatre zones, la plaquette sèche, se défait, brûle un peu, puis donne son énergie au gaz. Chaque zone a sa fiche, et le curseur du voyage les traverse dans l’ordre.',
@@ -100,20 +100,20 @@ export const LESSONS: Lesson[] = [
     ),
     body: [
       l(
-        'Le monoxyde de carbone n’a ni couleur ni odeur. Dans le sang, il prend la place de l’oxygène et s’y accroche environ 250 fois plus volontiers : on ne le sent pas, et le corps n’avertit pas. Ses effets peuvent passer pour une intoxication alimentaire ou une ivresse, et des séquelles peuvent revenir de 7 à 21 jours après. Un cinquième du gaz de ces tuyaux en est fait.',
-        'Carbon monoxide has neither colour nor smell. In the blood, it takes the place of oxygen and clings to it about 250 times more readily: it cannot be smelt, and the body gives no warning. Its effects can pass for food poisoning or drunkenness, and after-effects can return 7 to 21 days later. A fifth of the gas in these pipes is made of it.',
+        'Le monoxyde de carbone n’a ni couleur ni odeur. Dans le sang, il prend la place de l’oxygène et s’y accroche environ 250 fois plus volontiers : on ne le sent pas, et ses premiers signes se prennent pour autre chose : une intoxication alimentaire, une ivresse. Parfois, un syndrome tardif apparaît après une rémission de 7 à 21 jours ; des séquelles sont possibles. Un cinquième du gaz de ces tuyaux en est fait.',
+        'Carbon monoxide has neither colour nor smell. In the blood, it takes the place of oxygen and clings to it about 250 times more readily: it cannot be smelt, and its first signs are easily taken for something else: food poisoning, drunkenness. Sometimes a delayed syndrome appears after a symptom-free interval of 7 to 21 days; after-effects are possible. A fifth of the gas in these pipes is made of it.',
       ),
       l(
         'En marche, tout le système est en dépression : une fuite aspire de l’air. Le moteur s’arrête, l’aspiration finit, et le gaz continue de se former dans le lit chaud. La pression monte pendant environ 20 minutes selon le livre suédois, parfois des heures selon un autre manuel, et le gaz sort, même d’un appareil étanche, à 23 à 27 % de monoxyde. Lancez « Le moteur s’arrête ».',
         'When running, the whole system is under suction: a leak draws air in. The engine stops, suction ends, and the gas goes on forming in the hot bed. The pressure rises for about 20 minutes by the Swedish book, sometimes for hours by another handbook, and the gas comes out, even from a tight apparatus, at 23 to 27% carbon monoxide. Run “The engine stops”.',
       ),
       lf(
-        'Un mètre cube de ce gaz, {postGas}, dans un garage fermé de 50 m³ : la boîte du modèle monte à environ {ppm50} en une demi-heure, quand le gaz des tuyaux en compte 200 000 ppm. Dans 1 000 m³, environ {ppm1000}. Lancez « Le garage fermé » : une porte ouverte baisse le chiffre, et les Suédois l’ont jugée très insuffisante. Aucun chiffre ne dit quand cela finit.',
-        'A cubic metre of this gas, {postGas}, in a closed garage of 50 m³: the model’s box climbs to about {ppm50} in half an hour, when the gas in the pipes holds 200,000 ppm. In 1,000 m³, about {ppm1000}. Run “The closed garage”: an open door lowers the figure, and the Swedes found it very insufficient. No figure says when it ends.',
+        'Un mètre cube de ce gaz, {postGas}, dans un garage fermé de 50 m³ : la boîte monte à environ {ppm50} en une demi-heure, quand le gaz des tuyaux en compte 200 000 ppm. Dans 1 000 m³, environ {ppm1000}. Lancez « Le garage fermé » : une porte ouverte baisse le chiffre ; les Suédois ont jugé très insuffisant de lancer le ventilateur ou le moteur portes ouvertes. Les sources ne s’accordent pas sur la durée : aucune ne dit à partir de quand une pièce n’en garde plus.',
+        'A cubic metre of this gas, {postGas}, in a closed garage of 50 m³: the model’s box climbs to about {ppm50} in half an hour, when the gas in the pipes holds 200,000 ppm. In 1,000 m³, about {ppm1000}. Run “The closed garage”: an open door lowers the figure; the Swedes found it far from satisfactory to fan or start with the doors open. The sources do not agree on how long it lasts: none says from when a room holds none of it.',
       ),
       l(
-        'Les Suédois ont compté 17 morts de décembre 1939 à mars 1941 pour des gazogènes mal conduits, selon un manuel américain, environ 10 000 cas chroniques de 1941 à 1945, et 2 865 incendies. Au premier semestre de 1945, 155 des 230 véhicules contrôlés avaient un gazogène défectueux. C’est la raison de ce lab : il explique cette machine, il ne dit ni comment la faire, ni comment la conduire.',
-        'The Swedes counted 17 deaths from December 1939 to March 1941 for badly run gasifiers, by an American handbook, about 10,000 chronic cases from 1941 to 1945, and 2,865 fires. In the first half of 1945, 155 of the 230 vehicles checked had a faulty gasifier. That is the reason for this lab: it explains this machine, it does not say how to make it, or how to run it.',
+        'Un manuel américain, citant un ouvrage de 1983, compte 17 morts en Suède de décembre 1939 à mars 1941, par négligence dans la conduite des gazogènes. Environ 10 000 cas chroniques ont été enregistrés de 1941 à 1945, et 2 865 incendies de véhicules de 1939 à 1944. Au premier semestre de 1945, 155 des 230 véhicules contrôlés après des signalements de la police avaient un gazogène défectueux. C’est la raison de ce lab : il explique cette machine, il ne dit ni comment la faire, ni comment la conduire.',
+        'An American handbook, citing a 1983 work, counts 17 deaths in Sweden from December 1939 to March 1941, from careless operation of gasifiers. About 10,000 chronic cases were recorded from 1941 to 1945, and 2,865 vehicle fires from 1939 to 1944. In the first half of 1945, 155 of the 230 vehicles checked after police reports had a faulty gasifier. That is the reason for this lab: it explains this machine, it does not say how to make it, or how to run it.',
       ),
     ],
     get formula() {
@@ -164,8 +164,8 @@ export const LESSONS: Lesson[] = [
             'That the box’s figure applies as it stands to a real room',
           ),
           l(
-            'Que les Suédois l’ont essayée et jugée très insuffisante',
-            'That the Swedes tried it and found it very insufficient',
+            'Que les Suédois l’ont jugée très insuffisante au démarrage',
+            'That the Swedes found it far from satisfactory for starting',
           ),
           l(
             'Que la porte compte moins que la taille du garage',
@@ -174,8 +174,8 @@ export const LESSONS: Lesson[] = [
         ],
         answer: 1,
         explain: l(
-          '**Très insuffisante.** La boîte est faite pour dire que le chiffre tombe, et le livre suédois, qui a connu cela, a jugé les portes ouvertes très insuffisantes : une vraie pièce garde le monoxyde en couches, et peut être pire.',
-          '**Very insufficient.** The box is made to say that the figure falls, and the Swedish book, which knew this, found open doors very insufficient: a real room holds carbon monoxide in layers, and can be worse.',
+          '**Très insuffisante.** La boîte est faite pour dire que le chiffre tombe ; le livre suédois juge très insuffisant de lancer le ventilateur ou le moteur portes ouvertes, et une vraie pièce garde le monoxyde en couches, et peut être pire.',
+          '**Far from satisfactory.** The box is made to say that the figure falls; the Swedish book finds it far from satisfactory to fan or start with the doors open, and a real room holds carbon monoxide in layers, and can be worse.',
         ),
       },
     ],
@@ -262,8 +262,8 @@ export const LESSONS: Lesson[] = [
         'A cubic metre of gas and air holds about 2,500 kJ, when the same volume of petrol and air holds 3,800: a third less, before friction, which does not shrink, takes its share. That is the first reason an engine loses power on gas. The gas also burns slowly, and the report sees a limit near 2,500 rpm.',
       ),
       l(
-        'Un diesel n’a pas de bougie. Le gaz et l’air ne s’allument pas d’eux-mêmes, mais un filet de gazole, si : c’est le pilote. Le moteur garde de 15 à 20 % du gazole qu’il aurait brûlé, et donne 51 kW au lieu de 64, soit 79 %. Le bois seul ne suffit donc pas : c’est la réponse honnête à la question de savoir si un moteur peut rouler au bois.',
-        'A diesel has no spark plug. Gas and air do not light by themselves, but a thread of diesel does: that is the pilot. The engine keeps 15 to 20% of the diesel it would have burned, and gives 51 kW instead of 64, which is 79%. Wood alone is not enough: it is the honest answer to whether an engine can run on wood.',
+        'Un diesel n’a pas de bougie. Le gaz et l’air ne s’allument pas d’eux-mêmes, mais un filet de gazole, si : c’est le pilote. Le moteur garde un filet de gazole, et donne 51 kW au lieu de 64, soit 79 %. Le bois seul ne suffit donc pas : c’est la réponse honnête à la question de savoir si un moteur peut rouler au bois.',
+        'A diesel has no spark plug. Gas and air do not light by themselves, but a thread of diesel does: that is the pilot. The engine keeps a thread of diesel, and gives 51 kW instead of 64, which is 79%. Wood alone is not enough: it is the honest answer to whether an engine can run on wood.',
       ),
       lf(
         'Lancez « Gaz et gazole, gazole seul, gaz seul ». Au gaz avec un filet de gazole, le modèle donne {powerModel} contre 51 kW mesurés : cet accord vaut peu, car le même modèle lit environ {fleetHigh} trop haut les autres moteurs du livre. Au gaz seul, à bougies, il trouve environ {sparkModel} : personne n’a mesuré ce moteur, mais deux diesels convertis sont passés de 71 à 34 kW, et de 42 à 19,6 kW.',
@@ -301,8 +301,8 @@ export const LESSONS: Lesson[] = [
         ],
         answer: 1,
         explain: l(
-          '**Pour l’allumer.** Le gaz et l’air ne s’enflamment pas d’eux-mêmes dans un diesel : le filet de gazole joue le rôle de la bougie, et le moteur en garde de 15 à 20 %.',
-          '**To light it.** Gas and air do not ignite by themselves in a diesel: the thread of diesel plays the spark plug’s part, and the engine keeps 15 to 20%.',
+          '**Pour l’allumer.** Le gaz et l’air ne s’enflamment pas d’eux-mêmes dans un diesel : le filet de gazole joue le rôle de la bougie, et un diesel en a encore besoin.',
+          '**To light it.** Gas and air do not ignite by themselves in a diesel: the thread of diesel plays the spark plug’s part, and a diesel still needs it.',
         ),
       },
       {
@@ -341,8 +341,8 @@ export const LESSONS: Lesson[] = [
         'But the cloth has its price. On the truck, its resistance started at 150 to 200 mm of water, rose 60 to 75 per 1,000 km, and doubled near 3,000 km. Run “The filter clogs”: over 50 hours, the model doubles the resistance, and the engine loses only {filterAgeLoss} for it. Then the cloth gets wet: more than six times the resistance at once, and {filterWetLoss} less power.',
       ),
       lf(
-        'D’où la logique de la ligne : le gaz reste chaud dans le filtre, au-dessus de son point de rosée, de 45 à 60 °C selon le rapport, et froid au moteur, où un gaz plus dense remplit mieux le cylindre. Dans le modèle, la toile est à environ {filterT} et le gaz sort du refroidisseur à {coolerOut}. Chaque température a sa raison.',
-        'Hence the logic of the line: the gas stays hot in the filter, above its dew point, 45 to 60 °C by the report, and cold at the engine, where a denser gas fills the cylinder better. In the model, the cloth is at about {filterT} and the gas leaves the cooler at {coolerOut}. Each temperature has its reason.',
+        'D’où la logique de la ligne : le gaz reste chaud dans le filtre, au-dessus de son point de rosée, de 45 à 60 °C selon le rapport pour un bois à 20–35 % d’humidité, et froid au moteur, où un gaz plus dense remplit mieux le cylindre. Dans le modèle, la toile est à environ {filterT} et le gaz sort du refroidisseur à {coolerOut}. Chaque température a sa raison.',
+        'Hence the logic of the line: the gas stays hot in the filter, above its dew point, 45 to 60 °C by the report for wood at 20–35% moisture, and cold at the engine, where a denser gas fills the cylinder better. In the model, the cloth is at about {filterT} and the gas leaves the cooler at {coolerOut}. Each temperature has its reason.',
       ),
       lf(
         'Le reste suit. Des plaquettes non criblées, trop de fines : 16,8 kW au lieu de 21,1, c’est « Les fines ». De l’air entré sous la grille brûle le gaz : « De l’air sous la grille » le fait passer de {gasModel} à {leakGasMJ}, et le filtre dépasse les 300 °C que sa toile tient. L’eau noire est une autre affaire : voyez le fût de la ferme.',
@@ -410,12 +410,12 @@ export const LESSONS: Lesson[] = [
     ),
     body: [
       lf(
-        'Le banc a mesuré 40 kW à l’arbre. Pour les produire, il est entré {kwIn} : 41 kg de plaquettes à l’heure et 2,2 kg de gazole. C’est 18 % de rendement, et {lost82} de l’énergie se perd en chemin : 56 kW dans le gazogène, le reste dans le moteur et son échappement. Le modèle trouve moins de bois, {chipsModel}, parce que son moteur brûle mieux que celui du banc.',
-        'The bench measured 40 kW at the shaft. To make them, {kwIn} went in: 41 kg of chips an hour and 2.2 kg of diesel. That is 18% efficiency, and {lost82} of the energy is lost on the way: 56 kW in the gasifier, the rest in the engine and its exhaust. The model finds less wood, {chipsModel}, because its engine burns better than the bench’s did.',
+        'Le banc a mesuré 40 kW à l’arbre. Pour les produire, il est entré {kwIn} : 41 kg de plaquettes à l’heure et 2,2 kg de gazole. C’est 18 % de rendement, et {lost82} de l’énergie se perd en chemin : 56 kW dans le gazogène, le reste dans le moteur et son échappement. Le modèle trouve moins de bois, {chipsModel} : son moteur brûle mieux que celui du banc, et son gazogène aussi.',
+        'The bench measured 40 kW at the shaft. To make them, {kwIn} went in: 41 kg of chips an hour and 2.2 kg of diesel. That is 18% efficiency, and {lost82} of the energy is lost on the way: 56 kW in the gasifier, the rest in the engine and its exhaust. The model finds less wood, {chipsModel}: its engine burns better than the bench’s did, and so does its gasifier.',
       ),
       lf(
-        'Lancez « Le ralenti ». Rien à l’arbre, mais 8,5 kg de plaquettes et 1,2 kg de gazole à l’heure : {idleIn} pour rien. Le frottement et le papillon en demandent environ {idleFriction} ; le reste traverse le moteur sans brûler, c’est pourquoi l’échappement contient de 5 à 8 % de monoxyde. Avec ce seul chiffre, le modèle trouve {idleChips} de plaquettes à l’heure.',
-        'Run “Idling”. Nothing at the shaft, but 8.5 kg of chips and 1.2 kg of diesel an hour: {idleIn} for nothing. Friction and the throttle ask about {idleFriction}; the rest goes through the engine unburnt, which is why the exhaust holds 5 to 8% carbon monoxide. With that one figure, the model finds {idleChips} of chips an hour.',
+        'Lancez « Le ralenti ». Rien à l’arbre, mais 8,5 kg de plaquettes et 1,2 kg de gazole à l’heure : {idleIn} pour rien. Le frottement et le papillon en demandent environ {idleFriction} ; le modèle en conclut que le reste traverse le moteur sans brûler, et règle le ralenti sur le chiffre que le livre suédois lit à l’échappement, de 5 à 8 % de monoxyde. Avec ce seul chiffre, le modèle trouve {idleChips} de plaquettes à l’heure.',
+        'Run “Idling”. Nothing at the shaft, but 8.5 kg of chips and 1.2 kg of diesel an hour: {idleIn} for nothing. Friction and the throttle ask about {idleFriction}; the model concludes that the rest goes through the engine unburnt, and sets the idle on the figure the Swedish book reads in the exhaust, 5 to 8% carbon monoxide. With that one figure, the model finds {idleChips} of chips an hour.',
       ),
       lf(
         'Lancez « La charge partielle ». La table imprime 5,3 % de rendement pour ce régime, mais sa propre courbe montre environ 19 %, et 29 kW sur {partIn} font {partEff}. Une coquille, ou un autre essai : le lab prend la courbe, et le dit. Le modèle place son meilleur point entre 70 et 80 % de la charge.',
@@ -504,8 +504,8 @@ export const LESSONS: Lesson[] = [
         'Preparing the machine took 30 to 45 minutes a day, and the bunker asked for a stop every 40 to 50 minutes. The regular drivers did not want it: it was time-consuming, dirty and heavy. Students from the agricultural school drove it, after one to two weeks of training. That is what a machine that worked cost.',
       ),
       l(
-        'Elle marchait : plus de 2 500 heures en six ans, dans deux fermes du sud de la Suède, avec un brise-mottes de 4 m. Mais pas au bois seul : un filet de gazole, un cinquième de puissance en moins, 18 % d’énergie rendue, et un tracteur dont le sommet frôle l’œil du conducteur. La réponse honnête est : pas seul, et cher.',
-        'It worked: more than 2,500 hours in six years, on two farms in the south of Sweden, with a 4 m clod crusher. But not on wood alone: a thread of diesel, a fifth less power, 18% of the energy returned, and a tractor whose top brushes the driver’s eye. The honest answer is: not alone, and dear.',
+        'Elle marchait : plus de 2 500 heures en six ans, dans deux fermes du sud de la Suède, avec un brise-mottes de 4 m. Mais pas au bois seul : un filet de gazole, un cinquième de puissance en moins, 18 % d’énergie rendue, et un tracteur dont le sommet frôle l’œil du conducteur. La réponse honnête est : pas seul, et, selon le calcul du rapport pour la Suède, à perte.',
+        'It worked: more than 2,500 hours in six years, on two farms in the south of Sweden, with a 4 m clod crusher. But not on wood alone: a thread of diesel, a fifth less power, 18% of the energy returned, and a tractor whose top brushes the driver’s eye. The honest answer is: not alone, and, in the report’s costing for Sweden, at a loss.',
       ),
       l(
         'Pourquoi la Suède la gardait-elle alors ? Parce que le gaz de bois était son plan officiel si le pétrole venait à manquer. En 1986 encore, son conseil de défense économique y voyait la seule option réaliste pour les tracteurs, camions et voitures. C’était une assurance, payée en travail : le lab la raconte, il ne la vend pas.',
@@ -550,8 +550,8 @@ export const LESSONS: Lesson[] = [
         ],
         answer: 2,
         explain: l(
-          '**Pas au bois seul.** Un diesel garde de 15 à 20 % de son gazole pour allumer le gaz, et passe de 64 à 51 kW : c’est la réponse honnête de ce lab à « peut-il rouler au bois ? ».',
-          '**Not on wood alone.** A diesel keeps 15 to 20% of its diesel to light the gas, and goes from 64 to 51 kW: it is this lab’s honest answer to “can it run on wood?”.',
+          '**Pas au bois seul.** Un diesel garde un filet de gazole pour allumer le gaz, et passe de 64 à 51 kW : c’est la réponse honnête de ce lab à « peut-il rouler au bois ? ».',
+          '**Not on wood alone.** A diesel keeps a thread of diesel to light the gas, and goes from 64 to 51 kW: it is this lab’s honest answer to “can it run on wood?”.',
         ),
       },
     ],

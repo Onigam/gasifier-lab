@@ -60,8 +60,8 @@ export const GASIFIER_PARTS: PartInfo[] = [
       'The bunker: 0.2 m³ of chips, enough for 40 to 50 minutes. People have died inside one.',
     ),
     description: lf(
-      'La soute est le haut du gazogène, un cylindre d’acier qui garde le combustible : 0,2 m³, soit {bunkerKg} de plaquettes à 152 kg le mètre cube. À pleine charge, elle se vide en 40 à 50 minutes. Au bas, un manchon perforé et un espace derrière lui laissent la vapeur du séchage rejoindre la paroi. Elle est ouverte au sommet par le couvercle. Un espace clos qui contient du bois et un reste de gaz est dangereux : deux chercheurs d’une université du Midwest américain sont morts du monoxyde de carbone après être descendus dans la soute d’un gazogène. La source ne donne ni leurs noms, ni la date.',
-      'The bunker is the top of the gasifier, a steel cylinder that keeps the fuel: 0.2 m³, which is {bunkerKg} of chips at 152 kg a cubic metre. At full load it empties in 40 to 50 minutes. At the bottom, a perforated sleeve and a space behind it let the drying vapour reach the wall. It is opened at the top by the lid. A closed space holding wood and a remnant of gas is dangerous: two researchers at a university in the American Midwest died of carbon monoxide after climbing into the bunker of a gasifier. The source gives neither their names nor the date.',
+      'La soute est le haut du gazogène, un cylindre d’acier qui garde le combustible : 0,2 m³, soit {bunkerKg} de plaquettes à 152 kg le mètre cube. À pleine charge, elle se vide en 40 à 50 minutes. Au bas, un manchon perforé et un espace derrière lui laissent la vapeur du séchage rejoindre la paroi. Elle est ouverte au sommet par le couvercle. Deux chercheurs d’une université du Midwest américain sont morts du monoxyde de carbone après être descendus dans la soute d’un gazogène. La source ne donne ni leurs noms, ni la date.',
+      'The bunker is the top of the gasifier, a steel cylinder that keeps the fuel: 0.2 m³, which is {bunkerKg} of chips at 152 kg a cubic metre. At full load it empties in 40 to 50 minutes. At the bottom, a perforated sleeve and a space behind it let the drying vapour reach the wall. It is opened at the top by the lid. Two researchers at a university in the American Midwest died of carbon monoxide after climbing into the bunker of a gasifier. The source gives neither their names nor the date.',
     ),
     material: l('Tôle d’acier, rouleau de bord', 'Sheet steel, rolled rim'),
     specs: [
@@ -89,7 +89,7 @@ export const GASIFIER_PARTS: PartInfo[] = [
       'The chips’ level goes down in the 3D, with the model: run “The measured hour” and watch the top of the bed.',
     ),
     design: l(
-      'La soute fixe le rythme de la journée : on la remplit parce qu’elle se vide, environ toutes les trois quarts d’heure. Le chiffre de 0,2 m³ est l’une des rares tailles de cette machine que le lab imprime, parce que c’est une taille d’ensemble, pas celle d’une pièce de feu.',
+      'La soute fixe le rythme de la journée : on la remplit parce qu’elle se vide, environ tous les trois quarts d’heure. Le chiffre de 0,2 m³ est l’une des rares tailles de cette machine que le lab imprime, parce que c’est une taille d’ensemble, pas celle d’une pièce de feu.',
       'The bunker sets the rhythm of the day: it is filled because it empties, every three quarters of an hour. The figure of 0.2 m³ is one of the few sizes of this machine the lab prints, because it is an overall size, not that of a part of the fire.',
     ),
   },
@@ -103,10 +103,13 @@ export const GASIFIER_PARTS: PartInfo[] = [
       '{bunkerKg} of chips going down at {fall}: an hour’s journey, to the fire.',
     ),
     description: lf(
-      'La colonne est le combustible tel qu’il se tient dans la soute : {bunkerKg} de plaquettes, à pleine soute. À pleine charge, elle descend d’environ {fall}, et la soute se vide en 40 à 50 minutes. Une plaquette met environ {fallHours} pour aller du couvercle à la grille : elle sèche, se carbonise, brûle à moitié, puis son charbon finit en gaz. Le gaz, lui, traverse le même lit en {gasTime}. Voilà les deux vitesses de cette machine : le bois à l’allure d’un escargot, le gaz d’un trait, et c’est ce rapport qui fait de l’énergie.',
-      'The column is the fuel as it stands in the bunker: {bunkerKg} of chips, at a full bunker. At full load it goes down about {fall}, and the bunker empties in 40 to 50 minutes. A chip takes about {fallHours} to go from the lid to the grate: it dries, chars, half burns, and then its char ends as gas. The gas crosses the same bed in {gasTime}. These are the machine’s two speeds: the wood at a snail’s pace, the gas in a flash, and it is that ratio that makes the energy.',
+      'La colonne est le combustible tel qu’il se tient dans la soute : {bunkerKg} de plaquettes, à pleine soute. À pleine charge, elle descend d’environ {fall}, et la soute se vide en 40 à 50 minutes. Une plaquette met environ {fallHours} pour aller du couvercle à la grille : elle sèche, se carbonise, brûle en partie, puis son charbon finit en gaz. Le gaz, lui, traverse le même lit en {gasTime}. Voilà les deux vitesses de cette machine : le bois à l’allure d’un escargot, le gaz d’un trait, et c’est ce rapport qui fait de l’énergie.',
+      'The column is the fuel as it stands in the bunker: {bunkerKg} of chips, at a full bunker. At full load it goes down about {fall}, and the bunker empties in 40 to 50 minutes. A chip takes about {fallHours} to go from the lid to the grate: it dries, chars, burns in part, and then its char ends as gas. The gas crosses the same bed in {gasTime}. These are the machine’s two speeds: the wood at a snail’s pace, the gas in a flash, and it is that ratio that makes the energy.',
     ),
-    material: l('Plaquettes de bois, 15 à 30 mm pour l’essentiel', 'Wood chips, mostly 15 to 30 mm'),
+    material: l(
+      'Plaquettes de bois, 15 à 30 mm pour l’essentiel (répartition type)',
+      'Wood chips, mostly 15 to 30 mm (typical distribution)',
+    ),
     specs: [
       sp('Plaquettes à pleine soute', 'Chips at a full bunker', v('{bunkerKg}')),
       sp('Descente à pleine charge', 'Fall at full load', v('{fall}')),
@@ -245,8 +248,8 @@ export const GASIFIER_PARTS: PartInfo[] = [
       'Where part of the wood burns: 1,200 to 1,500 °C, the report writes, and that is where the tars vanish.',
     ),
     description: lf(
-      'Voici le feu, au niveau des tuyères : de 1 200 à 1 500 °C, selon le rapport. Seulement environ 30 % du bois y brûle, avec un rapport d’équivalence d’environ 0,25 selon un manuel : c’est un feu qui manque d’air, à dessein. Le bilan du modèle y trouve {oxBalance}, dans la bande, mais quand il compte aussi la chaleur perdue par la paroi, il tombe à {oxModel}, sous elle. Les vapeurs de la pyrolyse doivent traverser cette flamme. Un gazogène à courant montant, où elles sortent telles quelles, en laisse de 5 à 20 % du bois. Ici, le goudron de 0,13 g/Nm³ à la sortie fait {tarShare} du bois : plus de {tarGone} ont été détruites. C’est de l’arithmétique, pas un résultat du modèle.',
-      'Here is the fire, at the nozzles: 1,200 to 1,500 °C, by the report. Only about 30% of the wood burns there, with an equivalence ratio of about 0.25 by one handbook: it is a fire short of air, on purpose. The model’s balance finds {oxBalance} there, inside the band, but when it also counts the heat lost through the wall it falls to {oxModel}, under it. The pyrolysis vapours must cross this flame. An updraught gasifier, where they come out as they are, leaves 5 to 20% of the wood. Here, the tar of 0.13 g/Nm³ at the outlet is {tarShare} of the wood: more than {tarGone} have been destroyed. That is arithmetic, not a result of the model.',
+      'Voici le feu, au niveau des tuyères : de 1 200 à 1 500 °C, selon le rapport. Seulement environ 30 % du bois y brûle, avec un rapport d’équivalence d’environ 0,25 selon un manuel : c’est un feu qui manque d’air, à dessein. Le bilan du modèle y trouve {oxBalance}, dans la bande, mais quand il compte aussi la chaleur perdue par la paroi, il tombe à {oxModel}, sous elle. Les vapeurs de la pyrolyse doivent traverser cette flamme. Un gazogène à courant montant, où elles sortent telles quelles, en laisse de 5 à 20 % du bois. Ici, presque aucun goudron n’en sort : celui de 0,13 g/Nm³ à la sortie fait {tarShare} du bois, au banc. Ce rapport au bois est de l’arithmétique, pas un résultat du modèle.',
+      'Here is the fire, at the nozzles: 1,200 to 1,500 °C, by the report. Only about 30% of the wood burns there, with an equivalence ratio of about 0.25 by one handbook: it is a fire short of air, on purpose. The model’s balance finds {oxBalance} there, inside the band, but when it also counts the heat lost through the wall it falls to {oxModel}, under it. The pyrolysis vapours must cross this flame. An updraught gasifier, where they come out as they are, leaves 5 to 20% of the wood. Here, almost no tar comes out: the 0.13 g/Nm³ at the outlet is {tarShare} of the wood, on the bench. That ratio to the wood is arithmetic, not a result of the model.',
     ),
     material: l('Charbon incandescent et flammes', 'Glowing char and flames'),
     specs: [
@@ -474,13 +477,13 @@ export const GASIFIER_PARTS: PartInfo[] = [
     maintenance: maint(
       {
         failure:
-          'Un bac qui déborde : de l’eau noire revient vers le lit après un arrêt. La seule panne grave du programme est venue, probablement, de l’autre bac, celui du refroidisseur.',
+          'Un bac qui déborde : de l’eau noire revient vers le lit après un arrêt. La seule panne grave de ce tracteur est venue, probablement, de l’autre bac, celui du refroidisseur.',
         check: 'Le niveau du bocal, dans la 3D : il suit les litres que compte le modèle.',
         care: 'Le journal de l’institut note la vidange de la chemise toutes les 8 à 10 heures. Ce n’est pas un geste décrit, et le lab ne dit pas où va le liquide.',
       },
       {
         failure:
-          'A vessel that overflows: black water comes back to the bed after a stop. The programme’s one serious failure probably came from the other vessel, the cooler’s.',
+          'A vessel that overflows: black water comes back to the bed after a stop. This tractor’s one serious failure probably came from the other vessel, the cooler’s.',
         check: 'The jar’s level, in the 3D: it follows the litres the model counts.',
         care: 'The institute’s log notes the jacket’s emptying every 8 to 10 hours. It is not a gesture described, and the lab does not say where the liquid goes.',
       },
@@ -645,8 +648,8 @@ export const GASIFIER_PARTS: PartInfo[] = [
       'A ring of nozzles lets air into the fire: without them, no flame, and too much air would burn all the wood.',
     ),
     description: lf(
-      'L’air du feu entre par les tuyères. Elles forment un anneau autour du foyer, nourri par un plénum, et chacune souffle vers le centre. Ce n’est pas la pression qui pousse cet air : c’est le moteur qui l’aspire. Il en faut, à la main, de {airPerKg} par kilo de bois, par un bilan d’azote. Avec trop d’air, le bois brûlerait en entier et ne laisserait plus de gaz ; sans air, plus de flamme. Dans la 3D, les langues de feu des tuyères sont allumées tant que le moteur tire, et leur taille suit le débit du modèle.',
-      'The fire’s air enters through the nozzles. They form a ring round the hearth, fed by a plenum, and each blows towards the centre. It is not pressure that pushes that air: it is the engine that sucks it. It takes, by hand, {airPerKg} per kilo of wood, from a nitrogen balance. With too much air, the wood would burn whole and leave no gas; with none, no flame. In the 3D, the nozzles’ tongues of fire are lit as long as the engine draws, and their size follows the model’s flow.',
+      'L’air du feu entre par les tuyères. Elles forment un anneau autour du foyer, nourri par un plénum, et chacune souffle vers le centre. Ce n’est pas la pression qui pousse cet air : c’est le moteur qui l’aspire. Un bilan d’azote, fait à la main, en trouve {airPerKg} par kilo de bois. Avec trop d’air, le bois brûlerait en entier et ne laisserait plus de gaz ; sans air, plus de flamme. Dans la 3D, les langues de feu des tuyères sont allumées tant que le moteur tire, et leur taille suit le débit du modèle.',
+      'The fire’s air enters through the nozzles. They form a ring round the hearth, fed by a plenum, and each blows towards the centre. It is not pressure that pushes that air: it is the engine that sucks it. A nitrogen balance, done by hand, finds {airPerKg} per kilo of wood. With too much air, the wood would burn whole and leave no gas; with none, no flame. In the 3D, the nozzles’ tongues of fire are lit as long as the engine draws, and their size follows the model’s flow.',
     ),
     material: l('Tuyères d’acier, plénum', 'Steel nozzles, plenum'),
     specs: [
@@ -688,8 +691,8 @@ export const GASIFIER_PARTS: PartInfo[] = [
       'The pot that holds the fire: the hardest-worked part, which cracks between 600 and 1,000 hours.',
     ),
     description: l(
-      'Le foyer est le pot où se tient le feu, au milieu du corps du bas. L’air passe entre lui et l’enveloppe, puis entre dans le feu par les tuyères, et, dans le dessin du lab, un capot joint son bord à la paroi. Selon le journal de l’institut, il se fissure entre 600 et 1 000 heures : avec la grille et l’anneau de gorge, il compte parmi les pièces qui s’usent le plus vite. Sa matière n’est pas dite dans ce que nous avons lu : le lab le dessine en acier, une estimation.',
-      'The fire box is the pot where the fire stands, in the middle of the lower body. Air passes between it and the casing, then enters the fire through the nozzles, and, in the lab’s drawing, a hood joins its rim to the wall. By the institute’s log, it cracks between 600 and 1,000 hours: with the grate and the throat ring, it is among the parts that wear fastest. Its material is not given in what we read: the lab draws it in steel, an estimate.',
+      'Le foyer est le pot où se tient le feu, au milieu du corps du bas. L’air passe entre lui et l’enveloppe, puis entre dans le feu par les tuyères, et, dans le dessin du lab, un capot joint son bord à la paroi. Selon l’expérience cumulée de plusieurs véhicules du programme, il se fissure entre 600 et 1 000 heures : avec la grille et l’anneau de gorge, il compte parmi les pièces qui s’usent le plus vite. Sa matière n’est pas dite dans ce que nous avons lu : le lab le dessine en acier, une estimation.',
+      'The fire box is the pot where the fire stands, in the middle of the lower body. Air passes between it and the casing, then enters the fire through the nozzles, and, in the lab’s drawing, a hood joins its rim to the wall. By the accumulated experience of several of the programme’s vehicles, it cracks between 600 and 1,000 hours: with the grate and the throat ring, it is among the parts that wear fastest. Its material is not given in what we read: the lab draws it in steel, an estimate.',
     ),
     material: l('Acier, matière non dite (estimation)', 'Steel, material not given (estimate)'),
     specs: [
@@ -785,12 +788,12 @@ export const GASIFIER_PARTS: PartInfo[] = [
       {
         failure: 'Le bouchage par les plaquettes, pour une grille qui ne bouge pas : en moins d’une heure.',
         check: 'La perte de pression du gazogène, mesurée : de 0,08 à 0,18 bar selon le calibre des plaquettes.',
-        care: 'La grille s’use la première, 400 à 700 heures : le journal de l’institut la note avec les autres pièces du foyer.',
+        care: 'La grille s’use la première, 400 à 700 heures : le rapport la note, d’après l’expérience cumulée de plusieurs véhicules, avec les autres pièces du foyer.',
       },
       {
         failure: 'Clogging by the chips, for a grate that does not move: in under an hour.',
         check: 'The gasifier’s pressure loss, measured: 0.08 to 0.18 bar by chip grade.',
-        care: 'The grate wears first, 400 to 700 hours: the institute’s log notes it with the other parts of the hearth.',
+        care: 'The grate wears first, 400 to 700 hours: the report notes it, from the accumulated experience of several vehicles, with the other parts of the hearth.',
       },
     ),
     tip: l(
@@ -852,14 +855,14 @@ export const GASIFIER_PARTS: PartInfo[] = [
       'The hollow under the grate: up to 3.5% of the fuel falls in, and about 5% of the power with it.',
     ),
     description: lf(
-      'Sous la grille, un creux reçoit ce qui n’a pas brûlé : de la cendre, et du charbon qui n’a pas fini sa route. Au cendrier, il reste jusqu’à 3,5 % du combustible, et ce résidu vaut environ 5 % de la puissance à plein régime, soit {residueKw} d’énergie à pleine charge. Le modèle en compte {ashKgH}. La porte du cendrier est du côté gauche du tracteur, en bas, en demi-lune : c’est un dessin, une estimation. Ce qui reste là est chaud : le livre suédois range la cendre chaude parmi les risques d’incendie.',
-      'Under the grate, a hollow receives what has not burned: ash, and charcoal that has not finished its journey. In the ash pit there is up to 3.5% of the fuel, and this residue is worth about 5% of the power at full load, which is {residueKw} of energy at full load. The model counts {ashKgH}. The ash pit’s door is on the left side of the tractor, low down, in a half-moon: it is a drawing, an estimate. What lies there is hot: the Swedish book ranks hot ash among the fire hazards.',
+      'Sous la grille, un creux reçoit ce qui n’a pas brûlé : de la cendre, et du charbon qui n’a pas fini sa route. Au cendrier, il reste jusqu’à 3,5 % du combustible, et ce résidu vaut environ 5 % de la puissance à plein régime, soit, dans le modèle, {residueKw} d’énergie à pleine charge. Le modèle en compte {ashKgH}. La porte du cendrier est du côté gauche du tracteur, en bas, en demi-lune : c’est un dessin, une estimation. Ce qui reste là est chaud : une source américaine range la cendre chaude parmi les risques d’incendie.',
+      'Under the grate, a hollow receives what has not burned: ash, and charcoal that has not finished its journey. In the ash pit there is up to 3.5% of the fuel, and this residue is worth about 5% of the power at full load, which is, in the model, {residueKw} of energy at full load. The model counts {ashKgH}. The ash pit’s door is on the left side of the tractor, low down, in a half-moon: it is a drawing, an estimate. What lies there is hot: an American source lists hot ash among the fire risks.',
     ),
     material: l('Tôle d’acier, porte en demi-lune', 'Sheet steel, half-moon door'),
     specs: [
       sp('Résidu', 'Residue', l('jusqu’à 3,5 % du combustible', 'up to 3.5% of the fuel')),
       sp('Part de la puissance', 'Share of the power', l('environ 5 % à plein régime', 'about 5% at full load')),
-      sp('Énergie du résidu, pleine charge', 'Residue’s energy, full load', v('{residueKw}')),
+      sp('Énergie du résidu, pleine charge, modèle', 'Residue’s energy, full load, model', v('{residueKw}')),
       sp('Rythme de l’institut', 'The institute’s rhythm', l('8 à 15 h, 15 à 30 min', '8 to 15 h, 15 to 30 min')),
     ],
     maintenance: maint(
@@ -867,14 +870,13 @@ export const GASIFIER_PARTS: PartInfo[] = [
         failure:
           'Un cendrier qui se remplit : la cendre monte vers la grille, et la 3D en montre la hauteur, qui suit le modèle.',
         check:
-          'La chaleur : une cendre qui a l’air morte ne l’est pas toujours, et le livre suédois compte la cendre chaude parmi les causes d’incendie.',
+          'La chaleur : une cendre qui a l’air morte ne l’est pas toujours, et une source américaine la range parmi les risques d’incendie.',
         care: 'La cendre était sortie toutes les 8 à 15 heures, 15 à 30 minutes de travail : une durée de l’institut, pas un geste décrit.',
       },
       {
         failure:
           'An ash pit that fills: the ash rises towards the grate, and the 3D shows its height, which follows the model.',
-        check:
-          'The heat: ash that looks dead is not always so, and the Swedish book counts hot ash among the causes of fire.',
+        check: 'The heat: ash that looks dead is not always so, and an American source lists it among the fire risks.',
         care: 'The ash was taken out every 8 to 15 hours, 15 to 30 minutes of work: an institute’s duration, not a gesture described.',
       },
     ),
@@ -909,7 +911,11 @@ export const GASIFIER_PARTS: PartInfo[] = [
         'Dew point, by the model',
         lf('{dew8} à 8 % · {dew40} à 40 %', '{dew8} at 8% · {dew40} at 40%'),
       ),
-      sp('Point de rosée, rapport', 'Dew point, report', l('45 à 60 °C', '45 to 60 °C')),
+      sp(
+        'Point de rosée, rapport, bois à 20–35 % d’humidité',
+        'Dew point, report, wood at 20–35% moisture',
+        l('45 à 60 °C', '45 to 60 °C'),
+      ),
     ],
     maintenance: maint(
       {

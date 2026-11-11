@@ -40,8 +40,8 @@ export const ASSEMBLY: GuideStep[] = [
     title: l('Le pot du feu', 'The pot of the fire'),
     text: step(
       'reading',
-      'Sur la grille, le **foyer** : le pot où tient le feu. L’air passe entre lui et l’enveloppe avant d’entrer dans le feu. Il se fissurait entre 600 et 1 000 heures, selon le journal de l’institut : c’est une pièce d’usure. La matière du foyer n’est pas dite dans ce que nous avons lu.',
-      'On the grate, the **fire box**: the pot where the fire stands. Air passes between it and the casing before entering the fire. It cracked between 600 and 1,000 hours, by the institute’s log: it is a wearing part. The fire box’s material is not given in what we read.',
+      'Sur la grille, le **foyer** : le pot où tient le feu. L’air passe entre lui et l’enveloppe avant d’entrer dans le feu. Il se fissurait entre 600 et 1 000 heures, selon l’expérience cumulée de plusieurs véhicules du programme : c’est une pièce d’usure. La matière du foyer n’est pas dite dans ce que nous avons lu.',
+      'On the grate, the **fire box**: the pot where the fire stands. Air passes between it and the casing before entering the fire. It cracked between 600 and 1,000 hours, by the accumulated experience of several of the programme’s vehicles: it is a wearing part. The fire box’s material is not given in what we read.',
       ['pour sa vie ; sa place est notre lecture', 'for its life; its place is our reading'],
     ),
     parts: ['fire-box'],
@@ -103,8 +103,8 @@ export const ASSEMBLY: GuideStep[] = [
     ),
     parts: ['fuel-casing', 'eccentric-lock'],
     warning: l(
-      'Un espace clos qui contient du bois et un reste de gaz peut tuer : deux chercheurs sont morts du monoxyde de carbone après être descendus dans la soute d’un gazogène.',
-      'A closed space holding wood and a remnant of gas can kill: two researchers died of carbon monoxide after climbing into a gasifier’s bunker.',
+      'Deux chercheurs d’une université du Midwest américain sont morts du monoxyde de carbone après être descendus dans la soute d’un gazogène.',
+      'Two researchers at a Midwestern university died of carbon monoxide after climbing into a gasifier’s bunker.',
     ),
   },
   {
