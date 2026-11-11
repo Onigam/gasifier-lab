@@ -161,6 +161,17 @@ describe('what a click does', () => {
     expect(sim.params.moistureWet).toBeGreaterThanOrEqual(20);
   });
 
+  it('shows the truck’s load for the truck alone, even when a cue changes the machine from outside', () => {
+    const { root, sim, panel } = open();
+    expect(root.textContent).not.toContain(st('truckLoad'));
+    sim.applyPreset('scania-l8050');
+    run(panel, sim, 1);
+    expect(root.textContent).toContain(st('truckLoad'));
+    sim.applyPreset('mf-1100');
+    run(panel, sim, 1);
+    expect(root.textContent).not.toContain(st('truckLoad'));
+  });
+
   it('start again goes back to the last starting point', () => {
     const { root, sim } = open();
     sim.set({ load: 20 });

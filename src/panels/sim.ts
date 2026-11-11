@@ -73,7 +73,8 @@ export class SimPanel implements PanelController {
   private room = h('div', { class: 'loss-legend' });
   private rung = h('p', { class: 'hint' });
   private controls: Control[] = [];
-  private truckField: HTMLElement | null = null;
+  /** The machine the panel was drawn for: a cue or a scenario can change it from outside. */
+  private machine = '';
 
   private powerChart: LineChart;
   private tempChart: LineChart;
@@ -202,8 +203,9 @@ export class SimPanel implements PanelController {
       t,
       sx('truck', t),
     ]);
-    this.truckField = pick<TruckLoad>('truckLoad', 'truckLoad', trucks);
-    this.truckField.hidden = p.machine !== 'scania-l8050';
+    // the truck's load only means something for the truck: the field is there for it alone (the kit's `.field` shows whatever its `hidden` says)
+    this.machine = p.machine;
+    const truckField = p.machine === 'scania-l8050' ? pick<TruckLoad>('truckLoad', 'truckLoad', trucks) : null;
 
     fill(
       this.el,
@@ -257,7 +259,7 @@ export class SimPanel implements PanelController {
         slider('moisture', 'moistureWet', (v) => `${num(v)} %`),
         pick<ChipGrade>('chipGrade', 'chipGrade', grades),
         slider('ambient', 'ambientT', (v) => `${num(v)} °C`),
-        this.truckField,
+        truckField,
         hint('conditionsHint'),
         hint('speedHint'),
       ),
@@ -330,6 +332,7 @@ export class SimPanel implements PanelController {
     this.lastLive += dt;
     if (this.lastReadouts > 0.2) {
       this.lastReadouts = 0;
+      if (this.ctx.sim.params.machine !== this.machine) return this.render();
       this.renderStatus();
       this.renderReadouts();
       this.followScript();
@@ -363,7 +366,6 @@ export class SimPanel implements PanelController {
     const sim = this.ctx.sim;
     const s = sim.state;
     if (this.presetSelect && this.presetSelect.value !== sim.params.preset) this.presetSelect.value = sim.params.preset;
-    if (this.truckField) this.truckField.hidden = sim.params.machine !== 'scania-l8050';
     fill(
       this.status,
       h('p', { class: 'hint' }, st(statusOf(s))),

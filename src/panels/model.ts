@@ -78,7 +78,10 @@ export function moreReadouts(s: GasState): Readout[] {
     row('moreTar', 'tarG', s.tarG, 2, 'g/Nm³'),
     row('moreMixture', 'mixtureMJ', s.mixtureMJ, 2, 'MJ/m³'),
     row('moreVsPetrol', 'deratingVsPetrol', s.deratingVsPetrol * 100, 0, '%'),
-  ];
+  ].filter(
+    // a bunker that is not being emptied has no minutes left to give, and the tar measured is the gas's at work: no nought stands for them
+    (r) => !(r.key === 'moreBunkerMin' && s.chipsKgH <= 0) && !(r.key === 'moreTar' && s.tarG <= 0),
+  );
 }
 
 /** What surrounds the chip at the journey's cursor: the zone, then the figures. Every one but the zone is an estimate (`STATE_TAGS.analyser`). */
