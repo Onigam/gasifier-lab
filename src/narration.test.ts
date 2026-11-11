@@ -450,10 +450,7 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
             ['part-gas-cooler', /Selon le rapport, dix pour cent de température en moins/],
             ['part-cooler-condensate-vessel', /panne grave de ce tracteur/],
             ['part-filter-bags', /Sur le camion du programme/],
-            [
-              'part-post-gas-plume',
-              /Le modèle laisse la poussée s’affaiblir sans jamais s’arrêter\. Ce choix est le sien/,
-            ],
+            ['part-post-gas-plume', /laisse la poussée s’affaiblir sans jamais s’arrêter\. Ce choix est le sien/],
             ['part-post-gas-plume', /Rien de ce que nous avons lu ne dit quand une pièce/],
             ['part-farm-garage', /Souvent d’un défaut électrique, selon le livre suédois/],
             ['part-farmhouse', /Rien de ce que nous avons lu ne décrit la maison/],
@@ -477,10 +474,7 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
             ['part-gas-cooler', /By the report, ten per cent less temperature/],
             ['part-cooler-condensate-vessel', /This tractor’s one serious failure/],
             ['part-filter-bags', /On the programme’s truck/],
-            [
-              'part-post-gas-plume',
-              /The model lets the push weaken without ever stopping\. That choice is the model’s/,
-            ],
+            ['part-post-gas-plume', /lets the push weaken without ever stopping\. That choice is the model’s/],
             ['part-post-gas-plume', /No source we read says when a room/],
             ['part-farm-garage', /Often from an electrical fault, says the Swedish book/],
             ['part-farmhouse', /No source we read describes the farmhouse/],

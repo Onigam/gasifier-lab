@@ -499,7 +499,7 @@
       "scope": "part:post-gas-plume",
       "title": "Panache après l’arrêt",
       "scene": "garage",
-      "text": "Le moteur s’arrête. [[lab:scenario:engine-stops]] Plus rien n’aspire, mais le gaz continue de se former dans le lit chaud. Il pousse une vingtaine de minutes, dit le livre suédois, parfois des heures selon un autre manuel. Il sort, même d’un appareil étanche, avec vingt-trois à vingt-sept pour cent de monoxyde. Personne n’a mesuré son volume, et le modèle part d’un mètre cube. Le modèle laisse la poussée s’affaiblir sans jamais s’arrêter. Ce choix est le sien ; aucune mesure ne le donne. Rien de ce que nous avons lu ne dit quand une pièce n’en garde plus. [[lab:preset:mf-1100]]"
+      "text": "Le moteur s’arrête. [[lab:scenario:engine-stops]] Plus rien n’aspire, mais le gaz continue de se former dans le lit chaud. Il pousse une vingtaine de minutes, dit le livre suédois, parfois des heures selon un autre manuel. Il sort, même d’un appareil étanche, avec vingt-trois à vingt-sept pour cent de monoxyde. Personne n’a mesuré son volume : le modèle part d’un mètre cube et laisse la poussée s’affaiblir sans jamais s’arrêter. Ce choix est le sien ; aucune mesure ne le donne. Rien de ce que nous avons lu ne dit quand une pièce n’en garde plus. [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-exhaust-plume",

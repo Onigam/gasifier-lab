@@ -499,7 +499,7 @@
       "scope": "part:post-gas-plume",
       "title": "Post-gas plume",
       "scene": "garage",
-      "text": "The engine stops. [[lab:scenario:engine-stops]] Nothing draws any more, but the gas keeps forming in the hot bed. It pushes for about twenty minutes, says the Swedish book, sometimes for hours according to another manual. It comes out, even from a tight unit, with twenty-three to twenty-seven per cent carbon monoxide. Nobody measured its volume, and the model starts from one cubic metre. The model lets the push weaken without ever stopping. That choice is the model’s; no measurement gives it. No source we read says when a room holds none of it. [[lab:preset:mf-1100]]"
+      "text": "The engine stops. [[lab:scenario:engine-stops]] Nothing draws any more, but the gas keeps forming in the hot bed. It pushes for about twenty minutes, says the Swedish book, sometimes for hours according to another manual. It comes out, even from a tight unit, with twenty-three to twenty-seven per cent carbon monoxide. Nobody measured its volume: the model starts from one cubic metre and lets the push weaken without ever stopping. That choice is the model’s; no measurement gives it. No source we read says when a room holds none of it. [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-exhaust-plume",
