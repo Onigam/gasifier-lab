@@ -4,8 +4,11 @@
 // Numbers: no mark, reported by a source; † computed, from published figures or by the model where this machine was measured; * an estimate, or the same model where it was not. What docs/physics.md says not to write is not written: that the model retrieves the machine (the wood is 34 kg an hour against 41,
 // and it is said), that a door or a volume helps, that 20 minutes is when it ends, that the tar is predicted. The throat is explained and not sized; no lesson says how to build, light, run or make safe any part of it.
 import type { Lesson, Spec } from '@onigam/lab-kit/content';
-import { l, type L } from '@onigam/lab-kit/i18n';
+import { getLang, l, type L } from '@onigam/lab-kit/i18n';
 import { lf } from './part-helpers';
+
+/** A formula that carries words is read in the language of the moment: the kit shows `formula` as a plain string, read each time a lesson opens. */
+const words = (fr: string, en: string): string => (getLang() === 'fr' ? fr : en);
 
 const chip = (fr: string, en: string, value: L | string): Spec => ({ label: l(fr, en), value });
 
@@ -36,7 +39,9 @@ export const LESSONS: Lesson[] = [
         'That is why this machine deserves a lesson on gas, not on fire. It does not burn the wood: it makes it speak. In four zones, the chip dries, comes apart, burns a little, then gives its energy to the gas. Each zone has its sheet, and the journey slider crosses them in order.',
       ),
     ],
-    formula: 'bois + peu d’air → CO + H₂ + CH₄ + CO₂ + N₂',
+    get formula() {
+      return words('bois + peu d’air → CO + H₂ + CH₄ + CO₂ + N₂', 'wood + little air → CO + H₂ + CH₄ + CO₂ + N₂');
+    },
     figures: [
       chip('Part du bois qui brûle', 'Share of the wood that burns', l('environ 30 %', 'about 30%')),
       chip('Monoxyde du gaz', 'Carbon monoxide of the gas', l('17 à 22 %', '17 to 22%')),
@@ -111,7 +116,12 @@ export const LESSONS: Lesson[] = [
         'The Swedes counted 17 deaths from December 1939 to March 1941 for badly run gasifiers, by an American handbook, about 10,000 chronic cases from 1941 to 1945, and 2,865 fires. In the first half of 1945, 155 of the 230 vehicles checked had a faulty gasifier. That is the reason for this lab: it explains this machine, it does not say how to make it, or how to run it.',
       ),
     ],
-    formula: 'Hb + CO → HbCO, 250 fois plus avidement que Hb + O₂',
+    get formula() {
+      return words(
+        'Hb + CO → HbCO, 250 fois plus avidement que Hb + O₂',
+        'Hb + CO → HbCO, 250 times more readily than Hb + O₂',
+      );
+    },
     figures: [
       chip('Monoxyde du gaz après l’arrêt', 'Carbon monoxide of the gas after a stop', l('23 à 27 %', '23 to 27%')),
       chip(
@@ -339,7 +349,12 @@ export const LESSONS: Lesson[] = [
         'The rest follows. Unsieved chips, too many fines: 16.8 kW instead of 21.1, that is “Fines”. Air getting in under the grate burns the gas: “Air under the grate” takes it from {gasModel} to {leakGasMJ}, and the filter passes the 300 °C its cloth takes. The black water is another matter: see the farm’s barrel.',
       ),
     ],
-    formula: 'perte du filtre = 150 à 200 mm d’eau + 60 à 75 mm par 1 000 km',
+    get formula() {
+      return words(
+        'perte du filtre = 150 à 200 mm d’eau + 60 à 75 mm par 1 000 km',
+        'filter loss = 150 to 200 mm of water + 60 to 75 mm per 1,000 km',
+      );
+    },
     figures: [
       chip('Poussière après la toile', 'Dust after the cloth', l('0,3 mg/m³', '0.3 mg/m³')),
       chip('Toile mouillée', 'Wet cloth', l('plus de 6 fois la résistance', 'over 6 times the resistance')),
@@ -411,7 +426,12 @@ export const LESSONS: Lesson[] = [
         'Run “The truck”. The same system at 8 t: the report measures 7.8 kg of chips and 0.55 kg of diesel per 10 km, about 3.6 kg of chips per kilo of diesel saved. The model is too high here, {truckChips}, and too low on the tractor: this truck burned about as much energy on gas as on diesel, the tractor on the bench a third more. No single efficiency does both.',
       ),
     ],
-    formula: 'rendement = travail à l’arbre ÷ (énergie du bois + énergie du gazole)',
+    get formula() {
+      return words(
+        'rendement = travail à l’arbre ÷ (énergie du bois + énergie du gazole)',
+        'efficiency = work at the shaft ÷ (energy of the wood + energy of the diesel)',
+      );
+    },
     figures: [
       chip('Entrée, sortie, au banc', 'In, out, on the bench', lf('{kwIn} · 40 kW', '{kwIn} · 40 kW')),
       chip('Part de l’énergie perdue', 'Share of the energy lost', lf('{lost82}', '{lost82}')),
@@ -492,7 +512,9 @@ export const LESSONS: Lesson[] = [
         'Why did Sweden keep it, then? Because wood gas was its official plan if oil ran short. As late as 1986, its board for economic defence still saw it as the only realistic option for tractors, lorries and cars. It was an insurance, paid in work: the lab tells it, it does not sell it.',
       ),
     ],
-    formula: 'service = de 15 à 25 minutes par heure de travail',
+    get formula() {
+      return words('service = de 15 à 25 minutes par heure de travail', 'service = 15 to 25 minutes per working hour');
+    },
     figures: [
       chip('Préparation, par jour', 'Preparation, per day', l('30 à 45 min', '30 to 45 min')),
       chip('Service, par heure de travail', 'Service, per hour of work', l('15 à 25 min', '15 to 25 min')),

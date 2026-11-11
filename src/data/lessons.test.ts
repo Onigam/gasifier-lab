@@ -1,4 +1,6 @@
+import { setLang } from '@onigam/lab-kit/i18n';
 import { describe, expect, it } from 'vitest';
+import { installFakeDom } from '../panels/test-dom';
 import type { L } from '@onigam/lab-kit/i18n';
 import { SCENARIO_IDS } from '../sim/presets';
 import { ALARM_TEXTS, SCENARIO_TEXTS } from '../sim/texts';
@@ -86,6 +88,24 @@ describe('the lessons', () => {
       }
     }
     expect([...new Set(problems)]).toEqual([]);
+  });
+
+  it('write each formula in the language of the moment, with the same figures in both', () => {
+    installFakeDom();
+    for (const les of LESSONS) {
+      setLang('fr');
+      const fr = les.formula!;
+      setLang('en');
+      const en = les.formula!;
+      expect(fr, les.id).toBeTruthy();
+      expect(en, les.id).toBeTruthy();
+      expect(en, `${les.id}: nothing French left in the English formula`).not.toMatch(
+        /\b(fois|rendement|travail|énergie|perte|bois|minutes par|par heure|à)\b|[éèêà]/i,
+      );
+      const figures = (t: string) => (t.match(/\d[\d  .,]*\d|\d/g) ?? []).map((n) => n.replace(/[  ,.]/g, ''));
+      expect(figures(en), les.id).toEqual(figures(fr));
+    }
+    setLang('fr');
   });
 
   it('have four paragraphs of at most 95 words, a formula and three chips', () => {
