@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { HEARTH, HOT, UNIT, ZONES } from '../three/dims';
 import { allTexts } from './all-texts';
 import { printedForms } from './lint';
+import { spokenToDigits } from './spoken';
 
 // The sizes of the throat, the nozzles, the firebox and the heights of the zones are drawn to scale in the 3D and printed nowhere (research §A.2, R2; docs/physics.md §9; `GASIFIER_REFUSED` in src/three). The guard of src/three/dims.test.ts holds the 3D's own modules; this one
 // holds everything that a visitor reads or draws from src/data, src/drawings and src/i18n: no size, no count, no ratio, no hearth load, in any printed form, in either language, and no module that reads the hot geometry. A text may say what a hot part DOES, its life, its temperature.
@@ -85,5 +86,57 @@ describe('the sizes of the hot parts are printed nowhere (R2)', () => {
       .filter((line) => !/^\s*\/\//.test(line))
       .join('\n');
     expect(code).not.toMatch(/HEARTH|HOT\b|ZONES|UNIT\.(lower|joint)/);
+  });
+});
+
+// ------------------------------------------------------------------------------------------------ the spoken guide
+// The spoken guide (narration/<lang>.json) is a visitor's text too, heard and read as subtitles. Its numbers are in words: they are read back as digits (src/data/spoken.ts) and held to the same rules as every text above, anywhere in a segment, not only beside a hot part (docs-guard.test.ts adds the sentence rule).
+interface Script {
+  lang: 'fr' | 'en';
+  segments: { id: string; text: string }[];
+}
+const scripts = Object.values(
+  import.meta.glob('../../narration/*.json', { import: 'default', eager: true }) as Record<string, Script>,
+);
+
+describe('the spoken guide says no size of the hot parts, in any printed form, anywhere in a segment (R2)', () => {
+  const spokenDigits = (text: string, lang: 'fr' | 'en'): string =>
+    spokenToDigits(
+      text
+        .replace(/\[\[[^\]]*\]\]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim(),
+      lang,
+    ).replace(/[  ]/g, ' ');
+
+  it('reads the French and the English scripts, 73 segments each', () => {
+    expect(scripts.map((s) => s.lang).sort()).toEqual(['en', 'fr']);
+    for (const s of scripts) expect(s.segments).toHaveLength(73);
+  });
+
+  it('says none of them, in millimetres, centimetres or metres, with a point or a comma, in digits or in words', () => {
+    const problems: string[] = [];
+    for (const script of scripts)
+      for (const seg of script.segments) {
+        const text = spokenDigits(seg.text, script.lang);
+        for (const v of REFUSED) {
+          for (const f of printedForms(v)) {
+            const re = new RegExp(
+              `(?<![\\d.,])${f.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?![\\p{L}²³\\d/]|\\s(?:par|a|an)\\s)`,
+              'u',
+            );
+            if (re.test(text)) problems.push(`${script.lang}/${seg.id} says ${f}`);
+          }
+        }
+      }
+    expect(problems).toEqual([]);
+  });
+
+  it('speaks of no hearth load, no nozzle count, no throat ratio and no rule from an engine to a size', () => {
+    const banned =
+      /hearth load|charge de foyer|charge de gazéification|mètre cube par centimètre carré|cubic metre per square centimetre|(seven|sept)\s+(air\s+)?(nozzles|tuyères)|throat[- ]to|rapport (de la )?gorge|throat (diameter|size)|diamètre de (la )?gorge|bore of the nozzle|diamètre des tuyères|per kilowatt of engine|par kilowatt de moteur/i;
+    for (const script of scripts)
+      for (const seg of script.segments)
+        expect(spokenDigits(seg.text, script.lang), `${script.lang}/${seg.id}`).not.toMatch(banned);
   });
 });
