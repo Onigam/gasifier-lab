@@ -93,7 +93,7 @@
       "scope": "part:farmhouse",
       "title": "Maison",
       "scene": "farm",
-      "text": "Aucune source lue ne décrit la maison : celle-ci est une estimation, deux étages de planches rouges. Le livre suédois range parmi les pires accidents ceux de voitures au couvercle qui fuyait. Garées sous une pièce où l’on vit. Le garage touche donc la maison."
+      "text": "Rien de ce que nous avons lu ne décrit la maison : celle-ci est une estimation, deux étages de planches rouges. Le livre suédois range parmi les pires accidents ceux de voitures au couvercle qui fuyait. Garées sous une pièce où l’on vit. Le garage touche donc la maison."
     },
     {
       "id": "part-farm-garage",
@@ -163,7 +163,7 @@
       "scope": "part:front-wheels",
       "title": "Roues avant",
       "scene": "tractor",
-      "text": "Voyez : [[lab:scenario:engine-stops]] le moteur s’arrête, et les roues cessent de rouler. Elles sont plus petites, et allégées : l’institut a retiré les masses avant, pour faire place au refroidisseur. Comment la direction l’a pris, aucune source lue ne le dit. [[lab:preset:mf-1100]]"
+      "text": "Voyez : [[lab:scenario:engine-stops]] le moteur s’arrête, et les roues cessent de rouler. Elles sont plus petites, et allégées : l’institut a retiré les masses avant, pour faire place au refroidisseur. Comment la direction l’a pris, rien de ce que nous avons lu ne le dit. [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-diesel-engine",
@@ -499,7 +499,7 @@
       "scope": "part:post-gas-plume",
       "title": "Panache après l’arrêt",
       "scene": "garage",
-      "text": "Le moteur s’arrête. [[lab:scenario:engine-stops]] Plus rien n’aspire, mais le gaz continue de se former dans le lit chaud. Il pousse une vingtaine de minutes, dit le livre suédois, parfois des heures selon un autre manuel. Il sort, même d’un appareil étanche : vingt-trois à vingt-sept pour cent de monoxyde. Son volume ? Personne ne l’a mesuré : le modèle part d’un mètre cube. Il laisse la poussée s’affaiblir sans jamais s’arrêter : c’est un choix, pas une mesure. Aucune source lue ne dit quand une pièce n’en garde plus : c’est la phrase que ce lab ne peut pas écrire. [[lab:preset:mf-1100]]"
+      "text": "Le moteur s’arrête. [[lab:scenario:engine-stops]] Plus rien n’aspire, mais le gaz continue de se former dans le lit chaud. Il pousse une vingtaine de minutes, dit le livre suédois, parfois des heures selon un autre manuel. Il sort, même d’un appareil étanche : vingt-trois à vingt-sept pour cent de monoxyde. Son volume ? Personne ne l’a mesuré : le modèle part d’un mètre cube. Il laisse la poussée s’affaiblir sans jamais s’arrêter : c’est un choix, pas une mesure. Rien de ce que nous avons lu ne dit quand une pièce n’en garde plus : c’est la phrase que ce lab ne peut pas écrire. [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-exhaust-plume",

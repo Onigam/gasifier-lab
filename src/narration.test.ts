@@ -22,7 +22,7 @@ const MODES = ['explore', 'assembly', 'install', 'sim', 'plans', 'lessons'];
 const CAMERA_CUES = ['home', 'scene', 'frame', 'select'];
 /** Ceiling set by the owner for the spoken characters of one language, and what this guide aims for (the series' 17,000 to 24,000, with the French a little over: the fix pass of docs/fact-check.md put its hedges in). */
 const BUDGET = 30_000;
-const AIM = [17_000, 24_850] as const;
+const AIM = [17_000, 24_900] as const;
 /** generate.mjs refuses a longer segment. */
 const SEGMENT_CAP = 2_500;
 /** This lab's guide is in the local voice (generate.mjs --engine voicebox): a change of voice must be a decision, not an accident. */
@@ -384,7 +384,10 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
               /le plus souvent par un défaut électrique/,
               'the book’s « most » keeps its reserve out: « souvent, selon le livre »',
             ],
-            [/aucune source ne (dit|décrit|le dit)/i, 'what the lab read, not every source: « aucune source lue »'],
+            [
+              /aucune source (lue )?ne (dit|décrit|le dit)/i,
+              'what the lab read, not every source: « rien de ce que nous avons lu » (« lue ne » is heard « lune »)',
+            ],
           ]
         : [
             [
@@ -443,10 +446,10 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
               'part-post-gas-plume',
               /laisse la poussée s’affaiblir sans jamais s’arrêter : c’est un choix, pas une mesure/,
             ],
-            ['part-post-gas-plume', /Aucune source lue ne dit quand une pièce/],
+            ['part-post-gas-plume', /Rien de ce que nous avons lu ne dit quand une pièce/],
             ['part-farm-garage', /Souvent d’un défaut électrique, selon le livre suédois/],
-            ['part-farmhouse', /Aucune source lue ne décrit la maison/],
-            ['part-front-wheels', /aucune source lue ne le dit/],
+            ['part-farmhouse', /Rien de ce que nous avons lu ne décrit la maison/],
+            ['part-front-wheels', /rien de ce que nous avons lu ne le dit/],
             ['part-old-rescue-set', /années quarante/],
           ]
         : [
