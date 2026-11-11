@@ -95,8 +95,20 @@ const HOTSPOTS: HotspotDef[] = [
   { id: 'water-gauge', fr: 'Manomètre à eau', en: 'Water gauge', minor: true },
 ];
 
-/** The parts whose box, printed as « Encombrement », comes out at a length the lab withholds, to the figure that is printed (`encombrement.test.ts` finds them): their sheet does not print it, the camera still frames them. */
-export const TRAIN_REFUSED: ReadonlySet<string> = new Set(['fan-stack', 'filter-bags', 'exhaust-pipe', 'water-gauge']);
+/** The parts whose box, printed as « Encombrement », comes out at a length the lab withholds, to the figure that is printed or within 3 mm of it (`encombrement.test.ts` finds them): their sheet does not print it, the camera still frames them. */
+export const TRAIN_REFUSED: ReadonlySet<string> = new Set([
+  'fan-stack',
+  'filter-bags',
+  'exhaust-pipe',
+  'water-gauge',
+  'cooler-condensate-vessel',
+  'cyclone',
+  'gas-throttle',
+  'hot-gas-pipe',
+  'pilot-injector',
+  'secondary-air-throttle',
+  'stop-valve',
+]);
 
 export interface GasTrainScene extends SceneModule<GasState> {
   pieces: Record<string, THREE.Object3D>;

@@ -11,7 +11,7 @@ import { createTractorScene } from './tractor/scene';
 import { stateWith, view } from './test-utils';
 
 // The kit prints a part's box as « Encombrement » on its sheet (`envelopeText` of the kit's ui/envelope.js: the three sizes in metres with two decimals if any is a metre or more, else in whole millimetres, a comma in French and a point in English). The
-// sizes of the hot parts and of the lower casing are withheld (research §A.2, R2): no figure of the sheet may repeat one, at the precision it is printed, on any axis. A part whose box does is in its world's refused set, which empties the box on the sheet
+// sizes of the hot parts and of the lower casing are withheld (research §A.2, R2): no figure of the sheet may repeat one, nor come within 3 mm of one, on any axis. A part whose box does is in its world's refused set, which empties the box on the sheet
 // while the part is selected (the camera still gets the real one). This holds it in the five worlds, over the states of the model that move a box (the level of the chips, the ash, the jar, the grate, the lid, the engine, the tractor's loop). It prints no
 // figure: a failure names the parts, nothing else.
 
@@ -25,8 +25,12 @@ const WITHHELD = [
   .filter((v) => v > 0 && v < 2 && !Number.isInteger(v))
   .sort();
 
-/** The figure the kit prints for a length in a row: metres with two decimals if the row is in metres, else whole millimetres (the decimal mark does not matter: a figure is compared before it). */
-const figure = (v: number, inMetres: boolean): string => (inMetres ? v.toFixed(2) : String(Math.round(v * 1000)));
+/** The figure the kit prints for a length in a row, in millimetres: metres with two decimals if the row is in metres (a whole number of centimetres), else whole millimetres (the decimal mark does not matter: a figure is compared before it). */
+const printedMm = (v: number, inMetres: boolean): number =>
+  inMetres ? Math.round(v * 100) * 10 : Math.round(v * 1000);
+
+/** A printed figure is « near » a withheld length when it is within this many millimetres of it: a half-cut bed as wide as the casing it sits in prints 2 mm off, and gives the casing's width all the same. */
+export const NEAR_MM = 3;
 
 /** The states of the model that move a box. */
 function states(): GasState[] {
@@ -49,7 +53,7 @@ function states(): GasState[] {
   return out;
 }
 
-/** Every part of every world that prints a figure of its box equal to a withheld length, by world and id; the sheet of a part in the refused set prints nothing. */
+/** Every part of every world that prints a figure of its box equal to a withheld length or within 3 mm of one, by world and id; the sheet of a part in the refused set prints nothing. */
 function repeats(): string[] {
   let selected: string | null = null;
   const worlds: [string, SceneModule<GasState>][] = [
@@ -75,7 +79,8 @@ function repeats(): string[] {
         box.getSize(size);
         const inMetres = size.x >= 1 || size.y >= 1 || size.z >= 1;
         for (const v of [size.x, size.y, size.z])
-          if (WITHHELD.some((w) => figure(w, inMetres) === figure(v, inMetres))) bad.add(`${name}/${id}`);
+          if (WITHHELD.some((w) => Math.abs(printedMm(w, inMetres) - printedMm(v, inMetres)) <= NEAR_MM))
+            bad.add(`${name}/${id}`);
       }
     }
   });
@@ -98,10 +103,10 @@ describe('the sheets’ « Encombrement » repeats no withheld length (R2)', () 
     expect(src).toContain("replace('.', ',')");
   });
 
-  it('no part, in any world and any state of the model, prints a figure of its box that equals one', () => {
+  it('no part, in any world and any state of the model, prints a figure of its box that equals one or lies within 3 mm of one', () => {
     expect(
       repeats(),
-      'parts whose printed box repeats a withheld length (put them in their world’s refused set)',
+      'parts whose printed box repeats a withheld length, or comes within 3 mm of one (put them in their world’s refused set)',
     ).toEqual([]);
   });
 });

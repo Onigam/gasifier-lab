@@ -37,7 +37,7 @@ export interface GasifierOptions {
 
 /**
  * The parts whose box would give a size the lab does not print (R2): the hearth, the zones around it, the lower casing (its height and its diameter are listed beside the hot parts' sizes, research §3, « print: no »), and the parts whose box, printed
- * as « Encombrement », comes out at a length the lab withholds to the figure that is printed (`encombrement.test.ts` finds them in every world; here three). The camera still frames them.
+ * as « Encombrement », comes out at a length the lab withholds to the figure that is printed or within 3 mm of it (`encombrement.test.ts` finds them in every world; here six: the half-cut bed is as wide as the casing it sits in, and prints 2 mm off). The camera still frames them.
  */
 export const GASIFIER_REFUSED: ReadonlySet<string> = new Set([
   'throat-ring',
@@ -51,6 +51,9 @@ export const GASIFIER_REFUSED: ReadonlySet<string> = new Set([
   'air-intake',
   'grate-linkage',
   'ash-pit',
+  'chip-column',
+  'condensate-drain',
+  'gas-outlet',
 ]);
 
 /** Where a part is looked at from. The unit stands with its open side towards −z. The hot parts are looked at from a little higher, so that the grate's bars and the ring's cone read and not an edge, and the intake from its own side. */
