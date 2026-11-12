@@ -496,8 +496,8 @@ export const LESSONS: Lesson[] = [
     ),
     body: [
       lf(
-        'Une journée de huit heures à pleine charge, dans le modèle : {chipsShiftModel} de plaquettes, dont beaucoup portées sur le toit, {fills} arrêts pour remplir la soute, de la cendre, de l’eau noire. L’institut comptait de 15 à 25 minutes de service par heure de travail ; les durées de ses propres tableaux n’en donnent que {serviceModel} dans le modèle. Lancez « Une journée de travail ».',
-        'A day of eight hours at full load, in the model: {chipsShiftModel} of chips, much of it carried on the roof, {fills} stops to fill the bunker, ash, black water. The institute counted 15 to 25 minutes of service per hour of work; the durations of its own tables give only {serviceModel} in the model. Run “A working day”.',
+        'Une journée de huit heures à pleine charge, dans le modèle : {chipsShiftModel} de plaquettes, dont beaucoup portées sur le toit, {fills} arrêts pour remplir la soute, de la cendre, de l’eau noire. Le rapport estime le service de 15 à 25 minutes par heure de travail ; les durées de ses propres tableaux n’en donnent que {serviceModel} dans le modèle. Lancez « Une journée de travail ».',
+        'A day of eight hours at full load, in the model: {chipsShiftModel} of chips, much of it carried on the roof, {fills} stops to fill the bunker, ash, black water. The report estimates 15 to 25 minutes of service per hour of work; the durations of its own tables give only {serviceModel} in the model. Run “A working day”.',
       ),
       l(
         'Préparer la machine prenait de 30 à 45 minutes par jour, et la soute demandait un arrêt toutes les 40 à 50 minutes. Les conducteurs habituels n’en voulaient pas : c’était long, sale et lourd. Des élèves de l’école d’agriculture l’ont conduite, après une à deux semaines d’apprentissage. Voilà ce que coûtait une machine qui marchait.',

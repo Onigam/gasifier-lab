@@ -47,14 +47,14 @@ export const FARM_PARTS: PartInfo[] = [
         failure:
           'La pompe d’injection a grippé après 25 heures, et l’institut a ajouté un écran de rayonnement. Un moteur est mort : probablement de l’eau aspirée d’un bac de condensats trop plein.',
         check:
-          'L’institut tenait le compte : de 15 à 25 minutes de service par heure de travail, selon son rapport. Les durées de ses propres tableaux n’y arrivent pas tout à fait.',
+          'Le rapport estime le service de 15 à 25 minutes par heure de travail. Les durées de ses propres tableaux n’y arrivent pas tout à fait.',
         care: 'La préparation de la machine prenait de 30 à 45 minutes chaque jour, et la soute à plaquettes se remplissait toutes les 40 à 50 minutes, en moins de 5 minutes.',
       },
       {
         failure:
           'The injection pump seized after 25 hours, and the institute added a radiation shield. One engine died: probably from water sucked from an overfull condensate vessel.',
         check:
-          'The institute kept the count: 15 to 25 minutes of service per hour of work, by its report. The durations in its own tables do not quite reach that.',
+          'The report estimates the service at 15 to 25 minutes per hour of work. The durations in its own tables do not quite reach that.',
         care: 'Preparing the machine took 30 to 45 minutes each day, and the fuel bunker was filled every 40 to 50 minutes, in under 5 minutes.',
       },
     ),
@@ -400,8 +400,8 @@ export const FARM_PARTS: PartInfo[] = [
       'What the machine leaves: up to 3.5% of the fuel, and still hot.',
     ),
     description: lf(
-      'Le gazogène ne laisse pas que du gaz. Au cendrier, il reste jusqu’à 3,5 % du combustible, et ce résidu vaut environ 5 % de la puissance à plein régime : de la cendre, mais aussi du charbon qui n’a pas fini sa route. Le modèle compte {ashKgH} de résidu au maximum. Selon les relevés de l’institut, la cendre était sortie toutes les 8 à 15 heures, pour 15 à 30 minutes de travail. Elle est chaude, et une source américaine range la cendre chaude parmi les risques d’incendie. Ce que devient cette cendre ensuite n’est pas l’affaire du lab : voyez votre autorité locale.',
-      'The gasifier leaves more than gas. In the ash pit there is up to 3.5% of the fuel, and this residue is worth about 5% of the power at full load: ash, but also charcoal that has not finished its journey. The model counts {ashKgH} of residue at the maximum. By the institute’s records, the ash was taken out every 8 to 15 hours, for 15 to 30 minutes of work. It is hot, and an American source lists hot ash among the fire risks. What becomes of that ash afterwards is not the lab’s business: ask your local authority.',
+      'Le gazogène ne laisse pas que du gaz. Au cendrier, il reste jusqu’à 3,5 % du combustible, et ce résidu vaut environ 5 % de la puissance à plein régime : de la cendre, mais aussi du charbon qui n’a pas fini sa route. Le modèle compte {ashKgH} de résidu au maximum. Selon les relevés de plusieurs véhicules de l’institut, la cendre était sortie toutes les 8 à 15 heures, pour 15 à 30 minutes de travail. Elle est chaude, et une source américaine range la cendre chaude parmi les risques d’incendie. Ce que devient cette cendre ensuite n’est pas l’affaire du lab : voyez votre autorité locale.',
+      'The gasifier leaves more than gas. In the ash pit there is up to 3.5% of the fuel, and this residue is worth about 5% of the power at full load: ash, but also charcoal that has not finished its journey. The model counts {ashKgH} of residue at the maximum. By the records of several of the institute’s vehicles, the ash was taken out every 8 to 15 hours, for 15 to 30 minutes of work. It is hot, and an American source lists hot ash among the fire risks. What becomes of that ash afterwards is not the lab’s business: ask your local authority.',
     ),
     material: l('Bac d’acier sur dalle, couvercle entrouvert', 'Steel bin on a slab, lid ajar'),
     specs: [
@@ -409,8 +409,8 @@ export const FARM_PARTS: PartInfo[] = [
       sp('Part de la puissance', 'Share of the power', l('environ 5 % à plein régime', 'about 5% at full load')),
       sp('Au maximum, modèle', 'At the maximum, model', v('{ashKgH}')),
       sp(
-        'Rythme de l’institut',
-        'The institute’s rhythm',
+        'Rythme, plusieurs véhicules de l’institut',
+        'Rhythm, several of the institute’s vehicles',
         l('toutes les 8 à 15 h, 15 à 30 min de travail', 'every 8 to 15 h, 15 to 30 min of work'),
       ),
     ],
@@ -495,8 +495,8 @@ export const FARM_PARTS: PartInfo[] = [
       'The drainage ditch between the yard and the field: no source we read says where the black water went.',
     ),
     description: lf(
-      'Un fossé borde presque toute ferme de plaine : il draine le champ vers un cours d’eau. Il est ici parce qu’aucune source lue ne dit où l’eau noire allait. Rien du lab ne coule dedans, ni point de condensat, ni flèche. Le fossé dessiné est une estimation : {ditchW} au fond, {ditchD} de profondeur, des berges en pente, et un filet d’eau qui n’est pas celui du modèle. Ce que devenait vraiment l’eau noire dans les deux fermes de l’institut n’est dit nulle part dans ce que nous avons lu.',
-      'A ditch borders almost every farm on flat land: it drains the field towards a stream. It is here because no source we read says where the black water went. Nothing from the lab runs into it, no dot of condensate, no arrow. The ditch as drawn is an estimate: {ditchW} wide at the bottom, {ditchD} deep, with sloping banks, and a trickle of water that is not the model’s. What became of the black water on the institute’s two farms is not said anywhere in what we read.',
+      'Un fossé borde presque toute ferme de plaine : il draine le champ vers un cours d’eau. Il est ici parce qu’aucune source lue ne dit où l’eau noire allait. Rien du lab ne coule dedans, ni point de condensat, ni flèche. Le fossé dessiné est une estimation : {ditchW} au fond, {ditchD} de profondeur, des berges en pente, et un filet d’eau qui n’est pas celui du modèle. Ce que devenait vraiment l’eau noire dans les deux grandes fermes où ce tracteur a travaillé n’est dit nulle part dans ce que nous avons lu.',
+      'A ditch borders almost every farm on flat land: it drains the field towards a stream. It is here because no source we read says where the black water went. Nothing from the lab runs into it, no dot of condensate, no arrow. The ditch as drawn is an estimate: {ditchW} wide at the bottom, {ditchD} deep, with sloping banks, and a trickle of water that is not the model’s. What became of the black water on the two large farms where this tractor worked is not said anywhere in what we read.',
     ),
     material: l('Terre, berges herbeuses', 'Earth, grassy banks'),
     specs: [

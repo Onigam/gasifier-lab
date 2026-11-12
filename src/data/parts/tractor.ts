@@ -534,14 +534,14 @@ export const TRACTOR_PARTS: PartInfo[] = [
           'L’enveloppe du bas qui rouille, de 2 000 à 4 000 heures. Le foyer fissure de 600 à 1 000 heures, l’anneau de gorge tient environ 700 heures, la grille de 400 à 700.',
         check:
           'La température du gaz : au-delà d’environ 300 °C, la toile du filtre ne la tient plus. L’alarme de la Simulation s’allume alors.',
-        care: 'Le cendrier était sorti toutes les 8 à 15 heures, et le condensat de la chemise toutes les 8 à 10 heures. Ce sont des durées, pas des gestes.',
+        care: 'D’après les relevés de plusieurs véhicules de l’institut, le cendrier était sorti toutes les 8 à 15 heures, et le condensat de la chemise toutes les 8 à 10 heures. Ce sont des durées, pas des gestes.',
       },
       {
         failure:
           'The lower casing rusts, at 2,000 to 4,000 hours. The firebox cracks at 600 to 1,000 hours, the throat ring lasts about 700 hours, the grate 400 to 700.',
         check:
           'The gas temperature: past about 300 °C the filter cloth no longer takes it. The Simulation’s alarm lights then.',
-        care: 'The ash pit was emptied every 8 to 15 hours, and the jacket’s condensate every 8 to 10 hours. Those are durations, not gestures.',
+        care: 'From the records of several of the institute’s vehicles, the ash pit was emptied every 8 to 15 hours, and the jacket’s condensate every 8 to 10 hours. Those are durations, not gestures.',
       },
     ),
     tip: l(
@@ -583,14 +583,14 @@ export const TRACTOR_PARTS: PartInfo[] = [
           'L’eau dans le moteur : la seule panne grave de ce tracteur est probablement venue d’un bac de condensats trop plein, sur cette ligne.',
         check:
           'La résistance du filtre, au manomètre à eau : sur le camion, elle doublait après environ 3 000 km, et elle est plus que sextuplée si la toile se mouille.',
-        care: 'Le filtre était nettoyé toutes les 25 à 100 heures, pendant 30 à 60 minutes ; le refroidisseur et les joints, vers 500 heures.',
+        care: 'D’après les relevés de plusieurs véhicules de l’institut, le filtre était nettoyé toutes les 25 à 100 heures, pendant 30 à 60 minutes ; le refroidisseur et les joints, vers 500 heures.',
       },
       {
         failure:
           'Water in the engine: this tractor’s one serious failure probably came from an overfull condensate vessel, on this line.',
         check:
           'The filter’s resistance, on the water gauge: on the truck it doubled after about 3,000 km, and it is more than sixfold if the cloth gets wet.',
-        care: 'The filter was cleaned every 25 to 100 hours, for 30 to 60 minutes; the cooler and the gaskets, at about 500 hours.',
+        care: 'From the records of several of the institute’s vehicles, the filter was cleaned every 25 to 100 hours, for 30 to 60 minutes; the cooler and the gaskets, at about 500 hours.',
       },
     ),
     tip: l(

@@ -273,8 +273,8 @@ function draw(d: Drawing): void {
     W_,
     cat(
       l(
-        'L’institut compte 15 à 25 minutes de service par heure de marche. Ses tableaux, additionnés, en donnent ',
-        'The institute counts 15 to 25 minutes of service per hour of running. Its tables, added up, give ',
+        'Le rapport estime le service à 15 à 25 minutes par heure de marche. Les tableaux de l’institut, additionnés, en donnent ',
+        'The report estimates the service at 15 to 25 minutes per hour of running. The institute’s tables, added up, give ',
       ),
       numL(lo, 0, '', '†'),
       l(' à ', ' to '),
@@ -316,8 +316,8 @@ export const workingDay: DrawingSheet = {
   group: 'machine',
   title: l('Une journée de travail avec la machine', 'A working day with the machine'),
   description: l(
-    'Ce que demande une journée de huit heures, d’après les tableaux de l’institut : la préparation, les remplissages, le condensat, les cendres, et au total 15 à 25 minutes de service par heure. Puis tous les travaux et toutes les pièces sur un même axe en heures, des remplissages d’à peine une heure aux 4 000 heures de l’enveloppe.',
-    'What a day of eight hours asks, from the institute’s tables: the preparation, the refills, the condensate, the ash, and in all 15 to 25 minutes of service an hour. Then every job and every part on one axis in hours, from refills hardly an hour apart to the casing’s 4,000 hours.',
+    'Ce que demande une journée de huit heures, d’après les tableaux de l’institut : la préparation, les remplissages, le condensat, les cendres, et, selon le rapport, 15 à 25 minutes de service par heure en tout. Puis tous les travaux et toutes les pièces sur un même axe en heures, des remplissages d’à peine une heure aux 4 000 heures de l’enveloppe.',
+    'What a day of eight hours asks, from the institute’s tables: the preparation, the refills, the condensate, the ash, and, by the report, 15 to 25 minutes of service an hour in all. Then every job and every part on one axis in hours, from refills hardly an hour apart to the casing’s 4,000 hours.',
   ),
   scene: 'gasifier',
   parts: ['fire-box', 'throat-ring', 'grate', 'outer-casing', 'condensate-drain'],

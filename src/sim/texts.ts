@@ -218,8 +218,8 @@ export const SCENARIO_TEXTS: Record<ScenarioId, { name: Pair; lesson: Pair }> = 
   'working-shift': {
     name: ['Une journée de travail', 'A working day'],
     lesson: [
-      'Huit heures à pleine charge : 274 kg * de plaquettes, une bonne partie portée sur le toit, neuf * arrêts pour remplir, de la cendre, de l’eau noire. Les durées des tableaux de l’institut font environ 13 minutes * de service par heure de travail. L’institut en comptait 15 à 25. Ses conducteurs habituels n’en ont pas voulu : ce sont des élèves de l’école d’agriculture qui ont conduit ce tracteur.',
-      'Eight hours at full load: 274 kg * of chips, much of it carried on the roof, nine * stops to fill up, ash, black water. The durations of the institute’s tables come to about 13 minutes * of service per working hour. The institute counted 15 to 25. Its regular drivers would not have it: agricultural students drove this tractor.',
+      'Huit heures à pleine charge : 274 kg * de plaquettes, une bonne partie portée sur le toit, neuf * arrêts pour remplir, de la cendre, de l’eau noire. Les durées des tableaux de l’institut font environ 13 minutes * de service par heure de travail. Le rapport l’estime à 15 à 25. Ses conducteurs habituels n’en ont pas voulu : ce sont des élèves de l’école d’agriculture qui ont conduit ce tracteur.',
+      'Eight hours at full load: 274 kg * of chips, much of it carried on the roof, nine * stops to fill up, ash, black water. The durations of the institute’s tables come to about 13 minutes * of service per working hour. The report estimates 15 to 25. Its regular drivers would not have it: agricultural students drove this tractor.',
     ],
   },
   'engine-stops': {

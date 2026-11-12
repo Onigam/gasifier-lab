@@ -122,6 +122,8 @@ describe('the render', () => {
 
   it('has no French left in the English sheets, the title block included', () => {
     for (const s of SHEETS) expect(flat(s.id, 'en'), s.id).not.toMatch(/[éèêàùûôîç]/);
+    for (const s of SHEETS)
+      expect(flat(s.id, 'en'), s.id).not.toMatch(/\btr\/min\b|\btours? (par|a)\b|\bpar (heure|minute|seconde|jour)\b/i);
   });
 
   it('marks every sheet « not for construction » in its title block, once, and says nothing of a reconstruction', () => {

@@ -99,6 +99,9 @@ describe('the visitor’s texts of the sheets', () => {
     const problems: string[] = [];
     for (const [where, t] of sheetTexts) {
       if (/[àâçéèêëîïôùûü]/i.test(t.en)) problems.push(`${where}: French in the English « ${t.en.slice(0, 60)} »`);
+      // a French unit has no accent: tr/min, tours, par heure
+      if (/\btr\/min\b|\btours? (par|a)\b|\bpar (heure|minute|seconde|jour)\b|\bkW·h\b/i.test(t.en))
+        problems.push(`${where}: a French unit in the English « ${t.en.slice(0, 60)} »`);
       if (t.fr.length > 60 && t.fr === t.en) problems.push(`${where}: one language in both`);
     }
     expect(problems).toEqual([]);

@@ -296,14 +296,14 @@ export const GAS_TRAIN_PARTS: PartInfo[] = [
           'Un nettoyage trop fréquent : c’est ce qui a fait passer la surface de 2,5 à 4,9 m². Un gaz trop chaud brûle la toile ; un gaz trop froid la mouille.',
         check:
           'La résistance, lue au manomètre à eau : sur le camion, elle doublait après environ 3 000 km, et elle est plus que sextuplée si la toile se mouille.',
-        care: 'Le filtre était nettoyé toutes les 25 à 100 heures, pendant 30 à 60 minutes : une durée de l’institut, pas un geste décrit.',
+        care: 'Le filtre était nettoyé toutes les 25 à 100 heures, pendant 30 à 60 minutes, d’après les relevés de plusieurs véhicules de l’institut : une durée relevée, pas un geste décrit.',
       },
       {
         failure:
           'Cleaning too often: that is what took the area from 2.5 to 4.9 m². A gas too hot burns the cloth; a gas too cold wets it.',
         check:
           'The resistance, read on the water gauge: on the truck it doubled after about 3,000 km, and it is more than sixfold if the cloth gets wet.',
-        care: 'The filter was cleaned every 25 to 100 hours, for 30 to 60 minutes: an institute’s duration, not a gesture described.',
+        care: 'The filter was cleaned every 25 to 100 hours, for 30 to 60 minutes, from the records of several of the institute’s vehicles: a recorded duration, not a gesture described.',
       },
     ),
     tip: l(
@@ -458,8 +458,8 @@ export const GAS_TRAIN_PARTS: PartInfo[] = [
       'The vessel’s level rises between two emptyings, in the 3D. When the Simulation does not empty it, it goes over the rim, and the alarm lights.',
     ),
     design: l(
-      'Le bac est la seule pièce de cette ligne dont la panne a probablement tué un moteur. Il tient à un détail : un niveau à regarder toutes les deux ou trois heures. C’est la forme même du travail, long, sale et lourd, dont parlaient les conducteurs.',
-      'The vessel is the only part of this line whose failure probably killed an engine. It hangs on a detail: a level to be looked at every two or three hours. It is the very shape of the time-consuming, dirty and heavy work the drivers spoke of.',
+      'Le bac est la seule pièce de cette ligne dont la panne a probablement tué un moteur. Il tient à un détail : un niveau à regarder toutes les deux ou trois heures, d’après les relevés de plusieurs véhicules. C’est la forme même du travail, long, sale et lourd, dont parlaient les conducteurs.',
+      'The vessel is the only part of this line whose failure probably killed an engine. It hangs on a detail: a level to be looked at every two or three hours, from the records of several vehicles. It is the very shape of the time-consuming, dirty and heavy work the drivers spoke of.',
     ),
   },
   {
@@ -592,8 +592,8 @@ export const GAS_TRAIN_PARTS: PartInfo[] = [
       'In “Explode”, the two throttles rise together with the mixer: they read side by side, each on its own route.',
     ),
     design: l(
-      'Sur le camion du programme, ce papillon se manœuvrait à la main, depuis la cabine, dans une machine qui vit de proportions : le rapport donne ce geste comme normal, et le lab ne le reprend pas. Pour le tracteur, le rapport n’en dit rien. Ce qu’il laisse, c’est le fait : le moteur ne marche bien que dans une bande étroite.',
-      'On the programme’s truck this throttle was worked by hand, from the cabin, in a machine that lives on proportions: the report gives that gesture as normal, and the lab does not repeat it. For the tractor, the report says nothing of it. What it leaves is the fact: the engine runs well only in a narrow band.',
+      'Sur le camion du programme, ce papillon se manœuvrait à la main, depuis la cabine, dans une machine qui vit de proportions : le rapport le décrit, sur le camion, et le lab ne le reprend pas. Pour le tracteur, le rapport n’en dit rien. Ce qu’il laisse, c’est le fait : le moteur ne marche bien que dans une bande étroite.',
+      'On the programme’s truck this throttle was worked by hand, from the cabin, in a machine that lives on proportions: the report describes it, on the truck, and the lab does not repeat it. For the tractor, the report says nothing of it. What it leaves is the fact: the engine runs well only in a narrow band.',
     ),
   },
   {

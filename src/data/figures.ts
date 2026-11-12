@@ -139,7 +139,7 @@ export const FIG = {
   leakOutT: w(470, 0, ' °C'),
   fleetHigh: w(30, 0, pct),
   filterWetLoss: w(14, 0, pct),
-  rpmModel: w(2800, 0, ' tr/min'),
+  rpmModel: w(2800, 0, [' tr/min', ' rpm']),
 
   // ---- estimates: the sources are silent. Lengths from src/three/dims.ts, the rest from docs/research.md §3, docs/physics.md §1 and the model's own constants
   idleChips: e(7, 0, ' kg'),
