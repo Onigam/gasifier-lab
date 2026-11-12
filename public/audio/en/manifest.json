@@ -1,12 +1,12 @@
 {
   "lang": "en",
   "model": "qwen3-tts-1.7B",
-  "generatedAt": "2026-11-12T07:04:20.428Z",
+  "generatedAt": "2026-11-12T07:31:18.076Z",
   "voiceLabel": {
     "fr": "Voix de synthèse",
     "en": "Synthetic voice"
   },
-  "totalSeconds": 1380.94,
+  "totalSeconds": 1379.1,
   "segments": [
     {
       "id": "intro",
@@ -1205,23 +1205,23 @@
       "title": "Chip barn",
       "scene": "farm",
       "file": "part-chip-barn.mp3",
-      "duration": 14,
-      "chars": 246,
-      "hash": "b3c6f80f06a7fe92",
+      "duration": 13.44,
+      "chars": 253,
+      "hash": "fc2ca6cf851d8c72",
       "captions": [
         {
           "t0": 0,
-          "t1": 4.12,
+          "t1": 4.02,
           "text": "One eight-hour shift devours more than a cubic metre of chips."
         },
         {
-          "t0": 4.12,
-          "t1": 9.96,
-          "text": "Moisture matters as much as quantity: the Swedish institute gave thirty per cent moisture as the limit."
+          "t0": 4.02,
+          "t1": 9.1,
+          "text": "Moisture matters as much as quantity: the report on the institute gives thirty per cent moisture as the limit."
         },
         {
-          "t0": 9.96,
-          "t1": 14,
+          "t0": 9.1,
+          "t1": 13.44,
           "text": "And wood pellets kept in a closed store give off carbon monoxide by themselves."
         }
       ],
@@ -1764,29 +1764,29 @@
       "title": "Injection pump",
       "scene": "tractor",
       "file": "part-injection-pump.mp3",
-      "duration": 17.52,
-      "chars": 290,
-      "hash": "37298af73cdbc633",
+      "duration": 18.08,
+      "chars": 324,
+      "hash": "4e869ab86f6b2c04",
       "captions": [
         {
           "t0": 0,
-          "t1": 5.86,
+          "t1": 4.86,
           "text": "Even on gas, the diesel keeps its pump, which doses the thread of diesel the flame needs."
         },
         {
-          "t0": 5.86,
-          "t1": 9.22,
+          "t0": 4.86,
+          "t1": 8.2,
           "text": "But it sits under the bonnet, right beside the gasifier."
         },
         {
-          "t0": 9.22,
-          "t1": 15.32,
+          "t0": 8.2,
+          "t1": 13.96,
           "text": "At twenty-five hours, it seized, for want of cooling and lubrication, says the report on the institute."
         },
         {
-          "t0": 15.32,
-          "t1": 17.52,
-          "text": "The institute added a radiation shield."
+          "t0": 13.96,
+          "t1": 18.08,
+          "text": "The institute then added a radiation shield, against the gasifier’s heat."
         }
       ],
       "cues": []
@@ -1973,28 +1973,28 @@
       "title": "Spring lid",
       "scene": "gasifier",
       "file": "part-spring-lid.mp3",
-      "duration": 16.16,
-      "chars": 278,
-      "hash": "cc8ef19763d1c556",
+      "duration": 14.32,
+      "chars": 241,
+      "hash": "0fd377db125e3f3f",
       "captions": [
         {
           "t0": 0,
-          "t1": 3.26,
-          "text": "A lid and a spring are the simplest part of the machine."
+          "t1": 1.98,
+          "text": "A lid and a spring."
         },
         {
-          "t0": 3.26,
-          "t1": 6.7,
+          "t0": 1.98,
+          "t1": 4.94,
           "text": "If the lid does not close, air comes in at the top."
         },
         {
-          "t0": 6.7,
-          "t1": 11.46,
+          "t0": 4.94,
+          "t1": 9.78,
           "text": "The Swedish book on gasifiers says a parked one may then start burning like a stove."
         },
         {
-          "t0": 11.46,
-          "t1": 16.16,
+          "t0": 9.78,
+          "t1": 14.32,
           "text": "The model tries three leaks: the biggest lasts about six hours, while there is wood."
         }
       ],
