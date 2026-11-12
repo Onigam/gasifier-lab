@@ -486,6 +486,10 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
               'the report explains the baffle in its text (FAO §3.1.2): what it says is said as its own (fact-check, fifth pass, B1)',
             ],
             [/without saying why/, 'the report gives the headlights’ reason: the left one hidden by the gasifier (B2)'],
+            [
+              /where tars condense/,
+              'the report says some of the tars driven off from the fuel condensed (docs/qa.md, sixth pass, D-N9)',
+            ],
             [/forming in the bed/, 'the report says the still hot, pyrolysing fuel, not the charcoal bed (M1)'],
             [
               /by hand according to the report/,
@@ -560,7 +564,7 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
             ['part-field-ditch', /deux grandes fermes où ce tracteur a travaillé/],
             ['part-chip-barn', /le rapport sur l’institut donne trente pour cent d’humidité comme limite/],
             ['part-injection-pump', /ensuite ajouté un écran de rayonnement, contre la chaleur du gazogène/],
-            ['part-exhaust-plume', /cinq à huit pour cent de monoxyde à l’échappement/],
+            ['part-exhaust-plume', /à l’échappement des moteurs de la guerre, cinq à huit pour cent de monoxyde/],
             ['part-injection-pump', /faute de refroidissement et de graissage, dit le rapport sur l’institut/],
             ['part-oxidation-zone', /quinze cents degrés, en général/],
             ['part-cylinder-cutaway', /En général, le rapport sur l’institut/],
@@ -608,10 +612,10 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
             ['part-front-wheels', /no source we read says/],
             ['part-old-rescue-set', /nineteen forties/],
             ['part-gasifier-unit', /top of the gasifier is two metres twenty-two above the ground/],
-            ['part-fuel-baffle', /the fuel stuck to the wall, in the pyrolysis zone/],
+            ['part-fuel-baffle', /the fuel stuck to the wall, in the pyrolysis zone, where some of the tars condense/],
             [
               'part-fuel-baffle',
-              /a baffle that removes this contact brought the problem down to what was judged acceptable/,
+              /a baffle, which removes this contact, brought the problem down to what was judged acceptable/,
             ],
             ['part-roof-headlights', /the left one would have been hidden by the gasifier/],
             ['scene-garage', /in the fuel, still hot/],

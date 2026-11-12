@@ -506,7 +506,7 @@
       "scope": "part:exhaust-plume",
       "title": "Gaz d’échappement",
       "scene": "garage",
-      "text": "[[lab:preset:mf-1100]] [[lab:place:garage]] Un moteur peut aussi tourner dans le garage, et son échappement y entre. Au ralenti, le livre suédois sur les gazogènes a lu cinq à huit pour cent de monoxyde à l’échappement des moteurs de la guerre. Le panache gris n’existe que tant que le moteur tourne. [[lab:engine:off]] Ensuite, c’est le blanc de l’arrêt qui prend le relais. [[lab:preset:mf-1100]]"
+      "text": "[[lab:preset:mf-1100]] [[lab:place:garage]] Un moteur peut aussi tourner dans le garage, et son échappement y entre. Au ralenti, le livre suédois sur les gazogènes a lu, à l’échappement des moteurs de la guerre, cinq à huit pour cent de monoxyde. Le panache gris n’existe que tant que le moteur tourne. [[lab:engine:off]] Ensuite, c’est le blanc de l’arrêt qui prend le relais. [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-co-indicator",
