@@ -550,7 +550,7 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
             ['scene-garage', /dans le combustible encore chaud/],
             ['part-post-gas-plume', /dans le combustible encore chaud/],
             ['scene-garage', /Dans le modèle, porte ouverte/],
-            ['part-garage-door', /Porte ouverte, dans le modèle/],
+            ['part-garage-door', /Dans le modèle, six cent quatre-vingt-dix/],
             [
               'part-secondary-air-throttle',
               /Sur le camion du programme de l’institut, il se manœuvrait à la main, dit le rapport/,
@@ -568,7 +568,7 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
             ['part-diesel-engine', /moins d’énergie que celui de l’essence/],
             ['part-diesel-engine', /cinquante-cinq kilowatts, près des cinquante et un du banc/],
             ['scene-garage', /par construction/],
-            ['part-garage-door', /Entrouverte, environ deux mille cent/],
+            ['part-garage-door', /Porte entrouverte, même demi-heure\. Le modèle compte environ deux mille cent/],
             ['part-roof-rack', /Le rapport sur l’institut ne dit pas si/],
             ['part-cab', /Rien de ce que nous avons lu ne mesure l’air de la cabine/],
             ['part-fire-box', /l’une des pièces qui s’usent le plus vite/],
@@ -617,7 +617,7 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
             ['part-post-gas-plume', /in the fuel, still hot/],
             ['scene-garage', /In the model, with the door open/],
             ['scene-garage', /and stays lit/],
-            ['part-garage-door', /With the door open, in the model/],
+            ['part-garage-door', /In the model, six hundred and ninety/],
             [
               'part-secondary-air-throttle',
               /On the truck of the institute’s programme, it was worked by hand, says the report/,
@@ -635,7 +635,7 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
             ['part-diesel-engine', /less energy than a petrol mixture/],
             ['part-diesel-engine', /fifty-five kilowatts, close to the bench’s fifty-one/],
             ['scene-garage', /by construction/],
-            ['part-garage-door', /Ajar, about two thousand one hundred/],
+            ['part-garage-door', /Door ajar, same half hour\. The model counts about two thousand one hundred/],
             ['part-cab', /Nothing we have read measures the air in the cab/],
             ['part-fire-box', /one of the parts that wear fastest/],
             ['part-heat-shield', /after the injection pump seized/],
@@ -775,6 +775,29 @@ describe.each(Object.keys(manifests))('narration audio %s', (lang) => {
     const raw = (manifests[lang] as { segments: { id: string; chars: number }[] }).segments;
     for (const s of raw) expect(s.chars, s.id).toBe(spokenOf(script.segments.find((x) => x.id === s.id)!).length);
   });
+
+  it('shows the strip at thirty minutes when the garage door’s three figures are spoken: each is said after a pause cue that stops a run restarted at a speed which makes the gap between the cues thirty minutes of the model’s clock (docs/qa.md, fifth pass, D-N1)', () => {
+    const cues = manifest!.segments.find((s) => s.id === 'part-garage-door')!.cues as {
+      t: number;
+      do: Record<string, unknown>;
+    }[];
+    const labs = cues
+      .filter((c) => c.do.lab)
+      .map((c) => ({ t: c.t, name: String(c.do.lab), arg: String(c.do.arg ?? '') }));
+    const runs: number[] = [];
+    labs.forEach((c, i) => {
+      if (c.name !== 'speed') return;
+      const stop = labs.slice(i + 1).find((x) => x.name === 'pause');
+      expect(stop, 'a speed cue with no pause cue after it').toBeDefined();
+      runs.push((stop!.t - c.t) * Number(c.arg));
+    });
+    expect(runs, 'one run for each state of the door').toHaveLength(3);
+    // the strip is at 30 minutes (1,800 s) within 4 %: the model’s figures are those of the thirtieth minute (ajar falls 2.6 % a minute, open 6 %)
+    for (const r of runs) {
+      expect(r).toBeGreaterThan(1730);
+      expect(r).toBeLessThan(1870);
+    }
+  });
 });
 
 describe('the private transcripts', () => {
@@ -824,11 +847,14 @@ describe('narration scripts agree between languages', () => {
   it('have the same segments and the same cues in the same order', () => {
     const [fr, en] = [scripts.fr!, scripts.en!];
     expect(en.segments.map((s) => [s.id, s.scope, s.scene])).toEqual(fr.segments.map((s) => [s.id, s.scope, s.scene]));
+    // the garage door's three speeds are the clip's own (each makes the gap between its cues thirty minutes of the clock, and the gaps differ between the two voices): their numbers are not compared
+    const same = (id: string) => (w: string) =>
+      id === 'part-garage-door' ? w.replace(/^\[\[lab:speed:\d+\]\]$/, '[[lab:speed:N]]') : w;
     for (const s of fr.segments)
       expect(
-        cuesOf(en.segments.find((x) => x.id === s.id)!.text).map(([w]) => w),
+        cuesOf(en.segments.find((x) => x.id === s.id)!.text).map(([w]) => same(s.id)(w)),
         s.id,
-      ).toEqual(cuesOf(s.text).map(([w]) => w));
+      ).toEqual(cuesOf(s.text).map(([w]) => same(s.id)(w)));
   });
 
   it('put the cues at the same place in the sentence (within a quarter of the segment)', () => {

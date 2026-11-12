@@ -65,7 +65,7 @@
       "scope": "part:chip-barn",
       "title": "Grange à plaquettes",
       "scene": "farm",
-      "text": "Tout part d’ici, au sec. Un poste de huit heures dévore plus d’un mètre cube de plaquettes. L’humidité compte autant que la quantité : l’institut suédois donnait trente pour cent d’humidité comme limite. Et des granulés stockés dans un local fermé dégagent, d’eux-mêmes, du monoxyde de carbone."
+      "text": "Un poste de huit heures dévore plus d’un mètre cube de plaquettes. L’humidité compte autant que la quantité : l’institut suédois donnait trente pour cent d’humidité comme limite. Et des granulés stockés dans un local fermé dégagent, d’eux-mêmes, du monoxyde de carbone."
     },
     {
       "id": "part-drum-chipper",
@@ -464,7 +464,7 @@
       "scope": "part:exhaust-pipe",
       "title": "Échappement",
       "scene": "gas-train",
-      "text": "À la sortie du moteur en charge, il passe très peu de monoxyde : trois dixièmes de pour cent dans le modèle. Mais au ralenti, le livre suédois sur les gazogènes a lu cinq à huit pour cent à l’échappement des moteurs de la guerre. Le modèle lit ce chiffre ainsi : au ralenti, l’essentiel du gaz passe sans brûler, les deux tiers."
+      "text": "À la sortie du moteur en charge, il passe très peu de monoxyde : trois dixièmes de pour cent dans le modèle. Mais au ralenti, le livre suédois sur les gazogènes a lu, à l’échappement des moteurs de la guerre, cinq à huit pour cent. Le modèle lit ce chiffre ainsi : au ralenti, l’essentiel du gaz passe sans brûler, les deux tiers."
     },
     {
       "id": "part-water-gauge",
@@ -485,7 +485,7 @@
       "scope": "part:garage-door",
       "title": "Porte",
       "scene": "garage",
-      "text": "La porte a trois états. [[lab:scenario:closed-garage]] Cinquante mètres cubes, une demi-heure après l’arrêt. Porte fermée, le modèle compte environ trois mille cinq cents parties par million. [[lab:door:ajar]] Entrouverte, environ deux mille cent. Les Suédois ont jugé très insuffisant de lancer le ventilateur de démarrage ou le moteur avec les portes de garage ouvertes. Ici, le moteur ne tourne pas. [[lab:door:open]] Porte ouverte, dans le modèle, six cent quatre-vingt-dix parties par million, bien moins. [[lab:preset:mf-1100]]"
+      "text": "La porte a trois états. [[lab:scenario:closed-garage]] [[lab:speed:455]] Porte fermée, cinquante mètres cubes, une demi-heure après l’arrêt. [[lab:pause]] Le modèle compte environ trois mille cinq cents parties par million. [[lab:scenario:closed-garage]] [[lab:door:ajar]] [[lab:speed:600]] Porte entrouverte, même demi-heure. [[lab:pause]] Le modèle compte environ deux mille cent. Les Suédois ont jugé très insuffisant de lancer le ventilateur de démarrage ou le moteur, avec les portes de garage ouvertes. Ici, le moteur ne tourne pas. [[lab:scenario:closed-garage]] [[lab:door:open]] [[lab:speed:891]] Porte ouverte, même demi-heure. [[lab:pause]] Dans le modèle, six cent quatre-vingt-dix parties par million, bien moins. [[lab:play]] [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-room-above",
@@ -513,7 +513,7 @@
       "scope": "part:co-indicator",
       "title": "Indicateur de monoxyde",
       "scene": "garage",
-      "text": "Au mur, un cadran dont l’aiguille suit le monoxyde du modèle. [[lab:scenario:closed-garage]] La lampe s’allume dès que le monoxyde est passé dans la pièce. [[lab:speed:600]] L’aiguille retombe, et la lampe reste allumée : un chiffre bas ne dit rien d’une vraie pièce. Pas de zone verte : le cadran ne montre que le chiffre du modèle. [[lab:preset:mf-1100]]"
+      "text": "Au mur, un cadran dont l’aiguille suit le monoxyde du modèle. [[lab:scenario:closed-garage]] [[lab:speed:600]] La lampe s’allume dès que le monoxyde est passé dans la pièce. L’aiguille retombe, et la lampe reste allumée : un chiffre bas ne dit rien d’une vraie pièce. Pas de zone verte : le cadran ne montre que le chiffre du modèle. [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-old-rescue-set",

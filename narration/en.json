@@ -65,7 +65,7 @@
       "scope": "part:chip-barn",
       "title": "Chip barn",
       "scene": "farm",
-      "text": "It all starts here, in the dry. One eight-hour shift devours more than a cubic metre of chips. Moisture matters as much as quantity: the Swedish institute gave thirty per cent moisture as the limit. And wood pellets kept in a closed store give off carbon monoxide by themselves."
+      "text": "One eight-hour shift devours more than a cubic metre of chips. Moisture matters as much as quantity: the Swedish institute gave thirty per cent moisture as the limit. And wood pellets kept in a closed store give off carbon monoxide by themselves."
     },
     {
       "id": "part-drum-chipper",
@@ -485,7 +485,7 @@
       "scope": "part:garage-door",
       "title": "Garage door",
       "scene": "garage",
-      "text": "The door has three states. [[lab:scenario:closed-garage]] Fifty cubic metres, half an hour after the stop. With the door shut, the model counts about three thousand five hundred parts per million. [[lab:door:ajar]] Ajar, about two thousand one hundred. The Swedes found it far from satisfactory to run the starting fan or the engine with the garage doors open. Here the engine is not running. [[lab:door:open]] With the door open, in the model, six hundred and ninety parts per million, far less. [[lab:preset:mf-1100]]"
+      "text": "The door has three states. [[lab:scenario:closed-garage]] [[lab:speed:421]] Door shut, fifty cubic metres, half an hour after the stop. [[lab:pause]] The model counts about three thousand five hundred parts per million. [[lab:scenario:closed-garage]] [[lab:door:ajar]] [[lab:speed:672]] Door ajar, same half hour. [[lab:pause]] The model counts about two thousand one hundred. The Swedes found it far from satisfactory to run the starting fan or the engine with the garage doors open. Here the engine is not running. [[lab:scenario:closed-garage]] [[lab:door:open]] [[lab:speed:928]] Door open, same half hour. [[lab:pause]] In the model, six hundred and ninety parts per million, far less. [[lab:play]] [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-room-above",
@@ -513,7 +513,7 @@
       "scope": "part:co-indicator",
       "title": "Carbon monoxide indicator",
       "scene": "garage",
-      "text": "On the wall, a dial whose needle follows the model’s carbon monoxide. [[lab:scenario:closed-garage]] The lamp lights as soon as carbon monoxide has been in the room. [[lab:speed:600]] The needle falls back, and the lamp stays lit: a low figure says nothing about a real room. No green zone: the dial shows only the model’s figure. [[lab:preset:mf-1100]]"
+      "text": "On the wall, a dial whose needle follows the model’s carbon monoxide. [[lab:scenario:closed-garage]] [[lab:speed:600]] The lamp lights as soon as carbon monoxide has been in the room. The needle falls back, and the lamp stays lit: a low figure says nothing about a real room. No green zone: the dial shows only the model’s figure. [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-old-rescue-set",
