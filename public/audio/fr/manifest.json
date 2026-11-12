@@ -1,12 +1,12 @@
 {
   "lang": "fr",
   "model": "qwen3-tts-1.7B",
-  "generatedAt": "2026-11-12T07:02:57.008Z",
+  "generatedAt": "2026-11-12T07:27:26.712Z",
   "voiceLabel": {
     "fr": "Voix de synthèse",
     "en": "Synthetic voice"
   },
-  "totalSeconds": 1438.05,
+  "totalSeconds": 1439.41,
   "segments": [
     {
       "id": "intro",
@@ -1200,23 +1200,23 @@
       "title": "Grange à plaquettes",
       "scene": "farm",
       "file": "part-chip-barn.mp3",
-      "duration": 15.17,
-      "chars": 269,
-      "hash": "d56d79ac5463029f",
+      "duration": 15.89,
+      "chars": 274,
+      "hash": "e4a5e5d2691bcdd4",
       "captions": [
         {
           "t0": 0,
-          "t1": 3.74,
+          "t1": 3.7,
           "text": "Un poste de huit heures dévore plus d’un mètre cube de plaquettes."
         },
         {
-          "t0": 3.74,
-          "t1": 9.88,
-          "text": "L’humidité compte autant que la quantité : l’institut suédois donnait trente pour cent d’humidité comme limite."
+          "t0": 3.7,
+          "t1": 10.12,
+          "text": "L’humidité compte autant que la quantité : le rapport sur l’institut donne trente pour cent d’humidité comme limite."
         },
         {
-          "t0": 9.88,
-          "t1": 15.17,
+          "t0": 10.12,
+          "t1": 15.89,
           "text": "Et des granulés stockés dans un local fermé dégagent, d’eux-mêmes, du monoxyde de carbone."
         }
       ],
@@ -1769,29 +1769,29 @@
       "title": "Pompe d’injection",
       "scene": "tractor",
       "file": "part-injection-pump.mp3",
-      "duration": 16.16,
-      "chars": 295,
-      "hash": "15b4e84b18e96106",
+      "duration": 19.04,
+      "chars": 336,
+      "hash": "4f8a4fc5b8241f12",
       "captions": [
         {
           "t0": 0,
-          "t1": 5.38,
+          "t1": 5.86,
           "text": "Même au gaz, le diesel garde sa pompe, qui dose le filet de gazole dont la flamme a besoin."
         },
         {
-          "t0": 5.38,
-          "t1": 8.3,
+          "t0": 5.86,
+          "t1": 8.84,
           "text": "Mais elle est sous le capot, tout près du gazogène."
         },
         {
-          "t0": 8.3,
-          "t1": 14.02,
+          "t0": 8.84,
+          "t1": 14.48,
           "text": "À vingt-cinq heures, elle a grippé, faute de refroidissement et de graissage, dit le rapport sur l’institut."
         },
         {
-          "t0": 14.02,
-          "t1": 16.16,
-          "text": "Celui-ci a ajouté un écran de rayonnement."
+          "t0": 14.48,
+          "t1": 19.04,
+          "text": "L’institut a ensuite ajouté un écran de rayonnement, contre la chaleur du gazogène."
         }
       ],
       "cues": []
@@ -1978,28 +1978,28 @@
       "title": "Couvercle à ressort",
       "scene": "gasifier",
       "file": "part-spring-lid.mp3",
-      "duration": 16.88,
-      "chars": 299,
-      "hash": "3f582f7f51a56c5a",
+      "duration": 14.64,
+      "chars": 254,
+      "hash": "5d81fa46f104e6a1",
       "captions": [
         {
           "t0": 0,
-          "t1": 3.86,
-          "text": "Un couvercle et un ressort, c’est la pièce la plus simple de la machine."
+          "t1": 2.34,
+          "text": "Un couvercle et un ressort."
         },
         {
-          "t0": 3.86,
-          "t1": 6.76,
+          "t0": 2.34,
+          "t1": 4.84,
           "text": "S’il ne ferme pas, l’air entre par le haut."
         },
         {
-          "t0": 6.76,
-          "t1": 12.76,
+          "t0": 4.84,
+          "t1": 10.54,
           "text": "Le livre suédois sur les gazogènes dit qu’un appareil garé peut alors se mettre à brûler comme un poêle."
         },
         {
-          "t0": 12.76,
-          "t1": 16.88,
+          "t0": 10.54,
+          "t1": 14.64,
           "text": "Le modèle l’essaie sur trois fuites : la plus grande dure environ six heures."
         }
       ],
