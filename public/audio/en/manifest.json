@@ -1,12 +1,12 @@
 {
   "lang": "en",
   "model": "qwen3-tts-1.7B",
-  "generatedAt": "2026-11-12T06:44:59.631Z",
+  "generatedAt": "2026-11-12T07:04:20.428Z",
   "voiceLabel": {
     "fr": "Voix de synthèse",
     "en": "Synthetic voice"
   },
-  "totalSeconds": 1381.1,
+  "totalSeconds": 1380.94,
   "segments": [
     {
       "id": "intro",
@@ -3460,63 +3460,82 @@
       "title": "Closed garage",
       "scene": "garage",
       "file": "part-closed-garage.mp3",
-      "duration": 23.04,
+      "duration": 22.88,
       "chars": 387,
-      "hash": "2dc7167caf09c2df",
+      "hash": "eb2e024f6cc8f0f9",
       "captions": [
         {
           "t0": 0,
-          "t1": 4.58,
+          "t1": 4.76,
           "text": "The room where the machine is parked: fifty cubic metres of air, or a thousand."
         },
         {
-          "t0": 4.58,
-          "t1": 6.76,
+          "t0": 4.76,
+          "t1": 7.18,
           "text": "The dots are the carbon monoxide."
         },
         {
-          "t0": 6.76,
-          "t1": 10.22,
+          "t0": 7.18,
+          "t1": 10.9,
           "text": "The model puts one cubic metre of gas in it after the stop."
         },
         {
-          "t0": 10.22,
-          "t1": 15.58,
+          "t0": 10.9,
+          "t1": 15.74,
           "text": "Half an hour later the small room reaches about three thousand five hundred parts per million."
         },
         {
-          "t0": 15.58,
-          "t1": 17.46,
+          "t0": 15.74,
+          "t1": 17.68,
           "text": "The large one, two hundred."
         },
         {
-          "t0": 17.46,
-          "t1": 23.04,
+          "t0": 17.68,
+          "t1": 22.88,
           "text": "But this box is well mixed: a real garage holds this gas in layers, far more concentrated."
         }
       ],
       "cues": [
         {
-          "t": 4.58,
+          "t": 4.76,
           "do": {
             "lab": "scenario",
             "arg": "closed-garage"
           }
         },
         {
-          "t": 4.58,
+          "t": 4.76,
           "do": {
             "flows": true
           }
         },
         {
-          "t": 23.04,
+          "t": 4.76,
+          "do": {
+            "lab": "speed",
+            "arg": "293"
+          }
+        },
+        {
+          "t": 10.9,
+          "do": {
+            "lab": "pause"
+          }
+        },
+        {
+          "t": 22.88,
           "do": {
             "flows": false
           }
         },
         {
-          "t": 23.04,
+          "t": 22.88,
+          "do": {
+            "lab": "play"
+          }
+        },
+        {
+          "t": 22.88,
           "do": {
             "lab": "preset",
             "arg": "mf-1100"
