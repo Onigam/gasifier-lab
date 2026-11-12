@@ -65,7 +65,7 @@
       "scope": "part:chip-barn",
       "title": "Chip barn",
       "scene": "farm",
-      "text": "One eight-hour shift devours more than a cubic metre of chips. Moisture matters as much as quantity: the Swedish institute gave thirty per cent moisture as the limit. And wood pellets kept in a closed store give off carbon monoxide by themselves."
+      "text": "One eight-hour shift devours more than a cubic metre of chips. Moisture matters as much as quantity: the report on the institute gives thirty per cent moisture as the limit. And wood pellets kept in a closed store give off carbon monoxide by themselves."
     },
     {
       "id": "part-drum-chipper",
@@ -177,7 +177,7 @@
       "scope": "part:injection-pump",
       "title": "Injection pump",
       "scene": "tractor",
-      "text": "Even on gas, the diesel keeps its pump, which doses the thread of diesel the flame needs. But it sits under the bonnet, right beside the gasifier. At twenty-five hours, it seized, for want of cooling and lubrication, says the report on the institute. The institute added a radiation shield."
+      "text": "Even on gas, the diesel keeps its pump, which doses the thread of diesel the flame needs. But it sits under the bonnet, right beside the gasifier. At twenty-five hours, it seized, for want of cooling and lubrication, says the report on the institute. The institute then added a radiation shield, against the gasifier’s heat."
     },
     {
       "id": "part-heat-shield",
@@ -219,7 +219,7 @@
       "scope": "part:spring-lid",
       "title": "Spring lid",
       "scene": "gasifier",
-      "text": "A lid and a spring are the simplest part of the machine. If the lid does not close, air comes in at the top. The Swedish book on gasifiers says a parked one may then start burning like a stove. The model tries three leaks: the biggest lasts about six hours, while there is wood."
+      "text": "A lid and a spring. If the lid does not close, air comes in at the top. The Swedish book on gasifiers says a parked one may then start burning like a stove. The model tries three leaks: the biggest lasts about six hours, while there is wood."
     },
     {
       "id": "part-fuel-casing",

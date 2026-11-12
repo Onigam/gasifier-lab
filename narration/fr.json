@@ -65,7 +65,7 @@
       "scope": "part:chip-barn",
       "title": "Grange à plaquettes",
       "scene": "farm",
-      "text": "Un poste de huit heures dévore plus d’un mètre cube de plaquettes. L’humidité compte autant que la quantité : l’institut suédois donnait trente pour cent d’humidité comme limite. Et des granulés stockés dans un local fermé dégagent, d’eux-mêmes, du monoxyde de carbone."
+      "text": "Un poste de huit heures dévore plus d’un mètre cube de plaquettes. L’humidité compte autant que la quantité : le rapport sur l’institut donne trente pour cent d’humidité comme limite. Et des granulés stockés dans un local fermé dégagent, d’eux-mêmes, du monoxyde de carbone."
     },
     {
       "id": "part-drum-chipper",
@@ -177,7 +177,7 @@
       "scope": "part:injection-pump",
       "title": "Pompe d’injection",
       "scene": "tractor",
-      "text": "Même au gaz, le diesel garde sa pompe, qui dose le filet de gazole dont la flamme a besoin. Mais elle est sous le capot, tout près du gazogène. À vingt-cinq heures, elle a grippé, faute de refroidissement et de graissage, dit le rapport sur l’institut. Celui-ci a ajouté un écran de rayonnement."
+      "text": "Même au gaz, le diesel garde sa pompe, qui dose le filet de gazole dont la flamme a besoin. Mais elle est sous le capot, tout près du gazogène. À vingt-cinq heures, elle a grippé, faute de refroidissement et de graissage, dit le rapport sur l’institut. L’institut a ensuite ajouté un écran de rayonnement, contre la chaleur du gazogène."
     },
     {
       "id": "part-heat-shield",
@@ -219,7 +219,7 @@
       "scope": "part:spring-lid",
       "title": "Couvercle à ressort",
       "scene": "gasifier",
-      "text": "Un couvercle et un ressort, c’est la pièce la plus simple de la machine. S’il ne ferme pas, l’air entre par le haut. Le livre suédois sur les gazogènes dit qu’un appareil garé peut alors se mettre à brûler comme un poêle. Le modèle l’essaie sur trois fuites : la plus grande dure environ six heures."
+      "text": "Un couvercle et un ressort. S’il ne ferme pas, l’air entre par le haut. Le livre suédois sur les gazogènes dit qu’un appareil garé peut alors se mettre à brûler comme un poêle. Le modèle l’essaie sur trois fuites : la plus grande dure environ six heures."
     },
     {
       "id": "part-fuel-casing",
