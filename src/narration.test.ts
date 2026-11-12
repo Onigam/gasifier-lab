@@ -677,7 +677,7 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
               /a baffle, which removes this contact, brought the problem down to what was judged acceptable/,
             ],
             ['part-roof-headlights', /The left one would have been hidden by the gasifier\./],
-            ['part-roof-headlights', /The two lamps as drawn are an estimate from the photograph/],
+            ['part-roof-headlights', /As drawn, both lamps are an estimate, taken from the photograph/],
             ['scene-garage', /in the fuel, still hot/],
             ['part-post-gas-plume', /in the fuel, still hot/],
             ['scene-garage', /In the model, with the door open/],
