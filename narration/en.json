@@ -513,7 +513,7 @@
       "scope": "part:co-indicator",
       "title": "Carbon monoxide indicator",
       "scene": "garage",
-      "text": "On the wall, a dial whose needle follows the model’s carbon monoxide. [[lab:scenario:closed-garage]] The lamp lights as soon as carbon monoxide has been in the room. Here, it never goes out again. [[lab:speed:600]] The needle falls back, and the lamp stays lit. No green zone: the dial shows only the model’s figure. [[lab:preset:mf-1100]]"
+      "text": "On the wall, a dial whose needle follows the model’s carbon monoxide. [[lab:scenario:closed-garage]] The lamp lights as soon as carbon monoxide has been in the room. [[lab:speed:600]] The needle falls back, and the lamp stays lit. No green zone: the dial shows only the model’s figure. [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-old-rescue-set",

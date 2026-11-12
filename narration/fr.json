@@ -51,7 +51,7 @@
       "scope": "scene:garage",
       "title": "Ce qu’elle fait quand on s’arrête",
       "scene": "garage",
-      "text": "[[home]] [[lab:scenario:closed-garage]] Le même tracteur, garé dans le garage, sous une chambre. [[frame:post-gas-plume]] Le moteur est arrêté. Mais le gaz continue de se former dans le lit de charbon, et il sort, même d’une machine qui paraissait étanche. [[flows:on]] [[lab:speed:600]] [[frame:co-indicator]] L’indicateur a une lampe, qui s’allume dès que le monoxyde a touché la pièce et ne s’éteint plus. [[frame:room-above]] Là-haut, la chambre en reçoit à son tour, plus tard. [[flows:off]] [[frame:garage-door]] Au démarrage, un ventilateur aspire l’air à travers l’appareil ; il rejette du monoxyde, comme le moteur au ralenti. Les Suédois ont jugé très insuffisant de lancer l’un ou l’autre avec les portes de garage ouvertes. Ici, le moteur est arrêté. [[lab:door:open]] Porte ouverte, le monoxyde de la pièce tombe vite. C’est ce que donne, par construction, la boîte bien mélangée du modèle. [[lab:preset:mf-1100]] [[home]] Quant au temps pendant lequel le gaz sort ainsi, les sources divergent."
+      "text": "[[home]] [[lab:scenario:closed-garage]] Le même tracteur, garé dans le garage, sous une chambre. [[frame:post-gas-plume]] Le moteur est arrêté. Mais le gaz continue de se former dans le lit de charbon, et il sort, même d’une machine qui paraissait étanche. [[flows:on]] [[lab:speed:600]] [[frame:co-indicator]] L’indicateur a une lampe, qui s’allume dès que le monoxyde a touché la pièce et reste allumée. [[frame:room-above]] Là-haut, la chambre en reçoit à son tour, plus tard. [[flows:off]] [[frame:garage-door]] Au démarrage, un ventilateur aspire l’air à travers l’appareil ; il rejette du monoxyde, comme le moteur au ralenti. Les Suédois ont jugé très insuffisant de lancer l’un ou l’autre avec les portes de garage ouvertes. Ici, le moteur est arrêté. [[lab:door:open]] Porte ouverte, le monoxyde de la pièce tombe vite. C’est ce que donne, par construction, la boîte bien mélangée du modèle. [[lab:preset:mf-1100]] [[home]] Quant au temps pendant lequel le gaz sort ainsi, les sources divergent."
     },
     {
       "id": "part-wood-gas-tractor",
@@ -513,7 +513,7 @@
       "scope": "part:co-indicator",
       "title": "Indicateur de monoxyde",
       "scene": "garage",
-      "text": "Au mur, un cadran dont l’aiguille suit le monoxyde du modèle. [[lab:scenario:closed-garage]] La lampe s’allume dès que le monoxyde est passé dans la pièce. Ici, elle ne s’éteint plus. [[lab:speed:600]] L’aiguille retombe, et la lampe reste allumée. Pas de zone verte : le cadran ne montre que le chiffre du modèle. [[lab:preset:mf-1100]]"
+      "text": "Au mur, un cadran dont l’aiguille suit le monoxyde du modèle. [[lab:scenario:closed-garage]] La lampe s’allume dès que le monoxyde est passé dans la pièce. [[lab:speed:600]] L’aiguille retombe, et la lampe reste allumée. Pas de zone verte : le cadran ne montre que le chiffre du modèle. [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-old-rescue-set",
