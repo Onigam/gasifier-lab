@@ -51,7 +51,7 @@
       "scope": "scene:garage",
       "title": "What it does when you stop",
       "scene": "garage",
-      "text": "[[home]] [[lab:scenario:closed-garage]] Back in the garage, the same tractor is parked under a bedroom. [[frame:post-gas-plume]] The engine is off. But the gas keeps forming in the bed of charcoal, and it comes out, even from a machine that looked tight. [[flows:on]] [[lab:speed:600]] [[frame:co-indicator]] The indicator has a lamp, which lights as soon as carbon monoxide has touched the room and never goes out again. [[frame:room-above]] Upstairs, the bedroom gets some in its turn, later. [[flows:off]] [[frame:garage-door]] At start-up, a fan draws air through the apparatus; it gives off carbon monoxide, and so does the engine at idle. The Swedes found it far from satisfactory to start either with the garage doors open. Here the engine is off. [[lab:door:open]] With the door open, the room’s carbon monoxide falls fast. That is what the model’s well-mixed box gives, by construction. [[lab:preset:mf-1100]] [[home]] As for how long the gas keeps coming out like this, the sources disagree."
+      "text": "[[home]] [[lab:scenario:closed-garage]] Back in the garage, the same tractor is parked under a bedroom. [[frame:post-gas-plume]] The engine is off. But the gas keeps forming in the fuel, still hot, and it comes out, even from a machine that looked tight. [[flows:on]] [[lab:speed:600]] [[frame:co-indicator]] The indicator has a lamp, which lights as soon as carbon monoxide has touched the room and stays lit. [[frame:room-above]] Upstairs, the bedroom gets some in its turn, later. [[flows:off]] [[frame:garage-door]] At start-up, a fan draws air through the apparatus; it gives off carbon monoxide, and so does the engine at idle. The Swedes found it far from satisfactory to start either with the garage doors open. Here the engine is off. [[lab:door:open]] In the model, with the door open, the room’s carbon monoxide falls fast. That is what a well-mixed box gives, by construction. [[lab:preset:mf-1100]] [[home]] As for how long the gas keeps coming out like this, the sources disagree."
     },
     {
       "id": "part-wood-gas-tractor",
@@ -65,7 +65,7 @@
       "scope": "part:chip-barn",
       "title": "Chip barn",
       "scene": "farm",
-      "text": "It all starts here, in the dry. One eight-hour shift devours more than a cubic metre of chips. Moisture matters as much as quantity: the Swedish institute stopped at thirty per cent moisture. And wood pellets kept in a closed store give off carbon monoxide by themselves."
+      "text": "It all starts here, in the dry. One eight-hour shift devours more than a cubic metre of chips. Moisture matters as much as quantity: the Swedish institute gave thirty per cent moisture as the limit. And wood pellets kept in a closed store give off carbon monoxide by themselves."
     },
     {
       "id": "part-drum-chipper",
@@ -121,7 +121,7 @@
       "scope": "part:field-ditch",
       "title": "Field ditch",
       "scene": "farm",
-      "text": "A ditch runs beside almost every lowland farm. This one does nothing, on purpose, and nothing flows in it. One question remains: where did the black water go? On the Swedish institute’s two farms, nothing we have read says."
+      "text": "A ditch runs beside almost every lowland farm. This one does nothing, on purpose, and nothing flows in it. One question remains: where did the black water go? On the two large farms where this tractor worked, nothing we have read says."
     },
     {
       "id": "part-tractor-chassis",
@@ -142,14 +142,14 @@
       "scope": "part:roof-rack",
       "title": "Roof rack",
       "scene": "tractor",
-      "text": "Only forty to fifty minutes of chips fit in the bunker. The rest rides on the roof, above the driver: one eight-hour shift takes more than two hundred kilos. Whether it was a good choice is not said; it was, at any rate, necessary."
+      "text": "Only forty to fifty minutes of chips fit in the bunker. The rest rides on the roof, above the driver: one eight-hour shift takes more than two hundred kilos. The report on the institute does not say whether it was a good choice; it was, at any rate, necessary."
     },
     {
       "id": "part-roof-headlights",
       "scope": "part:roof-headlights",
       "title": "Roof headlights",
       "scene": "tractor",
-      "text": "A tiny part, to say that a tractor really gets modified. The Swedish institute moved the headlights to the roof, without saying why. Our reading: the gasifier takes the flank where a headlight would have shone."
+      "text": "A tiny part, to say that a tractor really gets modified. The Swedish institute moved the headlights to the roof. According to the report on the institute, the left one would have been hidden by the gasifier."
     },
     {
       "id": "part-rear-wheels",
@@ -163,7 +163,7 @@
       "scope": "part:front-wheels",
       "title": "Front wheels",
       "scene": "tractor",
-      "text": "[[lab:scenario:engine-stops]] When the engine stops, the wheels stop rolling. They are smaller, and lightened: the Swedish institute removed the front weights to make room for the cooler. How the steering took it, no source we read says. [[lab:preset:mf-1100]]"
+      "text": "[[lab:scenario:engine-stops]] When the engine stops, the wheels stop rolling. They are smaller than the rear wheels. They are also lightened: the Swedish institute removed the front weights to make room for the cooler. How the steering took it, no source we read says. [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-diesel-engine",
@@ -177,7 +177,7 @@
       "scope": "part:injection-pump",
       "title": "Injection pump",
       "scene": "tractor",
-      "text": "Even on gas, the diesel keeps its pump, which doses the thread of diesel the flame needs. But it sits under the bonnet, right beside the gasifier, which is hot. At twenty-five hours, it seized. The Swedish institute added a radiation shield."
+      "text": "Even on gas, the diesel keeps its pump, which doses the thread of diesel the flame needs. But it sits under the bonnet, right beside the gasifier. At twenty-five hours, it seized, for want of cooling and lubrication, says the report on the institute. The institute added a radiation shield."
     },
     {
       "id": "part-heat-shield",
@@ -219,7 +219,7 @@
       "scope": "part:spring-lid",
       "title": "Spring lid",
       "scene": "gasifier",
-      "text": "A lid and a spring are the simplest part of the machine. If the lid does not close, air comes in at the top. The Swedish book on gasifiers says a parked one then burns like a stove. The model tries three leaks: the biggest lasts about six hours, while there is wood."
+      "text": "A lid and a spring are the simplest part of the machine. If the lid does not close, air comes in at the top. The Swedish book on gasifiers says a parked one may then start burning like a stove. The model tries three leaks: the biggest lasts about six hours, while there is wood."
     },
     {
       "id": "part-fuel-casing",
@@ -254,7 +254,7 @@
       "scope": "part:oxidation-zone",
       "title": "Oxidation zone",
       "scene": "gasifier",
-      "text": "The fire. [[lab:journey:0.62]] One thousand two hundred to one thousand five hundred degrees, the report on the institute says. The model finds one thousand two hundred and thirty-five, and one thousand and seventy-six with the wall’s loss. The vapours must cross this flame. Almost no tar comes out: about zero point zero three per cent of the wood, on the bench. An updraught gasifier leaves five to twenty per cent. A fire short of air makes gas; a fire with enough air leaves only ashes."
+      "text": "The fire. [[lab:journey:0.62]] One thousand two hundred to one thousand five hundred degrees, in general, the report on the institute says. The model finds one thousand two hundred and thirty-five, and one thousand and seventy-six with the wall’s loss. The vapours must cross this flame. Almost no tar comes out: about zero point zero three per cent of the wood, on the bench. An updraught gasifier leaves five to twenty per cent. A fire short of air makes gas; a fire with enough air leaves only ashes."
     },
     {
       "id": "part-reduction-zone",
@@ -268,7 +268,7 @@
       "scope": "part:fuel-baffle",
       "title": "Fuel baffle",
       "scene": "gasifier",
-      "text": "This part is drawn without any text to cite: the report on the institute shows it in a figure, without a word. Our reading: it keeps the chips away from the cold wall, where water and tar stick. Nothing we have read confirms that reading."
+      "text": "In the bunker, the fuel stuck to the wall, in the pyrolysis zone, where tars condense. It formed bridges. The report on the institute says a baffle that removes this contact brought the problem down to what was judged acceptable."
     },
     {
       "id": "part-condensate-sleeve",
@@ -331,7 +331,7 @@
       "scope": "part:grate",
       "title": "Grate",
       "scene": "gasifier",
-      "text": "Under the charcoal bed, the grate carries the charcoal, and lets ash and gas through. And it moves: according to the report on the institute, chips clogged a fixed grate in under an hour. The grates in the institute’s programme lasted four hundred to seven hundred hours."
+      "text": "Under the charcoal bed, the grate carries the charcoal, and lets ash and gas through. And it moves: according to the report on the institute, chips clogged a fixed grate in under an hour. The programme’s grates lasted four hundred to seven hundred hours."
     },
     {
       "id": "part-grate-linkage",
@@ -415,14 +415,14 @@
       "scope": "part:gas-cooler",
       "title": "Gas cooler",
       "scene": "gas-train",
-      "text": "After the filter, the still-hot gas rises through half the tubes and comes down through the other half. [[flows:on]] The dots turn from red to blue. [[flows:off]] It is cooled because colder gas is denser. By the report on the institute, ten per cent less temperature gives almost two per cent more power. And water comes out: the model counts two point two litres an hour."
+      "text": "After the filter, the still-hot gas rises through half the tubes and comes down through the other half. [[flows:on]] The dots turn from red to blue. [[flows:off]] It is cooled because colder gas is denser. By the report on the institute, in general, ten per cent less temperature gives almost two per cent more power. And water comes out: the model counts two point two litres an hour."
     },
     {
       "id": "part-cooler-condensate-vessel",
       "scope": "part:cooler-condensate-vessel",
       "title": "Condensate vessel",
       "scene": "gas-train",
-      "text": "The cooler’s black-water vessel. This tractor’s one serious failure probably came from it: overfull, it sent water into the engine. According to the report on the institute, it was emptied every two to three hours. A simple level to watch, but a dirty, heavy job."
+      "text": "The cooler’s black-water vessel. This tractor’s one serious failure probably came from it: overfull, it sent water into the engine. According to the report on the institute, a vessel of this kind was emptied every two to three hours. A simple level to watch, but a dirty, heavy job."
     },
     {
       "id": "part-gas-air-mixer",
@@ -443,7 +443,7 @@
       "scope": "part:secondary-air-throttle",
       "title": "Secondary-air throttle",
       "scene": "gas-train",
-      "text": "A second throttle sits on the air added to the gas, the secondary air, as against the fire’s primary air. It sets the proportion, by hand according to the report on the institute. It is a setting with an optimum, which is not given here."
+      "text": "A second throttle sits on the air added to the gas, the secondary air, as against the fire’s primary air. It sets the proportion. On the truck of the institute’s programme, it was worked by hand, says the report. It is a setting with an optimum, which is not given here."
     },
     {
       "id": "part-pilot-injector",
@@ -457,7 +457,7 @@
       "scope": "part:cylinder-cutaway",
       "title": "Cylinder cutaway",
       "scene": "gas-train",
-      "text": "Here energy ends up as work: a cylinder cut in two. The real engine turns thirty-one times a second, too fast for the eye. The one on screen turns at six per cent of that. And the gas burns slowly: the report on the institute sees a limit near two thousand five hundred revolutions a minute."
+      "text": "Here energy ends up as work: a cylinder cut in two. The real engine turns thirty-one times a second, too fast for the eye. The one on screen turns at six per cent of that. And the gas burns slowly. In general, the report on the institute sees a limit near two thousand five hundred revolutions a minute."
     },
     {
       "id": "part-exhaust-pipe",
@@ -485,7 +485,7 @@
       "scope": "part:garage-door",
       "title": "Garage door",
       "scene": "garage",
-      "text": "The door has three states. [[lab:scenario:closed-garage]] Fifty cubic metres, half an hour after the stop. With the door shut, the model counts about three thousand five hundred parts per million. [[lab:door:ajar]] Ajar, about two thousand one hundred. The Swedes found it far from satisfactory to run the starting fan or the engine with the garage doors open. Here the engine is not running. [[lab:door:open]] With the door open, six hundred and ninety parts per million, far less. [[lab:preset:mf-1100]]"
+      "text": "The door has three states. [[lab:scenario:closed-garage]] Fifty cubic metres, half an hour after the stop. With the door shut, the model counts about three thousand five hundred parts per million. [[lab:door:ajar]] Ajar, about two thousand one hundred. The Swedes found it far from satisfactory to run the starting fan or the engine with the garage doors open. Here the engine is not running. [[lab:door:open]] With the door open, in the model, six hundred and ninety parts per million, far less. [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-room-above",
@@ -499,7 +499,7 @@
       "scope": "part:post-gas-plume",
       "title": "Post-gas plume",
       "scene": "garage",
-      "text": "The engine stops. [[lab:scenario:engine-stops]] Nothing draws any more, but the gas keeps forming in the bed of charcoal. It pushes for about twenty minutes, says the Swedish book on gasifiers, sometimes for hours according to another manual. It comes out, even from a tight unit, with twenty-three to twenty-seven per cent carbon monoxide. Nobody measured its volume on this machine. The model starts from one cubic metre and lets the push weaken without ever stopping. That choice is the model’s; no measurement gives it. No source we read says when a room holds none of this gas. [[lab:preset:mf-1100]]"
+      "text": "The engine stops. [[lab:scenario:engine-stops]] Nothing draws any more, but the gas keeps forming in the fuel, still hot. It pushes for about twenty minutes, says the Swedish book on gasifiers, sometimes for hours according to another manual. It comes out, even from a tight unit, with twenty-three to twenty-seven per cent carbon monoxide. Nobody measured its volume on this machine. The model starts from one cubic metre and lets the push weaken without ever stopping. That choice is the model’s; no measurement gives it. No source we read says when a room holds none of this gas. [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-exhaust-plume",
@@ -513,7 +513,7 @@
       "scope": "part:co-indicator",
       "title": "Carbon monoxide indicator",
       "scene": "garage",
-      "text": "On the wall, a dial whose needle follows the model’s carbon monoxide. [[lab:scenario:closed-garage]] The lamp lights as soon as carbon monoxide has been in the room. [[lab:speed:600]] The needle falls back, and the lamp stays lit. No green zone: the dial shows only the model’s figure. [[lab:preset:mf-1100]]"
+      "text": "On the wall, a dial whose needle follows the model’s carbon monoxide. [[lab:scenario:closed-garage]] The lamp lights as soon as carbon monoxide has been in the room. [[lab:speed:600]] The needle falls back, and the lamp stays lit: a low figure says nothing about a real room. No green zone: the dial shows only the model’s figure. [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-old-rescue-set",

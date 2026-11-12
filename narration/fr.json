@@ -51,7 +51,7 @@
       "scope": "scene:garage",
       "title": "Ce qu’elle fait quand on s’arrête",
       "scene": "garage",
-      "text": "[[home]] [[lab:scenario:closed-garage]] Le même tracteur, garé dans le garage, sous une chambre. [[frame:post-gas-plume]] Le moteur est arrêté. Mais le gaz continue de se former dans le lit de charbon, et il sort, même d’une machine qui paraissait étanche. [[flows:on]] [[lab:speed:600]] [[frame:co-indicator]] L’indicateur a une lampe, qui s’allume dès que le monoxyde a touché la pièce et reste allumée. [[frame:room-above]] Là-haut, la chambre en reçoit à son tour, plus tard. [[flows:off]] [[frame:garage-door]] Au démarrage, un ventilateur aspire l’air à travers l’appareil ; il rejette du monoxyde, comme le moteur au ralenti. Les Suédois ont jugé très insuffisant de lancer l’un ou l’autre avec les portes de garage ouvertes. Ici, le moteur est arrêté. [[lab:door:open]] Porte ouverte, le monoxyde de la pièce tombe vite. C’est ce que donne, par construction, la boîte bien mélangée du modèle. [[lab:preset:mf-1100]] [[home]] Quant au temps pendant lequel le gaz sort ainsi, les sources divergent."
+      "text": "[[home]] [[lab:scenario:closed-garage]] Le même tracteur, garé dans le garage, sous une chambre. [[frame:post-gas-plume]] Le moteur est arrêté. Mais le gaz continue de se former dans le combustible encore chaud. Il sort, même d’une machine qui paraissait étanche. [[flows:on]] [[lab:speed:600]] [[frame:co-indicator]] L’indicateur a une lampe, qui s’allume dès que le monoxyde a touché la pièce et reste allumée. [[frame:room-above]] Là-haut, la chambre en reçoit à son tour, plus tard. [[flows:off]] [[frame:garage-door]] Au démarrage, un ventilateur aspire l’air à travers l’appareil ; il rejette du monoxyde, comme le moteur au ralenti. Les Suédois ont jugé très insuffisant de lancer l’un ou l’autre avec les portes de garage ouvertes. Ici, le moteur est arrêté. [[lab:door:open]] Dans le modèle, porte ouverte, le monoxyde de la pièce tombe vite. C’est ce que donne, par construction, une boîte bien mélangée. [[lab:preset:mf-1100]] [[home]] Quant au temps pendant lequel le gaz sort ainsi, les sources divergent."
     },
     {
       "id": "part-wood-gas-tractor",
@@ -65,7 +65,7 @@
       "scope": "part:chip-barn",
       "title": "Grange à plaquettes",
       "scene": "farm",
-      "text": "Tout part d’ici, au sec. Un poste de huit heures dévore plus d’un mètre cube de plaquettes. L’humidité compte autant que la quantité : l’institut suédois s’arrêtait à trente pour cent d’humidité. Et des granulés stockés dans un local fermé dégagent, d’eux-mêmes, du monoxyde de carbone."
+      "text": "Tout part d’ici, au sec. Un poste de huit heures dévore plus d’un mètre cube de plaquettes. L’humidité compte autant que la quantité : l’institut suédois donnait trente pour cent d’humidité comme limite. Et des granulés stockés dans un local fermé dégagent, d’eux-mêmes, du monoxyde de carbone."
     },
     {
       "id": "part-drum-chipper",
@@ -121,7 +121,7 @@
       "scope": "part:field-ditch",
       "title": "Fossé",
       "scene": "farm",
-      "text": "Un fossé borde presque toute ferme de plaine. Celui-ci ne fait rien, exprès, et rien n’y coule. Reste une question : où allait l’eau noire ? Dans les deux fermes de l’institut suédois, rien de ce que nous avons lu ne le dit."
+      "text": "Un fossé borde presque toute ferme de plaine. Celui-ci ne fait rien, exprès, et rien n’y coule. Reste une question : où allait l’eau noire ? Dans les deux grandes fermes où ce tracteur a travaillé, rien de ce que nous avons lu ne le dit."
     },
     {
       "id": "part-tractor-chassis",
@@ -149,7 +149,7 @@
       "scope": "part:roof-headlights",
       "title": "Phares de toit",
       "scene": "tractor",
-      "text": "Une pièce minuscule, pour dire qu’un tracteur se modifie vraiment. L’institut suédois a déplacé les phares sur le toit, sans dire pourquoi. Notre lecture : le gazogène occupe le flanc où un phare aurait éclairé."
+      "text": "Une pièce minuscule, pour dire qu’un tracteur se modifie vraiment. L’institut suédois a déplacé les phares sur le toit. Selon le rapport sur l’institut, le phare de gauche aurait été caché par le gazogène."
     },
     {
       "id": "part-rear-wheels",
@@ -163,7 +163,7 @@
       "scope": "part:front-wheels",
       "title": "Roues avant",
       "scene": "tractor",
-      "text": "[[lab:scenario:engine-stops]] Le moteur s’arrête, et les roues cessent de rouler. Elles sont plus petites, et allégées : l’institut suédois a retiré les masses avant pour faire place au refroidisseur. Rien de ce que nous avons lu ne dit comment la direction a supporté ce changement. [[lab:preset:mf-1100]]"
+      "text": "[[lab:scenario:engine-stops]] Le moteur s’arrête, et les roues cessent de rouler. Elles sont plus petites que les roues arrière. Elles sont aussi allégées : l’institut suédois a retiré les masses avant pour faire place au refroidisseur. Rien de ce que nous avons lu ne dit comment la direction a supporté ce changement. [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-diesel-engine",
@@ -177,7 +177,7 @@
       "scope": "part:injection-pump",
       "title": "Pompe d’injection",
       "scene": "tractor",
-      "text": "Même au gaz, le diesel garde sa pompe, qui dose le filet de gazole dont la flamme a besoin. Mais elle est sous le capot, tout près du gazogène, qui est chaud. À vingt-cinq heures, elle a grippé. L’institut suédois a ajouté un écran de rayonnement."
+      "text": "Même au gaz, le diesel garde sa pompe, qui dose le filet de gazole dont la flamme a besoin. Mais elle est sous le capot, tout près du gazogène. À vingt-cinq heures, elle a grippé, faute de refroidissement et de graissage, dit le rapport sur l’institut. Celui-ci a ajouté un écran de rayonnement."
     },
     {
       "id": "part-heat-shield",
@@ -219,7 +219,7 @@
       "scope": "part:spring-lid",
       "title": "Couvercle à ressort",
       "scene": "gasifier",
-      "text": "Un couvercle et un ressort, c’est la pièce la plus simple de la machine. S’il ne ferme pas, l’air entre par le haut. Le livre suédois sur les gazogènes dit qu’un appareil garé brûle alors comme un poêle. Le modèle l’essaie sur trois fuites : la plus grande dure environ six heures."
+      "text": "Un couvercle et un ressort, c’est la pièce la plus simple de la machine. S’il ne ferme pas, l’air entre par le haut. Le livre suédois sur les gazogènes dit qu’un appareil garé peut alors se mettre à brûler comme un poêle. Le modèle l’essaie sur trois fuites : la plus grande dure environ six heures."
     },
     {
       "id": "part-fuel-casing",
@@ -254,7 +254,7 @@
       "scope": "part:oxidation-zone",
       "title": "Zone d’oxydation",
       "scene": "gasifier",
-      "text": "Le feu. [[lab:journey:0.62]] De mille deux cents à quinze cents degrés, écrit le rapport sur l’institut. Le modèle trouve mille deux cent trente-cinq degrés, et mille soixante-seize avec la perte de la paroi. Les vapeurs doivent traverser cette flamme. Presque aucun goudron n’en sort : zéro virgule zéro trois pour cent du bois, au banc. Un gazogène à courant montant en laisse cinq à vingt pour cent. Un feu qui manque d’air fait du gaz ; un feu qui en a assez ne laisse que des cendres."
+      "text": "Le feu. [[lab:journey:0.62]] De mille deux cents à quinze cents degrés, en général, écrit le rapport sur l’institut. Le modèle trouve mille deux cent trente-cinq degrés, et mille soixante-seize avec la perte de la paroi. Les vapeurs doivent traverser cette flamme. Presque aucun goudron n’en sort : zéro virgule zéro trois pour cent du bois, au banc. Un gazogène à courant montant en laisse cinq à vingt pour cent. Un feu qui manque d’air fait du gaz ; un feu qui en a assez ne laisse que des cendres."
     },
     {
       "id": "part-reduction-zone",
@@ -268,7 +268,7 @@
       "scope": "part:fuel-baffle",
       "title": "Déflecteur",
       "scene": "gasifier",
-      "text": "Cette pièce est dessinée sans texte à citer : le rapport sur l’institut la montre sur une figure, sans un mot. Notre lecture : elle tient les plaquettes loin de la paroi froide, où l’eau et les goudrons collent. Rien de ce que nous avons lu ne confirme cette lecture."
+      "text": "Dans la soute, le combustible collait à la paroi, dans la zone de pyrolyse, là où des goudrons se condensent. Il formait des voûtes. Selon le rapport sur l’institut, un déflecteur qui supprime ce contact a ramené le problème à un niveau jugé acceptable."
     },
     {
       "id": "part-condensate-sleeve",
@@ -331,7 +331,7 @@
       "scope": "part:grate",
       "title": "Grille",
       "scene": "gasifier",
-      "text": "Sous le lit de charbon, la grille porte le charbon, et laisse passer la cendre et le gaz. Et elle bouge : d’après le rapport sur l’institut, les plaquettes bouchaient une grille fixe en moins d’une heure. Celles du programme de l’institut tenaient de quatre cents à sept cents heures."
+      "text": "Sous le lit de charbon, la grille porte le charbon, et laisse passer la cendre et le gaz. Et elle bouge : d’après le rapport sur l’institut, les plaquettes bouchaient une grille fixe en moins d’une heure. Celles du programme tenaient de quatre cents à sept cents heures."
     },
     {
       "id": "part-grate-linkage",
@@ -415,14 +415,14 @@
       "scope": "part:gas-cooler",
       "title": "Refroidisseur",
       "scene": "gas-train",
-      "text": "Après le filtre, le gaz encore chaud monte par la moitié des tubes et redescend par l’autre. [[flows:on]] Les points virent du rouge au bleu. [[flows:off]] On le refroidit parce qu’un gaz plus froid est plus dense. Selon le rapport sur l’institut, dix pour cent de température en moins donnent presque deux pour cent de puissance en plus. Et de l’eau sort : le modèle compte deux litres deux à l’heure."
+      "text": "Après le filtre, le gaz encore chaud monte par la moitié des tubes et redescend par l’autre. [[flows:on]] Les points virent du rouge au bleu. [[flows:off]] On le refroidit parce qu’un gaz plus froid est plus dense. Selon le rapport sur l’institut, en général, dix pour cent de température en moins : presque deux pour cent de puissance en plus. Et de l’eau sort : le modèle compte deux litres deux à l’heure."
     },
     {
       "id": "part-cooler-condensate-vessel",
       "scope": "part:cooler-condensate-vessel",
       "title": "Bac de condensats",
       "scene": "gas-train",
-      "text": "Le bac d’eau noire du refroidisseur. La seule panne grave de ce tracteur vient probablement de lui : trop plein, il a envoyé de l’eau dans le moteur. Selon le rapport sur l’institut, on le vidait toutes les deux à trois heures. Un simple niveau à surveiller, mais un travail sale et lourd."
+      "text": "Le bac d’eau noire du refroidisseur. La seule panne grave de ce tracteur vient probablement de lui : trop plein, il a envoyé de l’eau dans le moteur. Selon le rapport sur l’institut, un bac de ce genre se vidait toutes les deux à trois heures. Un simple niveau à surveiller, mais un travail sale et lourd."
     },
     {
       "id": "part-gas-air-mixer",
@@ -443,7 +443,7 @@
       "scope": "part:secondary-air-throttle",
       "title": "Papillon d’air",
       "scene": "gas-train",
-      "text": "Un deuxième papillon se trouve sur l’air qu’on ajoute au gaz, l’air secondaire, par opposition à l’air primaire du feu. Il règle la proportion, à la main selon le rapport sur l’institut. Ce réglage a un optimum, qui n’est pas donné ici."
+      "text": "Un deuxième papillon se trouve sur l’air qu’on ajoute au gaz, l’air secondaire, par opposition à l’air primaire du feu. Il règle la proportion. Sur le camion du programme de l’institut, il se manœuvrait à la main, dit le rapport. Ce réglage a un optimum, qui n’est pas donné ici."
     },
     {
       "id": "part-pilot-injector",
@@ -457,7 +457,7 @@
       "scope": "part:cylinder-cutaway",
       "title": "Cylindre en coupe",
       "scene": "gas-train",
-      "text": "Ici l’énergie finit en travail : un cylindre coupé en deux. Le vrai moteur fait trente et un tours par seconde, trop vite pour l’œil. Celui de l’écran tourne à six pour cent du vrai. Et le gaz brûle lentement : le rapport sur l’institut lui voit une limite vers deux mille cinq cents tours par minute."
+      "text": "Ici l’énergie finit en travail : un cylindre coupé en deux. Le vrai moteur fait trente et un tours par seconde, trop vite pour l’œil. Celui de l’écran tourne à six pour cent du vrai. Et le gaz brûle lentement. En général, le rapport sur l’institut lui voit une limite vers deux mille cinq cents tours par minute."
     },
     {
       "id": "part-exhaust-pipe",
@@ -485,7 +485,7 @@
       "scope": "part:garage-door",
       "title": "Porte",
       "scene": "garage",
-      "text": "La porte a trois états. [[lab:scenario:closed-garage]] Cinquante mètres cubes, une demi-heure après l’arrêt. Porte fermée, le modèle compte environ trois mille cinq cents parties par million. [[lab:door:ajar]] Entrouverte, environ deux mille cent. Les Suédois ont jugé très insuffisant de lancer le ventilateur de démarrage ou le moteur avec les portes de garage ouvertes. Ici, le moteur ne tourne pas. [[lab:door:open]] Porte ouverte, six cent quatre-vingt-dix parties par million, bien moins. [[lab:preset:mf-1100]]"
+      "text": "La porte a trois états. [[lab:scenario:closed-garage]] Cinquante mètres cubes, une demi-heure après l’arrêt. Porte fermée, le modèle compte environ trois mille cinq cents parties par million. [[lab:door:ajar]] Entrouverte, environ deux mille cent. Les Suédois ont jugé très insuffisant de lancer le ventilateur de démarrage ou le moteur avec les portes de garage ouvertes. Ici, le moteur ne tourne pas. [[lab:door:open]] Porte ouverte, dans le modèle, six cent quatre-vingt-dix parties par million, bien moins. [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-room-above",
@@ -499,21 +499,21 @@
       "scope": "part:post-gas-plume",
       "title": "Panache après l’arrêt",
       "scene": "garage",
-      "text": "Le moteur s’arrête. [[lab:scenario:engine-stops]] Plus rien n’aspire, mais le gaz continue de se former dans le lit de charbon. Il sort sous pression, même d’un appareil étanche, avec vingt-trois à vingt-sept pour cent de monoxyde. Cela dure une vingtaine de minutes, dit le livre suédois sur les gazogènes, parfois des heures selon un autre manuel. Personne n’a mesuré son volume sur cette machine. Le modèle part d’un mètre cube et laisse le débit s’affaiblir sans jamais s’arrêter. Ce choix est celui du modèle ; aucune mesure ne le donne. Rien de ce que nous avons lu ne dit quand une pièce ne garde plus de ce gaz. [[lab:preset:mf-1100]]"
+      "text": "Le moteur s’arrête. [[lab:scenario:engine-stops]] Plus rien n’aspire, mais le gaz continue de se former dans le combustible encore chaud. Il sort sous pression, même d’un appareil étanche, avec vingt-trois à vingt-sept pour cent de monoxyde. Cela dure une vingtaine de minutes, dit le livre suédois sur les gazogènes, parfois des heures selon un autre manuel. Personne n’a mesuré son volume sur cette machine. Le modèle part d’un mètre cube et laisse le débit s’affaiblir sans jamais s’arrêter. Ce choix est celui du modèle ; aucune mesure ne le donne. Rien de ce que nous avons lu ne dit quand une pièce ne garde plus de ce gaz. [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-exhaust-plume",
       "scope": "part:exhaust-plume",
       "title": "Gaz d’échappement",
       "scene": "garage",
-      "text": "[[lab:preset:mf-1100]] [[lab:place:garage]] Un moteur peut aussi tourner dans le garage, et son échappement y entre, avec du monoxyde. Au ralenti, le livre suédois sur les gazogènes a lu cinq à huit pour cent à l’échappement des moteurs de la guerre. Le panache gris n’existe que tant que le moteur tourne. [[lab:engine:off]] Ensuite, c’est le blanc de l’arrêt qui prend le relais. [[lab:preset:mf-1100]]"
+      "text": "[[lab:preset:mf-1100]] [[lab:place:garage]] Un moteur peut aussi tourner dans le garage, et son échappement y entre. Au ralenti, le livre suédois sur les gazogènes a lu cinq à huit pour cent de monoxyde à l’échappement des moteurs de la guerre. Le panache gris n’existe que tant que le moteur tourne. [[lab:engine:off]] Ensuite, c’est le blanc de l’arrêt qui prend le relais. [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-co-indicator",
       "scope": "part:co-indicator",
       "title": "Indicateur de monoxyde",
       "scene": "garage",
-      "text": "Au mur, un cadran dont l’aiguille suit le monoxyde du modèle. [[lab:scenario:closed-garage]] La lampe s’allume dès que le monoxyde est passé dans la pièce. [[lab:speed:600]] L’aiguille retombe, et la lampe reste allumée. Pas de zone verte : le cadran ne montre que le chiffre du modèle. [[lab:preset:mf-1100]]"
+      "text": "Au mur, un cadran dont l’aiguille suit le monoxyde du modèle. [[lab:scenario:closed-garage]] La lampe s’allume dès que le monoxyde est passé dans la pièce. [[lab:speed:600]] L’aiguille retombe, et la lampe reste allumée : un chiffre bas ne dit rien d’une vraie pièce. Pas de zone verte : le cadran ne montre que le chiffre du modèle. [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-old-rescue-set",
