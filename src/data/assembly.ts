@@ -112,9 +112,9 @@ export const ASSEMBLY: GuideStep[] = [
     scene: 'gasifier',
     title: l('Loin de la paroi qui colle', 'Away from the wall that sticks'),
     text: step(
-      'reading',
-      'Dans la soute, le **déflecteur** : le rapport le montre sans dire à quoi il sert. Notre lecture est qu’il tient les plaquettes à distance de la paroi froide où l’eau et les goudrons se condensent, parce que ces dépôts collent et qu’une colonne qui s’y accroche ne descend plus droit. C’est une lecture, pas un fait du rapport.',
-      'In the bunker, the **baffle**: the report shows it without saying what it is for. Our reading is that it keeps the chips away from the cold wall where water and tars condense, because those deposits stick and a column that clings to them no longer goes down straight. It is a reading, not a fact of the report.',
+      'reported',
+      'Dans la soute, le **déflecteur**. Le combustible collait à la paroi, dans la zone de pyrolyse, là où une partie des goudrons se condensait, et formait des voûtes. Selon le rapport, un déflecteur qui supprime le contact avec la paroi a ramené ce problème à un niveau jugé acceptable.',
+      'In the bunker, the **baffle**. The fuel stuck to the wall, in the pyrolysis zone, where some of the tars condensed, and bridged. According to the report, a baffle that removes the contact with the wall brought that problem down to what was judged acceptable.',
     ),
     parts: ['fuel-baffle'],
   },
@@ -199,8 +199,8 @@ export const ASSEMBLY: GuideStep[] = [
     title: l('Refroidir pour remplir le cylindre', 'Cooling to fill the cylinder'),
     text: step(
       'reported',
-      'Le **refroidisseur**, devant le radiateur, a pris le gaz après le filtre : 5,8 m² de tubes, par lesquels le gaz monte puis redescend. Un gaz plus froid est plus dense, donc plus d’énergie entre dans le cylindre, et l’eau qui s’y condense tombe dans un **bac**, vidé toutes les 2 à 3 heures. Un moteur est mort, probablement d’avoir aspiré l’eau d’un bac trop plein.',
-      'The **cooler**, in front of the radiator, took the gas after the filter: 5.8 m² of tubes, up which the gas goes and down again. A colder gas is denser, so more energy enters the cylinder, and the water that condenses falls into a **vessel**, emptied every 2 to 3 hours. One engine died, probably from sucking up the water of an overfull vessel.',
+      'Le **refroidisseur**, devant le radiateur, a pris le gaz après le filtre : 5,8 m² de tubes, par lesquels le gaz monte puis redescend. Un gaz plus froid est plus dense, donc plus d’énergie entre dans le cylindre, et l’eau qui s’y condense tombe dans un **bac** qui, sur plusieurs véhicules de l’institut, se vidait toutes les 2 à 3 heures. Un moteur est mort, probablement d’avoir aspiré l’eau d’un bac trop plein.',
+      'The **cooler**, in front of the radiator, took the gas after the filter: 5.8 m² of tubes, up which the gas goes and down again. A colder gas is denser, so more energy enters the cylinder, and the water that condenses falls into a **vessel** that, on several of the institute’s vehicles, was emptied every 2 to 3 hours. One engine died, probably from sucking up the water of an overfull vessel.',
     ),
     parts: ['gas-cooler', 'cooler-condensate-vessel'],
   },
@@ -210,8 +210,8 @@ export const ASSEMBLY: GuideStep[] = [
     title: l('Le gaz rencontre l’air du moteur', 'The gas meets the engine’s air'),
     text: step(
       'reading',
-      'Au **mélangeur**, le gaz rencontre l’air du filtre à air du tracteur, à peu près volume pour volume. Le **papillon de gaz** dit combien de gaz entre, et c’est lui que commande le pied du conducteur. Un **papillon d’air** règle l’air ajouté, à la main selon le rapport : c’est un réglage que ce lab ne donne pas.',
-      'At the **mixer**, the gas meets the air from the tractor’s air cleaner, about volume for volume. The **gas throttle** says how much gas enters, and it is what the driver’s foot works. A **secondary-air throttle** sets the air added, by hand according to the report: it is a setting this lab does not give.',
+      'Au **mélangeur**, le gaz rencontre l’air du filtre à air du tracteur, à peu près volume pour volume. Le **papillon de gaz** dit combien de gaz entre, et c’est lui que commande le pied du conducteur. Un **papillon d’air** règle l’air ajouté ; sur le camion du programme, dit le rapport, il se manœuvrait à la main : c’est un réglage que ce lab ne donne pas.',
+      'At the **mixer**, the gas meets the air from the tractor’s air cleaner, about volume for volume. The **gas throttle** says how much gas enters, and it is what the driver’s foot works. A **secondary-air throttle** sets the air added; on the programme’s truck, says the report, it was worked by hand: it is a setting this lab does not give.',
       ['pour la place ; la proportion est rapportée', 'for the place; the proportion is reported'],
     ),
     parts: ['gas-air-mixer', 'gas-throttle', 'secondary-air-throttle'],
@@ -233,8 +233,8 @@ export const ASSEMBLY: GuideStep[] = [
     title: l('Ce qu’il a fallu changer sous le capot', 'What had to change under the bonnet'),
     text: step(
       'reported',
-      'Sous le capot, trois changements que le rapport note : un **régulateur** de plus, sur le papillon de gaz, par une courroie en V ; la **pompe d’injection**, qui a grippé à 25 heures près du gazogène chaud ; et un **écran thermique** ajouté pour elle et pour le filtre à gazole. Le refroidissement de l’injecteur a été changé aussi. Aucun réglage de la pompe n’est donné ici.',
-      'Under the bonnet, three changes the report notes: one more **governor**, on the gas throttle, by a V-belt; the **injection pump**, which seized at 25 hours near the hot gasifier; and a **heat shield** added for it and for the diesel filter. The injector’s cooling was changed too. No setting of the pump is given here.',
+      'Sous le capot, trois changements que le rapport note : un **régulateur** de plus, sur le papillon de gaz, par une courroie en V ; la **pompe d’injection**, qui a grippé à 25 heures, faute de refroidissement et de graissage selon le rapport ; et un **écran thermique** ajouté pour elle et pour le filtre à gazole, contre la chaleur du gazogène. Le refroidissement de l’injecteur a été changé aussi. Aucun réglage de la pompe n’est donné ici.',
+      'Under the bonnet, three changes the report notes: one more **governor**, on the gas throttle, by a V-belt; the **injection pump**, which seized at 25 hours, for want of cooling and lubrication according to the report; and a **heat shield** added for it and for the diesel filter, against the gasifier’s heat. The injector’s cooling was changed too. No setting of the pump is given here.',
     ),
     parts: ['extra-governor', 'injection-pump', 'heat-shield'],
     warning: l(
@@ -248,8 +248,8 @@ export const ASSEMBLY: GuideStep[] = [
     title: l('Le toit et la ligne qui relie tout', 'The roof, and the line that joins it all'),
     text: step(
       'reported',
-      'Les **phares** ont été déplacés sur le toit, la **galerie** y a porté les plaquettes du poste, de grandes quantités selon le rapport, et la **ligne de gaz** a relié le tout, du gazogène au moteur. Le tracteur avait gagné 450 kg, perdu ses masses avant, et son sommet frôlait l’œil du conducteur. Le rapport ne dit pas comment la machine se conduisait.',
-      'The **headlights** were moved to the roof, the **rack** carried the shift’s chips there, large amounts by the report, and the **gas line** joined the whole, from the gasifier to the engine. The tractor had gained 450 kg, lost its front weights, and its top came close to the driver’s eye. The report does not say how the machine handled.',
+      'Les **phares** ont été déplacés sur le toit, parce que celui de gauche aurait sinon été caché par le gazogène ; la **galerie** y a porté les plaquettes du poste, de grandes quantités selon le rapport, et la **ligne de gaz** a relié le tout, du gazogène au moteur. Le tracteur avait gagné 450 kg, perdu ses masses avant, et son sommet frôlait l’œil du conducteur. Le rapport ne dit pas comment la machine se conduisait.',
+      'The **headlights** were moved to the roof, because the left one would otherwise have been hidden by the gasifier; the **rack** carried the shift’s chips there, large amounts by the report, and the **gas line** joined the whole, from the gasifier to the engine. The tractor had gained 450 kg, lost its front weights, and its top came close to the driver’s eye. The report does not say how the machine handled.',
     ),
     parts: ['gas-line-run', 'roof-rack', 'roof-headlights'],
   },

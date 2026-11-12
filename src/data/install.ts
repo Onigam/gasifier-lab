@@ -90,8 +90,8 @@ export const INSTALL: GuideStep[] = [
     title: l('Ce que la journée laissait', 'What the day left'),
     text: step(
       'reported',
-      'La cendre, jusqu’à 3,5 % du combustible, allait au **bac à cendres** toutes les 8 à 15 heures. L’eau noire, des condensats de refroidisseur, de chemise et de tuyaux, allait au **fût**, toutes les 2 à 3 heures pour le refroidisseur. Ce que ces résidus devenaient ensuite, le **fossé** y compris, n’est dit nulle part dans ce que nous avons lu.',
-      'The ash, up to 3.5% of the fuel, went to the **ash bin** every 8 to 15 hours. The black water, condensates from the cooler, the jacket and the pipes, went to the **barrel**, every 2 to 3 hours for the cooler. What those residues became afterwards, the **ditch** included, is not said anywhere in what we read.',
+      'La cendre, jusqu’à 3,5 % du combustible, allait au **bac à cendres** toutes les 8 à 15 heures. L’eau noire, des condensats de refroidisseur, de chemise et de tuyaux, allait au **fût**, toutes les 2 à 3 heures pour le refroidisseur : ce sont les intervalles des tableaux de service du rapport, relevés sur plusieurs véhicules. Ce que ces résidus devenaient ensuite, le **fossé** y compris, n’est dit nulle part dans ce que nous avons lu.',
+      'The ash, up to 3.5% of the fuel, went to the **ash bin** every 8 to 15 hours. The black water, condensates from the cooler, the jacket and the pipes, went to the **barrel**, every 2 to 3 hours for the cooler: those are the intervals of the report’s service tables, recorded on several vehicles. What those residues became afterwards, the **ditch** included, is not said anywhere in what we read.',
     ),
     parts: ['ash-bin', 'condensate-barrel', 'field-ditch'],
   },

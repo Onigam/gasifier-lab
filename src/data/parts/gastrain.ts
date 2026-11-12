@@ -392,14 +392,14 @@ export const GAS_TRAIN_PARTS: PartInfo[] = [
         failure:
           'L’eau condensée : elle s’accumule dans le bac, et la seule panne grave de ce tracteur est probablement venue d’un bac trop plein.',
         check:
-          'Ce que vaut le refroidissement n’est pas dit pareil partout : presque 2 % de puissance pour une baisse de 10 % de la température selon le rapport, 1 % par 10 °F selon le manuel américain, et par la densité seule {coolRule}, ce que trouve aussi le modèle.',
+          'Ce que vaut le refroidissement n’est pas dit pareil partout : presque 2 % de puissance pour une baisse de 10 % de la température selon le rapport, en général, 1 % par 10 °F selon le manuel américain, et par la densité seule {coolRule}, ce que trouve aussi le modèle.',
         care: 'Le refroidisseur était nettoyé et ses joints refaits vers 500 heures, une à deux heures de travail.',
       },
       {
         failure:
           'Condensed water: it builds up in the vessel, and this tractor’s one serious failure probably came from an overfull vessel.',
         check:
-          'What cooling is worth is not said the same everywhere: almost 2% of power for a 10% drop in temperature by the report, 1% per 10 °F by the American handbook, and by density alone {coolRule}, which the model also finds.',
+          'What cooling is worth is not said the same everywhere: almost 2% of power for a 10% drop in temperature by the report, in general, 1% per 10 °F by the American handbook, and by density alone {coolRule}, which the model also finds.',
         care: 'The cooler was cleaned and its gaskets redone at about 500 hours, one to two hours of work.',
       },
     ),
@@ -422,12 +422,16 @@ export const GAS_TRAIN_PARTS: PartInfo[] = [
       'The cooler’s vessel of black water: overfull, it probably drowned an engine, this tractor’s one serious failure.',
     ),
     description: lf(
-      'L’eau que le refroidisseur tire du gaz tombe dans un bac. Le rapport dit que le bac était vidé toutes les 2 à 3 heures, et que la seule panne grave de ce moteur est probablement venue d’une eau aspirée d’un bac trop plein : elle est entrée dans le moteur avec le gaz. La taille du bac n’est dans aucune source. Le modèle compte {coolerLph} d’eau à pleine charge, un bac vidé toutes les {vesselHours}, et allume une alarme quand l’intervalle est dépassé. La 3D dessine un bocal dont le niveau suit le modèle : sa taille est une estimation, et le lab ne la donne pas comme une cote.',
-      'The water the cooler draws from the gas falls into a vessel. The report says the vessel was emptied every 2 to 3 hours, and that this engine’s one serious failure probably came from water sucked from an overfull vessel: it went into the engine with the gas. The vessel’s size is in no source. The model counts {coolerLph} of water at full load, a vessel emptied every {vesselHours}, and raises an alarm when the interval is passed. The 3D draws a jar whose level follows the model: its size is an estimate, and the lab does not give it as a dimension.',
+      'L’eau que le refroidisseur tire du gaz tombe dans un bac. Le rapport donne, pour plusieurs véhicules de l’institut, un bac de ce genre vidé toutes les 2 à 3 heures, et dit que la seule panne grave de ce moteur est probablement venue d’une eau aspirée d’un bac trop plein : elle est entrée dans le moteur avec le gaz. La taille du bac n’est dans aucune source. Le modèle compte {coolerLph} d’eau à pleine charge, un bac vidé toutes les {vesselHours}, et allume une alarme quand l’intervalle est dépassé. La 3D dessine un bocal dont le niveau suit le modèle : sa taille est une estimation, et le lab ne la donne pas comme une cote.',
+      'The water the cooler draws from the gas falls into a vessel. The report gives, for several of the institute’s vehicles, a vessel of this kind emptied every 2 to 3 hours, and says that this engine’s one serious failure probably came from water sucked from an overfull vessel: it went into the engine with the gas. The vessel’s size is in no source. The model counts {coolerLph} of water at full load, a vessel emptied every {vesselHours}, and raises an alarm when the interval is passed. The 3D draws a jar whose level follows the model: its size is an estimate, and the lab does not give it as a dimension.',
     ),
     material: l('Bac d’acier, niveau visible', 'Steel vessel, level in view'),
     specs: [
-      sp('Intervalle de l’institut', 'The institute’s interval', l('2 à 3 h', '2 to 3 h')),
+      sp(
+        'Intervalle, plusieurs véhicules de l’institut',
+        'Interval, several of the institute’s vehicles',
+        l('2 à 3 h', '2 to 3 h'),
+      ),
       sp('Eau, modèle, pleine charge', 'Water, model, full load', v('{coolerLph}')),
       sp('Intervalle du modèle', 'The model’s interval', v('{vesselHours}')),
       sp('Taille du bac', 'Vessel size', l('inconnue', 'unknown')),
@@ -439,14 +443,14 @@ export const GAS_TRAIN_PARTS: PartInfo[] = [
           'Un bac trop plein : de l’eau passe dans le moteur avec le gaz. Le rapport écrit « probablement » : la cause n’a pas été vue.',
         check:
           'Le niveau dans la 3D : il monte jusqu’à l’intervalle, puis dépasse le bord, et l’alarme de la Simulation s’allume.',
-        care: 'Le bac était vidé toutes les 2 à 3 heures. C’est une durée de l’institut, pas un geste décrit.',
+        care: 'Sur plusieurs véhicules de l’institut, un bac de ce genre était vidé toutes les 2 à 3 heures : une durée relevée, pas un geste décrit.',
       },
       {
         failure:
           'An overfull vessel: water goes into the engine with the gas. The report writes “probably”: the cause was not seen.',
         check:
           'The level in the 3D: it climbs to the interval, then goes over the rim, and the Simulation’s alarm lights.',
-        care: 'The vessel was emptied every 2 to 3 hours. It is an institute’s duration, not a gesture described.',
+        care: 'On several of the institute’s vehicles, a vessel of this kind was emptied every 2 to 3 hours: a recorded interval, not a gesture described.',
       },
     ),
     tip: l(
@@ -555,8 +559,8 @@ export const GAS_TRAIN_PARTS: PartInfo[] = [
       'On the air added to the gas, beside the gas throttle: a second butterfly, and a setting this lab does not give.',
     ),
     description: l(
-      'L’air secondaire est celui que le mélangeur ajoute au gaz, par opposition à l’air primaire du feu. Un papillon sur ce trajet règle la proportion, à la main selon le rapport. C’est un réglage qui a un optimum, et que le lab ne donne pas : ni curseur, ni position de ce papillon. La proportion qui en résulte est celle du mélangeur, dite à sa fiche. Ce que le lab dit, c’est ce que le rapport montre : l’énergie du mélange tombe de chaque côté de la bonne proportion, et le gaz seul, sans air, ne brûle pas. La 3D dessine le papillon, avec son levier, sur la tubulure du moteur.',
-      'Secondary air is the air the mixer adds to the gas, as against the fire’s primary air. A throttle on that route sets the proportion, by hand according to the report. It is a setting with an optimum, and the lab does not give it: no slider, no position of this throttle. The resulting proportion is the mixer’s, said on its sheet. What the lab says is what the report shows: the mixture’s energy falls on each side of the right proportion, and the gas alone, with no air, does not burn. The 3D draws the throttle, with its lever, on the engine’s manifold.',
+      'L’air secondaire est celui que le mélangeur ajoute au gaz, par opposition à l’air primaire du feu. Un papillon sur ce trajet règle la proportion ; sur le camion du programme, dit le rapport, il se manœuvrait à la main, depuis la cabine. C’est un réglage qui a un optimum, et que le lab ne donne pas : ni curseur, ni position de ce papillon. La proportion qui en résulte est celle du mélangeur, dite à sa fiche. Ce que le lab dit, c’est ce que le rapport montre : l’énergie du mélange tombe de chaque côté de la bonne proportion, et le gaz seul, sans air, ne brûle pas. La 3D dessine le papillon, avec son levier, sur la tubulure du moteur.',
+      'Secondary air is the air the mixer adds to the gas, as against the fire’s primary air. A throttle on that route sets the proportion; on the programme’s truck, says the report, it was worked by hand, from the cabin. It is a setting with an optimum, and the lab does not give it: no slider, no position of this throttle. The resulting proportion is the mixer’s, said on its sheet. What the lab says is what the report shows: the mixture’s energy falls on each side of the right proportion, and the gas alone, with no air, does not burn. The 3D draws the throttle, with its lever, on the engine’s manifold.',
     ),
     material: l('Papillon d’acier sur arbre, levier', 'Steel butterfly on a shaft, lever'),
     specs: [
@@ -588,8 +592,8 @@ export const GAS_TRAIN_PARTS: PartInfo[] = [
       'In “Explode”, the two throttles rise together with the mixer: they read side by side, each on its own route.',
     ),
     design: l(
-      'Un papillon à la main dans une machine qui vit de proportions : c’est un geste que le rapport donne comme normal, et que le lab ne reprend pas. Ce qu’il laisse, c’est le fait : le moteur ne marche bien que dans une bande étroite.',
-      'A hand throttle in a machine that lives on proportions: it is a gesture the report gives as normal, and that the lab does not repeat. What it leaves is the fact: the engine runs well only in a narrow band.',
+      'Sur le camion du programme, ce papillon se manœuvrait à la main, depuis la cabine, dans une machine qui vit de proportions : le rapport donne ce geste comme normal, et le lab ne le reprend pas. Pour le tracteur, le rapport n’en dit rien. Ce qu’il laisse, c’est le fait : le moteur ne marche bien que dans une bande étroite.',
+      'On the programme’s truck this throttle was worked by hand, from the cabin, in a machine that lives on proportions: the report gives that gesture as normal, and the lab does not repeat it. For the tractor, the report says nothing of it. What it leaves is the fact: the engine runs well only in a narrow band.',
     ),
   },
   {
@@ -619,13 +623,15 @@ export const GAS_TRAIN_PARTS: PartInfo[] = [
     ],
     maintenance: maint(
       {
-        failure: 'Le refroidissement de l’injecteur a été changé par l’institut : le rapport ne dit pas pourquoi.',
+        failure:
+          'Le refroidissement de l’injecteur a été changé par l’institut : les injecteurs chauffaient et s’encrassaient de dépôts de coke dans les trous de buse, ce que le rapport attribue au faible débit d’injection en double carburant et à la façon dont ils sont montés.',
         check:
           'Le gazole, au banc : 2,2 kg/h à pleine charge, 1,9 à charge partielle, 1,2 au ralenti. Ce sont des résultats d’essai, pas un réglage.',
         care: 'Aucune opération n’est décrite, et aucun réglage n’est donné.',
       },
       {
-        failure: 'The injector’s cooling was changed by the institute: the report does not say why.',
+        failure:
+          'The injector’s cooling was changed by the institute: the injectors ran hot and coked up in the nozzle holes, which the report attributes to the low injection flow in dual-fuel mode and to the way the injectors are mounted.',
         check:
           'The diesel, on the bench: 2.2 kg/h at full load, 1.9 at part load, 1.2 at idle. Those are test results, not a setting.',
         care: 'No operation is described, and no setting is given.',
@@ -650,8 +656,8 @@ export const GAS_TRAIN_PARTS: PartInfo[] = [
       'A cylinder cut open: piston, rod, valves, and a mixture that holds only 2,500 kJ per cubic metre.',
     ),
     description: lf(
-      'Voici où l’énergie finit en travail : un cylindre coupé en deux, avec son piston, sa bielle, ses soupapes et son pilote. Le cycle y est vu pour de vrai, dans l’ordre : admission, compression, combustion, échappement. À 1 855 tr/min, le vrai moteur tourne à {trueTurns} : l’œil ne verrait rien. Le cylindre de la 3D tourne à {cylSpeed} du vrai, jamais plus de {cylCap}. Le mélange, lui, n’emplit que {chargeModel} du volume balayé au maximum, quand le rapport donne de 0,65 à 0,8 du théorique après les pertes, un rendement volumétrique de 0,7 à 0,9. Sa vitesse est limitée à environ 2 500 tr/min par la flamme lente du gaz ; le modèle trouve environ {rpmModel}, par une autre cause, le frottement : il n’a pas de flamme.',
-      'Here is where energy ends as work: a cylinder cut in two, with its piston, its rod, its valves and its pilot. The cycle is seen for real, in order: intake, compression, combustion, exhaust. At 1,855 rpm the real engine turns at {trueTurns}: the eye would see nothing. The 3D’s cylinder turns at {cylSpeed} of the real, never more than {cylCap}. The mixture fills only {chargeModel} of the swept volume at the maximum, when the report gives 0.65 to 0.8 of the theoretical after losses, a volumetric efficiency of 0.7 to 0.9. Its speed is limited to about 2,500 rpm by the gas’s slow flame; the model finds about {rpmModel}, by another cause, friction: it has no flame.',
+      'Voici où l’énergie finit en travail : un cylindre coupé en deux, avec son piston, sa bielle, ses soupapes et son pilote. Le cycle y est vu pour de vrai, dans l’ordre : admission, compression, combustion, échappement. À 1 855 tr/min, le vrai moteur tourne à {trueTurns} : l’œil ne verrait rien. Le cylindre de la 3D tourne à {cylSpeed} du vrai, jamais plus de {cylCap}. Le mélange, lui, n’emplit que {chargeModel} du volume balayé au maximum, quand le rapport donne de 0,65 à 0,8 du théorique après les pertes, un rendement volumétrique de 0,7 à 0,9. Selon le rapport, en général, la vitesse d’un moteur au gaz est limitée à environ 2 500 tr/min par la flamme lente du gaz ; le modèle trouve environ {rpmModel}, par une autre cause, le frottement : il n’a pas de flamme.',
+      'Here is where energy ends as work: a cylinder cut in two, with its piston, its rod, its valves and its pilot. The cycle is seen for real, in order: intake, compression, combustion, exhaust. At 1,855 rpm the real engine turns at {trueTurns}: the eye would see nothing. The 3D’s cylinder turns at {cylSpeed} of the real, never more than {cylCap}. The mixture fills only {chargeModel} of the swept volume at the maximum, when the report gives 0.65 to 0.8 of the theoretical after losses, a volumetric efficiency of 0.7 to 0.9. By the report, in general, the speed of a gas engine is limited to about 2,500 rpm by the gas’s slow flame; the model finds about {rpmModel}, by another cause, friction: it has no flame.',
     ),
     material: l('Fonte, piston et bielle d’acier, coupe franche', 'Cast iron, steel piston and rod, a clean cut'),
     specs: [

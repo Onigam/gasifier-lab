@@ -77,8 +77,8 @@ export const FARM_PARTS: PartInfo[] = [
       'The store of dry chips: one working shift takes more than a cubic metre, and stored wood can give off carbon monoxide.',
     ),
     description: lf(
-      'Tout part d’ici, au sec. Les plaquettes d’essai de l’institut tenaient 8 % d’humidité, et pesaient 152 kg le mètre cube. Un poste de huit heures, à 27 à 41 kg l’heure, en demande de {shiftKg}, soit {shiftM3}. C’est beaucoup de volume pour un seul tracteur, et la galerie du toit n’en porte qu’une partie. L’humidité compte autant que la quantité : l’institut s’arrêtait à 30 % pour ses plaquettes, et disait qu’au-delà d’environ 40 % le gaz ne brûle plus. Ces pourcentages se comptent sur le bois humide. Le bois stocké peut dégager du monoxyde de carbone : une alerte britannique de 2012 compte au moins neuf morts, depuis 2002, après l’entrée dans des stockages fermés de granulés en Europe (des granulés, pas des plaquettes).',
-      'Everything starts here, dry. The institute’s test chips held 8% moisture, and weighed 152 kg a cubic metre. A shift of eight hours, at 27 to 41 kg an hour, takes {shiftKg}, which is {shiftM3}. That is a lot of volume for one tractor, and the roof rack carries only part of it. Moisture counts as much as quantity: the institute stopped at 30% for its chips, and said that past about 40% the gas no longer burns. Those percentages are counted on the wet wood. Stored wood can give off carbon monoxide: a British safety alert of 2012 counts at least nine deaths since 2002 after entry into closed wood-pellet stores in Europe (pellets, not chips).',
+      'Tout part d’ici, au sec. Les plaquettes d’essai de l’institut tenaient 8 % d’humidité, et pesaient 152 kg le mètre cube. Un poste de huit heures, à 27 à 41 kg l’heure, en demande de {shiftKg}, soit {shiftM3}. C’est beaucoup de volume pour un seul tracteur, et la galerie du toit n’en porte qu’une partie. L’humidité compte autant que la quantité : le rapport donne 30 % comme limite haute pour ses plaquettes, et dit qu’au-delà d’environ 40 % le gaz ne brûle plus. Ces pourcentages se comptent sur le bois humide. Le bois stocké peut dégager du monoxyde de carbone : une alerte britannique de 2012 compte au moins neuf morts, depuis 2002, après l’entrée dans des stockages fermés de granulés en Europe (des granulés, pas des plaquettes).',
+      'Everything starts here, dry. The institute’s test chips held 8% moisture, and weighed 152 kg a cubic metre. A shift of eight hours, at 27 to 41 kg an hour, takes {shiftKg}, which is {shiftM3}. That is a lot of volume for one tractor, and the roof rack carries only part of it. Moisture counts as much as quantity: the report gives 30% as the upper limit for its chips, and says that past about 40% the gas no longer burns. Those percentages are counted on the wet wood. Stored wood can give off carbon monoxide: a British safety alert of 2012 counts at least nine deaths since 2002 after entry into closed wood-pellet stores in Europe (pellets, not chips).',
     ),
     material: l('Bardage et toit, à l’échelle d’une grande ferme', 'Boards and a roof, at the scale of a large farm'),
     specs: [
@@ -264,14 +264,14 @@ export const FARM_PARTS: PartInfo[] = [
     maintenance: maint(
       {
         failure:
-          'La pompe d’injection a grippé à 25 heures, près du gazogène chaud, et l’institut a ajouté un écran de rayonnement pour elle et pour le filtre à gazole.',
+          'La pompe d’injection a grippé à 25 heures, faute de refroidissement et de graissage selon le rapport, et l’institut a ajouté un écran de rayonnement pour elle et pour le filtre à gazole.',
         check:
           'Les heures de travail, plus que les kilomètres : 2 500 heures en six ans, et 2 830 heures dans le tableau des essais.',
         care: 'Aucune source ne décrit l’entretien de l’outil lui-même : ce n’est pas ce que le lab explique.',
       },
       {
         failure:
-          'The injection pump seized at 25 hours, near the hot gasifier, and the institute added a radiation shield for it and for the diesel filter.',
+          'The injection pump seized at 25 hours, for want of cooling and lubrication according to the report, and the institute added a radiation shield for it and for the diesel filter.',
         check: 'The hours of work, more than the miles: 2,500 hours in six years, and 2,830 hours in the tests’ table.',
         care: 'No source describes the care of the tool itself: it is not what the lab explains.',
       },
@@ -465,14 +465,14 @@ export const FARM_PARTS: PartInfo[] = [
         failure:
           'Un fût trop plein, ou un bac de refroidisseur qui déborde : la seule panne grave de ce moteur est probablement venue d’une eau aspirée par là.',
         check:
-          'Le niveau, dans la 3D : le bac du refroidisseur monte entre deux vidanges, toutes les 2 à 3 heures dans les relevés de l’institut, celui de la chemise attendait de 8 à 10 heures.',
+          'Le niveau, dans la 3D : le bac du refroidisseur monte entre deux vidanges, toutes les 2 à 3 heures dans les relevés de plusieurs véhicules de l’institut, celui de la chemise attendait de 8 à 10 heures.',
         care: 'Le travail était sale et fréquent. Le lab n’en décrit aucun geste, et ne donne aucun conseil sur le sort de ce liquide.',
       },
       {
         failure:
           'An overfull barrel, or a cooler vessel that runs over: this engine’s one serious failure probably came from water sucked through there.',
         check:
-          'The level, in the 3D: the cooler’s vessel climbs between two emptyings, every 2 to 3 hours in the institute’s records, the jacket’s waited 8 to 10 hours.',
+          'The level, in the 3D: the cooler’s vessel climbs between two emptyings, every 2 to 3 hours in the records of several of the institute’s vehicles, the jacket’s waited 8 to 10 hours.',
         care: 'The work was dirty and frequent. The lab describes no gesture of it, and gives no advice on what becomes of this liquid.',
       },
     ),
@@ -481,8 +481,8 @@ export const FARM_PARTS: PartInfo[] = [
       'In “Farm”, “Flows” leads the black water to this barrel, and no further: no dot leaves it.',
     ),
     design: l(
-      'Le fût ne dit pas où va le liquide : le lab ne le montre pas, par choix. Aucun chiffre de ce que devenait l’eau noire dans les fermes de l’institut n’existe dans ce qu’il a lu.',
-      'The barrel does not say where the liquid goes: the lab does not show it, by choice. No figure for what became of the black water on the institute’s farms exists in what it read.',
+      'Le fût ne dit pas où va le liquide : le lab ne le montre pas, par choix. Aucun chiffre de ce que devenait l’eau noire dans les deux grandes fermes où ce tracteur a travaillé n’existe dans ce qu’il a lu.',
+      'The barrel does not say where the liquid goes: the lab does not show it, by choice. No figure for what became of the black water on the two large farms where this tractor worked exists in what it read.',
     ),
   },
   {
@@ -508,14 +508,14 @@ export const FARM_PARTS: PartInfo[] = [
     maintenance: maint(
       {
         failure:
-          'Ce que devenait l’eau noire des deux fermes de l’institut : aucune source lue ne le dit, et aucun chiffre ne le donne.',
+          'Ce que devenait l’eau noire des deux grandes fermes où ce tracteur a travaillé : aucune source lue ne le dit, et aucun chiffre ne le donne.',
         check:
           'Les sources donnent, pour l’eau d’un gazogène, des phénols typiquement de 1 500 à 3 000 mg/L ; elles ne disent pas ce qu’un fossé en fait.',
         care: 'Rien : ce n’est pas un sujet de maintenance.',
       },
       {
         failure:
-          'What became of the black water of the institute’s two farms: no source we read says, and no figure gives it.',
+          'What became of the black water of the two large farms where this tractor worked: no source we read says, and no figure gives it.',
         check:
           'The sources give, for a gasifier’s water, phenols typically at 1,500 to 3,000 mg/L; they do not say what a ditch makes of them.',
         care: 'Nothing: it is not a subject of maintenance.',

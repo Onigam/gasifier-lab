@@ -151,17 +151,24 @@ export const TRACTOR_PARTS: PartInfo[] = [
     category: 'electrical',
     name: l('Phares de toit', 'Roof headlights'),
     short: l(
-      'L’institut les a montés sur le toit : le gazogène occupe la place d’un phare.',
-      'The institute moved them to the roof: the gasifier stands where a headlight was.',
+      'L’institut les a montés sur le toit : selon le rapport, le phare de gauche aurait été caché par le gazogène.',
+      'The institute moved them to the roof: according to the report, the left headlight would otherwise have been hidden by the gasifier.',
     ),
     description: l(
-      'Parmi les changements du tracteur, le rapport note que les phares ont été déplacés sur le toit. Il ne dit pas pourquoi. Notre lecture : le gazogène et son filtre occupent le flanc gauche, là où un phare aurait éclairé, et un phare monté plus haut dépasse l’ensemble. Ce n’est pas un chiffre de l’institut. Les deux lampes dessinées sont une estimation d’après la photographie, et l’électricité du tracteur n’est pas ce que le lab explique : il ne montre aucune ligne, aucun fusible, aucune batterie.',
-      'Among the tractor’s changes, the report notes that the headlights were moved to the roof. It does not say why. Our reading: the gasifier and its filter occupy the left flank, where a headlight would have shone, and a lamp mounted higher clears the whole. That is not a figure of the institute’s. The two lamps drawn are an estimate from the photograph, and the tractor’s electrics are not what the lab explains: it shows no wire, no fuse, no battery.',
+      'Parmi les changements du tracteur, le rapport note que les phares ont été déplacés sur le toit, et en donne la raison : le phare de gauche aurait sinon été caché par le gazogène. Les deux lampes dessinées sont une estimation d’après la photographie, et l’électricité du tracteur n’est pas ce que le lab explique : il ne montre aucune ligne, aucun fusible, aucune batterie.',
+      'Among the tractor’s changes, the report notes that the headlights were moved to the roof, and gives the reason: the left headlight would otherwise have been hidden by the gasifier. The two lamps drawn are an estimate from the photograph, and the tractor’s electrics are not what the lab explains: it shows no wire, no fuse, no battery.',
     ),
     material: l('Phares du tracteur, montés sur la galerie', 'The tractor’s headlights, mounted on the rack'),
     specs: [
       sp('Changement', 'Change', l('déplacés sur le toit', 'moved to the roof')),
-      sp('Raison', 'Reason', l('non dite dans le rapport ; notre lecture', 'not given in the report; our reading')),
+      sp(
+        'Raison',
+        'Reason',
+        l(
+          'selon le rapport, le phare de gauche aurait été caché par le gazogène',
+          'according to the report, the left headlight would have been hidden by the gasifier',
+        ),
+      ),
       sp(
         'Forme et place dessinées',
         'Shape and place as drawn',
@@ -330,12 +337,12 @@ export const TRACTOR_PARTS: PartInfo[] = [
     category: 'mechanical',
     name: l('Pompe d’injection', 'Injection pump'),
     short: l(
-      'Elle dose le filet de gazole : elle a grippé à 25 heures, sous la chaleur du gazogène.',
-      'It meters the thread of diesel: it seized at 25 hours, under the gasifier’s heat.',
+      'Elle dose le filet de gazole : elle a grippé à 25 heures, faute de refroidissement et de graissage, dit le rapport.',
+      'It meters the thread of diesel: it seized at 25 hours, for want of cooling and lubrication, says the report.',
     ),
     description: l(
-      'Même au gaz, le diesel garde sa pompe : c’est elle qui envoie le filet de gazole dont la flamme a besoin pour allumer le mélange. Au banc, ce filet a pesé 2,2 kg à l’heure à pleine charge, 1,9 à charge partielle et 1,2 au ralenti. La pompe est sous le capot, à gauche, près du gazogène : et le gazogène est chaud. À 25 heures, elle a grippé, et l’institut a ajouté un écran de rayonnement pour elle et pour le filtre à gazole. Ce lab ne donne aucun réglage de cette pompe : ni quantité par coup, ni calage.',
-      'Even on gas the diesel keeps its pump: it sends the thread of diesel the flame needs to light the mixture. On the bench that thread weighed 2.2 kg an hour at full load, 1.9 at part load and 1.2 at idle. The pump is under the bonnet, on the left, near the gasifier: and the gasifier is hot. At 25 hours it seized, and the institute added a radiation shield for it and for the diesel filter. This lab gives no setting for this pump: no quantity per stroke, no timing.',
+      'Même au gaz, le diesel garde sa pompe : c’est elle qui envoie le filet de gazole dont la flamme a besoin pour allumer le mélange. Au banc, ce filet a pesé 2,2 kg à l’heure à pleine charge, 1,9 à charge partielle et 1,2 au ralenti. La pompe est sous le capot, à gauche, près du gazogène, qui est chaud. À 25 heures, elle a grippé : le rapport attribue le grippage à un refroidissement et un graissage insuffisants. L’institut a ensuite ajouté un écran de rayonnement, qui protège la pompe et le filtre à gazole de la chaleur du gazogène. Ce lab ne donne aucun réglage de cette pompe : ni quantité par coup, ni calage.',
+      'Even on gas the diesel keeps its pump: it sends the thread of diesel the flame needs to light the mixture. On the bench that thread weighed 2.2 kg an hour at full load, 1.9 at part load and 1.2 at idle. The pump is under the bonnet, on the left, near the gasifier, which is hot. At 25 hours it seized: the report attributes the seizure to insufficient cooling and lubrication. The institute then added a radiation shield, which protects the pump and the diesel filter from the gasifier’s heat. This lab gives no setting for this pump: no quantity per stroke, no timing.',
     ),
     material: l('Pompe en ligne, fonte et acier', 'In-line pump, cast iron and steel'),
     specs: [
@@ -346,13 +353,15 @@ export const TRACTOR_PARTS: PartInfo[] = [
     ],
     maintenance: maint(
       {
-        failure: 'Le grippage sous la chaleur du gazogène, à 25 heures : un écran a été ajouté.',
+        failure:
+          'Le grippage à 25 heures, que le rapport attribue à un refroidissement et un graissage insuffisants : des changements ont suivi, dont un écran contre la chaleur du gazogène.',
         check:
           'La température autour de la pompe : le rapport ne donne pas la valeur, seulement le remède. Dans le modèle, la tôle du gazogène est à environ {casingModel}.',
         care: 'Aucune opération n’est décrite ici : ni réglage, ni purge, ni calage.',
       },
       {
-        failure: 'The seizure under the gasifier’s heat, at 25 hours: a shield was added.',
+        failure:
+          'The seizure at 25 hours, which the report attributes to insufficient cooling and lubrication: changes followed, among them a shield against the gasifier’s heat.',
         check:
           'The temperature around the pump: the report does not give the value, only the remedy. In the model the gasifier’s casing is at about {casingModel}.',
         care: 'No operation is described here: no adjusting, no bleeding, no timing.',
@@ -363,8 +372,8 @@ export const TRACTOR_PARTS: PartInfo[] = [
       'Select the pump: the engine and the gas line fade, so that the pump can be read.',
     ),
     design: l(
-      'Le point de cette pièce n’est pas la pompe : c’est qu’un tracteur transformé fait apparaître ses pannes à côté de ce qu’on y a ajouté. L’institut a vu la pompe tomber en panne près de la chaleur, et a mis un écran : c’est toute la leçon.',
-      'The point of this part is not the pump: it is that a converted tractor shows its failures next to what was added to it. The institute saw the pump fail near the heat, and put in a shield: that is the whole lesson.',
+      'Le point de cette pièce n’est pas la pompe : c’est qu’un tracteur transformé fait apparaître ses pannes à côté de ce qu’on y a ajouté. L’institut a vu la pompe gripper, a attribué la panne à un refroidissement et un graissage insuffisants, et a ajouté un écran contre la chaleur du gazogène : c’est toute la leçon.',
+      'The point of this part is not the pump: it is that a converted tractor shows its failures next to what was added to it. The institute saw the pump seize, attributed it to insufficient cooling and lubrication, and added a shield against the gasifier’s heat: that is the whole lesson.',
     ),
   },
   {

@@ -120,14 +120,14 @@ export const GASIFIER_PARTS: PartInfo[] = [
     maintenance: maint(
       {
         failure:
-          'Une colonne qui se voûte ou qui s’ouvre en canal : aucune source ne la mesure ici, et le modèle ne la contient pas, ni voûte, ni canal.',
+          'Une colonne qui se voûte ou qui s’ouvre en canal : le rapport décrit des voûtes dans la zone de pyrolyse, que le déflecteur a ramenées à un niveau jugé acceptable ; il ne les mesure pas, et le modèle ne contient ni voûte ni canal.',
         check:
           'Le niveau du lit, au sommet : dans la 3D, il suit le modèle, et le dôme de plaquettes descend avec lui.',
         care: 'Les plaquettes étaient criblées avant d’être chargées : sans fines, la colonne laisse passer le gaz. C’est ce que montre le crible de la ferme.',
       },
       {
         failure:
-          'A column that bridges or opens into a channel: no source measures it here, and the model does not contain it, no bridge, no channel.',
+          'A column that bridges or opens into a channel: the report describes bridging in the pyrolysis zone, which the baffle brought down to what was judged acceptable; it does not measure it, and the model contains neither bridge nor channel.',
         check: 'The bed’s level, at the top: in the 3D it follows the model, and the dome of chips goes down with it.',
         care: 'The chips were sieved before they were loaded: with no fines, the column lets the gas through. That is what the farm’s sieve shows.',
       },
@@ -244,16 +244,16 @@ export const GASIFIER_PARTS: PartInfo[] = [
     category: 'site',
     name: l('Zone d’oxydation', 'Oxidation zone'),
     short: l(
-      'Là où brûle une part du bois : de 1 200 à 1 500 °C, le rapport l’écrit, et c’est là que les goudrons disparaissent.',
-      'Where part of the wood burns: 1,200 to 1,500 °C, the report writes, and that is where the tars vanish.',
+      'Là où brûle une part du bois : de 1 200 à 1 500 °C, le rapport l’écrit en général, et c’est là que les goudrons disparaissent.',
+      'Where part of the wood burns: 1,200 to 1,500 °C, the report writes in general, and that is where the tars vanish.',
     ),
     description: lf(
-      'Voici le feu, au niveau des tuyères : de 1 200 à 1 500 °C, selon le rapport. Seulement environ 30 % du bois y brûle, avec un rapport d’équivalence d’environ 0,25 selon un manuel : c’est un feu qui manque d’air, à dessein. Le bilan du modèle y trouve {oxBalance}, dans la bande, mais quand il compte aussi la chaleur perdue par la paroi, il tombe à {oxModel}, sous elle. Les vapeurs de la pyrolyse doivent traverser cette flamme. Un gazogène à courant montant, où elles sortent telles quelles, en laisse de 5 à 20 % du bois. Ici, presque aucun goudron n’en sort : celui de 0,13 g/Nm³ à la sortie fait {tarShare} du bois, au banc. Ce rapport au bois est de l’arithmétique, pas un résultat du modèle.',
-      'Here is the fire, at the nozzles: 1,200 to 1,500 °C, by the report. Only about 30% of the wood burns there, with an equivalence ratio of about 0.25 by one handbook: it is a fire short of air, on purpose. The model’s balance finds {oxBalance} there, inside the band, but when it also counts the heat lost through the wall it falls to {oxModel}, under it. The pyrolysis vapours must cross this flame. An updraught gasifier, where they come out as they are, leaves 5 to 20% of the wood. Here, almost no tar comes out: the 0.13 g/Nm³ at the outlet is {tarShare} of the wood, on the bench. That ratio to the wood is arithmetic, not a result of the model.',
+      'Voici le feu, au niveau des tuyères : de 1 200 à 1 500 °C, selon le rapport, qui le dit des gazogènes à courant descendant en général. Seulement environ 30 % du bois y brûle, avec un rapport d’équivalence d’environ 0,25 selon un manuel : c’est un feu qui manque d’air, à dessein. Le bilan du modèle y trouve {oxBalance}, dans la bande, mais quand il compte aussi la chaleur perdue par la paroi, il tombe à {oxModel}, sous elle. Les vapeurs de la pyrolyse doivent traverser cette flamme. Un gazogène à courant montant, où elles sortent telles quelles, en laisse de 5 à 20 % du bois. Ici, presque aucun goudron n’en sort : celui de 0,13 g/Nm³ à la sortie fait {tarShare} du bois, au banc. Ce rapport au bois est de l’arithmétique, pas un résultat du modèle.',
+      'Here is the fire, at the nozzles: 1,200 to 1,500 °C, by the report, which says it of downdraught gasifiers in general. Only about 30% of the wood burns there, with an equivalence ratio of about 0.25 by one handbook: it is a fire short of air, on purpose. The model’s balance finds {oxBalance} there, inside the band, but when it also counts the heat lost through the wall it falls to {oxModel}, under it. The pyrolysis vapours must cross this flame. An updraught gasifier, where they come out as they are, leaves 5 to 20% of the wood. Here, almost no tar comes out: the 0.13 g/Nm³ at the outlet is {tarShare} of the wood, on the bench. That ratio to the wood is arithmetic, not a result of the model.',
     ),
     material: l('Charbon incandescent et flammes', 'Glowing char and flames'),
     specs: [
-      sp('Bande du rapport', 'Report’s band', l('1 200 à 1 500 °C', '1,200 to 1,500 °C')),
+      sp('Bande du rapport, en général', 'Report’s band, in general', l('1 200 à 1 500 °C', '1,200 to 1,500 °C')),
       sp('Selon le bilan du modèle', 'By the model’s balance', v('{oxBalance}')),
       sp('Avec la chaleur de la paroi', 'With the wall’s heat counted', v('{oxModel}')),
       sp('Part du bois qui brûle', 'Share of the wood that burns', l('environ 30 %', 'about 30%')),
@@ -354,37 +354,36 @@ export const GASIFIER_PARTS: PartInfo[] = [
     category: 'structure',
     name: l('Déflecteur', 'Fuel baffle'),
     short: l(
-      'Une pièce qui tient les plaquettes loin de la paroi où les goudrons collent : notre lecture de la figure du rapport.',
-      'A part that keeps chips off the wall where tars stick: our reading of the report’s figure.',
+      'Une pièce qui supprime le contact entre le combustible et la paroi, dans la zone de pyrolyse : le rapport dit qu’elle a ramené les voûtes à un niveau jugé acceptable.',
+      'A part that removes the contact between the fuel and the wall, in the pyrolysis zone: the report says it brought bridging down to what was judged acceptable.',
     ),
     description: l(
-      'Le rapport montre un déflecteur dans la soute, sans texte pour dire à quoi il sert. Notre lecture : la paroi froide est celle où l’eau et les goudrons se condensent, et ces dépôts collent. Des plaquettes laissées contre elle s’y accrocheraient, et la colonne ne descendrait plus droit. Le déflecteur les tiendrait à distance. Des plaquettes, qui s’empilent moins bien qu’un charbon de bois, auraient besoin d’une telle pièce : c’est une raison possible de leur réussite ici, pas un fait du rapport. Aucune dimension de cette pièce n’est dans ce que nous avons lu.',
-      'The report shows a baffle in the bunker, with no text saying what it is for. Our reading: the cold wall is the one where water and tars condense, and those deposits stick. Chips left against it would cling there, and the column would no longer go down straight. The baffle would keep them away. Chips, which stack less well than charcoal, would need such a part: it is a possible reason for their success here, not a fact of the report. No dimension of this part is in what we read.',
+      'Dans la soute, le combustible collait à la paroi, dans la zone de pyrolyse, là où une partie des goudrons chassés du bois se condensait et laissait une surface collante. Le combustible formait des voûtes. Selon le rapport, l’institut a introduit dans la soute un déflecteur pour supprimer le contact entre le combustible et les parois dans cette zone : le problème est tombé à un niveau jugé acceptable, il n’a pas disparu. Le rapport le dit dans son texte et le montre sur une figure. Aucune dimension de cette pièce n’est dans ce que nous avons lu.',
+      'In the bunker, the fuel stuck to the wall, in the pyrolysis zone, where some of the tars driven off from the wood condensed and left a sticky surface. The fuel bridged. According to the report, the institute put a baffle in the bunker to remove the contact between the fuel and the walls in that zone: the problem came down to what was judged acceptable, it did not disappear. The report says so in its text and shows the part in a figure. No dimension of this part is in what we read.',
     ),
     material: l('Tôle d’acier', 'Sheet steel'),
     specs: [
       sp(
         'Rôle',
         'Role',
-        l('tenir les plaquettes à distance de la paroi froide', 'keep the chips away from the cold wall'),
+        l(
+          'supprimer le contact entre le combustible et la paroi, dans la zone de pyrolyse',
+          'remove the contact between the fuel and the wall, in the pyrolysis zone',
+        ),
       ),
-      sp(
-        'Source',
-        'Source',
-        l('la figure du rapport ; aucun texte ne l’explique', 'the report’s figure; no text explains it'),
-      ),
+      sp('Source', 'Source', l('le texte du rapport et sa figure', 'the report’s text and its figure')),
       sp('Dimensions', 'Dimensions', l('aucune dans ce que nous avons lu', 'none in what we read')),
     ],
     maintenance: maint(
       {
         failure:
-          'Des plaquettes qui s’accrochent à la paroi : aucune source ne le rapporte ici, et la voûte et le canal ne sont pas dans le modèle.',
+          'Des voûtes : le rapport les décrit, avant le déflecteur, et dit seulement qu’il les a ramenées à un niveau jugé acceptable. Le modèle ne contient ni voûte ni canal.',
         check: 'La colonne : si elle descend en bloc, dans la 3D, c’est que le modèle ne sait pas faire autrement.',
         care: 'Aucune opération n’est décrite pour cette pièce.',
       },
       {
         failure:
-          'Chips that cling to the wall: no source reports it here, and bridging and channelling are not in the model.',
+          'Bridging: the report describes it, before the baffle, and says only that the baffle brought it down to what was judged acceptable. The model contains neither bridge nor channel.',
         check: 'The column: if it goes down as a block in the 3D, it is because the model knows no other way.',
         care: 'No operation is described for this part.',
       },
@@ -394,8 +393,8 @@ export const GASIFIER_PARTS: PartInfo[] = [
       'In “Explode”, the baffle goes up with the top of the gasifier: it reads against the sleeve.',
     ),
     design: l(
-      'Voici une pièce que le lab dessine sans pouvoir la citer : sa fonction est une lecture, et elle est dite comme telle. Les autres fiches de ce monde s’appuient sur une ligne du rapport ; celle-ci seulement sur une figure.',
-      'Here is a part the lab draws without being able to cite it: its function is a reading, and it is said as such. The other sheets in this world lean on a line of the report; this one only on a figure.',
+      'Cette pièce répond à un problème que l’institut a rencontré : du combustible qui colle à la paroi, là où les goudrons se condensent. Le rapport l’explique en deux phrases et la montre sur une figure ; il n’en donne ni la taille ni la forme précise, et la fiche n’en invente aucune.',
+      'This part answers a problem the institute met: fuel sticking to the wall where the tars condense. The report explains it in two sentences and shows it in a figure; it gives neither its size nor its exact shape, and the sheet invents none.',
     ),
   },
   {
