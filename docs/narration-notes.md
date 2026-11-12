@@ -4,6 +4,8 @@ Found while writing the spoken guide from the sheets, then while correcting it a
 
 ## 1. The second pass: what the voice said that went past its sources
 
+The wordings quoted in §§ 1 and 1b are those of the second and third passes: § 1c rewrote some of them (the plume, the doors' closing lines, the pilot's question) without touching a figure or a hedge.
+
 Numbers are those of `docs/fact-check.md` §2 (FC) and `docs/qa.md` (D). « Segment » is the id in `narration/*.json`; both languages say the same thing, with the same cues at the same place.
 
 | Item                                | Segment                                                                                                                                                   | What the voice says now                                                                                                                                                                                                                                                                                 |
@@ -34,7 +36,7 @@ Numbers are those of `docs/fact-check.md` §2 (FC) and `docs/qa.md` (D). « Segm
 
 Not in the voice, so nothing to change there: FC 1 (the warning's « careful »), 3, 4, 7, 8, 9 (the 17 deaths), 14, 15, 22, 24 (« burn by half »), 27, 29 g and i, 31, 32 (the voice says no emergency number). `src/narration.test.ts` now holds the old wordings off both scripts and the corrections in.
 
-Cut from the voice to pay for these hedges (the French is 24,881 characters, 881 over the aim and well under the 30,000 ceiling; the English 23,552): the roof headlights' last sentence (the governor and the injector's cooling are in their own segments), the secondary air throttle's « le fait reste », the cab's blocked view, the drain's « le bocal se remplit à l'écran ».
+Cut from the voice to pay for these hedges (the French was then 24,881 characters, 881 over the aim; the fourth pass, § 1c, took it to 23,861, under it, and the English from 23,552 to 22,682): the roof headlights' last sentence (the governor and the injector's cooling are in their own segments), the secondary air throttle's « le fait reste », the cab's blocked view, the drain's « le bocal se remplit à l'écran ».
 
 ## 1b. The third pass: five segments, from the second fact-check pass (section 3, items 3 and 6)
 
@@ -46,6 +48,51 @@ Cut from the voice to pay for these hedges (the French is 24,881 characters, 881
 | N2, the tight machine and the leaking lid | none                                                         | The voice never joins « une machine qui paraissait étanche » (`scene-garage`) to the accidents of a car with a leaking lid (`part-farmhouse`, `part-room-above`): they are in different segments, with a full stop between. Nothing to change                                                                                                                                                                                                   |
 
 The same wording is in English (« the gasifier's drawings », « often from an electrical fault, says the Swedish book », « no source we read »), with the same cues at the same places. `src/narration.test.ts` keeps the old wordings out and the new ones in.
+
+## 1c. The fourth pass: less slop (the owner's « moins d'AI slop », 2026-11-11)
+
+The audit of the narration (`~/Dev/energy-labs/studio/narration-style/`: `STYLE.md`, `audit-gasifier.md`, `slop-check.mjs`) found 62 sentences in 49 segments that read as slop. All 62 are rewritten in both languages, 52 segments in all (see « Deviations »), with every figure, every hedge the fact-check pinned and every refusal kept, and the cues at the same place in both languages.
+
+| Pattern (STYLE.md)                                    | French before → after | English before → after |
+| ----------------------------------------------------- | --------------------- | ---------------------- |
+| P1 stock opener (« Imaginez », « Suivons »)           | 2 → 0                 | 2 → 0                  |
+| P2 signpost (« Voyons », « Prenons »)                 | 4 → 0                 | 3 → 0                  |
+| P3 short rhetorical question                          | 14 → 1                | 15 → 2                 |
+| P4 « not X, it is Y »                                 | 10 → 2                | 8 → 3                  |
+| P5 announced honesty, P6 kicker, P7 personification   | 6 → 0                 | 6 → 0                  |
+| P8-P9 exclamations                                    | 24 → 0                | 24 → 0                 |
+| P12-P14 wonder-words, ellipsis beats, « et pourtant » | 9 → 0                 | 8 → 0                  |
+| P15-P16 « voici », « voyez » to the screen            | 26 → 0                | 27 → 0                 |
+| P18 the lab as an actor                               | 12 → 1                | 12 → 1                 |
+| P19 question and fragment                             | 3 → 0                 | 3 → 0                  |
+| P20 colons (ceiling 4.5 per 1,000)                    | 125 → 79              | 125 → 80               |
+| **Tic index per 1,000 characters (target 0.8)**       | **2.65 → 0.13**       | **2.67 → 0.22**        |
+
+What is left, on purpose: the two questions that earn their place (the garage in a wood lab, answered with figures; where the black water went, answered by « rien de ce que nous avons lu ne le dit »), two factual contrasts (« Sans air, plus de flamme », the pilot that lights when gas and air do not), « Ni la matière, ni la taille » (what is not said), and the one « ce laboratoire est une reconstitution » of the introduction's disclaimer.
+
+**The owner's own samples are gone:** « c'est un choix, pas une mesure » (the plume now says « Ce choix est le sien ; aucune mesure ne le donne », with « le modèle » as the subject, so the fact-check's « the model's choice » stays), « c'est la phrase que ce lab ne peut pas écrire » (cut: the sentence before it, « Rien de ce que nous avons lu ne dit quand une pièce n'en garde plus », stands alone and the `noEnd` once-test now pins it), « la réponse honnête est non » (« Le bois ne suffit donc pas : le pilote reste du gazole »), « Tout le gazogène tient dans cette phrase » (cut), and the closings « Prenez votre temps » and « voilà toute l'affaire du garage ». The introduction opens on a fact (« Un soir de juin, dans le sud de la Suède… un tracteur rentre des champs ») and ends on the Sources panel. The chip stays the subject and is introduced with a fact: « Une plaquette de bois est stockée au sec, dans la grange, avec des milliers d'autres ».
+
+**The causal claim in `part-chip-column`** (« c'est ce rapport qui fait de l'énergie ») is dropped, as the audit and the lead asked: no sheet backs it. The segment keeps both speeds and ends on the snail.
+
+**Deviations from the audit, and why.** None of the 62 proposals is refused; these are the places where the wording is mine.
+
+- `intro`: « attend » became « est stockée » (the chip never waits), « née sous les couteaux » became « a été coupée par », « La voici sur le tracteur » became « Le tracteur l'emporte », « Un soir, au garage » became « Ce soir-là, au garage » (the opening evening), « le dernier monde du lab » became « le dernier monde » (the lab as an actor), « Le gaz, lui, ne s'arrête pas avec lui » became « avec le moteur », « Voici quelques repères » became « Quelques repères » (the audit left one P15), and « une lecture, pas une procédure » became « au passé et sans procédure »: refusal R3 stays said, without the « not X » turn.
+- `scene-garage`: the closing line is « Quant à la durée de la poussée, les sources divergent » (the audit's « Sur la durée » reads as being about the door).
+- `part-garage-door`: « Porte ouverte, » stands before the second figure (the cue opens the door; the sentence has to say which door it is).
+- `part-diesel-engine`: the audit's « Moins, parce que… » hung on the sentence about the model; the mixture's figures now come right after the 64 and 51 kilowatts they explain (both figures and the petrol's are kept).
+- `part-post-gas-plume`: « Le modèle part d'un mètre cube et laisse la poussée s'affaiblir… Ce choix est le sien » (in the audit « il » was the gas).
+- `part-throat-ring`, `part-old-rescue-set`: the refusal is said with « on » and « ici » (« Ici, on dit ce que fait cette pièce, et rien de sa fabrication »), not « ce lab »: the audit left three « ce lab » hits.
+- `part-stop-valve`: the closing « Une vanne sur un tuyau de gaz donne une impression de maîtrise » is cut (a kicker no sheet backs); `part-cyclone`: one sentence instead of two (« Il n'est pas dit… le rapport ne dit rien » said it twice); `part-spring-lid`: « la plus lourde de conséquences » cut, as the audit suggested; `part-drum-chipper`: « naissent » became « se font ».
+- **Colons.** The audit leaves 118 in French (over the 4.5 ceiling): about forty « X : Y » became two sentences or a comma, only in segments that change anyway. The segments the audit calls fine keep their colons (12 clips saved).
+- **English openers.** « The » opened 31 of 73 segments, against STYLE.md's one in five: 19 openers vary (« On paper, the machine rolls on the spot », « From the outlet to the engine, the gas… »), now 14.
+- `scene-gas-train`: « Au sol, des rubans disent où va l'énergie » became « montrent » in French (the English says « show »). « Disent » was the original's and the audit kept it; a ribbon does not talk, and the first take of it was garbled by Whisper `small` and `medium` alike; the clip was made again.
+- 52 clips per language, not the audit's 49: the three more are `part-spring-lid`, `part-drum-chipper` and `part-old-rescue-set`. French: 53 takes (the 52 and the `scene-gas-train` re-take); English: 52.
+
+**Read aloud** (STYLE.md §4) before generating: `part-post-gas-plume`, `scene-garage` and `part-diesel-engine` in French, the introduction's first lines in English. They changed what a reader's eye had passed: the plume's « Il laisse » had the gas as its subject and « le modèle » stood twice in two sentences (now once); the garage's closing « Sur la durée » (see above); the diesel's « Moins, parce que » (see above). `part-grate-linkage`'s chain of commas was left as it was (the audit calls the segment fine).
+
+**Measured after generation** (details in `narration/README.md`): Whisper `small` on all 73 clips, French mean 0.950 and English 0.978; two French clips under 0.85, `pyrolysis-zone` (a clip of the first pass: a silent plural) and `heat-shield` (a dropout), which `medium` reads at 0.955 and 0.973; none in English; no passage missing or doubled; speaking rate within 25 % of the median in both languages; loudness −27.6 to −27.4 LUFS; longest gap between two captions 0.24 s. Two things to listen for that no transcript settles: « où qu'il aille » in `part-fan-stack` (heard « au quilaï » by both Whisper models, probably the faithful sound of a rare phrase) and « Sept leçons expliquent la physique » in the introduction (the same sounds as « cette leçon explique »; the sentence is as the earlier passes left it). Also left as it was, and not the slop pass's: `part-garage-door` begins « La porte a trois états » and gives two of them (shut and open); the third, ajar, has its own figure on the sheet.
+
+**The check.** `scripts/slop-check.mjs` and `scripts/slop-patterns.json` are a copy of the studio's; `src/narration.test.ts` holds the tic index at 0.8 per 1,000 characters or less and no pattern over its ceiling, in both languages, and `scripts/check-narration.mjs` (the first step of `npm run build`) runs it and prints the index. The test no longer asks for exclamations (0.5 per 1,000) or questions (0.25): they were floors that forced the slop; both are ceilings now (0.3 and 0.35).
 
 ## 2. For the lead: the voice and the written places
 
