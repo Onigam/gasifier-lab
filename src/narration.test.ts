@@ -20,7 +20,7 @@ const CUE = /\[\[([a-z]+)(?::([^\]]*))?\]\]/g;
 const BOOLEAN_CUES = ['xray', 'cutaway', 'flows', 'isolate'];
 const MODES = ['explore', 'assembly', 'install', 'sim', 'plans', 'lessons'];
 const CAMERA_CUES = ['home', 'scene', 'frame', 'select'];
-/** Ceiling set by the owner for the spoken characters of one language, and what this guide holds itself to: the series aims for 17,000 to 24,000, and this lab's upper limit is 25,000 since the fifth pass (docs/narration-notes.md §1d: each part says in a few words which source it quotes, for a visitor who clicks « Écouter » on one part cold). */
+/** Ceiling set by the owner for the spoken characters of one language, and what this guide holds itself to: the series aims for 17,000 to 24,000, and this lab's upper limit is 25,000 since the fifth pass (docs/narration-notes.md §1d). The seventh pass took the source names out of most parts, and the French is under 24,500 again. */
 const BUDGET = 30_000;
 const AIM = [17_000, 25_000] as const;
 /** generate.mjs refuses a longer segment. */
@@ -153,7 +153,8 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
       const [kind, id = ''] = s.scope.split(':');
       expect(s.id, s.scope).toBe(kind === 'intro' ? 'intro' : `${kind === 'part' ? 'part' : 'scene'}-${id}`);
       expect(s.title.trim().length, s.id).toBeGreaterThan(2);
-      expect(spokenOf(s).length, s.id).toBeGreaterThan(190);
+      // a floor of 150: the shortest part (the roof headlights) is 173 to 180 characters since the seventh pass took the source names out; a higher floor would force padding
+      expect(spokenOf(s).length, s.id).toBeGreaterThan(150);
       expect(spokenOf(s).length, s.id).toBeLessThanOrEqual(SEGMENT_CAP);
     }
     expect(script).toHaveProperty('voiceLabel.fr', 'Voix de synthèse');
@@ -533,14 +534,17 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
             ['part-condensate-barrel', /Typiquement/],
             ['part-fuel-casing', /chercheurs sont morts du monoxyde de carbone, après être descendus/],
             ['part-exhaust-pipe', /moteurs de la guerre/],
-            ['part-gas-cooler', /Selon le rapport sur l’institut, en général, dix pour cent de température en moins/],
+            [
+              'part-gas-cooler',
+              /En général, dix pour cent de température en moins : presque deux pour cent de puissance en plus/,
+            ],
             ['part-gas-cooler', /le modèle compte deux litres deux/],
             ['part-cooler-condensate-vessel', /panne grave de ce tracteur/],
-            ['part-filter-bags', /Sur le camion du programme de l’institut/],
+            ['part-filter-bags', /Sur le camion d’essai, sa résistance doublait/],
             ['part-post-gas-plume', /laisse le débit s’affaiblir sans jamais s’arrêter\. Ce choix est celui du modèle/],
             ['part-post-gas-plume', /sur cette machine/],
             ['part-post-gas-plume', /Rien de ce que nous avons lu ne dit quand une pièce/],
-            ['part-farm-garage', /Souvent d’un défaut électrique, selon le livre suédois/],
+            ['part-farm-garage', /Souvent d’un défaut électrique, note le livre\./],
             ['part-farmhouse', /Rien de ce que nous avons lu ne décrit la maison/],
             ['part-front-wheels', /Rien de ce que nous avons lu ne dit comment la direction/],
             ['part-old-rescue-set', /années quarante/],
@@ -550,24 +554,24 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
               'part-fuel-baffle',
               /un déflecteur qui supprime ce contact a ramené le problème à un niveau jugé acceptable/,
             ],
-            ['part-roof-headlights', /le phare de gauche aurait été caché par le gazogène/],
+            ['part-roof-headlights', /Le phare de gauche aurait été caché par le gazogène, d’après le rapport\./],
             ['scene-garage', /dans le combustible encore chaud/],
             ['part-post-gas-plume', /dans le combustible encore chaud/],
             ['scene-garage', /Dans le modèle, porte ouverte/],
             ['part-garage-door', /Dans le modèle, six cent quatre-vingt-dix/],
-            [
-              'part-secondary-air-throttle',
-              /Sur le camion du programme de l’institut, il se manœuvrait à la main, dit le rapport/,
-            ],
+            ['part-secondary-air-throttle', /Sur le camion d’essai, il se manœuvrait à la main\./],
             ['part-spring-lid', /peut alors se mettre à brûler comme un poêle/],
-            ['part-cooler-condensate-vessel', /un bac de ce genre se vidait/],
+            ['part-cooler-condensate-vessel', /Un bac de ce genre se vidait toutes les deux à trois heures/],
             ['part-field-ditch', /deux grandes fermes où ce tracteur a travaillé/],
             ['part-chip-barn', /le rapport sur l’institut donne trente pour cent d’humidité comme limite/],
-            ['part-injection-pump', /ensuite ajouté un écran de rayonnement, contre la chaleur du gazogène/],
+            ['part-injection-pump', /Un écran de rayonnement a ensuite été ajouté, contre la chaleur du gazogène/],
             ['part-exhaust-plume', /à l’échappement des moteurs de la guerre, cinq à huit pour cent de monoxyde/],
-            ['part-injection-pump', /faute de refroidissement et de graissage, dit le rapport sur l’institut/],
+            ['part-injection-pump', /elle a grippé, faute de refroidissement et de graissage\./],
             ['part-oxidation-zone', /quinze cents degrés, en général/],
-            ['part-cylinder-cutaway', /En général, le rapport sur l’institut/],
+            [
+              'part-cylinder-cutaway',
+              /En général, un moteur au gaz a une limite vers deux mille cinq cents tours par minute/,
+            ],
             ['part-front-wheels', /plus petites que les roues arrière/],
             ['part-co-indicator', /un chiffre bas ne dit rien d’une vraie pièce/],
             ['part-diesel-engine', /moins d’énergie que celui de l’essence/],
@@ -581,6 +585,22 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
             ['scene-gas-train', /dans le modèle/],
             ['part-gas-throttle', /au banc, cinquante-cinq/],
             ['part-chip-column', /Par le calcul/],
+            // the seventh pass (docs/narration-notes.md): attribution spoken only where it does work; each hedge and each silence of a source stays said, in its new form
+            ['part-farmhouse', /Le livre suédois sur les gazogènes range parmi les pires accidents/],
+            ['part-left-consoles', /Comment le tracteur l’a pris, le rapport n’en dit rien\./],
+            [
+              'part-stop-valve',
+              /Le rapport sur l’institut ne dit pas à quoi elle servait, et nous n’en décrivons aucun usage/,
+            ],
+            ['part-cyclone', /Le rapport ne dit pas s’il en avait un, et la photographie ne tranche pas/],
+            ['part-post-gas-plume', /Cela dure une vingtaine de minutes, parfois des heures selon un autre manuel/],
+            ['part-exhaust-pipe', /on a relevé, à l’échappement des moteurs de la guerre, cinq à huit pour cent/],
+            ['part-spring-lid', /peut alors se mettre à brûler comme un poêle/],
+            ['part-drying-zone', /Au-delà d’environ quarante pour cent d’humidité, le gaz ne brûle plus/],
+            ['part-throat-ring', /Il tient environ sept cents heures, puis se remplace/],
+            ['part-fire-box', /entre six cents et mille heures, d’après plusieurs véhicules/],
+            ['part-grate', /Sur plusieurs véhicules, une grille mobile tenait de quatre cents à sept cents heures/],
+            ['part-wood-gas-tractor', /Le banc d’essai en a mesuré quarante et un/],
           ]
         : [
             ['intro', /runs on wood, with a thread of diesel/],
@@ -600,14 +620,14 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
             ['part-condensate-barrel', /Typically/],
             ['part-fuel-casing', /researchers died of carbon monoxide after climbing/],
             ['part-exhaust-pipe', /exhaust of wartime engines/],
-            ['part-gas-cooler', /By the report on the institute, in general, ten per cent less temperature/],
+            ['part-gas-cooler', /In general, ten per cent less temperature gives almost two per cent more power/],
             ['part-gas-cooler', /the model counts two point two/],
             ['part-cooler-condensate-vessel', /This tractor’s one serious failure/],
-            ['part-filter-bags', /On the truck of the institute’s programme/],
+            ['part-filter-bags', /On the test truck, its resistance doubled/],
             ['part-post-gas-plume', /lets the push weaken without ever stopping\. That choice is the model’s/],
             ['part-post-gas-plume', /No source we read says when a room/],
             ['part-post-gas-plume', /on this machine/],
-            ['part-farm-garage', /Often from an electrical fault, says the Swedish book/],
+            ['part-farm-garage', /Often from an electrical fault, the book notes\./],
             ['part-farmhouse', /No source we read describes the farmhouse/],
             ['part-front-wheels', /no source we read says/],
             ['part-old-rescue-set', /nineteen forties/],
@@ -617,25 +637,25 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
               'part-fuel-baffle',
               /a baffle, which removes this contact, brought the problem down to what was judged acceptable/,
             ],
-            ['part-roof-headlights', /the left one would have been hidden by the gasifier/],
+            ['part-roof-headlights', /The left one would have been hidden by the gasifier, according to the report\./],
             ['scene-garage', /in the fuel, still hot/],
             ['part-post-gas-plume', /in the fuel, still hot/],
             ['scene-garage', /In the model, with the door open/],
             ['scene-garage', /and stays lit/],
             ['part-garage-door', /In the model, six hundred and ninety/],
-            [
-              'part-secondary-air-throttle',
-              /On the truck of the institute’s programme, it was worked by hand, says the report/,
-            ],
+            ['part-secondary-air-throttle', /On the test truck, it was worked by hand\./],
             ['part-spring-lid', /may then start burning like a stove/],
-            ['part-cooler-condensate-vessel', /a vessel of this kind was emptied/],
+            ['part-cooler-condensate-vessel', /A vessel of this kind was emptied every two to three hours/],
             ['part-field-ditch', /two large farms where this tractor worked/],
             ['part-chip-barn', /the report on the institute gives thirty per cent moisture as the limit/],
-            ['part-injection-pump', /then added a radiation shield, against the gasifier’s heat/],
+            ['part-injection-pump', /A radiation shield was then added, against the gasifier’s heat/],
             ['part-roof-rack', /The report on the institute does not say whether/],
-            ['part-injection-pump', /for want of cooling and lubrication, says the report on the institute/],
+            ['part-injection-pump', /it seized, for want of cooling and lubrication\./],
             ['part-oxidation-zone', /one thousand five hundred degrees, in general/],
-            ['part-cylinder-cutaway', /In general, the report on the institute/],
+            [
+              'part-cylinder-cutaway',
+              /In general, an engine on gas has a limit near two thousand five hundred revolutions a minute/,
+            ],
             ['part-front-wheels', /smaller than the rear wheels/],
             ['part-co-indicator', /a low figure says nothing about a real room/],
             ['part-diesel-engine', /less energy than a petrol mixture/],
@@ -648,34 +668,114 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
             ['scene-gas-train', /in the model/],
             ['part-gas-throttle', /on the bench fifty-five/],
             ['part-chip-column', /By our sum/],
+            // the seventh pass (docs/narration-notes.md): attribution spoken only where it does work; each hedge and each silence of a source stays said, in its new form
+            ['part-farmhouse', /The Swedish book on gasifiers ranks among the worst accidents/],
+            ['part-left-consoles', /How the tractor dealt with it, the report does not say\./],
+            [
+              'part-stop-valve',
+              /The report on the institute does not say what it was for, and we describe no use of it/,
+            ],
+            ['part-cyclone', /The report does not say whether it had one, and the photograph cannot settle it/],
+            [
+              'part-post-gas-plume',
+              /It pushes for about twenty minutes, sometimes for hours according to another manual/,
+            ],
+            ['part-exhaust-pipe', /five to eight per cent was read in the exhaust of wartime engines/],
+            ['part-spring-lid', /may then start burning like a stove/],
+            ['part-drying-zone', /Beyond about forty per cent moisture, the gas no longer burns/],
+            ['part-throat-ring', /It lasts about seven hundred hours, then is replaced/],
+            ['part-fire-box', /between six hundred and a thousand hours, on the record of several vehicles/],
+            ['part-grate', /On several vehicles, a moving grate lasted four hundred to seven hundred hours/],
+            ['part-wood-gas-tractor', /The test bench measured forty-one/],
           ];
     for (const [id, re] of corrected) expect(spokenOf(seg(id)), `${id} lost a correction`).toMatch(re);
   });
 
-  it('says in a few words which source it quotes, where a part first names the report, the institute, the Swedish book or the programme (a visitor may open one part cold)', () => {
-    // [the bare word, the words that must stand with its first use (or before it): the report is the one on the institute, the book is the one on gasifiers…]
-    const anchors: [RegExp, RegExp, number][] =
-      lang === 'fr'
-        ? [
-            [/\brapport\b/, /institut/, 45],
-            [/\binstitut\b/, /institut suédois|rapport sur l’institut|programme de l’institut/, 25],
-            [/livre suédois/, /livre suédois sur les gazogènes/, 40],
-            [/\bprogramme\b/, /institut/, 30],
-          ]
-        : [
-            [/\breport\b/, /institute/, 30],
-            [/\binstitute\b/, /Swedish institute|report on the institute|institute’s programme/, 25],
-            [/Swedish book/, /Swedish book on gasifiers/, 30],
-            [/\bprogramme\b/, /institute/, 20],
-          ];
-    for (const s of script.segments) {
-      if (s.id === 'intro') continue; // the introduction is where they are introduced
-      const text = spokenOf(s);
-      for (const [word, anchor, after] of anchors) {
-        const at = text.search(word);
-        if (at >= 0) expect(text.slice(0, at + after), `${s.id}: ${word} with no word on which it is`).toMatch(anchor);
-      }
+  it('names a source only where the naming does work: a full formula once a world, at most one attribution a segment, never the same form in two segments in a row, and the totals held (docs/narration-notes.md, the seventh pass; the owner, 2026-11-12)', () => {
+    // The owner heard « le rapport sur l’institut » (17 parts) and « le livre suédois sur les gazogènes » (9) in a row and called it a tic. The introduction says once where the figures come from and that an unmarked figure on a sheet is published; a part then says a published fact as a plain statement, and keeps a short « le rapport », « le livre », « les Suédois » only where the source is silent, where it and the model disagree, where a hedge was pinned, or where a figure could be doubted.
+    const FORMS: Record<string, { full: Record<string, RegExp>; short: Record<string, RegExp> }> = {
+      fr: {
+        full: {
+          report: /rapport sur l’institut/g,
+          book: /livre suédois sur les gazogènes/g,
+          programme: /programme de l’institut/g,
+        },
+        short: {
+          rapport: /\brapport\b/g,
+          institut: /\binstitut\b/g,
+          livre: /\blivre\b/g,
+          suedois: /\bSuédois\b/g,
+          programme: /\bprogramme\b/g,
+          manuel: /\bmanuels?\b/g,
+          americaine: /source américaine/g,
+        },
+      },
+      en: {
+        full: {
+          report: /report on the institute/g,
+          book: /Swedish book on gasifiers/g,
+          programme: /institute’s programme/g,
+        },
+        short: {
+          report: /\breport\b/g,
+          institute: /\binstitute\b/g,
+          book: /\bbook\b/g,
+          swedes: /\bSwedes\b/g,
+          programme: /\bprogramme\b/g,
+          manual: /\b(manuals?|handbooks?)\b/g,
+          american: /American source/g,
+        },
+      },
+    };
+    const { full, short } = FORMS[lang]!;
+    const FULL_WORLD_CEILING = 1; // per world and per source
+    const SHORT_CEILING = 10; // all the short forms of the guide
+    const SEGMENT_CEILING = 14; // the segments that name a source at all, the introduction among them
+    interface Named {
+      id: string;
+      scene: string;
+      full: string[];
+      short: string[];
     }
+    const named = (s: Segment): Named => {
+      let t = spokenOf(s);
+      const fullForms: string[] = [];
+      for (const [name, re] of Object.entries(full)) {
+        for (const _ of t.matchAll(re)) fullForms.push(`full-${name}`);
+        t = t.replace(re, ' ');
+      }
+      const shortForms: string[] = [];
+      for (const [name, re] of Object.entries(short)) for (const _ of t.matchAll(re)) shortForms.push(name);
+      return { id: s.id, scene: s.scene, full: fullForms, short: shortForms };
+    };
+    const all = script.segments.map(named);
+    const body = all.filter((n) => n.id !== 'intro'); // the introduction is where the sources are introduced, once
+
+    // at most one attribution of any kind in a segment
+    for (const n of body)
+      expect(n.full.length + n.short.length, `${n.id}: ${[...n.full, ...n.short].join(', ')}`).toBeLessThanOrEqual(1);
+
+    // a full formula at most once per world per source
+    const perWorld = new Map<string, string[]>();
+    for (const n of body)
+      for (const f of n.full) perWorld.set(`${n.scene} ${f}`, [...(perWorld.get(`${n.scene} ${f}`) ?? []), n.id]);
+    for (const [key, ids] of perWorld) expect(ids, key).toHaveLength(FULL_WORLD_CEILING);
+
+    // never the same form in two segments in a row, in the order of the guide
+    for (let i = 1; i < all.length; i++) {
+      const before = new Set([...all[i - 1]!.full, ...all[i - 1]!.short]);
+      const again = [...all[i]!.full, ...all[i]!.short].filter((f) => before.has(f));
+      expect(again, `${all[i - 1]!.id} then ${all[i]!.id}`).toEqual([]);
+    }
+
+    // the totals
+    expect(body.flatMap((n) => n.short).length, 'short forms').toBeLessThanOrEqual(SHORT_CEILING);
+    expect(
+      all.filter((n) => n.full.length + n.short.length > 0).length,
+      'segments that name a source',
+    ).toBeLessThanOrEqual(SEGMENT_CEILING);
+    // and the forms are really in use: a guard that counts nothing would pass a script that names no source at all
+    expect(body.flatMap((n) => n.full).length, 'full formulas').toBeGreaterThanOrEqual(3);
   });
 
   it('keeps the warning out of the voice: no emergency number, no first aid, no what-to-do', () => {
