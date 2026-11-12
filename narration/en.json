@@ -408,7 +408,7 @@
       "scope": "part:filter-bags",
       "title": "Filter bags",
       "scene": "gas-train",
-      "text": "The cloth is hung in flat bags: the gas passes through, the dust stays behind. Only three tenths of a milligram of dust per cubic metre remains in the gas. But the cloth clogs. [[lab:scenario:filter-ageing]] It darkens as dust settles in it. Its resistance doubled around three thousand kilometres, on a test truck. [[lab:preset:mf-1100]]"
+      "text": "The cloth is hung in flat bags. The gas passes through, and the dust stays behind. Only three tenths of a milligram of dust per cubic metre remains in the gas. But the cloth clogs. [[lab:scenario:filter-ageing]] It darkens as dust settles in it. Its resistance doubled around three thousand kilometres, on a test truck. [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-gas-cooler",

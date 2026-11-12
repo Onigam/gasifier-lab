@@ -1,12 +1,12 @@
 {
   "lang": "en",
   "model": "qwen3-tts-1.7B",
-  "generatedAt": "2026-11-12T16:17:19.316Z",
+  "generatedAt": "2026-11-12T18:04:55.577Z",
   "voiceLabel": {
     "fr": "Voix de synthèse",
     "en": "Synthetic voice"
   },
-  "totalSeconds": 1351.42,
+  "totalSeconds": 1352.46,
   "segments": [
     {
       "id": "intro",
@@ -2620,36 +2620,36 @@
       "scene": "gasifier",
       "file": "part-throat-ring.mp3",
       "duration": 20.32,
-      "chars": 359,
-      "hash": "95f03591bb9baf4a",
+      "chars": 371,
+      "hash": "971df5cfa4de6f78",
       "captions": [
         {
           "t0": 0,
-          "t1": 4.5,
+          "t1": 4.7,
           "text": "All the fire’s gas must pass through this constriction, at the hottest point."
         },
         {
-          "t0": 4.5,
-          "t1": 7.16,
+          "t0": 4.7,
+          "t1": 7.18,
           "text": "Vapours and tars come down with the wood."
         },
         {
-          "t0": 7.16,
-          "t1": 10.42,
+          "t0": 7.18,
+          "t1": 9.88,
           "text": "If they skirted the flame, they would come out as they are."
         },
         {
-          "t0": 10.42,
-          "t1": 12.2,
+          "t0": 9.88,
+          "t1": 11.7,
           "text": "The ring forces them through it."
         },
         {
-          "t0": 12.2,
-          "t1": 17.3,
-          "text": "It lasts about seven hundred hours, then is replaced, judging by several vehicles."
+          "t0": 11.7,
+          "t1": 17.24,
+          "text": "It lasts about seven hundred hours, then is repaired or replaced, judging by several vehicles."
         },
         {
-          "t0": 17.3,
+          "t0": 17.24,
           "t1": 20.32,
           "text": "We say here what this part does, and nothing of how it is made."
         }
@@ -2937,40 +2937,40 @@
       "title": "Primary-air valve",
       "scene": "gas-train",
       "file": "part-primary-air-valve.mp3",
-      "duration": 12.24,
-      "chars": 191,
-      "hash": "8ec2f6249ba3e1ea",
+      "duration": 11.2,
+      "chars": 185,
+      "hash": "10f887664f0cc1d9",
       "captions": [
         {
           "t0": 0,
-          "t1": 4.12,
-          "text": "On the report’s diagram, the fire’s air leaves the fan’s eye."
+          "t1": 3.78,
+          "text": "On the report’s diagram, the fire’s air leaves the fan."
         },
         {
-          "t0": 4.12,
-          "t1": 7.4,
+          "t0": 3.78,
+          "t1": 6.74,
           "text": "It passes this valve, then enters the gasifier."
         },
         {
-          "t0": 7.4,
-          "t1": 9.4,
+          "t0": 6.74,
+          "t1": 8.54,
           "text": "The air dots follow that path."
         },
         {
-          "t0": 9.4,
-          "t1": 12.24,
+          "t0": 8.54,
+          "t1": 11.2,
           "text": "We give no position and no setting for this valve."
         }
       ],
       "cues": [
         {
-          "t": 7.4,
+          "t": 6.74,
           "do": {
             "flows": true
           }
         },
         {
-          "t": 9.4,
+          "t": 8.54,
           "do": {
             "flows": false
           }
@@ -2984,21 +2984,21 @@
       "scene": "gas-train",
       "file": "part-cyclone.mp3",
       "duration": 15.2,
-      "chars": 271,
-      "hash": "ff7b505119baab2a",
+      "chars": 276,
+      "hash": "587198d327f15a81",
       "captions": [
         {
           "t0": 0,
-          "t1": 5.8,
+          "t1": 5.4,
           "text": "A good cyclone spins the gas and throws the dust against its walls: sixty to seventy per cent."
         },
         {
-          "t0": 5.8,
-          "t1": 11.22,
-          "text": "It appears on the diagram of another system, one with a fabric filter, not on this tractor’s."
+          "t0": 5.4,
+          "t1": 11.08,
+          "text": "It appears on the diagram of another test system, one with a fabric filter, not on this tractor’s."
         },
         {
-          "t0": 11.22,
+          "t0": 11.08,
           "t1": 15.2,
           "text": "Nothing we have read says whether it had one, and the photograph cannot settle it."
         }
@@ -3062,46 +3062,51 @@
       "title": "Filter bags",
       "scene": "gas-train",
       "file": "part-filter-bags.mp3",
-      "duration": 16.64,
-      "chars": 277,
-      "hash": "5a7fc1d6ac62057c",
+      "duration": 18.48,
+      "chars": 288,
+      "hash": "ac8446b6f169e0e4",
       "captions": [
         {
           "t0": 0,
-          "t1": 4.18,
-          "text": "The cloth is hung in flat bags: the gas passes through, the dust stays."
+          "t1": 2.1,
+          "text": "The cloth is hung in flat bags."
         },
         {
-          "t0": 4.18,
-          "t1": 9.24,
-          "text": "Behind it, only three tenths of a milligram of dust per cubic metre remains."
+          "t0": 2.1,
+          "t1": 5.36,
+          "text": "The gas passes through, and the dust stays behind."
         },
         {
-          "t0": 9.24,
-          "t1": 10.6,
+          "t0": 5.36,
+          "t1": 10.2,
+          "text": "Only three tenths of a milligram of dust per cubic metre remains in the gas."
+        },
+        {
+          "t0": 10.2,
+          "t1": 12.02,
           "text": "But the cloth clogs."
         },
         {
-          "t0": 10.6,
-          "t1": 12.94,
+          "t0": 12.02,
+          "t1": 15.1,
           "text": "It darkens as dust settles in it."
         },
         {
-          "t0": 12.94,
-          "t1": 16.64,
+          "t0": 15.1,
+          "t1": 18.48,
           "text": "Its resistance doubled around three thousand kilometres, on a test truck."
         }
       ],
       "cues": [
         {
-          "t": 10.6,
+          "t": 12.02,
           "do": {
             "lab": "scenario",
             "arg": "filter-ageing"
           }
         },
         {
-          "t": 16.64,
+          "t": 18.48,
           "do": {
             "lab": "preset",
             "arg": "mf-1100"
@@ -3376,20 +3381,20 @@
       "file": "part-exhaust-pipe.mp3",
       "duration": 18.32,
       "chars": 301,
-      "hash": "8cb8b8622461c8b5",
+      "hash": "ef6ffb747cddb600",
       "captions": [
         {
           "t0": 0,
-          "t1": 6.94,
+          "t1": 6.98,
           "text": "At the engine’s exit, at work, very little carbon monoxide gets through: three tenths of a per cent in the model."
         },
         {
-          "t0": 6.94,
-          "t1": 12.36,
-          "text": "But at idle, readings in the exhaust of wartime engines give five to eight per cent."
+          "t0": 6.98,
+          "t1": 12.28,
+          "text": "But at idle, readings give five to eight per cent in the exhaust of wartime engines."
         },
         {
-          "t0": 12.36,
+          "t0": 12.28,
           "t1": 18.32,
           "text": "The model reads that figure this way: at idle, most of the gas crosses the engine unburnt, two thirds."
         }
@@ -3823,9 +3828,9 @@
       "title": "Exhaust plume",
       "scene": "garage",
       "file": "part-exhaust-plume.mp3",
-      "duration": 15.6,
+      "duration": 15.84,
       "chars": 255,
-      "hash": "e77b9ede722a1167",
+      "hash": "310b9317a65e824b",
       "captions": [
         {
           "t0": 0,
@@ -3834,17 +3839,17 @@
         },
         {
           "t0": 4.24,
-          "t1": 10.32,
-          "text": "At idle, readings in the exhaust of wartime engines give five to eight per cent carbon monoxide."
+          "t1": 10.22,
+          "text": "At idle, readings give five to eight per cent carbon monoxide in the exhaust of wartime engines."
         },
         {
-          "t0": 10.32,
+          "t0": 10.22,
           "t1": 13.22,
           "text": "The grey plume exists only while the engine runs."
         },
         {
           "t0": 13.22,
-          "t1": 15.6,
+          "t1": 15.84,
           "text": "After that, the white of the stop takes over."
         }
       ],
@@ -3871,7 +3876,7 @@
           }
         },
         {
-          "t": 15.6,
+          "t": 15.84,
           "do": {
             "lab": "preset",
             "arg": "mf-1100"
