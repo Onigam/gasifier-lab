@@ -85,6 +85,17 @@ describe('the lab’s cues', () => {
     expect(b.params).toEqual(a.params);
   });
 
+  it('start the clock with a scenario, as a speed does: a guide closed while the clock was paused must not leave the next clip over a frozen simulation', () => {
+    const sim = new GasifierSim();
+    runCue(sim, 'pause');
+    expect(sim.params.running).toBe(false);
+    runCue(sim, 'scenario', 'engine-stops');
+    expect(sim.params.running).toBe(true);
+    runCue(sim, 'pause');
+    runCue(sim, 'speed', '455');
+    expect(sim.params.running).toBe(true);
+  });
+
   it('start a scenario, a preset and a reset', () => {
     const sim = new GasifierSim();
     runCue(sim, 'scenario', 'closed-garage');

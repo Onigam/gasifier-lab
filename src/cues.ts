@@ -110,8 +110,11 @@ export function planCue(name: string, arg?: string): CuePlan {
 export function runCue(sim: GasifierSim, name: string, arg?: string): boolean {
   const plan = planCue(name, arg);
   if (!plan) return false;
-  if (plan.kind === 'scenario') sim.applyScenario(plan.id);
-  else if (plan.kind === 'preset') sim.applyPreset(plan.id);
+  // a scenario starts the clock, as `speed` does: a guide closed in a paused window (the kit does not run closing cues) must not leave the next clip over a frozen simulation
+  if (plan.kind === 'scenario') {
+    sim.applyScenario(plan.id);
+    sim.set({ running: true });
+  } else if (plan.kind === 'preset') sim.applyPreset(plan.id);
   else if (plan.kind === 'reset') sim.reset();
   else sim.set(plan.patch);
   return true;
