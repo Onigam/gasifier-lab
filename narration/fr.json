@@ -44,7 +44,7 @@
       "scope": "scene:gas-train",
       "title": "La ligne de gaz",
       "scene": "gas-train",
-      "text": "[[home]] [[lab:preset:mf-1100]] Le gaz, de la sortie au moteur, à plat et dans l’ordre. [[flows:on]] [[frame:hot-gas-pipe]] Il sort chaud, et le tuyau le garde chaud : trop tôt refroidi, il mouillerait le filtre. [[frame:filter-box]] Là, une toile arrête la poussière. [[frame:gas-cooler]] Puis le refroidisseur le fait tomber vers vingt degrés, car un gaz plus froid est plus dense. [[frame:gas-air-mixer]] Au mélangeur, il retrouve de l’air. [[frame:cylinder-cutaway]] Dans le cylindre, un filet de gazole l’allume. [[flows:off]] [[home]] Au sol, des rubans disent où va l’énergie. Le bois qui entre, le gaz, le gazole, le travail à l’arbre, et en gris, les pertes. Il y a bien plus de gris que de travail."
+      "text": "[[home]] [[lab:preset:mf-1100]] Le gaz, de la sortie au moteur, à plat et dans l’ordre. [[flows:on]] [[frame:hot-gas-pipe]] Il sort chaud, et le tuyau le garde chaud : trop tôt refroidi, il mouillerait le filtre. [[frame:filter-box]] Là, une toile arrête la poussière. [[frame:gas-cooler]] Puis le refroidisseur le fait tomber vers vingt degrés, car un gaz plus froid est plus dense. [[frame:gas-air-mixer]] Au mélangeur, il retrouve de l’air. [[frame:cylinder-cutaway]] Dans le cylindre, un filet de gazole l’allume. [[flows:off]] [[home]] Au sol, des rubans montrent où va l’énergie. Le bois qui entre, le gaz, le gazole, le travail à l’arbre, et en gris, les pertes. Il y a bien plus de gris que de travail."
     },
     {
       "id": "scene-garage",

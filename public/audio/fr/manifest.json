@@ -1,12 +1,12 @@
 {
   "lang": "fr",
   "model": "qwen3-tts-1.7B",
-  "generatedAt": "2026-11-11T22:09:25.962Z",
+  "generatedAt": "2026-11-11T23:51:09.426Z",
   "voiceLabel": {
     "fr": "Voix de synthèse",
     "en": "Synthetic voice"
   },
-  "totalSeconds": 1371.18,
+  "totalSeconds": 1371.9,
   "segments": [
     {
       "id": "intro",
@@ -879,53 +879,53 @@
       "title": "La ligne de gaz",
       "scene": "gas-train",
       "file": "scene-gas-train.mp3",
-      "duration": 32.56,
-      "chars": 524,
-      "hash": "713e8d4d216f6f34",
+      "duration": 33.28,
+      "chars": 526,
+      "hash": "42ae85a5598a6dac",
       "captions": [
         {
           "t0": 0,
-          "t1": 4.04,
+          "t1": 3.76,
           "text": "Le gaz, de la sortie au moteur, à plat et dans l’ordre."
         },
         {
-          "t0": 4.04,
-          "t1": 9.96,
+          "t0": 3.76,
+          "t1": 9.6,
           "text": "Il sort chaud, et le tuyau le garde chaud : trop tôt refroidi, il mouillerait le filtre."
         },
         {
-          "t0": 9.96,
-          "t1": 12.56,
+          "t0": 9.6,
+          "t1": 12.14,
           "text": "Là, une toile arrête la poussière."
         },
         {
-          "t0": 12.56,
-          "t1": 17.66,
+          "t0": 12.14,
+          "t1": 17.04,
           "text": "Puis le refroidisseur le fait tomber vers vingt degrés, car un gaz plus froid est plus dense."
         },
         {
-          "t0": 17.66,
-          "t1": 19.86,
+          "t0": 17.04,
+          "t1": 19.34,
           "text": "Au mélangeur, il retrouve de l’air."
         },
         {
-          "t0": 19.86,
-          "t1": 22.24,
+          "t0": 19.34,
+          "t1": 22.16,
           "text": "Dans le cylindre, un filet de gazole l’allume."
         },
         {
-          "t0": 22.24,
-          "t1": 25.44,
-          "text": "Au sol, des rubans disent où va l’énergie."
+          "t0": 22.16,
+          "t1": 25.32,
+          "text": "Au sol, des rubans montrent où va l’énergie."
         },
         {
-          "t0": 25.44,
-          "t1": 30.8,
+          "t0": 25.32,
+          "t1": 31.3,
           "text": "Le bois qui entre, le gaz, le gazole, le travail à l’arbre, et en gris, les pertes."
         },
         {
-          "t0": 30.8,
-          "t1": 32.56,
+          "t0": 31.3,
+          "t1": 33.28,
           "text": "Il y a bien plus de gris que de travail."
         }
       ],
@@ -944,13 +944,13 @@
           }
         },
         {
-          "t": 4.04,
+          "t": 3.76,
           "do": {
             "flows": true
           }
         },
         {
-          "t": 4.04,
+          "t": 3.76,
           "do": {
             "frame": [
               "hot-gas-pipe"
@@ -958,7 +958,7 @@
           }
         },
         {
-          "t": 9.96,
+          "t": 9.6,
           "do": {
             "frame": [
               "filter-box"
@@ -966,7 +966,7 @@
           }
         },
         {
-          "t": 12.56,
+          "t": 12.14,
           "do": {
             "frame": [
               "gas-cooler"
@@ -974,7 +974,7 @@
           }
         },
         {
-          "t": 17.66,
+          "t": 17.04,
           "do": {
             "frame": [
               "gas-air-mixer"
@@ -982,7 +982,7 @@
           }
         },
         {
-          "t": 19.86,
+          "t": 19.34,
           "do": {
             "frame": [
               "cylinder-cutaway"
@@ -990,13 +990,13 @@
           }
         },
         {
-          "t": 22.24,
+          "t": 22.16,
           "do": {
             "flows": false
           }
         },
         {
-          "t": 22.24,
+          "t": 22.16,
           "do": {
             "home": true
           }
