@@ -725,7 +725,7 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
             ['part-exhaust-pipe', /The model reads that figure this way/],
             ['part-spring-lid', /may then start burning like a stove/],
             ['part-drying-zone', /Beyond about forty per cent moisture, the gas no longer burns/],
-            ['part-throat-ring', /It lasts about seven hundred hours, judging by several vehicles, then is replaced/],
+            ['part-throat-ring', /It lasts about seven hundred hours, then is replaced, judging by several vehicles/],
             ['part-fire-box', /between six hundred and a thousand hours, on the record of several vehicles/],
             ['part-grate', /On several vehicles, a moving grate lasted four hundred to seven hundred hours/],
             ['part-wood-gas-tractor', /The test bench measured forty-one/],
@@ -1051,9 +1051,9 @@ describe('narration scripts agree between languages', () => {
   it('have the same segments and the same cues in the same order', () => {
     const [fr, en] = [scripts.fr!, scripts.en!];
     expect(en.segments.map((s) => [s.id, s.scope, s.scene])).toEqual(fr.segments.map((s) => [s.id, s.scope, s.scene]));
-    // the speeds of the garage door and of the closed garage are the clip's own (each makes the gap between its cues thirty minutes of the clock, and the gaps differ between the two voices): their numbers are not compared
+    // the speeds of the garage door and of the closed garage are the clip's own (each makes the gap between its cues thirty minutes of the clock, and the gaps differ between the two voices): their numbers are not compared; so is the bedroom’s (`room-above`: the strip peaks at 670 parts per million 88 minutes of the clock after the scenario cue, and the cue is placed so that the peak falls on the spoken figure: 600 in French, 640 in English)
     const same = (id: string) => (w: string) =>
-      ['part-garage-door', 'part-closed-garage'].includes(id)
+      ['part-garage-door', 'part-closed-garage', 'part-room-above'].includes(id)
         ? w.replace(/^\[\[lab:speed:\d+\]\]$/, '[[lab:speed:N]]')
         : w;
     for (const s of fr.segments)

@@ -492,7 +492,7 @@
       "scope": "part:room-above",
       "title": "Chambre au-dessus",
       "scene": "garage",
-      "text": "Au-dessus du garage, une chambre avec un lit fait. En Suède, certains des pires accidents venaient d’une voiture au couvercle qui fuyait. Garée sous une pièce à vivre. [[lab:scenario:closed-garage]] [[lab:speed:600]] Le gaz passe par le plancher, à un rythme que personne n’a mesuré. Dans le modèle, la chambre monte à environ six cent soixante-dix parties par million. C’est plus d’une heure après le plus haut du garage. Personne n’y est dessiné. [[lab:preset:mf-1100]]"
+      "text": "Au-dessus du garage, une chambre avec un lit fait. En Suède, certains des pires accidents venaient d’une voiture au couvercle qui fuyait. [[lab:scenario:closed-garage]] [[lab:speed:600]] Garée sous une pièce à vivre. Le gaz passe par le plancher, à un rythme que personne n’a mesuré. Dans le modèle, la chambre monte à environ six cent soixante-dix parties par million. C’est plus d’une heure après le plus haut du garage. Personne n’y est dessiné. [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-post-gas-plume",

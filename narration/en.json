@@ -324,7 +324,7 @@
       "scope": "part:throat-ring",
       "title": "Throat ring",
       "scene": "gasifier",
-      "text": "All the fire’s gas must pass through this constriction, at the hottest point. Vapours and tars come down with the wood. If they skirted the flame, they would come out as they are. The ring forces them through it. It lasts about seven hundred hours, judging by several vehicles, then is replaced. We say here what this part does, and nothing of how it is made."
+      "text": "All the fire’s gas must pass through this constriction, at the hottest point. Vapours and tars come down with the wood. If they skirted the flame, they would come out as they are. The ring forces them through it. It lasts about seven hundred hours, then is replaced, judging by several vehicles. We say here what this part does, and nothing of how it is made."
     },
     {
       "id": "part-grate",
@@ -492,7 +492,7 @@
       "scope": "part:room-above",
       "title": "Room above",
       "scene": "garage",
-      "text": "Above the garage, a bedroom with a made bed. In Sweden, some of the worst accidents came from a car with a leaking lid. Parked under a living space. [[lab:scenario:closed-garage]] [[lab:speed:600]] The gas gets through the floor, at a rate nobody measured. In the model, the bedroom climbs to about six hundred and seventy parts per million. That is more than an hour after the garage’s peak. Nobody is drawn in it. [[lab:preset:mf-1100]]"
+      "text": "Above the garage, a bedroom with a made bed. In Sweden, some of the worst accidents came from a car with a leaking lid. [[lab:scenario:closed-garage]] [[lab:speed:640]] Parked under a living space. The gas gets through the floor, at a rate nobody measured. In the model, the bedroom climbs to about six hundred and seventy parts per million. That is more than an hour after the garage’s peak. Nobody is drawn in it. [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-post-gas-plume",
