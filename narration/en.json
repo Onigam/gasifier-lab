@@ -100,7 +100,7 @@
       "scope": "part:farm-garage",
       "title": "Farm garage",
       "scene": "farm",
-      "text": "Why a garage, in a lab about wood? In Sweden, two thousand eight hundred and sixty-five vehicles, most of them gasifier vehicles, caught fire in five years. Often from an electrical fault, the book notes. Many garage fires, often at night, had no known cause. In the first quarter of nineteen forty-two alone: nearly four a day."
+      "text": "Why a garage, in a lab about wood? In Sweden, two thousand eight hundred and sixty-five vehicles, most of them gasifier vehicles, caught fire in five years. Often, it seems, from an electrical fault. Many garage fires, often at night, had no known cause. In the first quarter of nineteen forty-two alone: nearly four a day."
     },
     {
       "id": "part-ash-bin",
@@ -149,7 +149,7 @@
       "scope": "part:roof-headlights",
       "title": "Roof headlights",
       "scene": "tractor",
-      "text": "A tiny part, to say that a tractor really gets modified. The headlights were moved to the roof. The left one would have been hidden by the gasifier, according to the report."
+      "text": "The headlights were moved to the roof. The left one would have been hidden by the gasifier. The two lamps as drawn are an estimate from the photograph."
     },
     {
       "id": "part-rear-wheels",
@@ -177,7 +177,7 @@
       "scope": "part:injection-pump",
       "title": "Injection pump",
       "scene": "tractor",
-      "text": "Even on gas, the diesel keeps its pump, which doses the thread of diesel the flame needs. But it sits under the bonnet, right beside the gasifier. At twenty-five hours, it seized, for want of cooling and lubrication. A radiation shield was then added, against the gasifier’s heat."
+      "text": "Even on gas, the diesel keeps its pump, which doses the thread of diesel the flame needs. But it sits under the bonnet, right beside the gasifier. At twenty-five hours, it seized, which was put down to too little cooling and lubrication. A radiation shield was then added, against the gasifier’s heat."
     },
     {
       "id": "part-heat-shield",
@@ -198,7 +198,7 @@
       "scope": "part:left-consoles",
       "title": "Left consoles",
       "scene": "tractor",
-      "text": "Four hundred and fifty kilos on one flank: that is an imbalance. How the tractor dealt with it, the report does not say. Bolted consoles carry the gasifier, fifty centimetres off the ground."
+      "text": "Four hundred and fifty kilos, mostly on one flank: that is an imbalance. The report does not say how the tractor dealt with it. Bolted consoles carry the gasifier, fifty centimetres off the ground."
     },
     {
       "id": "part-gasifier-unit",
@@ -324,7 +324,7 @@
       "scope": "part:throat-ring",
       "title": "Throat ring",
       "scene": "gasifier",
-      "text": "All the fire’s gas must pass through this constriction, at the hottest point. Vapours and tars come down with the wood. If they skirted the flame, they would come out as they are. The ring forces them through it. It lasts about seven hundred hours, then is replaced. Here we say what this part does, and nothing of how it is made."
+      "text": "All the fire’s gas must pass through this constriction, at the hottest point. Vapours and tars come down with the wood. If they skirted the flame, they would come out as they are. The ring forces them through it. It lasts about seven hundred hours, judging by several vehicles, then is replaced. We say here what this part does, and nothing of how it is made."
     },
     {
       "id": "part-grate",
@@ -387,14 +387,14 @@
       "scope": "part:primary-air-valve",
       "title": "Primary-air valve",
       "scene": "gas-train",
-      "text": "On the diagram, the fire’s air leaves the fan’s eye. It passes this valve, then enters the gasifier. [[flows:on]] The air dots follow that path. [[flows:off]] We give no position and no setting for this valve."
+      "text": "On the report’s diagram, the fire’s air leaves the fan’s eye. It passes this valve, then enters the gasifier. [[flows:on]] The air dots follow that path. [[flows:off]] We give no position and no setting for this valve."
     },
     {
       "id": "part-cyclone",
       "scope": "part:cyclone",
       "title": "Cyclone",
       "scene": "gas-train",
-      "text": "A good cyclone spins the gas and throws the dust against its walls: sixty to seventy per cent. It appears on the diagram of another system, one with a fabric filter, not on this tractor’s. The report does not say whether it had one, and the photograph cannot settle it."
+      "text": "A good cyclone spins the gas and throws the dust against its walls: sixty to seventy per cent. It appears on the diagram of another system, one with a fabric filter, not on this tractor’s. Nothing we have read says whether it had one, and the photograph cannot settle it."
     },
     {
       "id": "part-filter-box",
@@ -408,7 +408,7 @@
       "scope": "part:filter-bags",
       "title": "Filter bags",
       "scene": "gas-train",
-      "text": "The cloth is hung in flat bags: the gas passes through, the dust stays. Behind it, only three tenths of a milligram of dust per cubic metre remains. But the cloth clogs. [[lab:scenario:filter-ageing]] It darkens as dust settles in it. On the test truck, its resistance doubled around three thousand kilometres. [[lab:preset:mf-1100]]"
+      "text": "The cloth is hung in flat bags: the gas passes through, the dust stays. Behind it, only three tenths of a milligram of dust per cubic metre remains. But the cloth clogs. [[lab:scenario:filter-ageing]] It darkens as dust settles in it. Its resistance doubled around three thousand kilometres, on a test truck. [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-gas-cooler",
@@ -443,7 +443,7 @@
       "scope": "part:secondary-air-throttle",
       "title": "Secondary-air throttle",
       "scene": "gas-train",
-      "text": "A second throttle sits on the air added to the gas, the secondary air, as against the fire’s primary air. It sets the proportion. On the test truck, it was worked by hand. It is a setting with an optimum, which is not given here."
+      "text": "A second throttle sits on the air added to the gas, the secondary air, as against the fire’s primary air. It sets the proportion. On a test truck, it was worked by hand. It is a setting with an optimum, which is not given here."
     },
     {
       "id": "part-pilot-injector",
@@ -464,7 +464,7 @@
       "scope": "part:exhaust-pipe",
       "title": "Exhaust pipe",
       "scene": "gas-train",
-      "text": "At the engine’s exit, at work, very little carbon monoxide gets through: three tenths of a per cent in the model. But at idle, five to eight per cent was read in the exhaust of wartime engines. The model reads that figure this way: at idle, most of the gas crosses the engine unburnt, two thirds."
+      "text": "At the engine’s exit, at work, very little carbon monoxide gets through: three tenths of a per cent in the model. But at idle, readings in the exhaust of wartime engines give five to eight per cent. The model reads that figure this way: at idle, most of the gas crosses the engine unburnt, two thirds."
     },
     {
       "id": "part-water-gauge",
@@ -492,7 +492,7 @@
       "scope": "part:room-above",
       "title": "Room above",
       "scene": "garage",
-      "text": "Above the garage, a bedroom with a made bed. Some of the worst accidents came from a car with a leaking lid. Parked under a living space. [[lab:scenario:closed-garage]] [[lab:speed:600]] The gas gets through the floor, at a rate nobody measured. The bedroom climbs to about six hundred and seventy parts per million, more than an hour after the garage’s peak. Nobody is drawn in it. [[lab:preset:mf-1100]]"
+      "text": "Above the garage, a bedroom with a made bed. In Sweden, some of the worst accidents came from a car with a leaking lid. Parked under a living space. [[lab:scenario:closed-garage]] [[lab:speed:600]] The gas gets through the floor, at a rate nobody measured. In the model, the bedroom climbs to about six hundred and seventy parts per million. That is more than an hour after the garage’s peak. Nobody is drawn in it. [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-post-gas-plume",
@@ -506,7 +506,7 @@
       "scope": "part:exhaust-plume",
       "title": "Exhaust plume",
       "scene": "garage",
-      "text": "[[lab:preset:mf-1100]] [[lab:place:garage]] An engine can also run in the garage, and its exhaust goes in. At idle, five to eight per cent carbon monoxide was read in the exhaust of wartime engines. The grey plume exists only while the engine runs. [[lab:engine:off]] After that, the white of the stop takes over. [[lab:preset:mf-1100]]"
+      "text": "[[lab:preset:mf-1100]] [[lab:place:garage]] An engine can also run in the garage, and its exhaust goes in. At idle, readings in the exhaust of wartime engines give five to eight per cent carbon monoxide. The grey plume exists only while the engine runs. [[lab:engine:off]] After that, the white of the stop takes over. [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-co-indicator",
