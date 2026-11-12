@@ -1,12 +1,12 @@
 {
   "lang": "en",
   "model": "qwen3-tts-1.7B",
-  "generatedAt": "2026-11-12T07:31:18.076Z",
+  "generatedAt": "2026-11-12T07:56:12.387Z",
   "voiceLabel": {
     "fr": "Voix de synthèse",
     "en": "Synthetic voice"
   },
-  "totalSeconds": 1379.1,
+  "totalSeconds": 1378.46,
   "segments": [
     {
       "id": "intro",
@@ -2299,24 +2299,29 @@
       "title": "Fuel baffle",
       "scene": "gasifier",
       "file": "part-fuel-baffle.mp3",
-      "duration": 13.84,
-      "chars": 229,
-      "hash": "4c9bfa1ecfae04c7",
+      "duration": 13.2,
+      "chars": 244,
+      "hash": "5bd4918a56ececc8",
       "captions": [
         {
           "t0": 0,
-          "t1": 6.12,
-          "text": "In the bunker, the fuel stuck to the wall, in the pyrolysis zone, where tars condense."
+          "t1": 5.78,
+          "text": "In the bunker, the fuel stuck to the wall, in the pyrolysis zone, where some of the tars condense."
         },
         {
-          "t0": 6.12,
-          "t1": 7.38,
+          "t0": 5.78,
+          "t1": 6.96,
           "text": "It formed bridges."
         },
         {
-          "t0": 7.38,
-          "t1": 13.84,
-          "text": "The report on the institute says a baffle that removes this contact brought the problem down to what was judged acceptable."
+          "t0": 6.96,
+          "t1": 10.19,
+          "text": "The report on the institute says a baffle, which removes this contact,"
+        },
+        {
+          "t0": 10.36,
+          "t1": 13.2,
+          "text": "brought the problem down to what was judged acceptable."
         }
       ],
       "cues": []
