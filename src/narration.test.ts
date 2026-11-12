@@ -776,28 +776,34 @@ describe.each(Object.keys(manifests))('narration audio %s', (lang) => {
     for (const s of raw) expect(s.chars, s.id).toBe(spokenOf(script.segments.find((x) => x.id === s.id)!).length);
   });
 
-  it('shows the strip at thirty minutes when the garage door’s three figures are spoken: each is said after a pause cue that stops a run restarted at a speed which makes the gap between the cues thirty minutes of the model’s clock (docs/qa.md, fifth pass, D-N1)', () => {
-    const cues = manifest!.segments.find((s) => s.id === 'part-garage-door')!.cues as {
-      t: number;
-      do: Record<string, unknown>;
-    }[];
-    const labs = cues
-      .filter((c) => c.do.lab)
-      .map((c) => ({ t: c.t, name: String(c.do.lab), arg: String(c.do.arg ?? '') }));
-    const runs: number[] = [];
-    labs.forEach((c, i) => {
-      if (c.name !== 'speed') return;
-      const stop = labs.slice(i + 1).find((x) => x.name === 'pause');
-      expect(stop, 'a speed cue with no pause cue after it').toBeDefined();
-      runs.push((stop!.t - c.t) * Number(c.arg));
-    });
-    expect(runs, 'one run for each state of the door').toHaveLength(3);
-    // the strip is at 30 minutes (1,800 s) within 4 %: the model’s figures are those of the thirtieth minute (ajar falls 2.6 % a minute, open 6 %)
-    for (const r of runs) {
-      expect(r).toBeGreaterThan(1730);
-      expect(r).toBeLessThan(1870);
-    }
-  });
+  it.each([
+    ['part-garage-door', 3],
+    ['part-closed-garage', 1],
+  ])(
+    'shows the strip at thirty minutes when %s says its figures: each run is restarted at a speed that makes the gap between its speed cue and its pause cue thirty minutes of the model’s clock (docs/qa.md, fifth pass, D-N1)',
+    (id, count) => {
+      const cues = manifest!.segments.find((s) => s.id === id)!.cues as {
+        t: number;
+        do: Record<string, unknown>;
+      }[];
+      const labs = cues
+        .filter((c) => c.do.lab)
+        .map((c) => ({ t: c.t, name: String(c.do.lab), arg: String(c.do.arg ?? '') }));
+      const runs: number[] = [];
+      labs.forEach((c, i) => {
+        if (c.name !== 'speed') return;
+        const stop = labs.slice(i + 1).find((x) => x.name === 'pause');
+        expect(stop, 'a speed cue with no pause cue after it').toBeDefined();
+        runs.push((stop!.t - c.t) * Number(c.arg));
+      });
+      expect(runs, `${count} run(s)`).toHaveLength(count as number);
+      // the strip is at 30 minutes (1,800 s) within 4 %: the model’s figures are those of the thirtieth minute (ajar falls 2.6 % a minute, open 6 %)
+      for (const r of runs) {
+        expect(r).toBeGreaterThan(1730);
+        expect(r).toBeLessThan(1870);
+      }
+    },
+  );
 });
 
 describe('the private transcripts', () => {
@@ -847,9 +853,11 @@ describe('narration scripts agree between languages', () => {
   it('have the same segments and the same cues in the same order', () => {
     const [fr, en] = [scripts.fr!, scripts.en!];
     expect(en.segments.map((s) => [s.id, s.scope, s.scene])).toEqual(fr.segments.map((s) => [s.id, s.scope, s.scene]));
-    // the garage door's three speeds are the clip's own (each makes the gap between its cues thirty minutes of the clock, and the gaps differ between the two voices): their numbers are not compared
+    // the speeds of the garage door and of the closed garage are the clip's own (each makes the gap between its cues thirty minutes of the clock, and the gaps differ between the two voices): their numbers are not compared
     const same = (id: string) => (w: string) =>
-      id === 'part-garage-door' ? w.replace(/^\[\[lab:speed:\d+\]\]$/, '[[lab:speed:N]]') : w;
+      ['part-garage-door', 'part-closed-garage'].includes(id)
+        ? w.replace(/^\[\[lab:speed:\d+\]\]$/, '[[lab:speed:N]]')
+        : w;
     for (const s of fr.segments)
       expect(
         cuesOf(en.segments.find((x) => x.id === s.id)!.text).map(([w]) => same(s.id)(w)),

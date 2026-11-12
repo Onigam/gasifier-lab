@@ -478,7 +478,7 @@
       "scope": "part:closed-garage",
       "title": "Garage fermé",
       "scene": "garage",
-      "text": "La pièce où la machine est garée : cinquante mètres cubes d’air, ou mille. [[lab:scenario:closed-garage]] [[flows:on]] Ces points, c’est le monoxyde. Le modèle y met un mètre cube de gaz après l’arrêt. Une demi-heure plus tard, la petite pièce atteint environ trois mille cinq cents parties par million. La grande, deux cents. Mais cette boîte est bien mélangée : un vrai garage garde ce gaz en couches, bien plus concentrées. [[flows:off]] [[lab:preset:mf-1100]]"
+      "text": "La pièce où la machine est garée : cinquante mètres cubes d’air, ou mille. [[lab:scenario:closed-garage]] [[flows:on]] [[lab:speed:340]] Ces points, c’est le monoxyde. Le modèle y met un mètre cube de gaz après l’arrêt. [[lab:pause]] Une demi-heure plus tard, la petite pièce atteint environ trois mille cinq cents parties par million. La grande, deux cents. Mais cette boîte est bien mélangée : un vrai garage garde ce gaz en couches, bien plus concentrées. [[flows:off]] [[lab:play]] [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-garage-door",

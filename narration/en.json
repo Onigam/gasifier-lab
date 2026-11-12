@@ -478,7 +478,7 @@
       "scope": "part:closed-garage",
       "title": "Closed garage",
       "scene": "garage",
-      "text": "The room where the machine is parked: fifty cubic metres of air, or a thousand. [[lab:scenario:closed-garage]] [[flows:on]] The dots are the carbon monoxide. The model puts one cubic metre of gas in it after the stop. Half an hour later the small room reaches about three thousand five hundred parts per million. The large one, two hundred. But this box is well mixed: a real garage holds this gas in layers, far more concentrated. [[flows:off]] [[lab:preset:mf-1100]]"
+      "text": "The room where the machine is parked: fifty cubic metres of air, or a thousand. [[lab:scenario:closed-garage]] [[flows:on]] [[lab:speed:293]] The dots are the carbon monoxide. The model puts one cubic metre of gas in it after the stop. [[lab:pause]] Half an hour later the small room reaches about three thousand five hundred parts per million. The large one, two hundred. But this box is well mixed: a real garage holds this gas in layers, far more concentrated. [[flows:off]] [[lab:play]] [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-garage-door",
