@@ -1,12 +1,12 @@
 {
   "lang": "fr",
   "model": "qwen3-tts-1.7B",
-  "generatedAt": "2026-11-12T11:04:31.106Z",
+  "generatedAt": "2026-11-12T15:49:50.092Z",
   "voiceLabel": {
     "fr": "Voix de synthèse",
     "en": "Synthetic voice"
   },
-  "totalSeconds": 1399.36,
+  "totalSeconds": 1405.76,
   "segments": [
     {
       "id": "intro",
@@ -1365,33 +1365,33 @@
       "title": "Garage",
       "scene": "farm",
       "file": "part-farm-garage.mp3",
-      "duration": 18.8,
-      "chars": 338,
-      "hash": "5b85645859aefe2f",
+      "duration": 19.28,
+      "chars": 337,
+      "hash": "ee279b93473f57fe",
       "captions": [
         {
           "t0": 0,
-          "t1": 2.44,
+          "t1": 1.96,
           "text": "Pourquoi un garage, dans un lab de bois ?"
         },
         {
-          "t0": 2.44,
-          "t1": 8.64,
+          "t0": 1.96,
+          "t1": 9.04,
           "text": "En Suède, deux mille huit cent soixante-cinq véhicules, la plupart à gazogène, ont pris feu en cinq ans."
         },
         {
-          "t0": 8.64,
-          "t1": 11.2,
-          "text": "Souvent d’un défaut électrique, note le livre."
+          "t0": 9.04,
+          "t1": 12.06,
+          "text": "Souvent, semble-t-il, d’un défaut électrique."
         },
         {
-          "t0": 11.2,
-          "t1": 14.9,
+          "t0": 12.06,
+          "t1": 15.32,
           "text": "Beaucoup de feux de garage, souvent la nuit, sans cause connue."
         },
         {
-          "t0": 14.9,
-          "t1": 18.8,
+          "t0": 15.32,
+          "t1": 19.28,
           "text": "Au premier trimestre de mille neuf cent quarante-deux : presque quatre par jour."
         }
       ],
@@ -1622,24 +1622,24 @@
       "title": "Phares de toit",
       "scene": "tractor",
       "file": "part-roof-headlights.mp3",
-      "duration": 10.64,
-      "chars": 180,
-      "hash": "fbdd705d1c8562d5",
+      "duration": 8.8,
+      "chars": 164,
+      "hash": "44010ef7d22735be",
       "captions": [
         {
           "t0": 0,
-          "t1": 4.02,
-          "text": "Une pièce minuscule, pour dire qu’un tracteur se modifie vraiment."
-        },
-        {
-          "t0": 4.02,
-          "t1": 6.78,
+          "t1": 2.56,
           "text": "Les phares ont été déplacés sur le toit."
         },
         {
-          "t0": 6.78,
-          "t1": 10.64,
-          "text": "Le phare de gauche aurait été caché par le gazogène, d’après le rapport."
+          "t0": 2.56,
+          "t1": 5.64,
+          "text": "Le phare de gauche aurait été caché par le gazogène."
+        },
+        {
+          "t0": 5.64,
+          "t1": 8.8,
+          "text": "Les deux lampes dessinées sont une estimation d’après la photographie."
         }
       ],
       "cues": []
@@ -1769,28 +1769,28 @@
       "title": "Pompe d’injection",
       "scene": "tractor",
       "file": "part-injection-pump.mp3",
-      "duration": 17.2,
-      "chars": 298,
-      "hash": "1a0a948166013d72",
+      "duration": 19.04,
+      "chars": 326,
+      "hash": "bf6303822a47fb22",
       "captions": [
         {
           "t0": 0,
-          "t1": 5.48,
+          "t1": 5.64,
           "text": "Même au gaz, le diesel garde sa pompe, qui dose le filet de gazole dont la flamme a besoin."
         },
         {
-          "t0": 5.48,
-          "t1": 8.26,
+          "t0": 5.64,
+          "t1": 8.78,
           "text": "Mais elle est sous le capot, tout près du gazogène."
         },
         {
-          "t0": 8.26,
-          "t1": 13.02,
-          "text": "À vingt-cinq heures, elle a grippé, faute de refroidissement et de graissage."
+          "t0": 8.78,
+          "t1": 14.86,
+          "text": "À vingt-cinq heures, elle a grippé, ce qui a été attribué à un manque de refroidissement et de graissage."
         },
         {
-          "t0": 13.02,
-          "t1": 17.2,
+          "t0": 14.86,
+          "t1": 19.04,
           "text": "Un écran de rayonnement a ensuite été ajouté, contre la chaleur du gazogène."
         }
       ],
@@ -1858,23 +1858,23 @@
       "title": "Consoles",
       "scene": "tractor",
       "file": "part-left-consoles.mp3",
-      "duration": 11.84,
-      "chars": 203,
-      "hash": "7843ccaa63fb581d",
+      "duration": 11.12,
+      "chars": 208,
+      "hash": "7ec560ff5b94b0c7",
       "captions": [
         {
           "t0": 0,
-          "t1": 4.02,
-          "text": "Quatre cent cinquante kilos sur un seul flanc : c’est un déséquilibre."
+          "t1": 4.7,
+          "text": "Quatre cent cinquante kilos, surtout sur un seul flanc : c’est un déséquilibre."
         },
         {
-          "t0": 4.02,
-          "t1": 7.72,
-          "text": "Comment le tracteur l’a pris, le rapport n’en dit rien."
+          "t0": 4.7,
+          "t1": 7.1,
+          "text": "Le rapport ne dit pas comment le tracteur l’a pris."
         },
         {
-          "t0": 7.72,
-          "t1": 11.84,
+          "t0": 7.1,
+          "t1": 11.12,
           "text": "Des consoles boulonnées portent le gazogène, à cinquante centimètres du sol."
         }
       ],
@@ -2619,38 +2619,38 @@
       "title": "Anneau de gorge",
       "scene": "gasifier",
       "file": "part-throat-ring.mp3",
-      "duration": 19.84,
-      "chars": 336,
-      "hash": "bdcf21b5e1f194f1",
+      "duration": 22.08,
+      "chars": 381,
+      "hash": "b3d5e38ab96d55d5",
       "captions": [
         {
           "t0": 0,
-          "t1": 4.66,
+          "t1": 4.3,
           "text": "L’étranglement par où passe tout le gaz du feu, au point le plus chaud."
         },
         {
-          "t0": 4.66,
-          "t1": 7.72,
+          "t0": 4.3,
+          "t1": 7.6,
           "text": "Les vapeurs et les goudrons descendent avec le bois."
         },
         {
-          "t0": 7.72,
-          "t1": 11.14,
+          "t0": 7.6,
+          "t1": 10.64,
           "text": "S’ils contournaient la flamme, ils sortiraient tels quels."
         },
         {
-          "t0": 11.14,
-          "t1": 12.74,
+          "t0": 10.64,
+          "t1": 12.72,
           "text": "L’anneau les force à la traverser."
         },
         {
-          "t0": 12.74,
-          "t1": 16.32,
-          "text": "Il tient environ sept cents heures, puis se remplace."
+          "t0": 12.72,
+          "t1": 17.88,
+          "text": "Il tient environ sept cents heures, d’après l’expérience de plusieurs véhicules, puis se remplace."
         },
         {
-          "t0": 16.32,
-          "t1": 19.84,
+          "t0": 17.88,
+          "t1": 22.08,
           "text": "Ici, on dit ce que fait cette pièce, et rien de sa fabrication."
         }
       ],
@@ -2937,40 +2937,40 @@
       "title": "Vanne d’air primaire",
       "scene": "gas-train",
       "file": "part-primary-air-valve.mp3",
-      "duration": 12.32,
-      "chars": 208,
-      "hash": "a886de2baa8b51d3",
+      "duration": 12.48,
+      "chars": 219,
+      "hash": "501189487b2b363f",
       "captions": [
         {
           "t0": 0,
-          "t1": 3.62,
-          "text": "Sur le schéma, l’air du feu part de l’œil du ventilateur."
+          "t1": 3.84,
+          "text": "Sur le schéma du rapport, l’air du feu part de l’œil du ventilateur."
         },
         {
-          "t0": 3.62,
-          "t1": 6.76,
+          "t0": 3.84,
+          "t1": 7.08,
           "text": "Il passe par cette vanne, puis entre au gazogène."
         },
         {
-          "t0": 6.76,
-          "t1": 8.56,
+          "t0": 7.08,
+          "t1": 8.9,
           "text": "Les points d’air suivent ce chemin."
         },
         {
-          "t0": 8.56,
-          "t1": 12.32,
+          "t0": 8.9,
+          "t1": 12.48,
           "text": "Nous ne donnons aucune position ni aucun réglage de cette vanne."
         }
       ],
       "cues": [
         {
-          "t": 6.76,
+          "t": 7.08,
           "do": {
             "flows": true
           }
         },
         {
-          "t": 8.56,
+          "t": 8.9,
           "do": {
             "flows": false
           }
@@ -2983,24 +2983,24 @@
       "title": "Cyclone",
       "scene": "gas-train",
       "file": "part-cyclone.mp3",
-      "duration": 16.08,
-      "chars": 278,
-      "hash": "bb90c73c20ea0ea4",
+      "duration": 15.68,
+      "chars": 292,
+      "hash": "dbaccc2f0a1f7468",
       "captions": [
         {
           "t0": 0,
-          "t1": 5.78,
+          "t1": 5.66,
           "text": "Un bon cyclone fait tourner le gaz et jette la poussière contre ses parois : soixante à soixante-dix pour cent."
         },
         {
-          "t0": 5.78,
-          "t1": 11.66,
+          "t0": 5.66,
+          "t1": 11.6,
           "text": "Il figure sur le schéma d’un autre système, à filtre à toile, pas sur celui de ce tracteur."
         },
         {
-          "t0": 11.66,
-          "t1": 16.08,
-          "text": "Le rapport ne dit pas s’il en avait un, et la photographie ne tranche pas."
+          "t0": 11.6,
+          "t1": 15.68,
+          "text": "Rien de ce que nous avons lu ne dit s’il en avait un, et la photographie ne tranche pas."
         }
       ],
       "cues": []
@@ -3062,46 +3062,46 @@
       "title": "Manches",
       "scene": "gas-train",
       "file": "part-filter-bags.mp3",
-      "duration": 17.2,
+      "duration": 18.32,
       "chars": 312,
-      "hash": "2351fd66a932d4b2",
+      "hash": "5c1a5c16de1975fa",
       "captions": [
         {
           "t0": 0,
-          "t1": 5.52,
+          "t1": 5.5,
           "text": "La toile est montée en manches plates : le gaz passe à travers, la poussière reste."
         },
         {
-          "t0": 5.52,
-          "t1": 9.38,
+          "t0": 5.5,
+          "t1": 10.08,
           "text": "Derrière elle, il n’en reste que trois dixièmes de milligramme par mètre cube."
         },
         {
-          "t0": 9.38,
-          "t1": 10.98,
+          "t0": 10.08,
+          "t1": 12.26,
           "text": "Mais la toile s’encrasse."
         },
         {
-          "t0": 10.98,
-          "t1": 13.54,
+          "t0": 12.26,
+          "t1": 14.8,
           "text": "Elle fonce à mesure que la poussière s’y dépose."
         },
         {
-          "t0": 13.54,
-          "t1": 17.2,
-          "text": "Sur le camion d’essai, sa résistance doublait vers trois mille kilomètres."
+          "t0": 14.8,
+          "t1": 18.32,
+          "text": "Sur un camion d’essai, sa résistance doublait vers trois mille kilomètres."
         }
       ],
       "cues": [
         {
-          "t": 10.98,
+          "t": 12.26,
           "do": {
             "lab": "scenario",
             "arg": "filter-ageing"
           }
         },
         {
-          "t": 17.2,
+          "t": 18.32,
           "do": {
             "lab": "preset",
             "arg": "mf-1100"
@@ -3280,33 +3280,33 @@
       "title": "Papillon d’air",
       "scene": "gas-train",
       "file": "part-secondary-air-throttle.mp3",
-      "duration": 14.88,
+      "duration": 15.44,
       "chars": 244,
-      "hash": "f70f7bde79af573c",
+      "hash": "af0368380148b0d5",
       "captions": [
         {
           "t0": 0,
-          "t1": 4.46,
+          "t1": 4.59,
           "text": "Un deuxième papillon se trouve sur l’air qu’on ajoute au gaz, l’air secondaire,"
         },
         {
-          "t0": 4.46,
-          "t1": 7,
+          "t0": 4.74,
+          "t1": 7.14,
           "text": "par opposition à l’air primaire du feu."
         },
         {
-          "t0": 7,
-          "t1": 8.76,
+          "t0": 7.14,
+          "t1": 8.88,
           "text": "Il règle la proportion."
         },
         {
-          "t0": 8.76,
-          "t1": 11.86,
-          "text": "Sur le camion d’essai, il se manœuvrait à la main."
+          "t0": 8.88,
+          "t1": 11.96,
+          "text": "Sur un camion d’essai, il se manœuvrait à la main."
         },
         {
-          "t0": 11.86,
-          "t1": 14.88,
+          "t0": 11.96,
+          "t1": 15.44,
           "text": "Ce réglage a un optimum, qui n’est pas donné ici."
         }
       ],
@@ -3384,23 +3384,23 @@
       "title": "Échappement",
       "scene": "gas-train",
       "file": "part-exhaust-pipe.mp3",
-      "duration": 16.64,
-      "chars": 302,
-      "hash": "19bfe5d00545b441",
+      "duration": 18.32,
+      "chars": 310,
+      "hash": "ff863346d9a0b589",
       "captions": [
         {
           "t0": 0,
-          "t1": 5.98,
+          "t1": 5.88,
           "text": "À la sortie du moteur en charge, il passe très peu de monoxyde : trois dixièmes de pour cent dans le modèle."
         },
         {
-          "t0": 5.98,
-          "t1": 11.08,
-          "text": "Mais au ralenti, on a relevé, à l’échappement des moteurs de la guerre, cinq à huit pour cent."
+          "t0": 5.88,
+          "t1": 11.02,
+          "text": "Mais au ralenti, des relevés donnent, à l’échappement des moteurs de la guerre, cinq à huit pour cent."
         },
         {
-          "t0": 11.08,
-          "t1": 16.64,
+          "t0": 11.02,
+          "t1": 18.32,
           "text": "Le modèle lit ce chiffre ainsi : au ralenti, l’essentiel du gaz passe sans brûler, les deux tiers."
         }
       ],
@@ -3700,63 +3700,63 @@
       "title": "Chambre au-dessus",
       "scene": "garage",
       "file": "part-room-above.mp3",
-      "duration": 20.4,
-      "chars": 367,
-      "hash": "1d35dc106e7f6373",
+      "duration": 22.24,
+      "chars": 399,
+      "hash": "c02f551004c025ef",
       "captions": [
         {
           "t0": 0,
-          "t1": 3.14,
+          "t1": 3.32,
           "text": "Au-dessus du garage, une chambre avec un lit fait."
         },
         {
-          "t0": 3.14,
-          "t1": 6.74,
-          "text": "Certains des pires accidents venaient d’une voiture au couvercle qui fuyait."
+          "t0": 3.32,
+          "t1": 7.94,
+          "text": "En Suède, certains des pires accidents venaient d’une voiture au couvercle qui fuyait."
         },
         {
-          "t0": 6.74,
-          "t1": 8.58,
+          "t0": 7.94,
+          "t1": 9.84,
           "text": "Garée sous une pièce à vivre."
         },
         {
-          "t0": 8.58,
-          "t1": 12.84,
+          "t0": 9.84,
+          "t1": 13.88,
           "text": "Le gaz passe par le plancher, à un rythme que personne n’a mesuré."
         },
         {
-          "t0": 12.84,
-          "t1": 16.28,
-          "text": "La chambre monte à environ six cent soixante-dix parties par million,"
+          "t0": 13.88,
+          "t1": 18.44,
+          "text": "Dans le modèle, la chambre monte à environ six cent soixante-dix parties par million."
         },
         {
-          "t0": 16.5,
-          "t1": 19.02,
-          "text": "plus d’une heure après le plus haut du garage."
+          "t0": 18.44,
+          "t1": 21.16,
+          "text": "C’est plus d’une heure après le plus haut du garage."
         },
         {
-          "t0": 19.02,
-          "t1": 20.4,
+          "t0": 21.16,
+          "t1": 22.24,
           "text": "Personne n’y est dessiné."
         }
       ],
       "cues": [
         {
-          "t": 8.58,
+          "t": 7.94,
           "do": {
             "lab": "scenario",
             "arg": "closed-garage"
           }
         },
         {
-          "t": 8.58,
+          "t": 7.94,
           "do": {
             "lab": "speed",
             "arg": "600"
           }
         },
         {
-          "t": 20.4,
+          "t": 22.24,
           "do": {
             "lab": "preset",
             "arg": "mf-1100"
@@ -3838,28 +3838,28 @@
       "title": "Gaz d’échappement",
       "scene": "garage",
       "file": "part-exhaust-plume.mp3",
-      "duration": 17.28,
-      "chars": 286,
-      "hash": "c79b01be2f6185c7",
+      "duration": 16.72,
+      "chars": 294,
+      "hash": "4a080639e20857c8",
       "captions": [
         {
           "t0": 0,
-          "t1": 4.46,
+          "t1": 4.06,
           "text": "Un moteur peut aussi tourner dans le garage, et son échappement y entre."
         },
         {
-          "t0": 4.46,
-          "t1": 10.86,
-          "text": "Au ralenti, on a relevé, à l’échappement des moteurs de la guerre, cinq à huit pour cent de monoxyde."
+          "t0": 4.06,
+          "t1": 10.56,
+          "text": "Au ralenti, des relevés donnent, à l’échappement des moteurs de la guerre, cinq à huit pour cent de monoxyde."
         },
         {
-          "t0": 10.86,
-          "t1": 14.64,
+          "t0": 10.56,
+          "t1": 14.14,
           "text": "Le panache gris n’existe que tant que le moteur tourne."
         },
         {
-          "t0": 14.64,
-          "t1": 17.28,
+          "t0": 14.14,
+          "t1": 16.72,
           "text": "Ensuite, c’est le blanc de l’arrêt qui prend le relais."
         }
       ],
@@ -3879,14 +3879,14 @@
           }
         },
         {
-          "t": 14.64,
+          "t": 14.14,
           "do": {
             "lab": "engine",
             "arg": "off"
           }
         },
         {
-          "t": 17.28,
+          "t": 16.72,
           "do": {
             "lab": "preset",
             "arg": "mf-1100"
