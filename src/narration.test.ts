@@ -20,9 +20,9 @@ const CUE = /\[\[([a-z]+)(?::([^\]]*))?\]\]/g;
 const BOOLEAN_CUES = ['xray', 'cutaway', 'flows', 'isolate'];
 const MODES = ['explore', 'assembly', 'install', 'sim', 'plans', 'lessons'];
 const CAMERA_CUES = ['home', 'scene', 'frame', 'select'];
-/** Ceiling set by the owner for the spoken characters of one language, and what this guide aims for (the series' 17,000 to 24,000). */
+/** Ceiling set by the owner for the spoken characters of one language, and what this guide holds itself to: the series aims for 17,000 to 24,000, and this lab's upper limit is 25,000 since the fifth pass (docs/narration-notes.md §1d: each part says in a few words which source it quotes, for a visitor who clicks « Écouter » on one part cold). */
 const BUDGET = 30_000;
-const AIM = [17_000, 24_000] as const;
+const AIM = [17_000, 25_000] as const;
 /** generate.mjs refuses a longer segment. */
 const SEGMENT_CAP = 2_500;
 /** This lab's guide is in the local voice (generate.mjs --engine voicebox): a change of voice must be a decision, not an accident. */
@@ -70,7 +70,7 @@ const ONCE: Record<string, Record<string, [RegExp, string]>> = {
     thirtyFour: [/trente-quatre kilos/i, 'part-wood-gas-tractor'],
     neverGoesOut: [/ne s’éteint jamais/i, 'part-drying-zone'],
     oneCubicMetre: [/un mètre cube de gaz après l’arrêt/i, 'part-closed-garage'],
-    noEnd: [/ne dit quand une pièce n’en garde plus/i, 'part-post-gas-plume'],
+    noEnd: [/ne dit quand une pièce ne garde plus de ce gaz/i, 'part-post-gas-plume'],
   },
   en: {
     reconstruction: [/educational reconstruction/i, 'intro'],
@@ -83,7 +83,7 @@ const ONCE: Record<string, Record<string, [RegExp, string]>> = {
     thirtyFour: [/thirty-four kilos/i, 'part-wood-gas-tractor'],
     neverGoesOut: [/flame never goes out/i, 'part-drying-zone'],
     oneCubicMetre: [/one cubic metre of gas in it after the stop/i, 'part-closed-garage'],
-    noEnd: [/says when a room holds none of it/i, 'part-post-gas-plume'],
+    noEnd: [/says when a room holds none of this gas/i, 'part-post-gas-plume'],
   },
 };
 
@@ -339,13 +339,19 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
     // what the Swedes judged: fanning, starting and idling with the doors open, not the post-gassing of a parked car (docs/fact-check.md §2 item 6)
     const verdict =
       lang === 'fr'
-        ? /très insuffisant de lancer le ventilateur ou le moteur portes de garage ouvertes/
-        : /far from satisfactory to fan or start with the garage doors open/;
+        ? /très insuffisant de [^.]*(ventilateur|l’un ou l’autre)[^.]*portes de garage ouvertes/
+        : /far from satisfactory to [^.]*(fan|start)[^.]*garage doors open/;
     for (const s of script.segments) {
       const i = s.text.indexOf('[[lab:door:open]]');
       if (i < 0) continue;
       expect(s.text.slice(0, i), `${s.id}: the open door falls with no verdict before it`).toMatch(verdict);
     }
+    // the door has three states and the voice gives three (the fifth pass, docs/fact-check.md F8): the ajar line comes before the verdict, as on the sheet
+    const door = seg('part-garage-door').text;
+    expect(door.indexOf('[[lab:door:ajar]]'), 'the ajar state is said, with its cue').toBeGreaterThan(0);
+    expect(door.indexOf('[[lab:door:ajar]]'), 'the ajar state comes before the open one').toBeLessThan(
+      door.indexOf('[[lab:door:open]]'),
+    );
   });
 
   it('keeps what docs/fact-check.md corrected: each sentence that went past its source stays out, and each correction stays in', () => {
@@ -392,6 +398,26 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
               /aucune source (lue )?ne (dit|décrit|le dit)/i,
               'what the lab read, not every source: « rien de ce que nous avons lu » (« lue ne » is heard « lune »)',
             ],
+            [/lit chaud/, 'in a garage with a bedroom a « lit » is first a bed: « le lit de charbon » (docs/qa.md S4)'],
+            [
+              /où qu’il aille|du té du|Sept leçons expliquent|Dix planches la dessinent/,
+              'sounds a listener cannot parse: two recognisers wrote « au quilaï », « du thé », « cette leçon explique », « displanche » (S5, S6)',
+            ],
+            [/donne toujours cela/, 'a well-mixed box gives that by construction, not « always » (fact-check F7)'],
+            [
+              /mesure deux mètres vingt-deux de haut/,
+              'the top stands 2.22 m above the ground; the unit’s own height is printed nowhere (F3)',
+            ],
+            [
+              /Personne n’a mesuré l’air de la cabine/,
+              'nothing we have read measures it, which is not « nobody » (C1)',
+            ],
+            [
+              /la pièce la plus éprouvée|durée de vie de chaque pièce/,
+              'the report gives the life of some critical parts (C3)',
+            ],
+            [/qu’après avoir vu quelque chose griller/, 'the sourced event is the seized pump (C4)'],
+            [/allégées, car/, 'the weights explain « allégées », not the size of the wheels (F5)'],
           ]
         : [
             [
@@ -424,6 +450,16 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
               'the owner’s own samples of slop (docs/narration-notes.md): a kicker, an announced honesty, a trick',
             ],
             [/\bno source (says|describes)/i, 'what the lab read, not every source: « no source we read »'],
+            [/hot bed/, 'in a garage with a bedroom a bed is first a bed: « the bed of charcoal » (docs/qa.md S4)'],
+            [/always gives that/, 'a well-mixed box gives that by construction, not « always » (fact-check F7)'],
+            [
+              /stands two metres twenty-two tall/,
+              'the top stands 2.22 m above the ground; the unit’s own height is printed nowhere (F3)',
+            ],
+            [/Nobody measured the air in the cab/, 'nothing we have read measures it, which is not « nobody » (C1)'],
+            [/the most tested part|life of every part/, 'the report gives the life of some critical parts (C3)'],
+            [/only added after something has been seen to fry/, 'the sourced event is the seized pump (C4)'],
+            [/lightened, because/, 'the weights explain « lightened », not the size of the wheels (F5)'],
           ];
     for (const [re, why] of retired) expect(where(re), why).toEqual([]);
 
@@ -433,7 +469,11 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
         ? [
             ['intro', /roule au bois, avec un filet de gazole/],
             ['intro', /par le calcul, environ deux cent vingt/],
-            ['intro', /d’un rapport sur cet institut, d’un livre suédois sur les gazogènes, et de manuels/],
+            ['intro', /Un matin de juin imaginé/],
+            ['intro', /Un institut suédois a essayé ce tracteur au banc, et un rapport en rend compte/],
+            ['intro', /dix-huit pour cent de l’énergie qui entrait/],
+            ['intro', /comment le système a pu s’assembler, d’après notre lecture/],
+            ['intro', /de ce rapport, d’un livre suédois sur les gazogènes, et de manuels/],
             [
               'scene-gasifier',
               /planches du gazogène ne sont pas à l’échelle : exprès\. La coupe, elle, est à l’échelle/,
@@ -447,20 +487,39 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
             ['part-condensate-barrel', /Typiquement/],
             ['part-fuel-casing', /chercheurs sont morts du monoxyde de carbone, après être descendus/],
             ['part-exhaust-pipe', /moteurs de la guerre/],
-            ['part-gas-cooler', /Selon le rapport, dix pour cent de température en moins/],
+            ['part-gas-cooler', /Selon le rapport sur l’institut, dix pour cent de température en moins/],
+            ['part-gas-cooler', /le modèle compte deux litres deux/],
             ['part-cooler-condensate-vessel', /panne grave de ce tracteur/],
-            ['part-filter-bags', /Sur le camion du programme/],
-            ['part-post-gas-plume', /laisse la poussée s’affaiblir sans jamais s’arrêter\. Ce choix est le sien/],
+            ['part-filter-bags', /Sur le camion du programme de l’institut/],
+            ['part-post-gas-plume', /laisse le débit s’affaiblir sans jamais s’arrêter\. Ce choix est celui du modèle/],
+            ['part-post-gas-plume', /sur cette machine/],
             ['part-post-gas-plume', /Rien de ce que nous avons lu ne dit quand une pièce/],
             ['part-farm-garage', /Souvent d’un défaut électrique, selon le livre suédois/],
             ['part-farmhouse', /Rien de ce que nous avons lu ne décrit la maison/],
-            ['part-front-wheels', /rien de ce que nous avons lu ne le dit/],
+            ['part-front-wheels', /Rien de ce que nous avons lu ne dit comment la direction/],
             ['part-old-rescue-set', /années quarante/],
+            ['part-gasifier-unit', /sommet du gazogène est à deux mètres vingt-deux du sol/],
+            ['part-fuel-baffle', /Rien de ce que nous avons lu ne confirme cette lecture/],
+            ['part-diesel-engine', /moins d’énergie que celui de l’essence/],
+            ['part-diesel-engine', /cinquante-cinq kilowatts, près des cinquante et un du banc/],
+            ['scene-garage', /par construction/],
+            ['part-garage-door', /Entrouverte, environ deux mille cent/],
+            ['part-roof-rack', /Le rapport sur l’institut ne dit pas si/],
+            ['part-cab', /Rien de ce que nous avons lu ne mesure l’air de la cabine/],
+            ['part-fire-box', /l’une des pièces qui s’usent le plus vite/],
+            ['part-heat-shield', /après le grippage de la pompe/],
+            ['scene-gas-train', /dans le modèle/],
+            ['part-gas-throttle', /au banc, cinquante-cinq/],
+            ['part-chip-column', /Par le calcul/],
           ]
         : [
             ['intro', /runs on wood, with a thread of diesel/],
             ['intro', /by our sum, about two hundred and twenty/],
-            ['intro', /a report on that institute, a Swedish book on gasifiers, and some handbooks/],
+            ['intro', /An imagined June morning/],
+            ['intro', /A Swedish institute tested this tractor on a bench, and a report tells of it/],
+            ['intro', /eighteen per cent of the energy that went in/],
+            ['intro', /how the system may have gone together, in our reading/],
+            ['intro', /that report, a Swedish book on gasifiers, and some handbooks/],
             ['scene-gasifier', /gasifier’s drawings are not to scale: on purpose\. The section is drawn to scale/],
             ['part-wood-gas-tractor', /runs on wood, with a thread of diesel/],
             ['part-wood-gas-tractor', /and so does its gasifier/],
@@ -471,17 +530,57 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
             ['part-condensate-barrel', /Typically/],
             ['part-fuel-casing', /researchers died of carbon monoxide after climbing/],
             ['part-exhaust-pipe', /exhaust of wartime engines/],
-            ['part-gas-cooler', /By the report, ten per cent less temperature/],
+            ['part-gas-cooler', /By the report on the institute, ten per cent less temperature/],
+            ['part-gas-cooler', /the model counts two point two/],
             ['part-cooler-condensate-vessel', /This tractor’s one serious failure/],
-            ['part-filter-bags', /On the programme’s truck/],
+            ['part-filter-bags', /On the truck of the institute’s programme/],
             ['part-post-gas-plume', /lets the push weaken without ever stopping\. That choice is the model’s/],
             ['part-post-gas-plume', /No source we read says when a room/],
+            ['part-post-gas-plume', /on this machine/],
             ['part-farm-garage', /Often from an electrical fault, says the Swedish book/],
             ['part-farmhouse', /No source we read describes the farmhouse/],
             ['part-front-wheels', /no source we read says/],
             ['part-old-rescue-set', /nineteen forties/],
+            ['part-gasifier-unit', /top of the gasifier is two metres twenty-two above the ground/],
+            ['part-fuel-baffle', /Nothing we have read confirms that reading/],
+            ['part-diesel-engine', /less energy than a petrol mixture/],
+            ['part-diesel-engine', /fifty-five kilowatts, close to the bench’s fifty-one/],
+            ['scene-garage', /by construction/],
+            ['part-garage-door', /Ajar, about two thousand one hundred/],
+            ['part-cab', /Nothing we have read measures the air in the cab/],
+            ['part-fire-box', /one of the parts that wear fastest/],
+            ['part-heat-shield', /after the injection pump seized/],
+            ['scene-gas-train', /in the model/],
+            ['part-gas-throttle', /on the bench fifty-five/],
+            ['part-chip-column', /By our sum/],
           ];
     for (const [id, re] of corrected) expect(spokenOf(seg(id)), `${id} lost a correction`).toMatch(re);
+  });
+
+  it('says in a few words which source it quotes, where a part first names the report, the institute, the Swedish book or the programme (a visitor may open one part cold)', () => {
+    // [the bare word, the words that must stand with its first use (or before it): the report is the one on the institute, the book is the one on gasifiers…]
+    const anchors: [RegExp, RegExp, number][] =
+      lang === 'fr'
+        ? [
+            [/\brapport\b/, /institut/, 45],
+            [/\binstitut\b/, /institut suédois|rapport sur l’institut|programme de l’institut/, 25],
+            [/livre suédois/, /livre suédois sur les gazogènes/, 40],
+            [/\bprogramme\b/, /programme de l’institut/, 30],
+          ]
+        : [
+            [/\breport\b/, /institute/, 30],
+            [/\binstitute\b/, /Swedish institute|report on the institute|institute’s programme/, 25],
+            [/Swedish book/, /Swedish book on gasifiers/, 30],
+            [/\bprogramme\b/, /institute’s programme/, 9],
+          ];
+    for (const s of script.segments) {
+      if (s.id === 'intro') continue; // the introduction is where they are introduced
+      const text = spokenOf(s);
+      for (const [word, anchor, after] of anchors) {
+        const at = text.search(word);
+        if (at >= 0) expect(text.slice(0, at + after), `${s.id}: ${word} with no word on which it is`).toMatch(anchor);
+      }
+    }
   });
 
   it('keeps the warning out of the voice: no emergency number, no first aid, no what-to-do', () => {
