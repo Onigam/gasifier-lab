@@ -759,7 +759,8 @@ describe.each(Object.keys(scripts))('narration script %s', (lang) => {
     const perWorld = new Map<string, string[]>();
     for (const n of body)
       for (const f of n.full) perWorld.set(`${n.scene} ${f}`, [...(perWorld.get(`${n.scene} ${f}`) ?? []), n.id]);
-    for (const [key, ids] of perWorld) expect(ids, key).toHaveLength(FULL_WORLD_CEILING);
+    for (const [key, ids] of perWorld)
+      expect(ids.length, `${key}: ${ids.join(', ')}`).toBeLessThanOrEqual(FULL_WORLD_CEILING);
 
     // never the same form in two segments in a row, in the order of the guide
     for (let i = 1; i < all.length; i++) {
