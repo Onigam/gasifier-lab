@@ -1,12 +1,12 @@
 {
   "lang": "en",
   "model": "qwen3-tts-1.7B",
-  "generatedAt": "2026-11-12T13:25:07.534Z",
+  "generatedAt": "2026-11-12T13:39:01.750Z",
   "voiceLabel": {
     "fr": "Voix de synthèse",
     "en": "Synthetic voice"
   },
-  "totalSeconds": 1346.14,
+  "totalSeconds": 1346.62,
   "segments": [
     {
       "id": "intro",
@@ -3755,61 +3755,61 @@
       "title": "Post-gas plume",
       "scene": "garage",
       "file": "part-post-gas-plume.mp3",
-      "duration": 28.08,
+      "duration": 28.56,
       "chars": 516,
       "hash": "f15fab66b431dfbc",
       "captions": [
         {
           "t0": 0,
-          "t1": 1.36,
+          "t1": 1.2,
           "text": "The engine stops."
         },
         {
-          "t0": 1.36,
-          "t1": 5.82,
+          "t0": 1.2,
+          "t1": 5.54,
           "text": "Nothing draws any more, but the gas keeps forming in the fuel, still hot."
         },
         {
-          "t0": 5.82,
-          "t1": 10.2,
+          "t0": 5.54,
+          "t1": 10.06,
           "text": "It pushes for about twenty minutes, sometimes for hours according to another manual."
         },
         {
-          "t0": 10.2,
-          "t1": 15.94,
+          "t0": 10.06,
+          "t1": 15.42,
           "text": "It comes out, even from a tight unit, with twenty-three to twenty-seven per cent carbon monoxide."
         },
         {
-          "t0": 15.94,
-          "t1": 18.4,
+          "t0": 15.42,
+          "t1": 18,
           "text": "Nobody measured its volume on this machine."
         },
         {
-          "t0": 18.4,
-          "t1": 22.66,
+          "t0": 18,
+          "t1": 22.62,
           "text": "The model starts from one cubic metre and lets the push weaken without ever stopping."
         },
         {
-          "t0": 22.66,
-          "t1": 25.4,
+          "t0": 22.62,
+          "t1": 25.52,
           "text": "That choice is the model’s; no measurement gives it."
         },
         {
-          "t0": 25.4,
-          "t1": 28.08,
+          "t0": 25.52,
+          "t1": 28.56,
           "text": "No source we read says when a room holds none of this gas."
         }
       ],
       "cues": [
         {
-          "t": 1.36,
+          "t": 1.2,
           "do": {
             "lab": "scenario",
             "arg": "engine-stops"
           }
         },
         {
-          "t": 28.08,
+          "t": 28.56,
           "do": {
             "lab": "preset",
             "arg": "mf-1100"
