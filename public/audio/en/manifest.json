@@ -1,12 +1,12 @@
 {
   "lang": "en",
   "model": "qwen3-tts-1.7B",
-  "generatedAt": "2026-11-12T13:39:01.750Z",
+  "generatedAt": "2026-11-12T16:17:19.316Z",
   "voiceLabel": {
     "fr": "Voix de synthèse",
     "en": "Synthetic voice"
   },
-  "totalSeconds": 1346.62,
+  "totalSeconds": 1351.42,
   "segments": [
     {
       "id": "intro",
@@ -1360,9 +1360,9 @@
       "title": "Farm garage",
       "scene": "farm",
       "file": "part-farm-garage.mp3",
-      "duration": 19.92,
-      "chars": 328,
-      "hash": "d5caef5f10c60c0c",
+      "duration": 20.88,
+      "chars": 323,
+      "hash": "07218f4a2ab6fbb5",
       "captions": [
         {
           "t0": 0,
@@ -1371,27 +1371,27 @@
         },
         {
           "t0": 2.96,
-          "t1": 5.76,
+          "t1": 6.3,
           "text": "In Sweden, two thousand eight hundred and sixty-five vehicles,"
         },
         {
-          "t0": 5.98,
-          "t1": 10.04,
+          "t0": 6.58,
+          "t1": 11.2,
           "text": "most of them gasifier vehicles, caught fire in five years."
         },
         {
-          "t0": 10.04,
-          "t1": 12.98,
-          "text": "Often from an electrical fault, the book notes."
+          "t0": 11.2,
+          "t1": 13.76,
+          "text": "Often, it seems, from an electrical fault."
         },
         {
-          "t0": 12.98,
-          "t1": 16.58,
+          "t0": 13.76,
+          "t1": 17.2,
           "text": "Many garage fires, often at night, had no known cause."
         },
         {
-          "t0": 16.58,
-          "t1": 19.92,
+          "t0": 17.2,
+          "t1": 20.88,
           "text": "In the first quarter of nineteen forty-two alone: nearly four a day."
         }
       ],
@@ -1622,24 +1622,24 @@
       "title": "Roof headlights",
       "scene": "tractor",
       "file": "part-roof-headlights.mp3",
-      "duration": 9.76,
-      "chars": 173,
-      "hash": "95581d77e469ae64",
+      "duration": 8.08,
+      "chars": 156,
+      "hash": "87f7d27836103bbf",
       "captions": [
         {
           "t0": 0,
-          "t1": 3.96,
-          "text": "A tiny part, to say that a tractor really gets modified."
-        },
-        {
-          "t0": 3.96,
-          "t1": 6,
+          "t1": 2.06,
           "text": "The headlights were moved to the roof."
         },
         {
-          "t0": 6,
-          "t1": 9.76,
-          "text": "The left one would have been hidden by the gasifier, according to the report."
+          "t0": 2.06,
+          "t1": 4.58,
+          "text": "The left one would have been hidden by the gasifier."
+        },
+        {
+          "t0": 4.58,
+          "t1": 8.08,
+          "text": "As drawn, both lamps are an estimate, taken from the photograph."
         }
       ],
       "cues": []
@@ -1764,28 +1764,28 @@
       "title": "Injection pump",
       "scene": "tractor",
       "file": "part-injection-pump.mp3",
-      "duration": 17.2,
-      "chars": 280,
-      "hash": "d2ca25af826c0d63",
+      "duration": 16.96,
+      "chars": 301,
+      "hash": "810a1317c5e3aa63",
       "captions": [
         {
           "t0": 0,
-          "t1": 5.96,
+          "t1": 5.38,
           "text": "Even on gas, the diesel keeps its pump, which doses the thread of diesel the flame needs."
         },
         {
-          "t0": 5.96,
-          "t1": 9.4,
+          "t0": 5.38,
+          "t1": 8.56,
           "text": "But it sits under the bonnet, right beside the gasifier."
         },
         {
-          "t0": 9.4,
-          "t1": 13.84,
-          "text": "At twenty-five hours, it seized, for want of cooling and lubrication."
+          "t0": 8.56,
+          "t1": 13.72,
+          "text": "At twenty-five hours, it seized, which was put down to too little cooling and lubrication."
         },
         {
-          "t0": 13.84,
-          "t1": 17.2,
+          "t0": 13.72,
+          "t1": 16.96,
           "text": "A radiation shield was then added, against the gasifier’s heat."
         }
       ],
@@ -1853,23 +1853,23 @@
       "title": "Left consoles",
       "scene": "tractor",
       "file": "part-left-consoles.mp3",
-      "duration": 10.64,
-      "chars": 190,
-      "hash": "5184813060de5369",
+      "duration": 11.84,
+      "chars": 197,
+      "hash": "07c278ee9b80bcbd",
       "captions": [
         {
           "t0": 0,
-          "t1": 4.06,
-          "text": "Four hundred and fifty kilos on one flank: that is an imbalance."
+          "t1": 5.16,
+          "text": "Four hundred and fifty kilos, mostly on one flank: that is an imbalance."
         },
         {
-          "t0": 4.06,
-          "t1": 6.66,
-          "text": "How the tractor dealt with it, the report does not say."
+          "t0": 5.16,
+          "t1": 8.04,
+          "text": "The report does not say how the tractor dealt with it."
         },
         {
-          "t0": 6.66,
-          "t1": 10.64,
+          "t0": 8.04,
+          "t1": 11.84,
           "text": "Bolted consoles carry the gasifier, fifty centimetres off the ground."
         }
       ],
@@ -2619,39 +2619,39 @@
       "title": "Throat ring",
       "scene": "gasifier",
       "file": "part-throat-ring.mp3",
-      "duration": 18.96,
-      "chars": 330,
-      "hash": "a2a5e36b8244ec4a",
+      "duration": 20.32,
+      "chars": 359,
+      "hash": "95f03591bb9baf4a",
       "captions": [
         {
           "t0": 0,
-          "t1": 4.68,
+          "t1": 4.5,
           "text": "All the fire’s gas must pass through this constriction, at the hottest point."
         },
         {
-          "t0": 4.68,
-          "t1": 7.34,
+          "t0": 4.5,
+          "t1": 7.16,
           "text": "Vapours and tars come down with the wood."
         },
         {
-          "t0": 7.34,
-          "t1": 10.56,
+          "t0": 7.16,
+          "t1": 10.42,
           "text": "If they skirted the flame, they would come out as they are."
         },
         {
-          "t0": 10.56,
-          "t1": 12.26,
+          "t0": 10.42,
+          "t1": 12.2,
           "text": "The ring forces them through it."
         },
         {
-          "t0": 12.26,
-          "t1": 15.08,
-          "text": "It lasts about seven hundred hours, then is replaced."
+          "t0": 12.2,
+          "t1": 17.3,
+          "text": "It lasts about seven hundred hours, then is replaced, judging by several vehicles."
         },
         {
-          "t0": 15.08,
-          "t1": 18.96,
-          "text": "Here we say what this part does, and nothing of how it is made."
+          "t0": 17.3,
+          "t1": 20.32,
+          "text": "We say here what this part does, and nothing of how it is made."
         }
       ],
       "cues": []
@@ -2937,40 +2937,40 @@
       "title": "Primary-air valve",
       "scene": "gas-train",
       "file": "part-primary-air-valve.mp3",
-      "duration": 11.36,
-      "chars": 182,
-      "hash": "88d45cdeced61f69",
+      "duration": 12.24,
+      "chars": 191,
+      "hash": "8ec2f6249ba3e1ea",
       "captions": [
         {
           "t0": 0,
-          "t1": 3.36,
-          "text": "On the diagram, the fire’s air leaves the fan’s eye."
+          "t1": 4.12,
+          "text": "On the report’s diagram, the fire’s air leaves the fan’s eye."
         },
         {
-          "t0": 3.36,
-          "t1": 6.44,
+          "t0": 4.12,
+          "t1": 7.4,
           "text": "It passes this valve, then enters the gasifier."
         },
         {
-          "t0": 6.44,
-          "t1": 8.52,
+          "t0": 7.4,
+          "t1": 9.4,
           "text": "The air dots follow that path."
         },
         {
-          "t0": 8.52,
-          "t1": 11.36,
+          "t0": 9.4,
+          "t1": 12.24,
           "text": "We give no position and no setting for this valve."
         }
       ],
       "cues": [
         {
-          "t": 6.44,
+          "t": 7.4,
           "do": {
             "flows": true
           }
         },
         {
-          "t": 8.52,
+          "t": 9.4,
           "do": {
             "flows": false
           }
@@ -2983,24 +2983,24 @@
       "title": "Cyclone",
       "scene": "gas-train",
       "file": "part-cyclone.mp3",
-      "duration": 14.72,
-      "chars": 269,
-      "hash": "543b9f7a06a2468c",
+      "duration": 15.2,
+      "chars": 271,
+      "hash": "ff7b505119baab2a",
       "captions": [
         {
           "t0": 0,
-          "t1": 5.6,
+          "t1": 5.8,
           "text": "A good cyclone spins the gas and throws the dust against its walls: sixty to seventy per cent."
         },
         {
-          "t0": 5.6,
-          "t1": 10.88,
+          "t0": 5.8,
+          "t1": 11.22,
           "text": "It appears on the diagram of another system, one with a fabric filter, not on this tractor’s."
         },
         {
-          "t0": 10.88,
-          "t1": 14.72,
-          "text": "The report does not say whether it had one, and the photograph cannot settle it."
+          "t0": 11.22,
+          "t1": 15.2,
+          "text": "Nothing we have read says whether it had one, and the photograph cannot settle it."
         }
       ],
       "cues": []
@@ -3062,46 +3062,46 @@
       "title": "Filter bags",
       "scene": "gas-train",
       "file": "part-filter-bags.mp3",
-      "duration": 18.24,
-      "chars": 279,
-      "hash": "0845e35f12265ada",
+      "duration": 16.64,
+      "chars": 277,
+      "hash": "5a7fc1d6ac62057c",
       "captions": [
         {
           "t0": 0,
-          "t1": 5.32,
+          "t1": 4.18,
           "text": "The cloth is hung in flat bags: the gas passes through, the dust stays."
         },
         {
-          "t0": 5.32,
-          "t1": 10.24,
+          "t0": 4.18,
+          "t1": 9.24,
           "text": "Behind it, only three tenths of a milligram of dust per cubic metre remains."
         },
         {
-          "t0": 10.24,
-          "t1": 11.74,
+          "t0": 9.24,
+          "t1": 10.6,
           "text": "But the cloth clogs."
         },
         {
-          "t0": 11.74,
-          "t1": 14.14,
+          "t0": 10.6,
+          "t1": 12.94,
           "text": "It darkens as dust settles in it."
         },
         {
-          "t0": 14.14,
-          "t1": 18.24,
-          "text": "On the test truck, its resistance doubled around three thousand kilometres."
+          "t0": 12.94,
+          "t1": 16.64,
+          "text": "Its resistance doubled around three thousand kilometres, on a test truck."
         }
       ],
       "cues": [
         {
-          "t": 11.74,
+          "t": 10.6,
           "do": {
             "lab": "scenario",
             "arg": "filter-ageing"
           }
         },
         {
-          "t": 18.24,
+          "t": 16.64,
           "do": {
             "lab": "preset",
             "arg": "mf-1100"
@@ -3275,28 +3275,28 @@
       "title": "Secondary-air throttle",
       "scene": "gas-train",
       "file": "part-secondary-air-throttle.mp3",
-      "duration": 14.56,
-      "chars": 229,
-      "hash": "23229c21d440b8fd",
+      "duration": 14.16,
+      "chars": 227,
+      "hash": "9f7f476b8aacd5fc",
       "captions": [
         {
           "t0": 0,
-          "t1": 7.04,
+          "t1": 7,
           "text": "A second throttle sits on the air added to the gas, the secondary air, as against the fire’s primary air."
         },
         {
-          "t0": 7.04,
-          "t1": 8.12,
+          "t0": 7,
+          "t1": 8.68,
           "text": "It sets the proportion."
         },
         {
-          "t0": 8.12,
+          "t0": 8.68,
           "t1": 11.3,
-          "text": "On the test truck, it was worked by hand."
+          "text": "On a test truck, it was worked by hand."
         },
         {
           "t0": 11.3,
-          "t1": 14.56,
+          "t1": 14.16,
           "text": "It is a setting with an optimum, which is not given here."
         }
       ],
@@ -3374,23 +3374,23 @@
       "title": "Exhaust pipe",
       "scene": "gas-train",
       "file": "part-exhaust-pipe.mp3",
-      "duration": 18.72,
-      "chars": 296,
-      "hash": "87b8a57d59d06045",
+      "duration": 18.32,
+      "chars": 301,
+      "hash": "8cb8b8622461c8b5",
       "captions": [
         {
           "t0": 0,
-          "t1": 6.84,
+          "t1": 6.94,
           "text": "At the engine’s exit, at work, very little carbon monoxide gets through: three tenths of a per cent in the model."
         },
         {
-          "t0": 6.84,
-          "t1": 12.08,
-          "text": "But at idle, five to eight per cent was read in the exhaust of wartime engines."
+          "t0": 6.94,
+          "t1": 12.36,
+          "text": "But at idle, readings in the exhaust of wartime engines give five to eight per cent."
         },
         {
-          "t0": 12.08,
-          "t1": 18.72,
+          "t0": 12.36,
+          "t1": 18.32,
           "text": "The model reads that figure this way: at idle, most of the gas crosses the engine unburnt, two thirds."
         }
       ],
@@ -3685,63 +3685,63 @@
       "title": "Room above",
       "scene": "garage",
       "file": "part-room-above.mp3",
-      "duration": 19.04,
-      "chars": 333,
-      "hash": "3916d10bb025f37f",
+      "duration": 22.72,
+      "chars": 366,
+      "hash": "0b6f2e42d3066e1a",
       "captions": [
         {
           "t0": 0,
-          "t1": 2.88,
+          "t1": 3.28,
           "text": "Above the garage, a bedroom with a made bed."
         },
         {
-          "t0": 2.88,
-          "t1": 6.28,
-          "text": "Some of the worst accidents came from a car with a leaking lid."
+          "t0": 3.28,
+          "t1": 7.86,
+          "text": "In Sweden, some of the worst accidents came from a car with a leaking lid."
         },
         {
-          "t0": 6.28,
-          "t1": 8.08,
+          "t0": 7.86,
+          "t1": 9.94,
           "text": "Parked under a living space."
         },
         {
-          "t0": 8.08,
-          "t1": 11.62,
+          "t0": 9.94,
+          "t1": 13.32,
           "text": "The gas gets through the floor, at a rate nobody measured."
         },
         {
-          "t0": 11.62,
-          "t1": 14.99,
-          "text": "The bedroom climbs to about six hundred and seventy parts per million,"
+          "t0": 13.32,
+          "t1": 18.26,
+          "text": "In the model, the bedroom climbs to about six hundred and seventy parts per million."
         },
         {
-          "t0": 15.18,
-          "t1": 17.56,
-          "text": "more than an hour after the garage’s peak."
+          "t0": 18.26,
+          "t1": 21.2,
+          "text": "That is more than an hour after the garage’s peak."
         },
         {
-          "t0": 17.56,
-          "t1": 19.04,
+          "t0": 21.2,
+          "t1": 22.72,
           "text": "Nobody is drawn in it."
         }
       ],
       "cues": [
         {
-          "t": 8.08,
+          "t": 7.86,
           "do": {
             "lab": "scenario",
             "arg": "closed-garage"
           }
         },
         {
-          "t": 8.08,
+          "t": 7.86,
           "do": {
             "lab": "speed",
-            "arg": "600"
+            "arg": "640"
           }
         },
         {
-          "t": 19.04,
+          "t": 22.72,
           "do": {
             "lab": "preset",
             "arg": "mf-1100"
@@ -3823,28 +3823,28 @@
       "title": "Exhaust plume",
       "scene": "garage",
       "file": "part-exhaust-plume.mp3",
-      "duration": 15.04,
-      "chars": 250,
-      "hash": "34ec7bb32eb1fb05",
+      "duration": 15.6,
+      "chars": 255,
+      "hash": "e77b9ede722a1167",
       "captions": [
         {
           "t0": 0,
-          "t1": 3.76,
+          "t1": 4.24,
           "text": "An engine can also run in the garage, and its exhaust goes in."
         },
         {
-          "t0": 3.76,
-          "t1": 9.32,
-          "text": "At idle, five to eight per cent carbon monoxide was read in the exhaust of wartime engines."
+          "t0": 4.24,
+          "t1": 10.32,
+          "text": "At idle, readings in the exhaust of wartime engines give five to eight per cent carbon monoxide."
         },
         {
-          "t0": 9.32,
-          "t1": 12.72,
+          "t0": 10.32,
+          "t1": 13.22,
           "text": "The grey plume exists only while the engine runs."
         },
         {
-          "t0": 12.72,
-          "t1": 15.04,
+          "t0": 13.22,
+          "t1": 15.6,
           "text": "After that, the white of the stop takes over."
         }
       ],
@@ -3864,14 +3864,14 @@
           }
         },
         {
-          "t": 12.72,
+          "t": 13.22,
           "do": {
             "lab": "engine",
             "arg": "off"
           }
         },
         {
-          "t": 15.04,
+          "t": 15.6,
           "do": {
             "lab": "preset",
             "arg": "mf-1100"
