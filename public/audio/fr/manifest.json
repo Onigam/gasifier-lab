@@ -1,7 +1,7 @@
 {
   "lang": "fr",
   "model": "qwen3-tts-1.7B",
-  "generatedAt": "2026-11-12T07:27:26.712Z",
+  "generatedAt": "2026-11-12T07:55:18.548Z",
   "voiceLabel": {
     "fr": "Voix de synthèse",
     "en": "Synthetic voice"
@@ -3874,26 +3874,31 @@
       "scene": "garage",
       "file": "part-exhaust-plume.mp3",
       "duration": 18.16,
-      "chars": 312,
-      "hash": "5c60fce935a5fd00",
+      "chars": 314,
+      "hash": "5996c62b8fa47adf",
       "captions": [
         {
           "t0": 0,
-          "t1": 4.5,
+          "t1": 4.28,
           "text": "Un moteur peut aussi tourner dans le garage, et son échappement y entre."
         },
         {
-          "t0": 4.5,
-          "t1": 12.44,
-          "text": "Au ralenti, le livre suédois sur les gazogènes a lu cinq à huit pour cent de monoxyde à l’échappement des moteurs de la guerre."
+          "t0": 4.28,
+          "t1": 7.97,
+          "text": "Au ralenti, le livre suédois sur les gazogènes a lu,"
         },
         {
-          "t0": 12.44,
-          "t1": 15.44,
+          "t0": 8.18,
+          "t1": 12.48,
+          "text": "à l’échappement des moteurs de la guerre, cinq à huit pour cent de monoxyde."
+        },
+        {
+          "t0": 12.48,
+          "t1": 15.62,
           "text": "Le panache gris n’existe que tant que le moteur tourne."
         },
         {
-          "t0": 15.44,
+          "t0": 15.62,
           "t1": 18.16,
           "text": "Ensuite, c’est le blanc de l’arrêt qui prend le relais."
         }
@@ -3914,7 +3919,7 @@
           }
         },
         {
-          "t": 15.44,
+          "t": 15.62,
           "do": {
             "lab": "engine",
             "arg": "off"
