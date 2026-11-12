@@ -324,7 +324,7 @@
       "scope": "part:throat-ring",
       "title": "Throat ring",
       "scene": "gasifier",
-      "text": "All the fire’s gas must pass through this constriction, at the hottest point. Vapours and tars come down with the wood. If they skirted the flame, they would come out as they are. The ring forces them through it. It lasts about seven hundred hours, then is replaced, judging by several vehicles. We say here what this part does, and nothing of how it is made."
+      "text": "All the fire’s gas must pass through this constriction, at the hottest point. Vapours and tars come down with the wood. If they skirted the flame, they would come out as they are. The ring forces them through it. It lasts about seven hundred hours, then is repaired or replaced, judging by several vehicles. We say here what this part does, and nothing of how it is made."
     },
     {
       "id": "part-grate",
@@ -387,14 +387,14 @@
       "scope": "part:primary-air-valve",
       "title": "Primary-air valve",
       "scene": "gas-train",
-      "text": "On the report’s diagram, the fire’s air leaves the fan’s eye. It passes this valve, then enters the gasifier. [[flows:on]] The air dots follow that path. [[flows:off]] We give no position and no setting for this valve."
+      "text": "On the report’s diagram, the fire’s air leaves the fan. It passes this valve, then enters the gasifier. [[flows:on]] The air dots follow that path. [[flows:off]] We give no position and no setting for this valve."
     },
     {
       "id": "part-cyclone",
       "scope": "part:cyclone",
       "title": "Cyclone",
       "scene": "gas-train",
-      "text": "A good cyclone spins the gas and throws the dust against its walls: sixty to seventy per cent. It appears on the diagram of another system, one with a fabric filter, not on this tractor’s. Nothing we have read says whether it had one, and the photograph cannot settle it."
+      "text": "A good cyclone spins the gas and throws the dust against its walls: sixty to seventy per cent. It appears on the diagram of another test system, one with a fabric filter, not on this tractor’s. Nothing we have read says whether it had one, and the photograph cannot settle it."
     },
     {
       "id": "part-filter-box",
@@ -408,7 +408,7 @@
       "scope": "part:filter-bags",
       "title": "Filter bags",
       "scene": "gas-train",
-      "text": "The cloth is hung in flat bags: the gas passes through, the dust stays. Behind it, only three tenths of a milligram of dust per cubic metre remains. But the cloth clogs. [[lab:scenario:filter-ageing]] It darkens as dust settles in it. Its resistance doubled around three thousand kilometres, on a test truck. [[lab:preset:mf-1100]]"
+      "text": "The cloth is hung in flat bags: the gas passes through, the dust stays behind. Only three tenths of a milligram of dust per cubic metre remains in the gas. But the cloth clogs. [[lab:scenario:filter-ageing]] It darkens as dust settles in it. Its resistance doubled around three thousand kilometres, on a test truck. [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-gas-cooler",
@@ -464,7 +464,7 @@
       "scope": "part:exhaust-pipe",
       "title": "Exhaust pipe",
       "scene": "gas-train",
-      "text": "At the engine’s exit, at work, very little carbon monoxide gets through: three tenths of a per cent in the model. But at idle, readings in the exhaust of wartime engines give five to eight per cent. The model reads that figure this way: at idle, most of the gas crosses the engine unburnt, two thirds."
+      "text": "At the engine’s exit, at work, very little carbon monoxide gets through: three tenths of a per cent in the model. But at idle, readings give five to eight per cent in the exhaust of wartime engines. The model reads that figure this way: at idle, most of the gas crosses the engine unburnt, two thirds."
     },
     {
       "id": "part-water-gauge",
@@ -506,7 +506,7 @@
       "scope": "part:exhaust-plume",
       "title": "Exhaust plume",
       "scene": "garage",
-      "text": "[[lab:preset:mf-1100]] [[lab:place:garage]] An engine can also run in the garage, and its exhaust goes in. At idle, readings in the exhaust of wartime engines give five to eight per cent carbon monoxide. The grey plume exists only while the engine runs. [[lab:engine:off]] After that, the white of the stop takes over. [[lab:preset:mf-1100]]"
+      "text": "[[lab:preset:mf-1100]] [[lab:place:garage]] An engine can also run in the garage, and its exhaust goes in. At idle, readings give five to eight per cent carbon monoxide in the exhaust of wartime engines. The grey plume exists only while the engine runs. [[lab:engine:off]] After that, the white of the stop takes over. [[lab:preset:mf-1100]]"
     },
     {
       "id": "part-co-indicator",

@@ -324,7 +324,7 @@
       "scope": "part:throat-ring",
       "title": "Anneau de gorge",
       "scene": "gasifier",
-      "text": "L’étranglement par où passe tout le gaz du feu, au point le plus chaud. Les vapeurs et les goudrons descendent avec le bois. S’ils contournaient la flamme, ils sortiraient tels quels. L’anneau les force à la traverser. Il tient environ sept cents heures, d’après l’expérience de plusieurs véhicules, puis se remplace. Ici, on dit ce que fait cette pièce, et rien de sa fabrication."
+      "text": "L’étranglement par où passe tout le gaz du feu, au point le plus chaud. Les vapeurs et les goudrons descendent avec le bois. S’ils contournaient la flamme, ils sortiraient tels quels. L’anneau les force à la traverser. Il tient environ sept cents heures, à en juger par plusieurs véhicules, puis se répare ou se remplace. Ici, on dit ce que fait cette pièce, et rien de sa fabrication."
     },
     {
       "id": "part-grate",
@@ -387,14 +387,14 @@
       "scope": "part:primary-air-valve",
       "title": "Vanne d’air primaire",
       "scene": "gas-train",
-      "text": "Sur le schéma du rapport, l’air du feu part de l’œil du ventilateur. Il passe par cette vanne, puis entre au gazogène. [[flows:on]] Les points d’air suivent ce chemin. [[flows:off]] Nous ne donnons aucune position ni aucun réglage de cette vanne."
+      "text": "Sur le schéma du rapport, l’air du feu part du ventilateur. Il passe par cette vanne, puis entre au gazogène. [[flows:on]] Les points d’air suivent ce chemin. [[flows:off]] Nous ne donnons aucune position ni aucun réglage de cette vanne."
     },
     {
       "id": "part-cyclone",
       "scope": "part:cyclone",
       "title": "Cyclone",
       "scene": "gas-train",
-      "text": "Un bon cyclone fait tourner le gaz et jette la poussière contre ses parois : soixante à soixante-dix pour cent. Il figure sur le schéma d’un autre système, à filtre à toile, pas sur celui de ce tracteur. Rien de ce que nous avons lu ne dit s’il en avait un, et la photographie ne tranche pas."
+      "text": "Un bon cyclone fait tourner le gaz et jette la poussière contre ses parois : soixante à soixante-dix pour cent. Il figure sur le schéma d’un autre système d’essai, à filtre à toile, pas sur celui de ce tracteur. Rien de ce que nous avons lu ne dit s’il en avait un, et la photographie ne tranche pas."
     },
     {
       "id": "part-filter-box",
