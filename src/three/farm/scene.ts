@@ -8,6 +8,7 @@ import { chipsMap, concreteMap, tiled } from '../textures';
 import { buildGarageBuilding } from '../garage/building';
 import { DOOR_OPEN } from '../garage/scene';
 import { makePlume } from '../garage/plume';
+import { clamp } from '@onigam/lab-kit/three';
 import { buildMachine, type Machine } from '../tractor/tractor';
 import { WorldRegistry, anchor, hotspots, viewFrom, type HotspotDef, type PartFraming } from '../world';
 import { buildBarn, buildFarmhouse } from './buildings';
@@ -86,8 +87,19 @@ const PART_AT: Partial<Record<FarmId, { x: number; z: number }>> = {
   'field-ditch': { x: 21, z: FARM.ditch.z },
 };
 
+/** Where the tractor is looked at from, in its own frame (x forward, z to its right): in front, a little above, on its left, where the unit stands. The world turns it with the tractor's heading every frame. */
+const TRACTOR_VIEW_T = new THREE.Vector3(
+  Math.cos(0.3) * Math.cos(1.05),
+  Math.sin(0.3),
+  -Math.cos(0.3) * Math.sin(1.05),
+);
+
 const FRAMING: Record<FarmId, PartFraming> = {
-  'wood-gas-tractor': { viewDir: viewFrom(16, 330) },
+  // the frame is the tractor's own box about where it stands now, set every frame (the whole part's box would carry the camera back by the towbar and the gas of its plume)
+  'wood-gas-tractor': {
+    viewDir: viewFrom(16, 330),
+    frame: new THREE.Box3(new THREE.Vector3(), new THREE.Vector3(1, 1, 1)),
+  },
   'chip-barn': { viewDir: viewFrom(14, 10) },
   'drum-chipper': { viewDir: viewFrom(18, 20) },
   'chip-sieve': { viewDir: viewFrom(18, 340) },
@@ -119,6 +131,23 @@ export function blocksSight(x: number, z: number): boolean {
     if (along > 2 && along < 70 && across < 7) return true;
   }
   return false;
+}
+
+/**
+ * The hour a film asks the farm's sun to stand at, or null for the model's own day (the clock from `FARM.dayStart`, 06:30, held at 15:24 over a clock of ×600). A film sets it with `?hour=19.5` in the address (read once, when the world is built) or live with
+ * `scene.userData.filmHour = 19.5`; the sun then stands at that hour whatever the clock does (a film's clock runs fast: a day would race past it). Nothing else reads it: the model's day is unchanged.
+ */
+export function filmHourOf(scene: THREE.Scene, fromAddress: number | null = urlHour()): number | null {
+  const live = scene.userData.filmHour;
+  if (typeof live === 'number' && live >= 0 && live < 24) return live;
+  return fromAddress;
+}
+
+function urlHour(): number | null {
+  if (typeof location === 'undefined') return null;
+  const q = new URLSearchParams(location.search).get('hour');
+  const v = q === null || q.trim() === '' ? NaN : Number(q);
+  return Number.isFinite(v) && v >= 0 && v < 24 ? v : null;
 }
 
 /** The loop the tractor drives: a rounded rectangle, parameterised by the distance along it. */
@@ -238,6 +267,8 @@ function reeds(x0: number, x1: number, n: number, seed: number): THREE.Object3D 
   im.name = 'reeds';
   return im;
 }
+
+const UP = new THREE.Vector3(0, 1, 0);
 
 export interface FarmScene extends SceneModule<GasState> {
   machine: Machine;
@@ -459,7 +490,15 @@ export function createFarmScene(opts: FarmOptions = {}): FarmScene {
     seed: 9,
   });
   scene.add(smoke.points);
-  // where the plume would be seen would be nothing: no hot gas here
+  // the gas of a stopped tractor: it leaves at the primary-air intake and the lid for as long as the model says (`plumeShare`), a column the size of a man at the tractor and a thin white-yellow veil against the field from a long way. It rides with the tractor (a child of its group,
+  // in its own frame). The shape is ours, how much leaves is the model's (docs/water.md); a running tractor shows none
+  const stopEye = v3(1.38, UNIT_AT.y + 0.18, -1.16 - 0.068);
+  const stopLid = v3(UNIT_AT.x, UNIT.top + UNIT_AT.y, UNIT_AT.z);
+  const stopPlumes = [
+    makePlume({ origin: stopEye, color: 0xf2eddc, rise: 3.4, spread: 1.7, n: 260, size: 1.9, speed: 0.07, seed: 15 }),
+    makePlume({ origin: stopLid, color: 0xefe7c4, rise: 2.6, spread: 1.3, n: 180, size: 1.6, speed: 0.06, seed: 16 }),
+  ];
+  for (const pl of stopPlumes) drive.add(pl.points);
 
   // ---- registered parts
   const groups: Record<FarmId, THREE.Object3D> = {
@@ -547,6 +586,21 @@ export function createFarmScene(opts: FarmOptions = {}): FarmScene {
   void UNIT;
   void mergeStatic;
 
+  // the sun's shadow box follows what the camera looks at when it is near it: 2,048 texels over 240 m are 12 cm each, a blur under a tyre; over 40 m they are 2 cm. From the overview it is the whole yard, as before
+  const camAt = new THREE.Vector3();
+  const camDir = new THREE.Vector3();
+  const focusAt = new THREE.Vector3();
+  scene.onBeforeRender = (_r, _s, camera) => {
+    if (!(camera as THREE.PerspectiveCamera).isPerspectiveCamera) return;
+    camera.getWorldPosition(camAt);
+    camera.getWorldDirection(camDir);
+    // where the line of sight meets the ground, or 30 m ahead when it does not
+    const t = camDir.y < -0.05 ? Math.min(150, -camAt.y / camDir.y) : 30;
+    focusAt.copy(camAt).addScaledVector(camDir, t);
+    const half = t < 45 ? clamp(t * 1.5, 12, 60) : 120;
+    sky.focusShadow(focusAt, half, 12);
+  };
+
   return {
     id: 'farm',
     scene,
@@ -564,8 +618,9 @@ export function createFarmScene(opts: FarmOptions = {}): FarmScene {
       const p = opts.params?.();
       const sel = opts.selected?.() ?? null;
       // the sun: the model's clock from the farm's day start; at a fast clock the light holds
-      const hour = (FARM.dayStart + state.hour) % 24;
-      sky.update(hour, view.time, 170, (p?.timeScale ?? 60) >= 600);
+      const film = filmHourOf(scene);
+      const hour = film ?? (FARM.dayStart + state.hour) % 24;
+      sky.update(hour, view.time, 170, film === null && (p?.timeScale ?? 60) >= 600);
       // the tractor goes round at the model's ground speed while it works, and stands while the engine does not, or while it is the one selected
       const moving = state.engineOn && sel !== 'wood-gas-tractor' && sel !== 'clod-crusher';
       if (moving) s += state.groundSpeedMs * dt * view.slowMo;
@@ -573,6 +628,14 @@ export function createFarmScene(opts: FarmOptions = {}): FarmScene {
       const yaw = -Math.atan2(at.hz, at.hx);
       drive.position.set(at.x, terrainHeight(at.x, at.z), at.z);
       drive.rotation.y = yaw;
+      // the part is looked at from the side of the unit, wherever on its loop the tractor stands
+      const tp = registry.get('wood-gas-tractor');
+      tp?.viewDir?.copy(TRACTOR_VIEW_T).applyAxisAngle(UP, yaw);
+      if (tp?.frame) {
+        // the middle of the machine, turned with its heading, a box a little over its own size round it
+        tmp.set(1.45, 1.35, -0.1).applyAxisAngle(UP, yaw).add(drive.position);
+        tp.frame.setFromCenterAndSize(tmp, v3(3.1, 2.7, 3.1));
+      }
       machine.update(state, dt, { slowMo: view.slowMo, time: view.time, params: p, parked: !moving, schematic: false });
       // the crusher trails on the loop, its rings rolling as the ground says
       const back = loopAt(s - 4.8);
@@ -602,6 +665,11 @@ export function createFarmScene(opts: FarmOptions = {}): FarmScene {
       waterFlow += dt * view.slowMo * 0.05;
       water.map.offset.x = -waterFlow;
       smoke.set({ share: 0.5, opacity: 0.35, time: view.time * view.slowMo });
+      // the stopped tractor's gas, in proportion to the model's flow
+      const leaving = state.pressureSign === 'pressure' ? clamp(state.plumeShare, 0, 1) : 0;
+      const veil = state.plumeVisible ? 0.5 : 0.1;
+      stopPlumes[0]!.set({ share: leaving, opacity: veil, time: view.time * view.slowMo });
+      stopPlumes[1]!.set({ share: leaving * 0.4, opacity: veil, time: view.time * view.slowMo });
       // « Flux »: dots only while it is on; the three paths that end on the tractor follow it
       flows.object.visible = view.schematic;
       if (view.schematic) {

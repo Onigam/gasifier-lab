@@ -34,13 +34,12 @@ import {
   anchor,
   hotspots,
   partsNow,
-  paperFloor,
   viewFrom,
-  workshopScene,
   type HotspotDef,
   type PartFraming,
 } from '../world';
 import { PIPE } from '../dims';
+import { createYard } from '../outdoors';
 import { hose as hoseMat } from '../materials';
 import type { GasParams, GasState } from '../../sim/types';
 
@@ -117,15 +116,17 @@ export interface GasTrainScene extends SceneModule<GasState> {
 const base0 = { woodKw: 195, dieselKw: 26, gasKw: 139, gasifierLossKw: 56, shaftKw: 40, engineLossKw: 125 };
 
 export function createGasTrainScene(opts: GasTrainOptions = {}): GasTrainScene {
-  const scene = workshopScene({
+  // the line stands on a concrete slab in the open yard (`outdoors.ts`); the slab is laid out round the line once it is placed
+  const yard = createYard({
     name: 'gas-train',
     key: [-3, 9, -8],
     target: [2.4, 0.5, 0.2],
     shadowHalf: 9,
-    shadowFar: 40,
     exposure: 1.0,
+    slab: [-3, -6, 12, 4],
+    yardRadius: 22,
   });
-  scene.add(paperFloor(26, 8, 0));
+  const scene = yard.scene;
   const registry = new WorldRegistry(TRAIN_REFUSED, opts.selected ?? (() => null));
   const followers = new Followers();
   const scenery = group('scenery');
@@ -200,8 +201,9 @@ export function createGasTrainScene(opts: GasTrainOptions = {}): GasTrainScene {
   const gpl = plinth(0.26, 0.2, 0.3, 'gauge-plinth');
   gpl.position.set(mixerX - 0.35, 0, mixerZ + 0.4);
   scenery.add(gpl);
-  gauge.group.position.set(gpl.position.x, 0.3, gpl.position.z);
-  gauge.group.rotation.y = Math.PI;
+  gauge.group.position.set(gpl.position.x, 0.31, gpl.position.z);
+  // its face (the tubes and the scale stand out of the board on its +x side) turns to the open end of the line, where the camera that frames it stands
+  gauge.group.rotation.y = 0;
   const cyclonePl = frame(0.34, 0.34, 0.69, 'cyclone-stand');
   cyclone.group.position.set(filterAt.x + 0.35, 0.69, filterAt.z - 1.55);
   cyclonePl.position.set(cyclone.group.position.x, 0, cyclone.group.position.z);
@@ -298,6 +300,8 @@ export function createGasTrainScene(opts: GasTrainOptions = {}): GasTrainScene {
     'pilot-injector': { viewDir: viewFrom(8, 180) },
     'filter-bags': { viewDir: viewFrom(35, 190) },
     'cooler-condensate-vessel': { viewDir: viewFrom(10, 150) },
+    // the board's two faces look along the line (its tubes and ticks stand out of it in x): from that side, above the line's own height of eye, so that the two columns and the scale are read and not the board's edge
+    'water-gauge': { viewDir: viewFrom(12, 95) },
   };
   const anchorAt: Record<TrainId, [number, number, number]> = {
     'hot-gas-pipe': [0.05, 0.34, 0],
@@ -353,6 +357,7 @@ export function createGasTrainScene(opts: GasTrainOptions = {}): GasTrainScene {
     );
   // (the Sankey on the floor in front of the line is in the picture too)
   registry.overview(() => [new THREE.Box3(new THREE.Vector3(-1.2, 0, -3.9), new THREE.Vector3(cylX + 1.4, 2.6, 2.0))]);
+  yard.fitSlab(-2.6, -5.4, cylX + 2.6, 3.4);
 
   const portOf = (id: string, p: Port): Port => worldPort(pieces[id]!, p);
   const syncPipes = (): void => {
@@ -429,7 +434,7 @@ export function createGasTrainScene(opts: GasTrainOptions = {}): GasTrainScene {
     minDistance: 0.4,
     maxDistance: 36,
     near: 0.05,
-    far: 300,
+    far: 5000,
     declutter: true,
     homePadding: 0.8,
     update(state: GasState, dt: number, view: ViewOpts) {

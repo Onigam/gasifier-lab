@@ -95,6 +95,12 @@ const GLSL_COMMON = /* glsl */ `
   }
 `;
 
+/**
+ * How a surface reads the field: `surface` is a face of the bed or a hot part (the vertex's own height; a cap takes the false colour whole), `chip` is one instance of a loose piece lying on the cut face (the height of the instance, its colour from the field
+ * times the piece's own tone, its own glow), so that the pieces of the section are shapes with relief and not a pattern.
+ */
+type Reads = 'surface' | 'chip';
+
 function attach(
   mat: THREE.Material,
   key: string,
@@ -102,6 +108,8 @@ function attach(
   cap: boolean,
   offset?: { value: number },
   glow = 1,
+  reads: Reads = 'surface',
+  capDim = 1,
 ): void {
   patchMaterial(mat, key, (shader) => {
     if (offset) shader.uniforms.uOffset = offset;
@@ -112,14 +120,17 @@ function attach(
     shader.vertexShader = shader.vertexShader
       .replace(
         '#include <common>',
-        `#include <common>\nvarying float vUnitY;\nvarying float vCapV;\n${cap ? 'attribute float aCap;' : ''}\n${offset ? 'uniform float uOffset;' : ''}`,
+        `#include <common>\nvarying float vUnitY;\nvarying float vCapV;\n${reads === 'chip' ? 'varying float vChipD;' : ''}\n${cap ? 'attribute float aCap;' : ''}\n${offset ? 'uniform float uOffset;' : ''}`,
       )
       .replace(
         '#include <begin_vertex>',
-        `#include <begin_vertex>\nvUnitY = position.y${offset ? ' + uOffset' : ''};\nvCapV = ${cap ? 'aCap' : '0.0'};`,
+        `#include <begin_vertex>\nvUnitY = ${reads === 'chip' ? '( instanceMatrix * vec4( position, 1.0 ) ).y' : 'position.y'}${offset ? ' + uOffset' : ''};\nvCapV = ${cap ? 'aCap' : '0.0'};${reads === 'chip' ? '\nvChipD = length( cameraPosition - ( modelMatrix * instanceMatrix * vec4( position, 1.0 ) ).xyz );' : ''}`,
       );
     shader.fragmentShader = shader.fragmentShader
-      .replace('#include <common>', `#include <common>\n${GLSL_COMMON}`)
+      .replace(
+        '#include <common>',
+        `#include <common>\n${reads === 'chip' ? 'varying float vChipD;\n' : ''}${GLSL_COMMON}`,
+      )
       .replace(
         '#include <clipping_planes_fragment>',
         `#include <clipping_planes_fragment>\n${clip ? 'if ( vUnitY > uLevel + 0.002 ) discard;' : ''}`,
@@ -129,26 +140,36 @@ function attach(
         `#include <color_fragment>
         float fieldT_ = bedT( vUnitY );
         vec3 heat_ = heatRamp( fieldT_ );
-        diffuseColor.rgb = mix( diffuseColor.rgb, heat_, vCapV );`,
+        ${reads === 'chip' ? `float nearChip_ = 1.0 - smoothstep( 3.2, 6.0, vChipD );\n        diffuseColor.rgb = mix( heat_ * ${capDim.toFixed(3)}, diffuseColor.rgb * heat_ * 1.1, nearChip_ );` : `diffuseColor.rgb = mix( diffuseColor.rgb, heat_ * ${capDim.toFixed(3)}, vCapV );`}`,
       )
       .replace(
         '#include <emissivemap_fragment>',
         `#include <emissivemap_fragment>
-        totalEmissiveRadiance += incandescence( fieldT_ ) * uGlow * ( 1.0 - vCapV ) + heat_ * 0.5 * vCapV;`,
+        ${reads === 'chip' ? `totalEmissiveRadiance += incandescence( fieldT_ ) * uGlow + heat_ * mix( ${(0.5 * capDim).toFixed(3)}, 0.26, nearChip_ );` : `totalEmissiveRadiance += incandescence( fieldT_ ) * uGlow * ( 1.0 - vCapV ) + heat_ * ${(0.5 * capDim).toFixed(3)} * vCapV;`}`,
       );
   });
 }
 
 /** The chip bed: chips on its curved faces, the false colours of the field on its cut face, clipped at the level of the chips. */
-export function bedMaterial(offset?: { value: number }): THREE.MeshStandardMaterial {
+export function bedMaterial(offset?: { value: number }, capDim = 1): THREE.MeshStandardMaterial {
   const base = chipFlakes().clone();
   base.name = offset ? 'bed-top' : 'bed';
   base.color.set(0xb59a70);
   base.side = THREE.DoubleSide;
   base.userData.noShare = true;
   // the mound rides the level: its own height is added to the geometry's, so that the field reads the height of the unit
-  attach(base, offset ? 'bed-top' : 'bed-field', !offset, true, offset);
+  attach(base, offset ? `bed-top:${capDim}` : `bed-field:${capDim}`, !offset, true, offset, 1, 'surface', capDim);
   return base;
+}
+
+/** The loose pieces of the section (chips, charcoal) lying on the cut face of the bed: an instanced mesh takes this. Clipped at the level of the chips like the bed, coloured by the field at the piece's height. */
+export function chipMaterial(capDim = 1): THREE.MeshStandardMaterial {
+  const m = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.88, metalness: 0 });
+  m.userData.noShare = true;
+  m.name = 'bed-chips';
+  // from a few metres the pieces take the colour of the face they lie on, so that a bed seen from afar is the clean gradient it was and no field of sub-pixel edges (docs/qa.md D16)
+  attach(m, `bed-chips:${capDim}`, true, false, undefined, 1, 'chip', capDim);
+  return m;
 }
 
 /** Metal that takes the fire's colour where it is hot: the ring, the firebox, the nozzles, the grate. Not clipped: it stands where the chips are not. */

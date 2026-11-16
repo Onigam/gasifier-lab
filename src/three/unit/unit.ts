@@ -39,7 +39,7 @@ import {
   zincMat,
 } from '../materials';
 import { dynamic, mergeStatic } from '../merge';
-import { bedMaterial, hotMetal } from './field';
+import { bedMaterial, chipMaterial, hotMetal } from './field';
 
 // The F-5 gasifier unit, built once for every world: whole on the tractor and in the farm, in section in `gasifier`, and in the garage. Its own frame U: origin on the axis at the foot of the lower casing, the tractor's axes (+x where the gas
 // leaves, −x where the air comes in, −z the ash port and the left of the tractor). The section is geometry cut once when it is built, along the plane z = 0, the far half kept (z ≥ 0), each solid closed with a real face (docs/3d.md): nothing
@@ -282,7 +282,9 @@ export function buildUnit(opts: UnitOptions): Unit {
   };
 
   // ---- the bed's materials: one for every stretch of the column
-  const bed = bedMaterial();
+  // the cut face of the bed sits a little darker than the pieces that lie on it, so that the gaps between the pieces read as gaps
+  const bed = bedMaterial(undefined, cut ? 0.74 : 1);
+  const chipMat = chipMaterial(cut ? 0.74 : 1);
   const metal = hotMetal(0x3b3632, { roughness: 0.62, metalness: 0.55 });
   const metalLight = hotMetal(0x5a5650, { roughness: 0.55, metalness: 0.6 });
   const ceramic = hotMetal(0x4f463d, { roughness: 0.9, metalness: 0.05 });
@@ -1005,7 +1007,61 @@ export function buildUnit(opts: UnitOptions): Unit {
     ['pyrolysis-zone', ZONES.pyrolysis],
     ['drying-zone', ZONES.drying],
   ] as const;
-  const bedMesh = (y0: number, y1: number, g: THREE.Group): void => {
+  /**
+   * The loose pieces of a bed in section: chips lying on its cut face, each a thin flake of the reported size (`COLUMN`), turned about the plane's normal, tilted a little so that an edge catches the light, standing a few millimetres proud of the face; wood in the
+   * column and the upper zones, finer and darker charcoal below. Placed once, by rejection on a grid so that they overlap a little and leave gaps (seeded: the same section at every load).
+   */
+  const chipsOnFace = (y0: number, y1: number, seed: number, scale: number): THREE.InstancedMesh | null => {
+    const r = rng(seed);
+    const flake = new THREE.BoxGeometry(COLUMN.chipLength, COLUMN.chipWidth, COLUMN.chipThick);
+    const cell = COLUMN.chipWidth * scale * 0.62;
+    const taken = new Map<string, number>();
+    const spots: { x: number; y: number; rot: number; s: number; tx: number; ty: number; z: number; tone: number }[] =
+      [];
+    let area = 0;
+    for (let y = y0; y < y1; y += 0.01) area += 2 * bedRadius(y + 0.005) * 0.01;
+    const want = Math.min(2600, Math.round((0.8 * area) / (COLUMN.chipLength * COLUMN.chipWidth * scale * scale)));
+    // a piece stays inside its part's own height (within the box the whole unit has for it, to the millimetre: machine.test.ts): its centre a piece's half-length in from each end
+    const pad = Math.min(0.012, (y1 - y0) / 3);
+    for (let tries = 0; spots.length < want && tries < want * 5; tries++) {
+      const y = y0 + pad + r() * (y1 - y0 - 2 * pad);
+      const reach = bedRadius(y) - 0.008;
+      const x = (2 * r() - 1) * reach;
+      const key = `${Math.round(x / cell)}:${Math.round(y / cell)}`;
+      if ((taken.get(key) ?? 0) >= 1) continue;
+      taken.set(key, 1);
+      spots.push({
+        x,
+        y,
+        rot: (r() - 0.5) * 1.8,
+        s: scale * (0.8 + 0.35 * r()),
+        tx: (r() - 0.5) * 0.7,
+        ty: (r() - 0.5) * 0.7,
+        z: -0.001 + 0.004 * r(),
+        tone: 0.8 + 0.4 * r(),
+      });
+    }
+    if (!spots.length) return null;
+    const im = new THREE.InstancedMesh(flake, chipMat, spots.length);
+    const mtx = new THREE.Matrix4();
+    const q = new THREE.Quaternion();
+    const e = new THREE.Euler();
+    const col = new THREE.Color();
+    spots.forEach((p, i) => {
+      e.set(p.tx, p.ty, p.rot);
+      q.setFromEuler(e);
+      mtx.compose(v3(p.x, p.y, p.z), q, v3(p.s, p.s, 1 + p.s));
+      im.setMatrixAt(i, mtx);
+      col.setScalar(p.tone);
+      im.setColorAt(i, col);
+    });
+    im.castShadow = true;
+    im.receiveShadow = true;
+    im.frustumCulled = false;
+    im.name = 'bed-chips';
+    return im;
+  };
+  const bedMesh = (y0: number, y1: number, g: THREE.Group, chips?: { seed: number; scale: number }): void => {
     const prof = bedProfile(y0, y1);
     const side = uvCyl(latheCrisp(prof, 56, phiStart, phiLength), 3);
     side.setAttribute('aCap', new THREE.BufferAttribute(new Float32Array(side.attributes.position.count), 1));
@@ -1033,23 +1089,28 @@ export function buildUnit(opts: UnitOptions): Unit {
       const c = capPolygon([[0, y0], ...prof, [0, y1]]);
       g.add(mesh(c, bed));
       g.children[g.children.length - 1]!.castShadow = false;
+      if (chips) {
+        const im = chipsOnFace(y0, y1, chips.seed, chips.scale);
+        if (im) g.add(im);
+      }
     }
   };
   const bedGroups = new Map<string, THREE.Group>();
   for (const [id, z] of zoneIds) {
     const g = part(id, [-bedRadius((z.y0 + z.y1) / 2), (z.y0 + z.y1) / 2, 0]);
-    bedMesh(z.y0, z.y1, g);
+    // wood where it is dried and breaking down, charcoal and embers where it burns: smaller, and darker by their tone
+    bedMesh(z.y0, z.y1, g, { seed: 70 + id.length, scale: id === 'drying-zone' || id === 'pyrolysis-zone' ? 1 : 0.75 });
     bedGroups.set(id, g);
   }
   const column = part('chip-column', [-0.05, 1.45, 0.03]);
   const colTop = ZONES.drying.y1;
   const colMax = RIM - COLUMN.freeboard;
-  bedMesh(colTop, colMax, column);
+  bedMesh(colTop, colMax, column, { seed: 61, scale: 1 });
   bedGroups.set('chip-column', column);
   // the top of the chips: a mound and loose flakes, riding the level
   const topGroup = dynamic(group('chip-top'));
   const topOffset = { value: 0 };
-  const topBed = bedMaterial(topOffset);
+  const topBed = bedMaterial(topOffset, cut ? 0.74 : 1);
   column.add(topGroup);
   {
     const r0 = RB - 0.012;

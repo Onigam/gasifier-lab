@@ -101,7 +101,11 @@ export interface Building {
   door: THREE.Vector3;
 }
 
-export function buildFarmhouse(): Building {
+/**
+ * The farmhouse. `against` (−1 or 1): the gable that has a building built against it, in the house's own frame (x along its length): the roof stops flush with that gable instead of overhanging it, as a roof does over a wall that another house leans on.
+ * Without it the house stands free, as in the farm; with it the garage world draws the same house beside its garage.
+ */
+export function buildFarmhouse(opts: { against?: -1 | 1 } = {}): Building {
   const { w, d, wall } = FARM.house;
   const g = group('farmhouse');
   g.userData.partId = 'farmhouse';
@@ -136,6 +140,11 @@ export function buildFarmhouse(): Building {
   }
   const roof = gableRoof(w, d, rise, 0.55, ROOF_SHEET);
   roof.position.y = wall;
+  if (opts.against) {
+    // one end of the roof without its overhang: shorter by one overhang, its middle moved away from the wall
+    roof.scale.x = (w + 0.55) / (w + 2 * 0.55);
+    roof.position.x = (-opts.against * 0.55) / 2;
+  }
   g.add(roof);
   // windows: five on each floor of the south front, three on the north, two on each gable
   const wins = group('windows');

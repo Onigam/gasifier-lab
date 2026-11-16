@@ -101,6 +101,24 @@ export function buildFilter(): FilterPiece {
   ribs.push(boxAt(-0.003, tray + 0.02, -W / 2 - 0.01, 0.0, bodyTop - 0.02, W / 2 + 0.01));
   ribs.push(boxAt(L, tray + 0.02, -W / 2 - 0.01, L + 0.003, bodyTop - 0.02, W / 2 + 0.01));
   box.add(mesh(joined(ribs), steel()));
+  // the bolts that hold the lid's flange and the two end flanges: a hex head every 11 cm, standing out of the flange's face
+  const flangeBolts: THREE.BufferGeometry[] = [];
+  for (const s of [-1, 1]) {
+    for (let x = 0.07; x < L - 0.05; x += 0.11) {
+      const b = new THREE.CylinderGeometry(0.0065, 0.0065, 0.007, 6);
+      b.rotateX(Math.PI / 2);
+      b.translate(x, bodyTop + 0.001, s * (W / 2 + 0.017 + 0.0035));
+      flangeBolts.push(b);
+    }
+    for (const x of [-0.003, L + 0.003])
+      for (const y of [tray + 0.08, (tray + bodyTop) / 2, bodyTop - 0.1]) {
+        const b = new THREE.CylinderGeometry(0.0065, 0.0065, 0.007, 6);
+        b.rotateZ(Math.PI / 2);
+        b.translate(x + (x < 0 ? -0.0035 : 0.0035), y, s * (W / 2 - 0.05));
+        flangeBolts.push(b);
+      }
+  }
+  box.add(mesh(joined(flangeBolts), darkSteel()));
   // four toggle clamps at the lid's joint
   const clamps: THREE.BufferGeometry[] = [];
   for (const x of [0.16, L - 0.16]) {
@@ -801,8 +819,17 @@ export function buildGauge(): GaugePiece {
     ticks.push(boxAt(0.0, y - 0.0007, -0.054, 0.001, y + 0.0007, -(long ? 0.04 : 0.043)));
   }
   g.add(mesh(joined(ticks), blackPaint()));
-  // the clips on the board and the hose at the top of one leg
-  for (const y of [0.1, H - 0.05]) g.add(mesh(softBox(0.0, y, 0, 0.012, 0.014, 0.1, 0.003), steel()));
+  // the clips on the board and the hose at the top of one leg, each clip held by two screws; the board stands in a steel foot, screwed to the plinth
+  for (const y of [0.1, H - 0.05]) {
+    g.add(mesh(softBox(0.0, y, 0, 0.012, 0.014, 0.1, 0.003), steel()));
+    for (const z of [-0.04, 0.04])
+      g.add(
+        mesh(new THREE.CylinderGeometry(0.0045, 0.0045, 0.004, 6).rotateZ(Math.PI / 2), darkSteel(), [0.008, y, z]),
+      );
+  }
+  g.add(mesh(softBox(-0.012, 0.014, 0, 0.05, 0.026, 0.16, 0.004), darkSteel()));
+  for (const z of [-0.065, 0.065])
+    g.add(mesh(new THREE.CylinderGeometry(0.006, 0.006, 0.006, 6), steel(), [-0.012, 0.029, z]));
   g.add(mesh(new THREE.CylinderGeometry(0.01, 0.01, 0.03, 10), brassMat(), [legX, 0.02 + H + 0.012, zs[1]!]));
   // the water, one column to each leg, scaled each frame
   const wm = blackWater().clone();

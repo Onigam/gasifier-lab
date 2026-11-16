@@ -9,16 +9,15 @@ import { makeFlow, unitSections } from '../flowpaths';
 import { heatRgb, heatStops } from '@onigam/lab-kit/sim/thermal';
 import { group, mesh } from '@onigam/lab-kit/three';
 import { joined } from '../common';
+import { createYard } from '../outdoors';
 import { darkSteel } from '../materials';
 import {
   PAPER,
   WorldRegistry,
   anchor,
   hotspots,
-  paperFloor,
   partsNow,
   viewFrom,
-  workshopScene,
   type HotspotDef,
   type PartFraming,
 } from '../world';
@@ -67,6 +66,8 @@ const FRAMING: Record<UnitPartId, PartFraming> = {
   'fire-box': { viewDir: viewFrom(20, 205) },
   grate: { viewDir: viewFrom(36, 200) },
   'air-intake': { viewDir: viewFrom(20, 235) },
+  // the pipe leaves on the +x side: from the open side and a little to that side, so that its pad, its flange and its bolts read and not the casing's flank
+  'gas-outlet': { viewDir: viewFrom(16, 130) },
 };
 
 /** The explode: every part leaves along a vertical line or straight out of its place, so nothing goes through the casing. In metres of U. */
@@ -117,15 +118,17 @@ const HOTSPOTS: HotspotDef[] = [
 ];
 
 export function createGasifierScene(opts: GasifierOptions = {}): SceneModule<GasState> & { unit: Unit } {
-  const scene = workshopScene({
+  // the unit stands on its frame on a concrete slab in the open yard: sky, gravel, a tree line (`outdoors.ts`)
+  const yard = createYard({
     name: 'gasifier',
     key: [2.4, 4.2, -3.2],
     target: [0, 0.8, 0],
     shadowHalf: 3,
-    shadowFar: 14,
     exposure: 1.0,
+    slab: [-3.2, -3.2, 3.2, 3.2],
+    yardRadius: 14,
   });
-  scene.add(paperFloor(14, 8, -0.0));
+  const scene = yard.scene;
   const registry = new WorldRegistry(GASIFIER_REFUSED, opts.selected ?? (() => null));
 
   const unit = buildUnit({ cut: true });
@@ -220,7 +223,7 @@ export function createGasifierScene(opts: GasifierOptions = {}): SceneModule<Gas
     minDistance: 0.2,
     maxDistance: 9,
     near: 0.05,
-    far: 80,
+    far: 5000,
     declutter: true,
     homePadding: 1.0,
     update(state: GasState, dt: number, view: ViewOpts) {

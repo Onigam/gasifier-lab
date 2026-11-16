@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { group } from '@onigam/lab-kit/three';
+import { contactShadow, group } from '@onigam/lab-kit/three';
 import { COOLER, ENGINE, FILTER_AT, MIXER, TRACTOR, UNIT_AT } from '../dims';
 import { smoothstep, TAU, v3 } from '../common';
 import {
@@ -209,6 +209,23 @@ export function buildMachine(): Machine {
   root.add(engine.engine, exhaust.group, pump.group, shield.group, governor.group, consoles.group, unit.root, line);
   void TRACTOR;
 
+  // where each tyre meets the ground: a soft dark patch, longer than the tyre's contact is wide (the ground a body rests on is darker beside it); the kit's multiplied decal, which the film's occlusion pass would draw anyway and the visitor's picture does not have.
+  // Not part of any part: it stays on the floor and follows the wheel along its axle when the machine comes apart. It is drawn only where there is a floor to darken (it is multiplied over it).
+  const contact = group('tyre-contacts');
+  const patches = [...body.wheels.rear, ...body.wheels.front].map((w) => {
+    const rear = w.radius === TRACTOR.rear.R;
+    const d = contactShadow(
+      rear ? 0.62 : 0.4,
+      rear ? TRACTOR.rear.width + 0.06 : TRACTOR.front.width + 0.06,
+      rear ? 0.34 : 0.22,
+      0.6,
+    );
+    d.position.set(w.root.position.x, 0.003, w.root.position.z);
+    contact.add(d);
+    return { d, w };
+  });
+  root.add(contact);
+
   // the extra governor's V-belt: from the fan shaft's pulley, wherever the engine stands now, to the governor's own
   const beltA = new THREE.Vector3();
   const beltB = new THREE.Vector3();
@@ -271,6 +288,7 @@ export function buildMachine(): Machine {
     gauge.left.scale.y = Math.max(0.002, gauge.mid - 0.02 - half);
     gauge.right.scale.y = Math.max(0.002, gauge.mid - 0.02 + half);
     // the unit
+    for (const { d, w } of patches) d.position.z = w.root.position.z;
     lineFlow.update(s, dt, { slowMo: slow, visible: o.schematic === true });
     unitFlow.update(s, dt, { slowMo: slow, visible: o.schematic === true });
     unit.update({

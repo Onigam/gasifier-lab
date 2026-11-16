@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { group } from '@onigam/lab-kit/three';
 import type { Hotspot, SceneModule, ViewOpts } from '@onigam/lab-kit/three';
 import { clamp } from '@onigam/lab-kit/three';
-import { GARAGE, UNIT, UNIT_AT } from '../dims';
+import { FARM, GARAGE, UNIT, UNIT_AT } from '../dims';
 import { Followers } from '../followers';
 import { dynamic } from '../merge';
 import { buildMachine, type Machine } from '../tractor/tractor';
@@ -13,10 +13,11 @@ import {
   hotspots,
   partsNow,
   viewFrom,
-  workshopScene,
   type HotspotDef,
   type PartFraming,
 } from '../world';
+import { createYard } from '../outdoors';
+import { buildFarmhouse } from '../farm/buildings';
 import { buildGarageBuilding, grossVolume, type GarageBuilding } from './building';
 import { makeCo, makePlume, coShare } from './plume';
 import { buildBench, buildClutter, buildIndicator, buildRescueSet } from './props';
@@ -63,29 +64,28 @@ export interface GarageScene extends SceneModule<GasState> {
 }
 
 export function createGarageScene(opts: GarageOptions = {}): GarageScene {
-  const scene = workshopScene({
+  // the garage stands in the farm's yard, against the house, under the open sky (`outdoors.ts`): gravel, a concrete apron before the door, the house's gable, a tree line and ridges at the horizon
+  const yard = createYard({
     name: 'garage',
     key: [8, 12, -6],
     target: [0, 2, 2.5],
     shadowHalf: 9,
-    shadowFar: 40,
     exposure: 1.0,
+    slab: [-5.2, -9, 5.2, -GARAGE.wall - 0.005],
+    groundY: -0.21,
+    yardRadius: 18,
   });
-  scene.background = new THREE.Color(0xe9e1d0);
+  const scene = yard.scene;
   const registry = new WorldRegistry(new Set(), opts.selected ?? (() => null));
   const followers = new Followers();
 
   const building = buildGarageBuilding({ roof: false, volume: GARAGE.smallM3 });
   scene.add(building.shell, building.above);
-  // the ground outside: a slab of paper-coloured earth round the building, and a yard in front of the door
-  const ground = new THREE.Mesh(
-    new THREE.CircleGeometry(60, 48),
-    new THREE.MeshStandardMaterial({ color: 0xcbbf9f, roughness: 1 }),
-  );
-  ground.rotation.x = -Math.PI / 2;
-  ground.position.y = -0.21;
-  ground.receiveShadow = true;
-  scene.add(ground);
+  // the house this garage is built against: the farm's own farmhouse, its gable flush with the garage's wall on the side away from the camera's home (the farm has it on the other side: the picture is the same from the front)
+  const house = buildFarmhouse({ against: -1 });
+  house.group.userData.partId = undefined;
+  house.group.rotation.y = Math.PI;
+  scene.add(house.group);
 
   // ---- the tractor, nose in, the unit on the side of the room that is open to the eye
   const machine = buildMachine();
@@ -114,6 +114,9 @@ export function createGarageScene(opts: GarageOptions = {}): GarageScene {
     clutter.position.set(w / 2 - 0.5, 0, d - 0.4);
     clutter.rotation.y = Math.PI;
     building.lamp.position.set(0, building.dims.h, building.dims.d * 0.5);
+    // the house at the garage's side wall, its front in line with the garage's front wall; the apron before the door follows the room's width
+    house.group.position.set(-(w / 2 + GARAGE.wall) - FARM.house.w / 2 - 0.14, 0, -GARAGE.wall + FARM.house.d / 2);
+    yard.fitSlab(-w / 2 - 1, -9, w / 2 + 1, -GARAGE.wall - 0.005);
   };
   placeProps();
 
@@ -125,10 +128,10 @@ export function createGarageScene(opts: GarageOptions = {}): GarageScene {
   const plumeEye = makePlume({
     origin: toRoom(eye),
     color: 0xf4f0e0,
-    rise: 1.6,
-    spread: 0.9,
-    n: 220,
-    size: 0.9,
+    rise: 1.7,
+    spread: 1.0,
+    n: 300,
+    size: 1.25,
     speed: 0.1,
     seed: 5,
   });
@@ -183,14 +186,33 @@ export function createGarageScene(opts: GarageOptions = {}): GarageScene {
     'co-indicator': [0, 0, -1.0],
     'old-rescue-set': [0.8, 0, 0],
   };
+  // what the camera frames for the plume: the cloud at the intake and, with a lid that does not seal, the cloud at the lid too (the lid is no part of this world: it is framed through the plume that leaves it). The dots of a plume sit at the origin of their
+  // geometry, so the part's own box would stretch from the room's corner to the cloud
+  const eyeAt = toRoom(eye);
+  const lidAt = toRoom(lid);
+  const eyeBox = new THREE.Box3(eyeAt.clone().add(v3(-1.0, -0.2, -1.0)), eyeAt.clone().add(v3(1.0, 1.9, 1.0)));
+  const lidBox = new THREE.Box3(lidAt.clone().add(v3(-0.8, -0.3, -0.8)), lidAt.clone().add(v3(0.8, 1.2, 0.8)));
+  // the two fittings on the wall are small: the camera frames their middle, not the board's and the cable's whole box
+  scene.updateMatrixWorld(true);
+  const centre = (o: THREE.Object3D | THREE.Object3D[], k: number): THREE.Box3 => {
+    const b = new THREE.Box3();
+    for (const x of Array.isArray(o) ? o : [o]) b.union(new THREE.Box3().setFromObject(x, true));
+    const c = b.getCenter(new THREE.Vector3());
+    const h = b.getSize(new THREE.Vector3()).multiplyScalar(k / 2);
+    return new THREE.Box3(c.clone().sub(h), c.clone().add(h));
+  };
   const FRAME: Record<GarageId, PartFraming> = {
-    'closed-garage': { viewDir: viewFrom(22, 60) },
-    'garage-door': { viewDir: viewFrom(8, 340) },
-    'room-above': { viewDir: viewFrom(30, 60) },
-    'post-gas-plume': { viewDir: viewFrom(14, 80) },
+    // the building whole (the garage and the room over it), a little tighter than its box so that it fills the picture and not a third of it
+    'closed-garage': { viewDir: viewFrom(22, 60), frame: centre([building.shell, building.above], 0.8) },
+    // from the yard, in front and a little to the side away from the house: the boards, the straps, their bolts and the hinges, and the room through the door when it stands open
+    'garage-door': { viewDir: viewFrom(8, 160) },
+    // the bedroom from the front and a little to the open side, not so high that its floor is all that is seen: the bed, the window, the wardrobe
+    'room-above': { viewDir: viewFrom(20, 30), frame: centre(building.above, 0.55) },
+    'post-gas-plume': { viewDir: viewFrom(14, 80), frame: eyeBox },
     'exhaust-plume': { viewDir: viewFrom(14, 60) },
-    'co-indicator': { viewDir: viewFrom(0, 180) },
-    'old-rescue-set': { viewDir: viewFrom(5, 90) },
+    'co-indicator': { viewDir: viewFrom(0, 180), frame: centre(indicator.group, 0.62) },
+    // from the front of the open side and a little above: from level the tractor stands between the eye and its board (70 cm from the wall)
+    'old-rescue-set': { viewDir: viewFrom(26, 70), frame: centre(rescue, 0.62) },
   };
   const anchorAt: Record<GarageId, [number, number, number]> = {
     'closed-garage': [GARAGE.small.w / 2 + GARAGE.wall, GARAGE.small.h + 0.15, GARAGE.small.d / 2],
@@ -218,7 +240,6 @@ export function createGarageScene(opts: GarageOptions = {}): GarageScene {
   followers.add('closed-garage', park, { shell: false, explode: 0 });
   followers.add('closed-garage', bench, { shell: false, explode: 0 });
   followers.add('closed-garage', clutter, { shell: false, explode: 0 });
-  followers.add('closed-garage', ground, { shell: false, explode: 0 });
   followers.add('closed-garage', co.points, { shell: false, explode: 0 });
   registry.overview(() => {
     const { w, d, h, aboveH } = building.dims;
@@ -248,6 +269,8 @@ export function createGarageScene(opts: GarageOptions = {}): GarageScene {
       wall.mesh.visible = !hide;
       void rn;
     }
+    // the house stands on that side: the camera that has gone round to it would look through its walls
+    house.group.visible = !(camPos.x < -w / 2 - 0.3);
   };
   const setDoor = (open: number): void => building.door.set(open);
   const keepPlumeSpeed = { v: 0 };
@@ -264,7 +287,7 @@ export function createGarageScene(opts: GarageOptions = {}): GarageScene {
     minDistance: 0.3,
     maxDistance: 45,
     near: 0.05,
-    far: 400,
+    far: 5000,
     declutter: true,
     homePadding: 0.9,
     update(state: GasState, dt: number, view: ViewOpts) {
@@ -273,6 +296,11 @@ export function createGarageScene(opts: GarageOptions = {}): GarageScene {
         volume = state.garageVolume;
         building.setVolume(volume);
         placeProps();
+        scene.updateMatrixWorld(true);
+        registry.get('co-indicator')?.frame?.copy(centre(indicator.group, 0.62));
+        registry.get('old-rescue-set')?.frame?.copy(centre(rescue, 0.62));
+        registry.get('closed-garage')?.frame?.copy(centre([building.shell, building.above], 0.8));
+        registry.get('room-above')?.frame?.copy(centre(building.above, 0.55));
         co.fit(building.inside);
         // the labels of the shell and of the bedroom stay on the walls of the room as it grows
         const ins = building.inside;
@@ -297,8 +325,10 @@ export function createGarageScene(opts: GarageOptions = {}): GarageScene {
       setDoor(DOOR_OPEN[state.door] ?? 0);
       // the plume: in proportion to the model's flow, as white or yellow gas for wood (S3)
       const p = opts.params?.();
+      const pf = registry.get('post-gas-plume');
+      if (pf?.frame) pf.frame.copy(p?.lidLeak ? eyeBox.clone().union(lidBox) : eyeBox);
       const share = state.pressureSign === 'pressure' ? clamp(state.plumeShare, 0, 1) : 0;
-      const op = state.plumeVisible ? 0.55 : 0.12;
+      const op = state.plumeVisible ? 0.7 : 0.12;
       plumeEye.set({ share, opacity: op, time: view.time * view.slowMo });
       plumeLid.set({
         share: p?.lidLeak ? clamp(0.3 + 0.7 * state.plumeShare, 0, 1) : share * 0.3,

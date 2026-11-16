@@ -2,7 +2,18 @@ import * as THREE from 'three';
 import { group, mesh, rng } from '@onigam/lab-kit/three';
 import { GARAGE } from '../dims';
 import { TAU, boxAt, joined, softBox, stick, tubeGeometry, uvMetric, v3 } from '../common';
-import { concreteMap, oakMap, plasterMap, renderMap, boardsMap, tiled, woodMap, shingleMap } from '../textures';
+import {
+  concreteMap,
+  masonryMap,
+  oakMap,
+  plasterMap,
+  plankMap,
+  renderMap,
+  boardsMap,
+  tiled,
+  woodMap,
+  shingleMap,
+} from '../textures';
 import { mergeStatic, dynamic } from '../merge';
 import { cabGlass, darkSteel, steel, blackPaint, bright, brassMat, rubber } from '../materials';
 
@@ -10,6 +21,11 @@ import { cabGlass, darkSteel, steel, blackPaint, bright, brassMat, rubber } from
 // 1,000 m³ plus what the tractor displaces (`GARAGE`), so that the drawn room and the well-mixed box of the simulation are the same room. Walls are separate meshes so that the world can step aside the ones between the eye and the room.
 
 const mat = (p: THREE.MeshStandardMaterialParameters): THREE.MeshStandardMaterial => new THREE.MeshStandardMaterial(p);
+
+interface Lining {
+  boards: THREE.BufferGeometry;
+  tar: THREE.BufferGeometry;
+}
 
 export const PLASTER = mat({ color: 0xcfc4ab, map: tiled(renderMap(), 0.9, 0.9), roughness: 0.95 });
 export const PLASTER_IN = mat({
@@ -29,6 +45,18 @@ export const CEILING = mat({
 });
 export const ROOF = mat({ color: 0x59423a, map: tiled(shingleMap(), 1.4, 1.4), roughness: 0.85 });
 const WOOD = mat({ color: 0x9c7a52, map: tiled(woodMap(), 1, 1), roughness: 0.8 });
+/** The garage inside: upright boards, weathered and sooted, a dark ground for the pale gas to be seen against; a tarred strip at the foot. */
+export const LINING = mat({ color: 0x93765a, map: tiled(plankMap(), 1, 1), roughness: 0.9 });
+const TAR = mat({ color: 0x1d1a17, roughness: 0.6 });
+/** The slab between the storeys, cut: concrete, grey, with the grain of its aggregate. */
+export const SLAB = mat({ color: 0x9d9a93, map: tiled(concreteMap(), 1.4, 1.4), roughness: 0.96 });
+/** The bedroom's walls inside: painted lime plaster, pale, with a skirting of dark wood. */
+const BEDROOM_WALL = mat({
+  color: 0xe4d8bd,
+  map: tiled(plasterMap(), 0.8, 0.8),
+  roughness: 0.95,
+});
+const SKIRTING = mat({ color: 0x4a3626, map: tiled(woodMap(), 1, 1), roughness: 0.7 });
 
 export interface GarageDims {
   w: number;
@@ -91,6 +119,23 @@ function buildDoor(w: number, h: number): Door {
       );
     straps.push(stick(v3(s > 0 ? -lw : 0, 0.1, -0.03), v3(s > 0 ? 0 : lw, h - 0.1, -0.03), 0.012, 6));
     leaf.add(mesh(joined(straps), darkSteel()));
+    // the bolts that hold each strap through the boards, a round head every 22 cm on both faces, and the hinge: a pin and its knuckles at the post
+    const fix: THREE.BufferGeometry[] = [];
+    for (const y of [0.4, h - 0.45])
+      for (let k = 0; k < Math.floor(lw / 0.22); k++) {
+        const x = (s > 0 ? -lw : 0) + 0.11 + k * 0.22;
+        for (const zf of [-0.053, 0.053]) {
+          const b = new THREE.SphereGeometry(0.01, 8, 6, 0, TAU, 0, Math.PI / 2);
+          b.rotateX(zf < 0 ? -Math.PI / 2 : Math.PI / 2);
+          b.translate(x, y, zf);
+          fix.push(b);
+        }
+      }
+    for (const y of [0.4, h - 0.45]) {
+      fix.push(new THREE.CylinderGeometry(0.015, 0.015, 0.12, 10).translate(0, y, -0.052));
+      fix.push(new THREE.CylinderGeometry(0.008, 0.008, 0.2, 8).translate(0, y, -0.052));
+    }
+    leaf.add(mesh(joined(fix), darkSteel()));
     // the handle and its plate on the shut edge
     const handle = new THREE.CylinderGeometry(0.012, 0.012, 0.2, 8);
     handle.translate(s * (-lw + 0.1), 1.1, -0.05);
@@ -172,11 +217,12 @@ export function buildGarageBuilding(opts: { roof: boolean; volume: number }): Ga
     // the slab: joists under boards
     const slab = new THREE.BoxGeometry(w + 2 * t, 0.3, d + 2 * t);
     uvMetric(slab);
-    shell.add(mesh(slab.translate(0, h + 0.15, d / 2), CEILING));
-    // the ceiling's joists, seen from below
+    shell.add(mesh(slab.translate(0, h + 0.15, d / 2), SLAB));
+    // under it, the boards of the ceiling on their joists (a section shows the slab as concrete, a plank ceiling hangs beneath)
+    shell.add(mesh(boxAt(-w / 2, h - 0.025, 0, w / 2, h, d), LINING));
     const joists: THREE.BufferGeometry[] = [];
     for (let k = 0; k < Math.floor(d / 0.6); k++)
-      joists.push(boxAt(-w / 2, h - 0.07, 0.3 + k * 0.6 - 0.035, w / 2, h, 0.3 + k * 0.6 + 0.035));
+      joists.push(boxAt(-w / 2, h - 0.1, 0.3 + k * 0.6 - 0.04, w / 2, h - 0.025, 0.3 + k * 0.6 + 0.04));
     shell.add(mesh(joined(joists), WOOD));
     // oil on the floor under where the tractor stands: a dark patch
     const patch = new THREE.CircleGeometry(0.45, 24);
@@ -205,32 +251,58 @@ export function buildGarageBuilding(opts: { roof: boolean; volume: number }): Ga
       z: number,
       ry: number,
       normal: THREE.Vector3,
-    ): THREE.Mesh => {
+      lining: Lining[],
+    ): THREE.Group => {
+      // the wall stands as a group, so that it steps aside whole: its plaster outside and its boards inside go together
+      const grp = group(`wall-${id}`);
       const g = new THREE.BoxGeometry(w0, h0, t);
       uvMetric(g);
       const m = mesh(g, PLASTER);
       m.position.set(x, y, z);
       m.rotation.y = ry;
-      m.userData.keep = true;
-      shell.add(m);
-      walls.push({ id, mesh: m, normal, centre: m.position.clone() });
-      return m;
+      grp.add(m);
+      if (lining.length) {
+        grp.add(mesh(joined(lining.map((b) => b.boards)), LINING));
+        grp.add(mesh(joined(lining.map((b) => b.tar)), TAR));
+      }
+      grp.userData.keep = true;
+      shell.add(grp);
+      walls.push({ id, mesh: grp, normal, centre: m.position.clone() });
+      return grp;
     };
-    wall('plus-x', d + 2 * t, h + 0.3, w / 2 + t / 2, (h + 0.3) / 2, d / 2, Math.PI / 2, v3(1, 0, 0));
-    wall('minus-x', d + 2 * t, h + 0.3, -w / 2 - t / 2, (h + 0.3) / 2, d / 2, Math.PI / 2, v3(-1, 0, 0));
-    wall('back', w, h + 0.3, 0, (h + 0.3) / 2, d + t / 2, 0, v3(0, 0, 1));
+    const L = 0.03;
+    // linings in the room's frame, on the inner face of each wall: boards above a strip of tar at the foot
+    const lining = (x0: number, z0: number, x1: number, z1: number): Lining => {
+      const ex = x1 - x0 < 0.1 ? 0.002 : 0;
+      const ez = z1 - z0 < 0.1 ? 0.002 : 0;
+      return { boards: boxAt(x0, 0.25, z0, x1, h, z1), tar: boxAt(x0 - ex, 0, z0 - ez, x1 + ex, 0.25, z1 + ez) };
+    };
+    const lin = {
+      plusX: lining(w / 2 - L, 0, w / 2, d),
+      minusX: lining(-w / 2, 0, -w / 2 + L, d),
+      back: lining(-w / 2 + L, d - L, w / 2 - L, d),
+    };
+    wall('plus-x', d + 2 * t, h + 0.3, w / 2 + t / 2, (h + 0.3) / 2, d / 2, Math.PI / 2, v3(1, 0, 0), [lin.plusX]);
+    wall('minus-x', d + 2 * t, h + 0.3, -w / 2 - t / 2, (h + 0.3) / 2, d / 2, Math.PI / 2, v3(-1, 0, 0), [lin.minusX]);
+    wall('back', w, h + 0.3, 0, (h + 0.3) / 2, d + t / 2, 0, v3(0, 0, 1), [lin.back]);
     // the front wall in pieces round the door's opening
     const dw = door.width;
     const dh = door.height;
     const sideW = (w - dw) / 2;
     const front = group('front-wall');
+    const frontLinings: Lining[] = [];
     for (const s of [-1, 1]) {
       const g = new THREE.BoxGeometry(sideW, h + 0.3, t);
       uvMetric(g);
       const m = mesh(g, PLASTER);
       m.position.set(s * (dw / 2 + sideW / 2), (h + 0.3) / 2, -t / 2);
       front.add(m);
+      const x0 = s > 0 ? dw / 2 : -w / 2 + L;
+      const x1 = s > 0 ? w / 2 - L : -dw / 2;
+      frontLinings.push(lining(x0, 0, x1, L));
     }
+    front.add(mesh(joined(frontLinings.map((b) => b.boards)), LINING));
+    front.add(mesh(joined(frontLinings.map((b) => b.tar)), TAR));
     const lintel = new THREE.BoxGeometry(dw, h + 0.3 - dh, t);
     uvMetric(lintel);
     const lm = mesh(lintel, PLASTER);
@@ -299,20 +371,37 @@ export function buildGarageBuilding(opts: { roof: boolean; volume: number }): Ga
     const rw = w;
     const rd = d;
     const room = group('room-shell');
-    const aw = (id: string, w0: number, x: number, z: number, ry: number, n: THREE.Vector3): void => {
+    const aw = (
+      id: string,
+      w0: number,
+      x: number,
+      z: number,
+      ry: number,
+      n: THREE.Vector3,
+      inner: [number, number, number, number],
+    ): void => {
+      const grp = group(`wall-${id}`);
       const g = new THREE.BoxGeometry(w0, aboveH, t * 0.8);
       uvMetric(g);
       const m = mesh(g, PLASTER);
       m.position.set(x, y0 + aboveH / 2, z);
       m.rotation.y = ry;
-      m.userData.keep = true;
-      above.add(m);
-      walls.push({ id, mesh: m, normal: n, centre: m.position.clone() });
+      grp.add(m);
+      // the wall inside: pale painted plaster, a skirting of dark wood at its foot
+      const [x0, z0, x1, z1] = inner;
+      grp.add(mesh(boxAt(x0, y0, z0, x1, y0 + aboveH, z1), BEDROOM_WALL));
+      const ex = x1 - x0 < 0.1 ? 0.008 : 0;
+      const ez = z1 - z0 < 0.1 ? 0.008 : 0;
+      grp.add(mesh(boxAt(x0 - ex, y0, z0 - ez, x1 + ex, y0 + 0.11, z1 + ez), SKIRTING));
+      grp.userData.keep = true;
+      above.add(grp);
+      walls.push({ id, mesh: grp, normal: n, centre: m.position.clone() });
     };
-    aw('above-plus-x', rd + 0.4, rw / 2 + t * 0.4, rd / 2, Math.PI / 2, v3(1, 0, 0));
-    aw('above-minus-x', rd + 0.4, -rw / 2 - t * 0.4, rd / 2, Math.PI / 2, v3(-1, 0, 0));
-    aw('above-back', rw, 0, rd + t * 0.4, 0, v3(0, 0, 1));
-    aw('above-front', rw, 0, -t * 0.4, 0, v3(0, 0, -1));
+    const B = 0.02;
+    aw('above-plus-x', rd + 0.4, rw / 2 + t * 0.4, rd / 2, Math.PI / 2, v3(1, 0, 0), [rw / 2 - B, 0, rw / 2, rd]);
+    aw('above-minus-x', rd + 0.4, -rw / 2 - t * 0.4, rd / 2, Math.PI / 2, v3(-1, 0, 0), [-rw / 2, 0, -rw / 2 + B, rd]);
+    aw('above-back', rw, 0, rd + t * 0.4, 0, v3(0, 0, 1), [-rw / 2 + B, rd - B, rw / 2 - B, rd]);
+    aw('above-front', rw, 0, -t * 0.4, 0, v3(0, 0, -1), [-rw / 2 + B, 0, rw / 2 - B, B]);
     // the boards of the floor
     above.add(mesh(uvMetric(new THREE.BoxGeometry(rw, 0.02, rd).translate(0, y0 + 0.01, rd / 2)), FLOOR_BOARDS));
     // a window on the back wall with curtains
@@ -394,6 +483,25 @@ export function buildGarageBuilding(opts: { roof: boolean; volume: number }): Ga
     );
     void room;
     // the bedroom's own ceiling joist lines are left out: the room is cut open from above
+
+    // ---- seen from the yard (the farm): the stone course the house has at its foot, a drip sill under each window of the bedroom, a gutter and its downpipe
+    if (opts.roof) {
+      const out = t + 0.05;
+      const plinthTop = 0.5;
+      const stone = mat({ color: 0x8a867d, map: tiled(masonryMap(), 0.6, 0.6), roughness: 0.95 });
+      shell.add(mesh(boxAt(-w / 2 - out, -0.2, -out, w / 2 + out, plinthTop, d + out), stone));
+      const sills = mat({ color: 0xe9e4d6, roughness: 0.75 });
+      for (const x of [-1.0, 1.0])
+        above.add(mesh(boxAt(x - 0.58, y0 + 0.97, -t * 0.8 - 0.22, x + 0.58, y0 + 1.0, -t * 0.8 + 0.02), sills));
+      const total0 = y0 + aboveH;
+      const metal = mat({ color: 0x3a3d40, roughness: 0.5, metalness: 0.6 });
+      above.add(mesh(boxAt(-w / 2 - 0.3, total0 - 0.05, -t - 0.16, w / 2 + 0.3, total0 + 0.03, -t - 0.06), metal));
+      const down = new THREE.CylinderGeometry(0.045, 0.045, total0 - 0.1, 12);
+      down.translate(w / 2 + t - 0.05, (total0 - 0.1) / 2 + 0.1, -t - 0.11);
+      above.add(mesh(down, metal));
+      for (const yb of [0.4, 2.2, 4.0, 5.6])
+        above.add(mesh(boxAt(w / 2 + t - 0.1, yb, -t - 0.15, w / 2 + t, yb + 0.03, -t - 0.07), metal));
+    }
 
     // ---- the roof, for the farm's view: a pitched roof over both storeys
     if (opts.roof) {

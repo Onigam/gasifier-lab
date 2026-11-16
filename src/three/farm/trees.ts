@@ -144,6 +144,8 @@ export function spruceGeometry(tiers: number, boughs: number, seed: number): THR
 
 /** The distance from the eye, metres, beyond which a spruce is drawn with its coarse model. */
 export const SPRUCE_COARSE_FROM = 28;
+/** Beyond this many metres from the eye a birch is drawn with its main limbs and a crown of fewer, larger sprays of the same leaves (`leafyTree(…, true)`). */
+export const BIRCH_COARSE_FROM = 30;
 
 /** A spruce seen from afar: a stack of drooping skirts with a star-shaped hem (the boughs' tips), a thin dark lip under each. Same height and reach as the detailed one, a few hundred triangles of broad faces instead of seven hundred thin ones. */
 export function spruceCoarse(tiers = 10, points = 7): THREE.BufferGeometry {
@@ -397,7 +399,7 @@ export interface Species {
 }
 
 /** A broad-leaved tree: a trunk, forking limbs, a crown of sprays. `kind` sets the proportions. */
-export function leafyTree(kind: 'birch' | 'oak' | 'apple' | 'linden', seed: number): Species {
+export function leafyTree(kind: 'birch' | 'oak' | 'apple' | 'linden', seed: number, coarse = false): Species {
   const r = rng(seed);
   const m = new Mesher();
   const white = kind === 'birch';
@@ -473,6 +475,8 @@ export function leafyTree(kind: 'birch' | 'oak' | 'apple' | 'linden', seed: numb
   // root flare
   const ends: [number, number, number][] = [];
   for (let i = 0; i < spec.limbs; i++) {
+    // seen from afar a tree keeps its main limbs and loses the thin ones: a hairline of white bark against a dark ground is what crawls (docs/qa.md D16)
+    if (coarse && i % 2 === 1) continue;
     const f = i / (spec.limbs - 1);
     const y0 = spec.forkFrom + 0.05 + 0.4 * f;
     const a = i * 2.399 + r() * 0.4;
@@ -490,9 +494,10 @@ export function leafyTree(kind: 'birch' | 'oak' | 'apple' | 'linden', seed: numb
       py += (L * up) / seg - (kind === 'birch' ? -0.01 : 0) * s;
       pts.push([px, py, pz]);
     }
-    const r0 = Math.max(0.006, spec.trunkR[2]! * 0.6 * (1 - 0.4 * f));
-    tube(m, pts, [r0, r0 * 0.8, r0 * 0.6, r0 * 0.4, r0 * 0.15], 5, bark, twig, 5);
+    const r0 = Math.max(0.006, spec.trunkR[2]! * 0.6 * (1 - 0.4 * f)) * (coarse ? 1.6 : 1);
+    tube(m, pts, [r0, r0 * 0.8, r0 * 0.6, r0 * 0.4, r0 * (coarse ? 0.4 : 0.15)], coarse ? 6 : 5, bark, twig, 5);
     ends.push([px, py, pz]);
+    if (coarse) continue;
     // a fork near the end
     const a2 = a + 0.8 * (r() > 0.5 ? 1 : -1);
     const fork: [number, number, number][] = [
@@ -509,8 +514,9 @@ export function leafyTree(kind: 'birch' | 'oak' | 'apple' | 'linden', seed: numb
       seed: seed + 1,
       c: spec.crownC,
       rad: spec.rad,
-      sprays: spec.sprays,
-      size: spec.size,
+      // seen from afar the same leaves in fewer, larger sprays: less edge against the sky for the eye to crawl along (docs/qa.md D16)
+      sprays: coarse ? Math.round(spec.sprays * 0.42) : spec.sprays,
+      size: coarse ? spec.size * 1.55 : spec.size,
       tint: [0.45 * lightG, 1.0 * lightG],
       shell: kind === 'oak' ? 0.4 : 0.15,
       droop: kind === 'birch' ? 0.35 : 0.15,
@@ -597,7 +603,7 @@ function instance(
   leafMat: THREE.Material,
   feet: THREE.Vector3[],
   tintJitter = 0.12,
-  coarse?: { crown: THREE.BufferGeometry; from: number },
+  coarse?: { crown: THREE.BufferGeometry; from: number; trunk?: THREE.BufferGeometry; material?: THREE.Material },
 ): void {
   plantings = plantings.filter((p) => !avoidAt(p.x, p.z));
   if (plantings.length === 0) return;
@@ -629,7 +635,11 @@ function instance(
     m.frustumCulled = false;
     parent.add(m);
   }
-  if (coarse) crownsByDistance(parent, ml, coarse.crown, coarse.from, feet.slice(feet.length - plantings.length));
+  if (coarse) {
+    const at = feet.slice(feet.length - plantings.length);
+    crownsByDistance(parent, ml, coarse.crown, coarse.from, at, coarse.material);
+    if (coarse.trunk && hasTrunk) crownsByDistance(parent, mt, coarse.trunk, coarse.from, at);
+  }
 }
 
 /**
@@ -642,14 +652,17 @@ function crownsByDistance(
   coarseGeo: THREE.BufferGeometry,
   from: number,
   at: THREE.Vector3[],
+  material?: THREE.Material,
 ): void {
   const n = fine.count;
-  const far = new THREE.InstancedMesh(coarseGeo, fine.material, n);
+  const far = new THREE.InstancedMesh(coarseGeo, material ?? fine.material, n);
   far.castShadow = true;
   far.receiveShadow = true;
   far.name = `${fine.name}-coarse`;
   far.frustumCulled = false;
-  far.instanceColor = new THREE.InstancedBufferAttribute(new Float32Array(n * 3), 3);
+  // a mesh with no per-tree colour (the trunks) has none to hand on
+  const coloured = !!fine.instanceColor;
+  if (coloured) far.instanceColor = new THREE.InstancedBufferAttribute(new Float32Array(n * 3), 3);
   parent.add(far);
   const mats: THREE.Matrix4[] = [];
   const cols: THREE.Color[] = [];
@@ -658,7 +671,7 @@ function crownsByDistance(
     fine.getMatrixAt(i, mm);
     mats.push(mm);
     const c = new THREE.Color();
-    fine.getColorAt(i, c);
+    if (coloured) fine.getColorAt(i, c);
     cols.push(c);
   }
   const isFar = new Uint8Array(n).fill(2);
@@ -681,10 +694,12 @@ function crownsByDistance(
     for (let i = 0; i < n; i++) {
       if (isFar[i] === 1) {
         far.setMatrixAt(b, mats[i]!);
-        far.setColorAt(b++, cols[i]!);
+        if (coloured) far.setColorAt(b, cols[i]!);
+        b++;
       } else {
         fine.setMatrixAt(a, mats[i]!);
-        fine.setColorAt(a++, cols[i]!);
+        if (coloured) fine.setColorAt(a, cols[i]!);
+        a++;
       }
     }
     fine.count = a;
@@ -710,7 +725,7 @@ export function buildTrees(avoid: (x: number, z: number) => boolean = () => fals
   const oakLeaf = leafMaterial(leafCard(12, 0x6fa13d, 0x35601f, 80, 128, 0.7, 0.085), 'oak-leaf');
   const appleLeaf = leafMaterial(leafCard(13, 0x8cb749, 0x477a28, 80, 128, 0.62, 0.08), 'apple-leaf');
   const lindenLeaf = leafMaterial(leafCard(14, 0x86b845, 0x3f7a26, 80, 128, 0.85, 0.09), 'linden-leaf');
-  const pineLeaf = leafMaterial(leafCard(15, 0x4c6e3a, 0x22381f, 100, 128, 0.18, 0.1), 'pine-leaf');
+  const pineLeaf = leafMaterial(leafCard(15, 0x6a8a48, 0x2f4d2b, 100, 128, 0.18, 0.1), 'pine-leaf');
   leafMats.push(birchLeaf, oakLeaf, appleLeaf, lindenLeaf, pineLeaf);
   const barkBirch = new THREE.MeshStandardMaterial({
     color: 0xffffff,
@@ -741,6 +756,7 @@ export function buildTrees(avoid: (x: number, z: number) => boolean = () => fals
 
   // the garden: birches and a linden near the house, an oak by the lane, apple trees in a row behind
   const pl = (x: number, z: number, s: number): Planting => ({ x, z, s: s * (0.9 + 0.2 * r()), rot: r() * 6.28 });
+  const birchCoarse = leafyTree('birch', 1, true);
   instance(
     group,
     leafyTree('birch', 1),
@@ -762,6 +778,12 @@ export function buildTrees(avoid: (x: number, z: number) => boolean = () => fals
     barkBirch,
     birchLeaf,
     feet,
+    0.12,
+    {
+      crown: birchCoarse.crown,
+      trunk: birchCoarse.trunk,
+      from: BIRCH_COARSE_FROM,
+    },
   );
   instance(
     group,

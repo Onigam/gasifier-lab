@@ -16,6 +16,8 @@ const VERT = /* glsl */ `
   uniform float uSize;
   uniform float uPixels;
   varying float vAlpha;
+  varying float vRot;
+  varying float vSeed;
   void main() {
     float age = fract( aSeed.x * 7.0 + uTime * uSpeed * ( 0.7 + 0.6 * aSeed.y ) );
     float live = step( aSeed.w, uShare );
@@ -27,18 +29,30 @@ const VERT = /* glsl */ `
     float size = uSize * ( 0.3 + 1.6 * age ) * live;
     gl_PointSize = size * uPixels / max( 0.5, -mv.z );
     vAlpha = live * sin( 3.14159265 * age ) * 0.9;
+    vRot = aSeed.z * 6.2831853;
+    vSeed = aSeed.x;
   }
 `;
 
+// a puff is not a disc: its edge is broken by two octaves of noise, turned by the particle's own angle, so that a plume reads as gas and not as a cloud of dots; the colour is a little darker towards the rim, as a lit puff is thinner there
 const FRAG = /* glsl */ `
   uniform vec3 uColor;
   uniform float uOpacity;
   varying float vAlpha;
+  varying float vRot;
+  varying float vSeed;
+  float pHash( vec2 p ) { p = fract( p * vec2( 123.34, 456.21 ) ); p += dot( p, p + 45.32 ); return fract( p.x * p.y ); }
+  float pNoise( vec2 p ) { vec2 i = floor( p ); vec2 f = fract( p ); vec2 u = f * f * ( 3.0 - 2.0 * f ); return mix( mix( pHash( i ), pHash( i + vec2( 1.0, 0.0 ) ), u.x ), mix( pHash( i + vec2( 0.0, 1.0 ) ), pHash( i + vec2( 1.0, 1.0 ) ), u.x ), u.y ); }
   void main() {
     vec2 c = gl_PointCoord - 0.5;
+    float cs = cos( vRot );
+    float sn = sin( vRot );
+    c = vec2( cs * c.x - sn * c.y, sn * c.x + cs * c.y );
     float d = length( c ) * 2.0;
-    float soft = smoothstep( 1.0, 0.1, d );
-    gl_FragColor = vec4( uColor, soft * vAlpha * uOpacity );
+    float puff = 0.6 * pNoise( c * 4.0 + vSeed * 17.0 ) + 0.4 * pNoise( c * 9.0 - vSeed * 5.0 );
+    float soft = smoothstep( 1.0, 0.2, d + ( puff - 0.5 ) * 0.7 );
+    vec3 col = uColor * ( 0.78 + 0.22 * ( 1.0 - d ) );
+    gl_FragColor = vec4( col, soft * vAlpha * uOpacity );
   }
 `;
 

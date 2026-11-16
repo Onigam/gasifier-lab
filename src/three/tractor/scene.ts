@@ -10,13 +10,12 @@ import {
   anchor,
   hotspots,
   partsNow,
-  paperFloor,
   viewFrom,
-  workshopScene,
   type HotspotDef,
   type PartFraming,
 } from '../world';
 import type { GasParams, GasState } from '../../sim/types';
+import { createYard } from '../outdoors';
 import { buildMachine, type Machine } from './tractor';
 
 // `tractor`: the machine. The tractor with its whole system bolted on: the unit on its console at the left, the filter box and the cooler, the starting fan and its stack, the rack on the cab. Always rolling on the spot: the paper's grid
@@ -137,17 +136,18 @@ export interface TractorScene extends SceneModule<GasState> {
 }
 
 export function createTractorScene(opts: TractorSceneOptions = {}): TractorScene {
-  const scene = workshopScene({
+  // the machine rolls on the spot on a farm track of packed gravel under the open sky: the ground's pattern runs under the wheels (`yard.scroll`)
+  const yard = createYard({
     name: 'tractor',
     key: [-4, 9, -7],
     target: [1.5, 0.8, -0.2],
-    shadowHalf: 8,
-    shadowFar: 40,
+    shadowHalf: 6,
     exposure: 1.0,
+    groundY: 0,
+    yardRadius: 40,
+    ruts: [-TRACTOR.rear.tread / 2, TRACTOR.rear.tread / 2],
   });
-  const floor = paperFloor(30, 8, 0);
-  scene.add(floor);
-  const floorMap = (floor.material as THREE.MeshStandardMaterial).map!;
+  const scene = yard.scene;
 
   const machine = buildMachine();
   scene.add(machine.root);
@@ -224,7 +224,7 @@ export function createTractorScene(opts: TractorSceneOptions = {}): TractorScene
     minDistance: 0.6,
     maxDistance: 40,
     near: 0.05,
-    far: 300,
+    far: 5000,
     declutter: true,
     homePadding: 0.95,
     update(state: GasState, dt: number, view: ViewOpts) {
@@ -251,7 +251,7 @@ export function createTractorScene(opts: TractorSceneOptions = {}): TractorScene
       // the floor's grid runs under the wheels
       const v = state.engineOn ? state.groundSpeedMs : 0;
       roll += v * dt * view.slowMo;
-      floorMap.offset.x = (roll / 8) % 1;
+      yard.scroll(roll);
       void TRACTOR;
       void ENGINE;
       void PAPER;

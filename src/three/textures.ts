@@ -429,6 +429,44 @@ export const boardsMap = (): THREE.DataTexture =>
     return [k, k, k];
   });
 
+/**
+ * Weathered boards laid upright, grey to be tinted: seven boards to the metre, each its own tone, a long grain with a few knots, a dark gap between them, a nail's head near the top and the foot of every board, a stain of damp and soot
+ * that darkens the foot. The tile is one metre by one metre, so a board is 0.14 m wide wherever it is laid; the wall's own UVs are in metres.
+ */
+export const plankMap = (): THREE.DataTexture =>
+  map('planks', 512, (u, v, i, j) => {
+    const boards = 7;
+    const b = Math.floor(u * boards);
+    const fu = (u * boards) % 1;
+    // the gap and the rounded edge of each board
+    const gap = Math.min(fu, 1 - fu);
+    const gapDark = 1 - smoothstep(0.0, 0.09, gap);
+    const tone = 0.78 + 0.34 * hash1(b, 5);
+    // long grain: noise stretched along the board
+    const grain = tn(u * 150 + b * 13, v * 6, 256, 6) - 0.5;
+    const rings = Math.sin((fu + 0.22 * (tn(u * 12 + b * 5, v * 3, 256, 3) - 0.5)) * 38) * 0.5;
+    let k = tone * (0.74 + 0.2 * grain + 0.05 * rings);
+    // knots: a dark whorl on some boards
+    for (let q = 0; q < 2; q++) {
+      if (hash1(b, 20 + q) > 0.55) continue;
+      const ky = hash1(b, 30 + q);
+      const kx = 0.3 + 0.4 * hash1(b, 40 + q);
+      const dx = (fu - kx) * 0.14;
+      const dy = (((v - ky + 1.5) % 1) - 0.5) * 1.0;
+      const d = Math.hypot(dx * 5, dy * 1.2);
+      if (d < 0.11) k *= 0.55 + 4 * d;
+    }
+    // nails
+    const nailY = Math.min((v * 1.0) % 1, 1 - ((v * 1.0) % 1));
+    if (nailY > 0.03 && nailY < 0.045 && Math.abs(fu - 0.5) < 0.18 && Math.abs(((fu - 0.5) * 0.14) % 0.03) < 0.004)
+      k *= 0.45;
+    // damp and soot, darker at the foot of the tile
+    k *= 0.88 + 0.12 * smoothstep(0.0, 0.5, v) + 0.1 * (tf(u, v, 3, 3) - 0.5);
+    k *= 1 - 0.7 * gapDark;
+    k += 0.012 * (hash1(i, j) - 0.5);
+    return [k * 1.0, k * 0.96, k * 0.9];
+  });
+
 /** Lime render on the outside walls, to be tinted: broad patches, a roughcast grain. */
 export const renderMap = (): THREE.DataTexture =>
   map('render', 256, (u, v, i, j) => {

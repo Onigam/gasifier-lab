@@ -137,7 +137,13 @@ export function buildTerrain(): Terrain {
           float trk = ( 1.0 - smoothstep( ${(FARM.track.width / 2).toFixed(2)}, ${(FARM.track.width / 2 + 0.7).toFixed(2)}, abs( p.x - ${FARM.track.x.toFixed(2)} ) ) ) * step( -4.0, p.y ) * step( p.y, ${(FARM.field.z0 + 6).toFixed(1)} );
           float gravelM = max( max( yard, lane ), trk );
           vec3 gr = texture2D( uGravel, p * 0.8 ).rgb * mix( 1.0, 0.9, farM );
-          gr = mix( gr, vec3( 0.34, 0.3, 0.24 ) * 1.1, 0.35 + 0.2 * lNoise( p * 0.2 ) );
+          // stones read at a few metres: a second, finer sample of the same gravel close to the eye, and less of the flat tone over it
+          float nearG = 1.0 - smoothstep( 4.0, 32.0, dist );
+          gr *= 0.8 + 0.45 * mix( 0.5, texture2D( uGravel, p * 3.3 ).g, nearG );
+          gr = mix( gr, vec3( 0.34, 0.3, 0.24 ) * 1.1, 0.14 + 0.14 * lNoise( p * 0.2 ) );
+          // a little grass in the gravel where the yard thins, dark patches where it has been oiled and trodden
+          gr = mix( gr, vec3( 0.24, 0.3, 0.12 ), 0.35 * smoothstep( 0.62, 0.8, lNoise( p * 1.7 ) ) * smoothstep( 0.2, 0.9, 1.0 - yard ) * ( 1.0 - smoothstep( 8.0, 40.0, dist ) ) );
+          gr *= 1.0 - 0.18 * smoothstep( 0.55, 0.85, lFbm( p * 0.45 + 8.0 ) ) * ( 1.0 - smoothstep( 20.0, 90.0, dist ) );
           // wheel ruts and darker trodden ground near the doors
           float rut = smoothstep( 0.35, 0.0, abs( abs( p.y - ${FARM.lane.z.toFixed(2)} + 1.6 * sin( p.x * 0.03 ) ) - 0.85 ) ) * lane * nearF * 0.3;
           gr *= 1.0 - rut;
@@ -148,6 +154,11 @@ export function buildTerrain(): Terrain {
           float field = fz * fx * fz1;
           vec3 sc = texture2D( uSoil, vec2( p.x * 0.5, p.y * 0.5 ) ).rgb;
           sc = mix( sc * vec3( 0.62, 0.5, 0.38 ), vec3( 0.2, 0.14, 0.09 ), 0.3 + 0.25 * lFbm( p * 0.03 ) );
+          // the furrows of the plough, along x: ridges and troughs about 75 cm apart, softened with the distance so that they do not crawl, with a few clods
+          float furrowFade = 1.0 - smoothstep( 14.0, 70.0, dist );
+          float fur = 0.5 + 0.5 * sin( p.y * 8.4 + 2.2 * lNoise( vec2( p.x * 0.12, p.y * 0.4 ) ) );
+          sc *= 1.0 - furrowFade * ( 0.34 * ( 1.0 - fur ) );
+          sc *= 1.0 + furrowFade * 0.25 * ( lNoise( p * 7.0 ) - 0.5 );
           // a stripe of the headland, harrowed and paler, round the field
           float head = field * smoothstep( 4.0, 0.0, min( min( abs( p.y - ${FARM.field.z0.toFixed(2)} ), abs( abs( p.x ) - ${FARM.field.x1.toFixed(1)} ) ), abs( p.y - ${FARM.field.z1.toFixed(1)} ) ) );
           sc = mix( sc, vec3( 0.34, 0.26, 0.18 ), head * 0.5 );

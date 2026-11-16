@@ -93,8 +93,10 @@ export interface SkyRig {
   night: number;
   /** `held`: the clock runs fast, the sun holds its hour and keeps above its lowest. */
   update(hour: number, time: number, day?: number, held?: boolean): void;
-  /** Aim the shadow box at a point with a half-size (metres). */
-  focusShadow(focus: THREE.Vector3, half: number): void;
+  /** The sun along a direction chosen by the world (a world that is not the farm's day: the machine worlds and the garage, lit as a film would light them). `dir` points from the ground to the sun. */
+  aim(dir: THREE.Vector3, time?: number): void;
+  /** Aim the shadow box at a point with a half-size (metres), at least `min` (8 by default: the farm's; a machine world asks for less so that its shadow's texel stays a few millimetres). */
+  focusShadow(focus: THREE.Vector3, half: number, min?: number): void;
 }
 
 export function createSky(scene: THREE.Scene): SkyRig {
@@ -168,6 +170,35 @@ export function createSky(scene: THREE.Scene): SkyRig {
     sun.target.updateMatrixWorld();
   };
 
+  const apply = (time: number): void => {
+    const alt = Math.asin(clamp(sunDir.y, -1, 1));
+    const day = smoothstep(-7 * DEG, 3 * DEG, alt);
+    const low = 1 - smoothstep(4 * DEG, 25 * DEG, alt);
+    rig.night = 1 - day;
+    u.sunPosition.value.copy(sunDir);
+    u.uNight.value = smoothstep(-2 * DEG, -10 * DEG, alt);
+    if (u.time) u.time.value = time;
+    const sunI = 3.9 * smoothstep(-1 * DEG, 6 * DEG, alt) * (1 - 0.18 * low);
+    const moonI = 1.1 * (1 - day);
+    if (sunI >= moonI) {
+      lightDir.copy(sunDir);
+      sun.color.copy(white).lerp(warm, low);
+      sun.intensity = sunI;
+    } else {
+      lightDir.copy(moonDir);
+      sun.color.copy(moonCol);
+      sun.intensity = moonI;
+    }
+    place();
+    hemi.intensity = lerp(0.5, 1.0, day) * lerp(1, 0.86, low * day);
+    hemi.color.copy(hemiNight).lerp(hemiDay, day);
+    scene.environmentIntensity = lerp(0.2, 0.55, day);
+    (scene.fog as THREE.FogExp2).color
+      .copy(fogNight)
+      .lerp(fogDay, day)
+      .lerp(fogDusk, low * day * 0.6);
+  };
+
   const rig: SkyRig = {
     sun,
     night: 0,
@@ -177,35 +208,14 @@ export function createSky(scene: THREE.Scene): SkyRig {
         sunDir.y = Math.sin(MIN_HELD_ALT);
         sunDir.normalize();
       }
-      const alt = Math.asin(clamp(sunDir.y, -1, 1));
-      const day = smoothstep(-7 * DEG, 3 * DEG, alt);
-      const low = 1 - smoothstep(4 * DEG, 25 * DEG, alt);
-      rig.night = 1 - day;
-      u.sunPosition.value.copy(sunDir);
-      u.uNight.value = smoothstep(-2 * DEG, -10 * DEG, alt);
-      if (u.time) u.time.value = time;
-      const sunI = 3.9 * smoothstep(-1 * DEG, 6 * DEG, alt) * (1 - 0.18 * low);
-      const moonI = 1.1 * (1 - day);
-      if (sunI >= moonI) {
-        lightDir.copy(sunDir);
-        sun.color.copy(white).lerp(warm, low);
-        sun.intensity = sunI;
-      } else {
-        lightDir.copy(moonDir);
-        sun.color.copy(moonCol);
-        sun.intensity = moonI;
-      }
-      place();
-      hemi.intensity = lerp(0.5, 1.0, day) * lerp(1, 0.86, low * day);
-      hemi.color.copy(hemiNight).lerp(hemiDay, day);
-      scene.environmentIntensity = lerp(0.2, 0.55, day);
-      (scene.fog as THREE.FogExp2).color
-        .copy(fogNight)
-        .lerp(fogDay, day)
-        .lerp(fogDusk, low * day * 0.6);
+      apply(time);
     },
-    focusShadow(f, h) {
-      const level = Math.max(8, Math.pow(1.3, Math.round(Math.log(h) / Math.log(1.3))));
+    aim(dir, time = 0) {
+      sunDir.copy(dir).normalize();
+      apply(time);
+    },
+    focusShadow(f, h, min = 8) {
+      const level = Math.max(min, Math.pow(1.3, Math.round(Math.log(h) / Math.log(1.3))));
       focus.copy(f);
       if (level !== half) {
         half = level;
