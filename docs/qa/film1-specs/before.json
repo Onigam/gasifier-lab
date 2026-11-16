@@ -1,0 +1,419 @@
+{
+ "out": "/Users/magino/.cache/lab-review/gasifier-lab/film1/before",
+ "tag": "b",
+ "width": 1280,
+ "height": 720,
+ "film": true,
+ "shots": [
+  {
+   "name": "farm-0a-home",
+   "scene": "farm",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ],
+    [
+     "engine",
+     "off"
+    ]
+   ],
+   "runIn": 20
+  },
+  {
+   "name": "farm-0b-house-garage",
+   "scene": "farm",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ],
+   "frame": [
+    "farmhouse",
+    "farm-garage"
+   ]
+  },
+  {
+   "name": "farm-0b-garage",
+   "scene": "farm",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ],
+   "frame": [
+    "farm-garage"
+   ]
+  },
+  {
+   "name": "farm-0c-tractor",
+   "scene": "farm",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ],
+   "frame": [
+    "wood-gas-tractor"
+   ]
+  },
+  {
+   "name": "farm-6-tractor",
+   "scene": "farm",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ],
+   "frame": [
+    "wood-gas-tractor"
+   ],
+   "runIn": 6
+  },
+  {
+   "name": "garage-1-home",
+   "scene": "garage",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ],
+    [
+     "engine",
+     "off"
+    ],
+    [
+     "speed",
+     "10"
+    ]
+   ],
+   "runIn": 4
+  },
+  {
+   "name": "garage-1-room-above",
+   "scene": "garage",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ],
+    [
+     "engine",
+     "off"
+    ]
+   ],
+   "frame": [
+    "room-above"
+   ]
+  },
+  {
+   "name": "garage-1-closed-garage",
+   "scene": "garage",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ],
+    [
+     "engine",
+     "off"
+    ]
+   ],
+   "frame": [
+    "closed-garage"
+   ]
+  },
+  {
+   "name": "garage-1b-rescue-set",
+   "scene": "garage",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ],
+   "frame": [
+    "old-rescue-set"
+   ]
+  },
+  {
+   "name": "garage-4-plume",
+   "scene": "garage",
+   "cues": [
+    [
+     "scenario",
+     "closed-garage"
+    ],
+    [
+     "speed",
+     "51"
+    ]
+   ],
+   "frame": [
+    "post-gas-plume"
+   ],
+   "runIn": 40,
+   "flows": true
+  },
+  {
+   "name": "garage-5-co-indicator",
+   "scene": "garage",
+   "cues": [
+    [
+     "scenario",
+     "closed-garage"
+    ],
+    [
+     "speed",
+     "51"
+    ]
+   ],
+   "frame": [
+    "co-indicator"
+   ],
+   "runIn": 60
+  },
+  {
+   "name": "garage-5-closed-garage",
+   "scene": "garage",
+   "cues": [
+    [
+     "scenario",
+     "closed-garage"
+    ],
+    [
+     "speed",
+     "51"
+    ]
+   ],
+   "frame": [
+    "closed-garage"
+   ],
+   "runIn": 60
+  },
+  {
+   "name": "garage-5c-door",
+   "scene": "garage",
+   "cues": [
+    [
+     "scenario",
+     "closed-garage"
+    ],
+    [
+     "speed",
+     "51"
+    ],
+    [
+     "door",
+     "open"
+    ]
+   ],
+   "frame": [
+    "garage-door"
+   ],
+   "runIn": 70
+  },
+  {
+   "name": "gasifier-2-home",
+   "scene": "gasifier",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ]
+  },
+  {
+   "name": "gasifier-2-chip-column",
+   "scene": "gasifier",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ],
+    [
+     "journey",
+     "0.15"
+    ]
+   ],
+   "frame": [
+    "chip-column"
+   ]
+  },
+  {
+   "name": "gasifier-2-pyrolysis",
+   "scene": "gasifier",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ],
+    [
+     "journey",
+     "0.42"
+    ]
+   ],
+   "frame": [
+    "pyrolysis-zone"
+   ]
+  },
+  {
+   "name": "gasifier-2-oxidation",
+   "scene": "gasifier",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ],
+    [
+     "journey",
+     "0.62"
+    ]
+   ],
+   "frame": [
+    "oxidation-zone"
+   ]
+  },
+  {
+   "name": "gasifier-2b-reduction",
+   "scene": "gasifier",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ],
+    [
+     "journey",
+     "0.7"
+    ]
+   ],
+   "frame": [
+    "reduction-zone"
+   ],
+   "flows": true
+  },
+  {
+   "name": "gasifier-2c-outlet",
+   "scene": "gasifier",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ],
+    [
+     "journey",
+     "0.98"
+    ]
+   ],
+   "frame": [
+    "gas-outlet"
+   ],
+   "flows": true
+  },
+  {
+   "name": "train-3-home",
+   "scene": "gas-train",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ],
+   "flows": true
+  },
+  {
+   "name": "train-3-filter",
+   "scene": "gas-train",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ],
+   "frame": [
+    "filter-box"
+   ],
+   "flows": true
+  },
+  {
+   "name": "train-3-cooler",
+   "scene": "gas-train",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ],
+   "frame": [
+    "gas-cooler"
+   ],
+   "flows": true
+  },
+  {
+   "name": "train-3-cylinder",
+   "scene": "gas-train",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ],
+   "frame": [
+    "cylinder-cutaway"
+   ],
+   "flows": true
+  },
+  {
+   "name": "train-3-gauge",
+   "scene": "gas-train",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ],
+   "frame": [
+    "water-gauge"
+   ],
+   "flows": true
+  },
+  {
+   "name": "tractor-6-home",
+   "scene": "tractor",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ]
+  },
+  {
+   "name": "tractor-6-cab",
+   "scene": "tractor",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ],
+   "frame": [
+    "cab"
+   ]
+  },
+  {
+   "name": "tractor-8-explode",
+   "scene": "tractor",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ],
+   "explode": 0.6
+  }
+ ]
+}
