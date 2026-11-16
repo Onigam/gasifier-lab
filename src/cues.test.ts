@@ -18,6 +18,9 @@ const SAMPLE: Record<(typeof LAB_CUE_NAMES)[number], string | undefined> = {
   place: 'garage',
   volume: '1000',
   door: 'ajar',
+  postgas: '5',
+  postgasmin: '60',
+  lidleak: 'on',
   speed: '600',
   pause: undefined,
   play: undefined,
@@ -49,6 +52,12 @@ describe('the lab’s cues', () => {
       ['place', 'kitchen'],
       ['volume', '75'],
       ['door', 'wide'],
+      ['postgas', '0.1'],
+      ['postgas', '6'],
+      ['postgasmin', '1'],
+      ['postgasmin', '181'],
+      ['lidleak', 'maybe'],
+      ['lidleak', undefined],
       ['speed', '0'],
       ['speed', '99999'],
       ['load', undefined],
@@ -74,6 +83,23 @@ describe('the lab’s cues', () => {
     expect(runCue(sim, 'journey', '0.3')).toBe(true);
     expect(sim.params.journey).toBeCloseTo(0.3);
     expect(runCue(sim, 'unknown')).toBe(false);
+  });
+
+  it('set the quantities nobody measured, which a film shows moving: the gas after a stop, its time, a lid that does not seal', () => {
+    const sim = new GasifierSim();
+    expect(runCue(sim, 'postgas', '0.2')).toBe(true);
+    expect(sim.params.postGasVolume).toBeCloseTo(0.2);
+    expect(runCue(sim, 'postgas', '5')).toBe(true);
+    expect(sim.params.postGasVolume).toBeCloseTo(5);
+    expect(runCue(sim, 'postgasmin', '60')).toBe(true);
+    expect(sim.params.postGasMinutes).toBe(60);
+    expect(runCue(sim, 'lidleak', 'on')).toBe(true);
+    expect(sim.params.lidLeak).toBe(true);
+    expect(runCue(sim, 'lidleak', 'off')).toBe(true);
+    expect(sim.params.lidLeak).toBe(false);
+    // out of the range of the lab's slider: nothing happens
+    expect(runCue(sim, 'postgas', '9')).toBe(false);
+    expect(sim.params.postGasVolume).toBeCloseTo(5);
   });
 
   it('are idempotent: the kit replays the last cue of each name after a seek', () => {

@@ -42,6 +42,9 @@ export const LAB_CUE_NAMES = [
   'place',
   'volume',
   'door',
+  'postgas',
+  'postgasmin',
+  'lidleak',
   'speed',
   'pause',
   'play',
@@ -97,6 +100,16 @@ export function planCue(name: string, arg?: string): CuePlan {
       return arg === '50' || arg === '1000' ? set({ garageVolume: Number(arg) as 50 | 1000 }) : null;
     case 'door':
       return arg === 'shut' || arg === 'ajar' || arg === 'open' ? set({ door: arg as DoorState }) : null;
+    case 'postgas': {
+      const v = range(arg, RANGES.postGasVolume.min, RANGES.postGasVolume.max);
+      return v === null ? null : set({ postGasVolume: v });
+    }
+    case 'postgasmin': {
+      const v = range(arg, RANGES.postGasMinutes.min, RANGES.postGasMinutes.max);
+      return v === null ? null : set({ postGasMinutes: v });
+    }
+    case 'lidleak':
+      return arg === 'on' || arg === 'off' ? set({ lidLeak: arg === 'on' }) : null;
     case 'speed': {
       const v = range(arg, 1, 3600);
       return v === null ? null : set({ timeScale: v, running: true });
