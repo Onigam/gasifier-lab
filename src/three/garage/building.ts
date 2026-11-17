@@ -6,6 +6,7 @@ import {
   concreteMap,
   masonryMap,
   oakMap,
+  rugMap,
   plasterMap,
   plankMap,
   renderMap,
@@ -56,6 +57,10 @@ const BEDROOM_WALL = mat({
   map: tiled(plasterMap(), 0.8, 0.8),
   roughness: 0.95,
 });
+/** Joinery in a darker wood than the carcass: panels, rails, posts. */
+const WOOD_DARK = mat({ color: 0x6a4a2e, map: tiled(woodMap(), 1, 1), roughness: 0.75 });
+const RUG = mat({ color: 0xffffff, map: tiled(rugMap(), 1 / 2.2, 1 / 2.2), roughness: 1 });
+const FRINGE = mat({ color: 0xd8cbb0, roughness: 1 });
 const SKIRTING = mat({ color: 0x4a3626, map: tiled(woodMap(), 1, 1), roughness: 0.7 });
 
 export interface GarageDims {
@@ -214,16 +219,20 @@ export function buildGarageBuilding(opts: { roof: boolean; volume: number }): Ga
     inside.set(v3(-w / 2, 0, 0), v3(w / 2, h, d));
     // ---- floor, ceiling slab (also the bedroom's floor)
     shell.add(mesh(uvMetric(new THREE.BoxGeometry(w + 2 * t, 0.2, d + 2 * t).translate(0, -0.1, d / 2)), FLOOR));
-    // the slab: joists under boards
+    // the slab: joists under boards. A group of its own, like a wall: it steps aside while the eye is within it (a camera flying into the room below it would otherwise fill the frame with concrete for a moment)
+    const ceiling = group('ceiling');
     const slab = new THREE.BoxGeometry(w + 2 * t, 0.3, d + 2 * t);
     uvMetric(slab);
-    shell.add(mesh(slab.translate(0, h + 0.15, d / 2), SLAB));
+    ceiling.add(mesh(slab.translate(0, h + 0.15, d / 2), SLAB));
     // under it, the boards of the ceiling on their joists (a section shows the slab as concrete, a plank ceiling hangs beneath)
-    shell.add(mesh(boxAt(-w / 2, h - 0.025, 0, w / 2, h, d), LINING));
+    ceiling.add(mesh(boxAt(-w / 2, h - 0.025, 0, w / 2, h, d), LINING));
     const joists: THREE.BufferGeometry[] = [];
     for (let k = 0; k < Math.floor(d / 0.6); k++)
       joists.push(boxAt(-w / 2, h - 0.1, 0.3 + k * 0.6 - 0.04, w / 2, h - 0.025, 0.3 + k * 0.6 + 0.04));
-    shell.add(mesh(joined(joists), WOOD));
+    ceiling.add(mesh(joined(joists), WOOD));
+    ceiling.userData.keep = true;
+    shell.add(ceiling);
+    walls.push({ id: 'ceiling', mesh: ceiling, normal: v3(0, -1, 0), centre: v3(0, h + 0.15, d / 2) });
     // oil on the floor under where the tractor stands: a dark patch
     const patch = new THREE.CircleGeometry(0.45, 24);
     patch.rotateX(-Math.PI / 2);
@@ -284,7 +293,7 @@ export function buildGarageBuilding(opts: { roof: boolean; volume: number }): Ga
     };
     wall('plus-x', d + 2 * t, h + 0.3, w / 2 + t / 2, (h + 0.3) / 2, d / 2, Math.PI / 2, v3(1, 0, 0), [lin.plusX]);
     wall('minus-x', d + 2 * t, h + 0.3, -w / 2 - t / 2, (h + 0.3) / 2, d / 2, Math.PI / 2, v3(-1, 0, 0), [lin.minusX]);
-    wall('back', w, h + 0.3, 0, (h + 0.3) / 2, d + t / 2, 0, v3(0, 0, 1), [lin.back]);
+    const backWall = wall('back', w, h + 0.3, 0, (h + 0.3) / 2, d + t / 2, 0, v3(0, 0, 1), [lin.back]);
     // the front wall in pieces round the door's opening
     const dw = door.width;
     const dh = door.height;
@@ -336,7 +345,8 @@ export function buildGarageBuilding(opts: { roof: boolean; volume: number }): Ga
         WOOD,
       ),
     );
-    shell.add(win);
+    // the window stands in the back wall: it steps aside with it (a pane left in the air at the cut was what the review of the film round found)
+    backWall.add(win);
     lamp.clear();
     lamp.position.set(0, h, d * 0.5);
     lamp.add(mesh(tubeGeometry([v3(0, 0, 0), v3(0, -0.4, 0)], 0.004, 4, 5), blackPaint()));
@@ -379,7 +389,7 @@ export function buildGarageBuilding(opts: { roof: boolean; volume: number }): Ga
       ry: number,
       n: THREE.Vector3,
       inner: [number, number, number, number],
-    ): void => {
+    ): THREE.Group => {
       const grp = group(`wall-${id}`);
       const g = new THREE.BoxGeometry(w0, aboveH, t * 0.8);
       uvMetric(g);
@@ -396,18 +406,19 @@ export function buildGarageBuilding(opts: { roof: boolean; volume: number }): Ga
       grp.userData.keep = true;
       above.add(grp);
       walls.push({ id, mesh: grp, normal: n, centre: m.position.clone() });
+      return grp;
     };
     const B = 0.02;
     aw('above-plus-x', rd + 0.4, rw / 2 + t * 0.4, rd / 2, Math.PI / 2, v3(1, 0, 0), [rw / 2 - B, 0, rw / 2, rd]);
     aw('above-minus-x', rd + 0.4, -rw / 2 - t * 0.4, rd / 2, Math.PI / 2, v3(-1, 0, 0), [-rw / 2, 0, -rw / 2 + B, rd]);
-    aw('above-back', rw, 0, rd + t * 0.4, 0, v3(0, 0, 1), [-rw / 2 + B, rd - B, rw / 2 - B, rd]);
-    aw('above-front', rw, 0, -t * 0.4, 0, v3(0, 0, -1), [-rw / 2 + B, 0, rw / 2 - B, B]);
+    const aboveBack = aw('above-back', rw, 0, rd + t * 0.4, 0, v3(0, 0, 1), [-rw / 2 + B, rd - B, rw / 2 - B, rd]);
+    const aboveFront = aw('above-front', rw, 0, -t * 0.4, 0, v3(0, 0, -1), [-rw / 2 + B, 0, rw / 2 - B, B]);
     // the boards of the floor
     above.add(mesh(uvMetric(new THREE.BoxGeometry(rw, 0.02, rd).translate(0, y0 + 0.01, rd / 2)), FLOOR_BOARDS));
     // a window on the back wall with curtains
     const wy = y0 + 1.0;
-    above.add(mesh(boxAt(-0.6, wy, rd - 0.03, 0.6, wy + 1.2, rd + 0.01), cabGlass()));
-    above.add(
+    aboveBack.add(mesh(boxAt(-0.6, wy, rd - 0.03, 0.6, wy + 1.2, rd + 0.01), cabGlass()));
+    aboveBack.add(
       mesh(
         joined([
           boxAt(-0.63, wy - 0.03, rd - 0.05, 0.63, wy, rd + 0.04),
@@ -420,14 +431,14 @@ export function buildGarageBuilding(opts: { roof: boolean; volume: number }): Ga
       ),
     );
     for (const s of [-1, 1])
-      above.add(
+      aboveBack.add(
         mesh(softBox(s * 0.78, wy + 0.6, rd - 0.1, 0.34, 1.5, 0.05, 0.02), mat({ color: 0x8c6a4d, roughness: 1 })),
       );
     // two windows in the front wall, on both faces, so that the bedroom reads as one from the yard as from inside
     for (const x of [-1.0, 1.0])
       for (const z0 of [-t * 0.8 - 0.03, 0.0]) {
-        above.add(mesh(boxAt(x - 0.5, wy, z0, x + 0.5, wy + 1.1, z0 + 0.03), cabGlass()));
-        above.add(
+        aboveFront.add(mesh(boxAt(x - 0.5, wy, z0, x + 0.5, wy + 1.1, z0 + 0.03), cabGlass()));
+        aboveFront.add(
           mesh(
             joined([
               boxAt(x - 0.53, wy - 0.03, z0 - 0.01, x + 0.53, wy, z0 + 0.04),
@@ -460,8 +471,10 @@ export function buildGarageBuilding(opts: { roof: boolean; volume: number }): Ga
     );
     above.add(mesh(new THREE.CylinderGeometry(0.025, 0.04, 0.12, 10), brassMat(), [bx + 0.78, y0 + 0.56, bz + 0.8]));
     above.add(mesh(softBox(rw / 2 - 0.35, y0 + 1.0, 1.0, 0.55, 2.0, 1.1, 0.03), WOOD));
-    above.add(mesh(softBox(0.2, y0 + 0.012, rd * 0.5, 1.6, 0.012, 2.2, 0.004), mat({ color: 0x7a3b32, roughness: 1 })));
-    above.add(mesh(softBox(0.2, y0 + 0.012, rd * 0.5, 1.3, 0.013, 1.9, 0.004), mat({ color: 0xc9a86b, roughness: 1 })));
+    // the rug: the lab's woven map (bands and lozenges), a fringe at its two ends
+    above.add(mesh(softBox(0.2, y0 + 0.012, rd * 0.5, 1.6, 0.014, 2.2, 0.004), RUG));
+    for (const e of [-1, 1])
+      above.add(mesh(softBox(0.2, y0 + 0.011, rd * 0.5 + e * 1.12, 1.6, 0.008, 0.07, 0.003), FRINGE));
     above.add(mesh(softBox(rw / 2 - 0.8, y0 + 0.43, rd * 0.5 - 0.5, 0.42, 0.04, 0.42, 0.01), WOOD));
     for (const [cx, cz] of [
       [-0.18, -0.18],
@@ -473,6 +486,60 @@ export function buildGarageBuilding(opts: { roof: boolean; volume: number }): Ga
         mesh(new THREE.BoxGeometry(0.03, 0.42, 0.03), WOOD, [rw / 2 - 0.8 + cx, y0 + 0.21, rd * 0.5 - 0.5 + cz]),
       );
     above.add(mesh(softBox(rw / 2 - 0.8, y0 + 0.78, rd * 0.5 - 0.32, 0.42, 0.7, 0.04, 0.01), WOOD));
+    // joinery: the bed's four posts with their finials and a footboard, the night table's drawer and knob, the wardrobe's doors in panels with a seam, knobs, a cornice and a plinth, a cushion and a rail on the chair
+    const posts: THREE.BufferGeometry[] = [];
+    const finials: THREE.BufferGeometry[] = [];
+    for (const [px, pz, top] of [
+      [bx - 0.5, bz + 1.0, 0.98],
+      [bx + 0.5, bz + 1.0, 0.98],
+      [bx - 0.5, bz - 1.0, 0.7],
+      [bx + 0.5, bz - 1.0, 0.7],
+    ] as const) {
+      posts.push(boxAt(px - 0.025, y0, pz - 0.025, px + 0.025, y0 + top, pz + 0.025));
+      finials.push(new THREE.SphereGeometry(0.034, 10, 8).translate(px, y0 + top + 0.02, pz));
+    }
+    posts.push(boxAt(bx - 0.5, y0 + 0.3, bz - 1.04, bx + 0.5, y0 + 0.6, bz - 0.99));
+    above.add(mesh(joined(posts), WOOD_DARK));
+    above.add(mesh(joined(finials), brassMat()));
+    // seams of the quilt, stitched across
+    const stitches: THREE.BufferGeometry[] = [];
+    for (let k = 1; k < 5; k++)
+      stitches.push(
+        boxAt(bx - 0.47, y0 + 0.557, bz - 0.9 + k * 0.3, bx + 0.47, y0 + 0.562, bz - 0.9 + k * 0.3 + 0.006),
+      );
+    above.add(mesh(joined(stitches), mat({ color: 0x2c4660, roughness: 1 })));
+    // night table
+    const ntx = bx + 0.78;
+    const ntz = bz + 0.8;
+    above.add(mesh(boxAt(ntx - 0.15, y0 + 0.27, ntz - 0.212, ntx + 0.15, y0 + 0.43, ntz - 0.2), WOOD_DARK));
+    above.add(mesh(new THREE.SphereGeometry(0.014, 8, 6), brassMat(), [ntx, y0 + 0.35, ntz - 0.222]));
+    above.add(mesh(boxAt(ntx - 0.22, y0 + 0.5, ntz - 0.22, ntx + 0.22, y0 + 0.515, ntz + 0.22), WOOD_DARK));
+    // wardrobe
+    const wxf = rw / 2 - 0.625;
+    const wz0 = 0.45;
+    const wz1 = 1.55;
+    const wd: THREE.BufferGeometry[] = [];
+    for (const [za, zb] of [
+      [wz0 + 0.05, 0.985],
+      [1.015, wz1 - 0.05],
+    ] as const) {
+      wd.push(boxAt(wxf - 0.012, y0 + 0.78, za + 0.04, wxf, y0 + 1.88, zb - 0.04));
+      wd.push(boxAt(wxf - 0.012, y0 + 0.16, za + 0.04, wxf, y0 + 0.7, zb - 0.04));
+    }
+    above.add(mesh(joined(wd), WOOD_DARK));
+    above.add(mesh(boxAt(wxf - 0.004, y0 + 0.1, 0.996, wxf + 0.002, y0 + 1.94, 1.004), blackPaint()));
+    above.add(mesh(boxAt(wxf - 0.04, y0 + 1.97, wz0 - 0.03, rw / 2 - 0.06, y0 + 2.05, wz1 + 0.03), WOOD_DARK));
+    above.add(mesh(boxAt(wxf - 0.015, y0, wz0 + 0.02, rw / 2 - 0.08, y0 + 0.09, wz1 - 0.02), WOOD_DARK));
+    for (const z of [0.95, 1.05])
+      above.add(mesh(new THREE.SphereGeometry(0.018, 8, 6), brassMat(), [wxf - 0.028, y0 + 1.0, z]));
+    // the chair: a cushion and the rail along the top of its back
+    above.add(
+      mesh(
+        softBox(rw / 2 - 0.8, y0 + 0.465, rd * 0.5 - 0.5, 0.38, 0.03, 0.38, 0.012),
+        mat({ color: 0x7e9a8a, roughness: 1 }),
+      ),
+    );
+    above.add(mesh(softBox(rw / 2 - 0.8, y0 + 1.14, rd * 0.5 - 0.32, 0.46, 0.05, 0.05, 0.015), WOOD_DARK));
     // a picture on the wall and a clock
     above.add(mesh(softBox(rw / 2 - 0.03, y0 + 1.6, rd * 0.5, 0.03, 0.4, 0.55, 0.01), WOOD));
     above.add(
@@ -517,6 +584,8 @@ export function buildGarageBuilding(opts: { roof: boolean; volume: number }): Ga
       uvMetric(eg);
       roof.add(mesh(eg, ROOF));
     }
+    // each wall is a group that steps aside whole, and what stands in it is one mesh a material: the walls cost no more calls than they did as boxes
+    for (const w of walls) mergeStatic(w.mesh, { name: w.id });
     mergeStatic(shell, { name: 'closed-garage' });
     mergeStatic(above, { name: 'room-above' });
   };

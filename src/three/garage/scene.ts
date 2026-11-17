@@ -55,6 +55,25 @@ const HOTSPOTS: HotspotDef[] = [
   { id: 'old-rescue-set', fr: 'Appareil des années 1940', en: '1940s rescue set', minor: true },
 ];
 
+/** How far inside a wall's inner face the camera may stand and still have the wall stepped aside: a camera flying into the room crosses the wall's thickness and its boards, and would otherwise fill the frame with them for a moment. */
+export const WALL_CLEARANCE = 0.5;
+
+/** Is the wall `id` (`plus-x`, `minus-x`, `back`, `front`, the bedroom's with `above-` taken off) stepped aside for an eye at `cam`, in a room `w` across and `d` deep? */
+export function wallHidden(id: string, cam: THREE.Vector3, w: number, d: number, h = 3.35): boolean {
+  const M = WALL_CLEARANCE;
+  // the slab between the storeys: aside while the eye is in its volume, under its boards or just over its top, within its plan and a little beyond
+  if (id === 'ceiling')
+    return Math.abs(cam.x) < w / 2 + 0.6 && cam.z > -0.6 && cam.z < d + 0.6 && cam.y > h - 0.4 && cam.y < h + 0.6;
+  if (id === 'plus-x') return cam.x > w / 2 - M;
+  if (id === 'minus-x') return cam.x < -w / 2 + M;
+  if (id === 'back') return cam.z > d - M;
+  if (id === 'front') return cam.z < M && Math.abs(cam.x) < w * 0.4 + 0.3;
+  return false;
+}
+
+const EYE_VIEW = viewFrom(14, 80);
+const LID_VIEW = viewFrom(22, 80);
+
 /** How far open the door is for each state of the model: ajar is a gap, open is wide. */
 export const DOOR_OPEN: Record<DoorState, number> = { shut: 0, ajar: 0.12, open: 1 };
 
@@ -122,7 +141,8 @@ export function createGarageScene(opts: GarageOptions = {}): GarageScene {
 
   // ---- the plume: out of the fan's open eye (the primary-air intake of the model) and out of the lid
   const eye = v3(1.38, UNIT_AT.y + 0.18, -1.16 - 0.068);
-  const lid = v3(UNIT_AT.x, UNIT.top + UNIT_AT.y - 0.0, UNIT_AT.z);
+  // the lid's rim: a hand under the unit's reported top, where the yoke stands over it (the top is measured from the ground already: adding the console's height put the gas half a metre above the lid)
+  const lid = v3(UNIT_AT.x, UNIT.top - 0.09, UNIT_AT.z);
   const toRoom = (p: THREE.Vector3): THREE.Vector3 => park.localToWorld(p.clone());
   park.updateMatrixWorld(true);
   const plumeEye = makePlume({
@@ -134,16 +154,20 @@ export function createGarageScene(opts: GarageOptions = {}): GarageScene {
     size: 1.25,
     speed: 0.1,
     seed: 5,
+    fade: [1.0, 3.0],
   });
+  // the lid lifts on its spring and the gas leaves round its rim: a thin ring that rises and spreads, the lid itself left to be seen in the middle of it
   const plumeLid = makePlume({
     origin: toRoom(lid),
     color: 0xefe7c4,
-    rise: 0.8,
-    spread: 0.6,
-    n: 140,
-    size: 0.8,
-    speed: 0.09,
+    rise: 0.6,
+    spread: 0.45,
+    n: 110,
+    size: 0.42,
+    speed: 0.08,
     seed: 6,
+    ring: UNIT.lid.R * 0.97,
+    fade: [0.8, 2.2],
   });
   const post = group('post-gas-plume');
   post.add(plumeEye.points, plumeEye.haze, plumeLid.points, plumeLid.haze);
@@ -191,7 +215,8 @@ export function createGarageScene(opts: GarageOptions = {}): GarageScene {
   const eyeAt = toRoom(eye);
   const lidAt = toRoom(lid);
   const eyeBox = new THREE.Box3(eyeAt.clone().add(v3(-1.0, -0.2, -1.0)), eyeAt.clone().add(v3(1.0, 1.9, 1.0)));
-  const lidBox = new THREE.Box3(lidAt.clone().add(v3(-0.8, -0.3, -0.8)), lidAt.clone().add(v3(0.8, 1.2, 0.8)));
+  // with the lid's leak the frame is the lid and the ring of gas about it and nothing else: the camera stands outside the open side a little above, at the height from which the ray to the lid still passes under the slab
+  const lidTight = new THREE.Box3(lidAt.clone().add(v3(-0.55, -0.5, -0.55)), lidAt.clone().add(v3(0.55, 0.6, 0.55)));
   // the two fittings on the wall are small: the camera frames their middle, not the board's and the cable's whole box
   scene.updateMatrixWorld(true);
   const centre = (o: THREE.Object3D | THREE.Object3D[], k: number): THREE.Box3 => {
@@ -207,8 +232,8 @@ export function createGarageScene(opts: GarageOptions = {}): GarageScene {
     // from the yard, in front and a little to the side away from the house: the boards, the straps, their bolts and the hinges, and the room through the door when it stands open
     'garage-door': { viewDir: viewFrom(8, 160) },
     // the bedroom from the front and a little to the open side, not so high that its floor is all that is seen: the bed, the window, the wardrobe
-    'room-above': { viewDir: viewFrom(20, 30), frame: centre(building.above, 0.55) },
-    'post-gas-plume': { viewDir: viewFrom(14, 80), frame: eyeBox },
+    'room-above': { viewDir: viewFrom(20, 30), frame: centre(building.above, 0.45) },
+    'post-gas-plume': { viewDir: EYE_VIEW.clone(), frame: eyeBox },
     'exhaust-plume': { viewDir: viewFrom(14, 60) },
     'co-indicator': { viewDir: viewFrom(0, 180), frame: centre(indicator.group, 0.62) },
     // from the front of the open side and a little above: from level the tractor stands between the eye and its board (70 cm from the wall)
@@ -256,23 +281,19 @@ export function createGarageScene(opts: GarageOptions = {}): GarageScene {
   const camPos = new THREE.Vector3();
   const rn = new THREE.Vector3();
   scene.onBeforeRender = (_r, _s, camera) => {
-    // the walls between the eye and the room step aside: a wall is not drawn when the camera is beyond its plane (outside the room on that side), but the front wall, which holds the door
+    // the walls between the eye and the room step aside: a wall is not drawn when the camera is beyond its inner face or within a wall's own thickness of it (`wallHidden`), but the front wall, which holds the door
     camera.getWorldPosition(camPos);
-    const { w, d } = building.dims;
+    const { w, d, h } = building.dims;
     for (const wall of building.walls) {
       const id = wall.id.replace('above-', '');
-      let hide = false;
-      if (id === 'plus-x') hide = camPos.x > w / 2;
-      else if (id === 'minus-x') hide = camPos.x < -w / 2;
-      else if (id === 'back') hide = camPos.z > d;
-      else if (id === 'front') hide = camPos.z < 0 && Math.abs(camPos.x) < w * 0.4 + 0.3;
-      wall.mesh.visible = !hide;
+      wall.mesh.visible = !wallHidden(id, camPos, w, d, h);
       void rn;
     }
     // the house stands on that side: the camera that has gone round to it would look through its walls
     house.group.visible = !(camPos.x < -w / 2 - 0.3);
   };
   const setDoor = (open: number): void => building.door.set(open);
+  let lidShown = -1;
   const keepPlumeSpeed = { v: 0 };
   void keepPlumeSpeed;
 
@@ -300,7 +321,7 @@ export function createGarageScene(opts: GarageOptions = {}): GarageScene {
         registry.get('co-indicator')?.frame?.copy(centre(indicator.group, 0.62));
         registry.get('old-rescue-set')?.frame?.copy(centre(rescue, 0.62));
         registry.get('closed-garage')?.frame?.copy(centre([building.shell, building.above], 0.8));
-        registry.get('room-above')?.frame?.copy(centre(building.above, 0.55));
+        registry.get('room-above')?.frame?.copy(centre(building.above, 0.45));
         co.fit(building.inside);
         // the labels of the shell and of the bedroom stay on the walls of the room as it grows
         const ins = building.inside;
@@ -326,15 +347,21 @@ export function createGarageScene(opts: GarageOptions = {}): GarageScene {
       // the plume: in proportion to the model's flow, as white or yellow gas for wood (S3)
       const p = opts.params?.();
       const pf = registry.get('post-gas-plume');
-      if (pf?.frame) pf.frame.copy(p?.lidLeak ? eyeBox.clone().union(lidBox) : eyeBox);
+      if (pf?.frame) pf.frame.copy(p?.lidLeak ? lidTight : eyeBox);
       const share = state.pressureSign === 'pressure' ? clamp(state.plumeShare, 0, 1) : 0;
       const op = state.plumeVisible ? 0.7 : 0.12;
-      plumeEye.set({ share, opacity: op, time: view.time * view.slowMo });
-      plumeLid.set({
-        share: p?.lidLeak ? clamp(0.3 + 0.7 * state.plumeShare, 0, 1) : share * 0.3,
-        opacity: op,
-        time: view.time * view.slowMo,
-      });
+      // with a lid that leaks the hot column draws the gas up and out of the lid, and less leaves at the intake
+      plumeEye.set({ share: p?.lidLeak ? share * 0.45 : share, opacity: op, time: view.time * view.slowMo });
+      // and it stays low (under the lid), so that the lid is seen above it and not through it
+      (plumeEye.points.material as THREE.ShaderMaterial).uniforms.uRise!.value = p?.lidLeak ? 0.75 : 1.7;
+      // the lid's gas follows the model's flow, which rises over some minutes when the lid starts to leak mid-run: eased over five model minutes, and set at once when the world meets a run already under way
+      const lidTarget = p?.lidLeak ? clamp(0.3 + 0.7 * state.plumeShare, 0, 1) : share * 0.3;
+      if (lidShown < 0) lidShown = lidTarget;
+      else lidShown += (lidTarget - lidShown) * (1 - Math.exp(-(dt * view.slowMo * (p?.timeScale ?? 60)) / 300));
+      plumeLid.set({ share: lidShown, opacity: op * 0.8, time: view.time * view.slowMo });
+      // the camera looks down on the lid when it leaks, so that its disc is seen inside the ring of gas
+      const pv = registry.get('post-gas-plume');
+      if (pv?.viewDir) pv.viewDir.copy(p?.lidLeak ? LID_VIEW : EYE_VIEW);
       // the exhaust of an engine running inside: grey, only while the engine runs in the garage
       const exOn = state.engineOn && state.place === 'garage' ? 0.8 : 0;
       plumeEx.set({ share: exOn, opacity: 0.38, time: view.time * view.slowMo });
