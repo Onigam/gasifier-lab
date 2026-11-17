@@ -357,7 +357,7 @@ export function createGasTrainScene(opts: GasTrainOptions = {}): GasTrainScene {
     );
   // (the Sankey on the floor in front of the line is in the picture too)
   registry.overview(() => [new THREE.Box3(new THREE.Vector3(-1.2, 0, -3.9), new THREE.Vector3(cylX + 1.4, 2.6, 2.0))]);
-  yard.fitSlab(-2.6, -5.4, cylX + 2.6, 3.4);
+  yard.fitSlab(-2.2, -6.6, cylX + 2.2, 3.0);
 
   const portOf = (id: string, p: Port): Port => worldPort(pieces[id]!, p);
   const syncPipes = (): void => {
@@ -436,7 +436,7 @@ export function createGasTrainScene(opts: GasTrainOptions = {}): GasTrainScene {
     near: 0.05,
     far: 5000,
     declutter: true,
-    homePadding: 0.8,
+    homePadding: 0.62,
     update(state: GasState, dt: number, view: ViewOpts) {
       setField(state);
       const now = partsNow(registry);

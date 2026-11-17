@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { glass } from '@onigam/lab-kit/three';
+import { glass, patchMaterial } from '@onigam/lab-kit/three';
 import {
   chipsMap,
   gravelMap,
@@ -125,9 +125,50 @@ export function upperCasing(around = 6, along = 2): THREE.MeshStandardMaterial {
 export const sootSteel = (): THREE.MeshStandardMaterial =>
   once('soot-steel', () => std({ color: 0x4a4138, roughness: 0.92, metalness: 0.15, side: THREE.DoubleSide }));
 
-/** Section face of a metal wall, drawn as every section is: one pale flat colour. */
-export const cutMetal = (): THREE.MeshStandardMaterial =>
-  once('cut-metal', () => std({ color: COLOURS.cutFace, roughness: 0.9, metalness: 0, side: THREE.DoubleSide }));
+/**
+ * The hatch of a section: fine parallel lines at 45° across the cut face, as a drawing marks a metal that has been cut, in the face's own plane (the unit's x and y, the cut being along z = 0 in every world). Lines `spacing` metres apart, `strength` darker (a pale face) or lighter (a dark one, `lighten`);
+ * each is softened by the pixel and gone where the period is under about three pixels, so that nothing crawls at a distance and a close view has what a drawing has. No texture, no text.
+ */
+export function hatch(
+  mat: THREE.MeshStandardMaterial,
+  key: string,
+  spacing = 0.006,
+  strength = 0.2,
+  lighten = false,
+): THREE.MeshStandardMaterial {
+  // the merge (`merge.ts`) bakes plain standard materials into one vertex-coloured material a shape, and that one has no hatch: a patched material is its own
+  mat.userData.noShare = true;
+  patchMaterial(mat, `hatch:${key}`, (shader) => {
+    shader.vertexShader = shader.vertexShader
+      .replace('#include <common>', '#include <common>\nvarying vec2 vHatchP;')
+      .replace('#include <begin_vertex>', '#include <begin_vertex>\nvHatchP = position.xy;');
+    shader.fragmentShader = shader.fragmentShader
+      .replace('#include <common>', '#include <common>\nvarying vec2 vHatchP;')
+      .replace(
+        '#include <color_fragment>',
+        `#include <color_fragment>
+        {
+          float hp_ = ( vHatchP.x + vHatchP.y ) * 0.70710678 / ${spacing.toFixed(5)};
+          float fw_ = max( fwidth( hp_ ), 1e-4 );
+          float d0_ = min( fract( hp_ ), 1.0 - fract( hp_ ) ) * 2.0;
+          float line_ = ( 1.0 - smoothstep( 0.1, 0.1 + 2.0 * fw_, d0_ ) ) * ( 1.0 - smoothstep( 0.2, 0.45, fw_ ) );
+          diffuseColor.rgb ${lighten ? `+= ${strength.toFixed(3)} * line_` : `*= 1.0 - ${strength.toFixed(3)} * line_`};
+        }`,
+      );
+  });
+  return mat;
+}
+
+/** Section face of a metal wall, drawn as every section is: one pale colour, with the hatch that a drawing gives a cut metal. */
+export const cutMetal = (spacing = 0.006, strength = 0.2): THREE.MeshStandardMaterial =>
+  once(spacing === 0.006 && strength === 0.2 ? 'cut-metal' : `cut-metal-${spacing}-${strength}`, () =>
+    hatch(
+      std({ color: COLOURS.cutFace, roughness: 0.9, metalness: 0, side: THREE.DoubleSide }),
+      `pale-${spacing}-${strength}`,
+      spacing,
+      strength,
+    ),
+  );
 
 /** A perforated sleeve: the holes are an alpha. */
 export function perforated(): THREE.MeshStandardMaterial {

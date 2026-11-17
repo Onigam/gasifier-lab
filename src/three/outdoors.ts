@@ -197,18 +197,23 @@ function ridge(o: {
     const hills = fbm(Math.cos(a) * 1.6 + o.seed, Math.sin(a) * 1.6 + o.seed * 0.7, 4);
     const saw = o.teeth * (0.35 + 0.65 * jag[i]!) * (0.5 + 0.5 * Math.abs(Math.sin(a * 190 + o.seed)));
     const top = o.base + o.height * (0.25 + 0.9 * hills) + saw;
-    pos.push(x, -2, z, x, top, z);
-    col.push(o.low.r, o.low.g, o.low.b, o.high.r, o.high.g, o.high.b);
+    // three rows: the foot, a line under the crest where the ridge is whole, and the crest, where it is nothing: the edge against the sky is a gradient over several pixels and not a line one pixel wide (that line is what crawled when the camera moved, docs/qa.md D16)
+    const feather = Math.max(6, (top - o.base) * 0.55);
+    pos.push(x, -2, z, x, top - feather, z, x, top, z);
+    col.push(o.low.r, o.low.g, o.low.b, 1, o.high.r, o.high.g, o.high.b, 1, o.high.r, o.high.g, o.high.b, 0);
     if (i < N) {
-      const k = i * 2;
-      idx.push(k, k + 1, k + 2, k + 1, k + 3, k + 2);
+      const k = i * 3;
+      idx.push(k, k + 1, k + 3, k + 1, k + 4, k + 3, k + 1, k + 2, k + 4, k + 2, k + 5, k + 4);
     }
   }
   const g = new THREE.BufferGeometry();
   g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
-  g.setAttribute('color', new THREE.Float32BufferAttribute(col, 3));
+  g.setAttribute('color', new THREE.Float32BufferAttribute(col, 4));
   g.setIndex(idx);
-  const m = new THREE.Mesh(g, new THREE.MeshBasicMaterial({ vertexColors: true, side: THREE.DoubleSide }));
+  const m = new THREE.Mesh(
+    g,
+    new THREE.MeshBasicMaterial({ vertexColors: true, side: THREE.DoubleSide, transparent: true, depthWrite: false }),
+  );
   m.name = o.name;
   m.frustumCulled = false;
   m.renderOrder = -2;
@@ -241,15 +246,16 @@ function horizon(seed: number): THREE.Group {
       seed: seed + 2,
       low: new THREE.Color(0x4a6558),
       high: new THREE.Color(0x587767),
-      teeth: 7,
+      teeth: 4,
       name: 'ridge-wooded',
     }),
   );
   // the tree line: spruces of the same shape as the farm's far forest, in groves
   const r = rng(seed + 3);
   const spruce = farSpruce();
-  const mat = new THREE.MeshStandardMaterial({ color: 0xffffff, vertexColors: true, roughness: 1 });
-  const n = 150;
+  // pale and a little lit from itself: a tree at this distance is a soft dark shape against a pale sky and a hard one is a crawling edge
+  const mat = new THREE.MeshStandardMaterial({ color: 0xc4ccc8, vertexColors: true, roughness: 1, emissive: 0x20303a });
+  const n = 60;
   const im = new THREE.InstancedMesh(spruce, mat, n);
   const m = new THREE.Matrix4();
   const q = new THREE.Quaternion();

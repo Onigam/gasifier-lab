@@ -55,7 +55,8 @@ export function buildCylinder(): CylinderPiece {
   g.userData.partId = 'cylinder-cutaway';
   const inj = group('pilot-injector');
   inj.userData.partId = 'pilot-injector';
-  const cutM = cutMetal();
+  // a cut across a block a third of a metre wide: a hatch two centimetres apart, seen from some metres
+  const cutM = cutMetal(0.02, 0.34);
   const blockM = engineBlock();
   const D = 0.1;
 

@@ -120,16 +120,16 @@ function attach(
     shader.vertexShader = shader.vertexShader
       .replace(
         '#include <common>',
-        `#include <common>\nvarying float vUnitY;\nvarying float vCapV;\n${reads === 'chip' ? 'varying float vChipD;' : ''}\n${cap ? 'attribute float aCap;' : ''}\n${offset ? 'uniform float uOffset;' : ''}`,
+        `#include <common>\nvarying float vUnitY;\nvarying float vCapV;\n${reads === 'chip' ? 'varying float vChipD;\nvarying vec2 vChipL;' : ''}\n${cap ? 'attribute float aCap;' : ''}\n${offset ? 'uniform float uOffset;' : ''}`,
       )
       .replace(
         '#include <begin_vertex>',
-        `#include <begin_vertex>\nvUnitY = ${reads === 'chip' ? '( instanceMatrix * vec4( position, 1.0 ) ).y' : 'position.y'}${offset ? ' + uOffset' : ''};\nvCapV = ${cap ? 'aCap' : '0.0'};${reads === 'chip' ? '\nvChipD = length( cameraPosition - ( modelMatrix * instanceMatrix * vec4( position, 1.0 ) ).xyz );' : ''}`,
+        `#include <begin_vertex>\nvUnitY = ${reads === 'chip' ? '( instanceMatrix * vec4( position, 1.0 ) ).y' : 'position.y'}${offset ? ' + uOffset' : ''};\nvCapV = ${cap ? 'aCap' : '0.0'};${reads === 'chip' ? '\nvChipD = length( cameraPosition - ( modelMatrix * instanceMatrix * vec4( position, 1.0 ) ).xyz );\nvChipL = position.xy;' : ''}`,
       );
     shader.fragmentShader = shader.fragmentShader
       .replace(
         '#include <common>',
-        `#include <common>\n${reads === 'chip' ? 'varying float vChipD;\n' : ''}${GLSL_COMMON}`,
+        `#include <common>\n${reads === 'chip' ? 'varying float vChipD;\nvarying vec2 vChipL;\nfloat cH( float x ) { return fract( sin( x * 12.9898 ) * 43758.5453 ); }\n' : ''}${GLSL_COMMON}`,
       )
       .replace(
         '#include <clipping_planes_fragment>',
@@ -140,7 +140,18 @@ function attach(
         `#include <color_fragment>
         float fieldT_ = bedT( vUnitY );
         vec3 heat_ = heatRamp( fieldT_ );
-        ${reads === 'chip' ? `float nearChip_ = 1.0 - smoothstep( 3.2, 6.0, vChipD );\n        diffuseColor.rgb = mix( heat_ * ${capDim.toFixed(3)}, diffuseColor.rgb * heat_ * 1.1, nearChip_ );` : `diffuseColor.rgb = mix( diffuseColor.rgb, heat_ * ${capDim.toFixed(3)}, vCapV );`}`,
+        ${
+          reads === 'chip'
+            ? `float nearChip_ = 1.0 - smoothstep( 3.2, 6.0, vChipD );
+        // the wood's grain: fine lines along the flake's length, a few dark ones where the growth rings run out, the end grain a little darker at both ends of the flake; only near, where a line is more than a pixel
+        float grainNear_ = 1.0 - smoothstep( 0.9, 2.4, vChipD );
+        float ringsAt_ = vChipL.y * 1050.0 + 2.2 * sin( vChipL.x * 190.0 + vChipL.y * 90.0 );
+        float grain_ = 0.5 + 0.5 * sin( ringsAt_ ) * ( 0.55 + 0.45 * cH( floor( ringsAt_ / 6.2831853 ) ) );
+        float endGrain_ = smoothstep( 0.0075, 0.0112, abs( vChipL.x ) );
+        float woodTone_ = 1.0 - grainNear_ * ( 0.26 * ( 1.0 - grain_ ) + 0.18 * endGrain_ );
+        diffuseColor.rgb = mix( heat_ * ${capDim.toFixed(3)}, diffuseColor.rgb * heat_ * 1.04 * woodTone_, nearChip_ );`
+            : `diffuseColor.rgb = mix( diffuseColor.rgb, heat_ * ${capDim.toFixed(3)}, vCapV );`
+        }`,
       )
       .replace(
         '#include <emissivemap_fragment>',

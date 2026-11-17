@@ -25,6 +25,7 @@ import {
   brassMat,
   charMat,
   cutMetal,
+  hatch,
   darkSteel,
   hotCasing,
   hose as hoseMat,
@@ -283,13 +284,13 @@ export function buildUnit(opts: UnitOptions): Unit {
 
   // ---- the bed's materials: one for every stretch of the column
   // the cut face of the bed sits a little darker than the pieces that lie on it, so that the gaps between the pieces read as gaps
-  const bed = bedMaterial(undefined, cut ? 0.74 : 1);
-  const chipMat = chipMaterial(cut ? 0.74 : 1);
+  const bed = bedMaterial(undefined, cut ? 0.84 : 1);
+  const chipMat = chipMaterial(cut ? 0.84 : 1);
   const metal = hotMetal(0x3b3632, { roughness: 0.62, metalness: 0.55 });
   const metalLight = hotMetal(0x5a5650, { roughness: 0.55, metalness: 0.6 });
   const ceramic = hotMetal(0x4f463d, { roughness: 0.9, metalness: 0.05 });
   // the cut face of a hot part: dark steel that takes the fire's glow like the rest of it, so that in the section it stands out from the bed's false colours (the casings' walls keep the pale face of every section)
-  const hotCut = hotMetal(0x3b342e, { roughness: 0.8, metalness: 0.15, glow: 0.5 });
+  const hotCut = hatch(hotMetal(0x3b342e, { roughness: 0.8, metalness: 0.15, glow: 0.5 }), 'hot', 0.006, 0.07, true);
 
   const keep = (z: number): boolean => !cut || z >= -1e-6;
   /** The seam of a rolled plate: a weld bead standing a few millimetres proud of the wall, from y0 to y1, at the angle `theta`. */
@@ -1038,7 +1039,7 @@ export function buildUnit(opts: UnitOptions): Unit {
         tx: (r() - 0.5) * 0.7,
         ty: (r() - 0.5) * 0.7,
         z: -0.001 + 0.004 * r(),
-        tone: 0.8 + 0.4 * r(),
+        tone: 0.92 + 0.16 * r(),
       });
     }
     if (!spots.length) return null;
@@ -1110,7 +1111,7 @@ export function buildUnit(opts: UnitOptions): Unit {
   // the top of the chips: a mound and loose flakes, riding the level
   const topGroup = dynamic(group('chip-top'));
   const topOffset = { value: 0 };
-  const topBed = bedMaterial(topOffset, cut ? 0.74 : 1);
+  const topBed = bedMaterial(topOffset, cut ? 0.84 : 1);
   column.add(topGroup);
   {
     const r0 = RB - 0.012;

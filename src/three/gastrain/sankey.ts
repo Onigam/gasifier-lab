@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { group } from '@onigam/lab-kit/three';
+import { group, patchMaterial } from '@onigam/lab-kit/three';
 import type { GasState } from '../../sim/types';
 
 // Where the energy goes, on the paper in front of the line: a Sankey of the model's own kilowatts, flat, in four columns. The wood's energy goes in; the gasifier keeps its losses and passes the gas on; the diesel joins the gas at the engine; the engine
@@ -32,8 +32,14 @@ function ribbon(x0: number, z0: number, w0: number, x1: number, z1: number, w1: 
   }
   const pos: number[] = [];
   const idx: number[] = [];
+  const uv: number[] = [];
+  const edge: number[] = [];
   for (let i = 0; i <= n; i++) {
     pos.push(top[i]![0], 0, top[i]![1], bottom[i]![0], 0, bottom[i]![1]);
+    // along the flow in metres, and across the ribbon in metres; and how far across as a share, for the rim
+    const wide = bottom[i]![1] - top[i]![1];
+    uv.push(top[i]![0], 0, bottom[i]![0], wide);
+    edge.push(0, 1);
     if (i < n) {
       const k = i * 2;
       idx.push(k, k + 1, k + 2, k + 1, k + 3, k + 2);
@@ -41,6 +47,8 @@ function ribbon(x0: number, z0: number, w0: number, x1: number, z1: number, w1: 
   }
   const g = new THREE.BufferGeometry();
   g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  g.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
+  g.setAttribute('aEdge', new THREE.Float32BufferAttribute(edge, 1));
   g.setIndex(idx);
   g.computeVertexNormals();
   // lie facing up whatever the winding
@@ -59,18 +67,55 @@ function ribbon(x0: number, z0: number, w0: number, x1: number, z1: number, w1: 
 
 export function buildSankey(): Sankey {
   const g = group('sankey');
-  const mat = (c: number): THREE.MeshStandardMaterial =>
-    new THREE.MeshStandardMaterial({
+  // a ribbon is a band of the stuff that flows, not a sheet of paint: a rim a little darker and a core a little paler, fine streaks along the flow (a stream's), and a slow grain; the streaks go with the distance, where they would crawl
+  const mat = (c: number): THREE.MeshStandardMaterial => {
+    const m = new THREE.MeshStandardMaterial({
       color: c,
-      roughness: 0.85,
+      roughness: 0.78,
       metalness: 0,
       transparent: true,
-      opacity: 0.92,
+      opacity: 0.93,
       depthWrite: false,
       polygonOffset: true,
       polygonOffsetFactor: -2,
       polygonOffsetUnits: -2,
     });
+    patchMaterial(m, 'sankey-ribbon', (shader) => {
+      shader.vertexShader = shader.vertexShader
+        .replace(
+          '#include <common>',
+          '#include <common>\nattribute float aEdge;\nvarying float vEdge;\nvarying vec2 vRib;',
+        )
+        .replace('#include <begin_vertex>', '#include <begin_vertex>\nvEdge = aEdge;\nvRib = uv;');
+      shader.fragmentShader = shader.fragmentShader
+        .replace(
+          '#include <common>',
+          `#include <common>
+          varying float vEdge;
+          varying vec2 vRib;
+          float rH( vec2 p ) { return fract( sin( dot( p, vec2( 127.1, 311.7 ) ) ) * 43758.5453 ); }
+          float rN( vec2 p ) { vec2 i = floor( p ); vec2 f = fract( p ); vec2 u = f * f * ( 3.0 - 2.0 * f ); return mix( mix( rH( i ), rH( i + vec2( 1.0, 0.0 ) ), u.x ), mix( rH( i + vec2( 0.0, 1.0 ) ), rH( i + vec2( 1.0, 1.0 ) ), u.x ), u.y ); }`,
+        )
+        .replace(
+          '#include <color_fragment>',
+          `#include <color_fragment>
+          {
+            float rim = smoothstep( 0.0, 0.2, vEdge ) * smoothstep( 1.0, 0.8, vEdge );
+            float across = abs( vEdge - 0.5 ) * 2.0;
+            float streakAt = vRib.y / 0.03 + 2.0 * rN( vec2( vRib.x * 3.0, vRib.y * 20.0 ) );
+            float fwS = fwidth( streakAt );
+            float streak = ( 0.5 + 0.5 * sin( streakAt * 6.2831853 ) ) * ( 1.0 - smoothstep( 0.1, 0.25, fwS ) );
+            float grain = rN( vec2( vRib.x * 5.0, vRib.y * 60.0 ) );
+            // chevrons that point the way it flows (+x), a band every 60 cm, gone where the pixel is wider than a few centimetres
+            float chevAt = vRib.x / 0.6 + across * 0.4;
+            float chev = smoothstep( 0.0, 0.14, fract( chevAt ) ) * ( 1.0 - smoothstep( 0.1, 0.34, fract( chevAt ) ) ) * ( 1.0 - smoothstep( 0.08, 0.2, fwidth( chevAt ) ) );
+            diffuseColor.rgb *= ( 0.66 + 0.38 * rim ) * ( 0.92 + 0.12 * streak ) * ( 0.94 + 0.12 * grain );
+            diffuseColor.rgb = mix( diffuseColor.rgb, vec3( 1.0 ), 0.2 * chev * rim );
+          }`,
+        );
+    });
+    return m;
+  };
   const make = (c: number): Link => {
     const m = new THREE.Mesh(new THREE.BufferGeometry(), mat(c));
     m.position.y = 0.012;
