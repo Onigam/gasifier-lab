@@ -829,3 +829,42 @@ The reviewer put the film's frames beside the Piggott film pose. Piggott fills t
 ## Verdict
 
 **1 blocker, 6 major, 2 minor groups. May `046da61` feed the film's first render? Yes with conditions**: fix F1 first; cut straight to the old rescue set (F6); frame 0c after the plume thins (F4); keep `room-above` and 5b off the owner's cut until F2 and F3 are fixed. The next modeler round, in order: (1) the farm (F1, F7, the stop reading at 200 px without burying the unit, the evening light, alpha of the leaf cards); (2) the garage (F2, F3, F6, the furniture and the sprites, the house side); (3) the machine worlds (soften the ridge and tree-line crest, wood grain or hatch on the chips and cut plates, the Sankey and the cylinder); (4) the docs (F8, F9).
+
+# Film round 2: the scoped review (17/11/2026)
+
+**Reviewed**: `f45fe48` (the seven commits `b07d2f6` to `f45fe48` on top of `fb20e79`), figures against `046da61`, `ef297d8` where noted. Independent (the reviewer built none of it and edited nothing); clean `git archive` copies, headless Chrome under the lock. Scratch and stills: `~/.cache/lab-review/gasifier-lab/film-round-2-review/` (not in the repository). No withheld size is named in this section.
+
+**Gates (clean copy)**: typecheck 0, prettier pass, 553 tests pass (539 before; `film2.test.ts` adds 14), the standard test prints no shortfall, build pass (JS brotli 374.8 kB against 371.5, +0.9 %). `src/sim`, `src/data`, `narration/`, `public/` untouched; the reviewer's own replay of the engine is identical to round 1 (pins 3,498; 705; 16,879; lid 10,932 and 19,757). R2 scan of the 29 text files of the round: no withheld length beside a hot-part name; round 1's two coincidences are gone; two numeric coincidences remain, neither a hot-part size (`docs/3d.md` l.198, a camera clearance; `src/three/farm/scene.ts` l.617, a shadow texel). Walks at the app's cameras (1280 FR full, 768 FR, 390 FR, 1280 EN, 390 EN): 0 console errors. Contact: the lowest shadow-casting meshes of tractor, gasifier and line are at y = 0; nothing floats or sinks. Cost on the phone profile (CPU x4): neutral within noise (draw calls: farm 495 of 500, garage 404).
+
+## Finding by finding
+
+- **F1 (was the blocker): PARTLY.** The cause is not removed: at round 1's own home camera the same four dark rectangles still stand over the same birch crowns (they show from about 32 degrees of camera elevation at long range; none at 15 and 25). The film's frames no longer show them because the home camera moved low (about 12 degrees): 0a, 0b, 0c and four other poses have none. Any aerial farm shot, or a visitor orbiting up, still gets them (`farm/trees.ts` `leafMips` keeps about 0.6 of every level solid).
+- **F2: FIXED.** The pane goes with its wall; the bedroom has a bed with posts and quilt, a night table, a wardrobe; no sprites on the floor.
+- **F3: PARTLY.** In the tight 22-degree frame the green drum with a ring of puffs round its top reads as « gas leaves the top of the unit », not as « the lid »; the intake gas still covers the near wheel and the cab base; at 200 px a white puff on a green drum.
+- **F4: FIXED.** At 200 px a white column over the red tractor, clearly bigger than the chimney's puff, thinning by 17 model min and nearly gone at 38; in 0c the cab and unit read through the column from 2 model min on. The model's gas is untouched.
+- **F5: PARTLY** (orbit/dolly %, `ef297d8` | `046da61` | `f45fe48`): 1280 tractor 0.62/2.10 | 1.52/2.73 | 1.14/2.73; gasifier 0.22/1.12 | 0.71/1.81 | 0.43/1.75; garage 0.54/2.36 | 1.90/5.65 | 1.85/5.69; gas train 0.45/1.25 | 0.48/1.77 | 0.66/2.51 (worse); farm 2.27/5.63 | 2.25/5.69 | 2.91/6.23 (worse); 390 farm 1.30/2.34 | 1.68/2.78 | 0.73/1.38. Largest spike 1.49: no pop. The tractor and gasifier horizon band is now three small tree clusters; the farm's new home is 4.15 % on a 5-degree orbit: the spruce band against the sky and the fence grass crawl.
+- **F6: PARTLY.** The reviewer's flight closed-garage to old-rescue-set: local ratio 3.57 to 1.96 (reproduced), but one frame is still a full frame of the storey slab's concrete face, then the room (luma change 53 against 72 before). A cut remains.
+- **F7: FIXED for 0a.** Low from the south: field with wheel tracks and furrows, the yard a worn rectangle, tractor about 7 % wide, sky and haze; 19.5, 20.0, 20.5 grade amber then dusk; at x600 the luma holds at 91.9 on 3 frames; `filmHour = null` gives the model's day back; `?hour=99` falls back.
+- **F8: FIXED.** The `cues.ts` header matches the replay.
+- **F9: DONE except** the garage house, still on the other side from the farm's (a visible cut between worlds: 0b shows it at the garage's left, `garage-1-home` at its right). Tree count (60), `?hour` read once, bedroom joinery, soft sprites: done.
+- **Machine worlds**: the ridge is a soft blue-grey haze with 60 faint spruces; cut plates, grate and the cylinder carry a visible hatch; the Sankey has chevrons, readable at home at 1280, faint at 200 px; chip flakes darker with faint rings but still rectangles.
+
+## New or remaining defects
+
+- **M1 (major) = F5**: the farm's shimmer up at 1280: a slow orbit or dolly across the spruce band in 0a crawls; keep 0a static or a very slow push, no orbit. The gas line is also up (ch. 3).
+- **M2 (major)**: the closed-garage to rescue-set flight still has one frame of slab (F6); cut straight to the set.
+- **M3 (minor)**: the gas line's water-gauge flight (ch. 3, not in the first render): one frame of cut metal, luma change 66 (51 at `ef297d8`).
+- **m4 (minor)**: the app's farm overview (the home camera changed for every visitor): at 768 and 390 the farm is small in a hazy strip and the label GRANGE A PLAQUETTES is clipped at 768; the tractor starts at the left edge at 1280.
+- **m5 (minor)**: the farm is at 495 of 500 draw calls; the next addition breaks the budget.
+
+## Against the Piggott bar
+
+None of our frames has the Piggott polish (a hero object filling a graded dark set, grain, bolts). **Near it**: gasifier oxidation, reduction and outlet frames (welds, bolts, hatch, contact on the slab); gas-line filter, cooler and gauge frames; the tractor cab pose; the garage door (5c); the CO indicator and the rescue set (boards, nails); the garage home (stone foot, flower boxes); farm 0a at 20:00 and 0c. **Not at it**: the chip bed (rectangle flakes), the gas line at home (tiny line, faint Sankey), the closed-garage frame (building small, flat lawn), 5b (cropped, lid not a lid), the farm's trees and walls (leaf-card crowns, board-map walls), the smooth field and the lawn-like ground of the garage.
+
+## Not checked
+
+Real phones, Safari, Firefox, the film driver's own pixels, 60 fps playback, the spoken guide played, 768 and 390 walks with the modes, EN at 768, the 1000 m3 garage framing, farm flights beyond five.
+
+## Verdict
+
+**0 blocker, 2 major (F5 shimmer, F6 slab cut), 5 minor (F1 residual, F3, M3, m4, m5); F2, F4, F7, F8 fixed; F1, F3, F5, F6 partly. May `f45fe48` feed the film's first render (cold open and garage chapter)? Yes with conditions, milder than round 1**: 0a static or a very slow push (no orbit; the farm camera under about 25 degrees of elevation: no aerial), the evening hook `?hour=20.0`; 0c after 2 model minutes; cut straight to the rescue set; 5b as « gas leaves the top of the unit »; cut, do not fly, to the water gauge later; expect the house to change side between 0b and the garage. **Next modeler round, in order**: (1) the farm: the birch cards for real (outlying sprays at the coarse level, or fade the cards) and the spruce band against the sky (alpha to coverage or a fade, the fence grass); (2) the storey slab's face on the flight to the rescue set (step aside earlier) and the gauge flight; (3) 5b: a medium frame with the lid, intake gas thinner; (4) the chips as wood (shape, not rectangles) and the line's home frame; (5) the garage's house side and the lawn; (6) the farm's app overview at 768 and 390 and its draw calls.
