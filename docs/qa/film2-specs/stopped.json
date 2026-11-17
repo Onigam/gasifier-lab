@@ -1,0 +1,78 @@
+{
+ "out": "/Users/magino/.cache/lab-review/gasifier-lab/film2/stopped-after",
+ "tag": "c",
+ "width": 1280,
+ "height": 720,
+ "film": true,
+ "shots": [
+  {
+   "name": "farm-0c-stop-5min",
+   "scene": "farm",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ],
+    [
+     "engine",
+     "off"
+    ]
+   ],
+   "frame": [
+    "wood-gas-tractor"
+   ],
+   "runIn": 5
+  },
+  {
+   "name": "farm-0c-stop-20min",
+   "scene": "farm",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ],
+    [
+     "engine",
+     "off"
+    ]
+   ],
+   "frame": [
+    "wood-gas-tractor"
+   ],
+   "runIn": 20
+  },
+  {
+   "name": "farm-0c-stop-30min",
+   "scene": "farm",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ],
+    [
+     "engine",
+     "off"
+    ]
+   ],
+   "frame": [
+    "wood-gas-tractor"
+   ],
+   "runIn": 30
+  },
+  {
+   "name": "farm-0a-stop-30min",
+   "scene": "farm",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ],
+    [
+     "engine",
+     "off"
+    ]
+   ],
+   "runIn": 30
+  }
+ ]
+}

@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Before and after side by side, with the 200 px version of each under it: python3 film1-pair.py <before dir> <after dir> <out.jpg> name1 name2 ...
-The pictures are <dir>/b-<name>.png and <dir>/a-<name>.png (and the -200px ones)."""
+The pictures are <dir>/b-<name>.png and <dir>/a-<name>.png (and the -200px ones); the tags are BEFORE_TAG and AFTER_TAG in the environment (film round 2: `b` and `c`)."""
 import sys, os
+BT = os.environ.get('BEFORE_TAG', 'b')
+AT = os.environ.get('AFTER_TAG', 'a')
 from PIL import Image, ImageDraw
 bd, ad, out = sys.argv[1:4]
 names = sys.argv[4:]
@@ -9,7 +11,7 @@ W = 640
 rows = []
 for n in names:
     cells = []
-    for d, p in ((bd, 'b'), (ad, 'a')):
+    for d, p in ((bd, BT), (ad, AT)):
         f = os.path.join(d, f'{p}-{n}.png')
         if not os.path.exists(f):
             cells.append(None); continue

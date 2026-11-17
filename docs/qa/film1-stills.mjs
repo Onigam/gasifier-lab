@@ -10,6 +10,9 @@
 //   cues     the spoken guide's lab cues, [name, arg] each, run through the app's own `planCue` equivalent (set / preset / scenario)
 //   runIn    simulated seconds stepped without drawing, at 30 a second (the clock's scale is whatever the cues set)
 //   frame    part ids framed as the film's `[[frame:...]]` does (the world's own padding, at most 1.9 for one part, 1.5 for several)
+//   path     { from: [ids], to: [ids], t }: the camera a fraction t of the way along the straight flight between two framings
+//   camera   { position, target }: an explicit pose
+//   dayStart the farm's hour (scene.userData.filmHour)
 //   home     `[[home]]`: the world's overview
 //   film     the look of a film capture (kit `setLook`: 8 samples, ambient occlusion in the worlds that ask for it)
 //   small    also write the same picture at 200 px wide (the owner's test: readable at 200 px, without sound)
@@ -149,7 +152,10 @@ for (const shot of spec.shots) {
       }
       st.set({ schematic: !!shot.flows, explode: shot.explode ?? 0 });
       // a film's own hour for the farm's sun (scene.userData.filmHour, docs/3d.md, « Film round 1 »)
-      if (shot.dayStart !== undefined) window.__lab.stage.get(shot.scene).scene.userData.filmHour = shot.dayStart;
+      // (set for this shot only: a later shot without `dayStart` has the model's own day)
+      const ud = window.__lab.stage.get(shot.scene).scene.userData;
+      if (shot.dayStart !== undefined) ud.filmHour = shot.dayStart;
+      else delete ud.filmHour;
       for (let i = 0; i < (shot.runIn ?? 0) * 30; i++) e.step(1 / 30);
     },
     shot,
@@ -160,7 +166,21 @@ for (const shot of spec.shots) {
       const stage = window.__lab.stage;
       stage.controls.minDistance = 0;
       stage.controls.maxDistance = Infinity;
-      if (shot.camera) {
+      if (shot.path) {
+        // a point on the straight flight between two framings (the kit's flyTo lerps the camera and its target): { from: [ids], to: [ids], t }
+        const pose = (ids) => {
+          stage.frameParts(ids, Math.min(pad, ids.length > 1 ? 1.5 : 1.9), undefined, 0.01);
+          window.__step(12);
+          return { p: stage.camera.position.clone(), q: stage.controls.target.clone() };
+        };
+        const a = pose(shot.path.from);
+        const b = pose(shot.path.to);
+        stage.fly = null;
+        stage.camera.position.lerpVectors(a.p, b.p, shot.path.t);
+        stage.controls.target.lerpVectors(a.q, b.q, shot.path.t);
+        stage.camera.updateProjectionMatrix();
+        stage.controls.update();
+      } else if (shot.camera) {
         stage.fly = null;
         stage.camera.position.set(...shot.camera.position);
         stage.controls.target.set(...shot.camera.target);
