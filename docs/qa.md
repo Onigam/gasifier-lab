@@ -797,3 +797,35 @@ The voice itself (D-N18 to D-N20 and the two single words of § 4 each need one 
 ## Verdict
 
 **0 blocker, 0 major, 3 minor new (D-N18, D-N19, D-N20); D-N10 to D-N15 and D-N17 closed; D-N16, S10, S12, S15, S17 and D-N8 as they were.** On the browser and audio side the correction round does what it says: the 12 clips play to the end in both languages, every cue lands, nothing is left on, the console shows only the kit's font 403s, and the bedroom's strip is on 667 to 670 when the figure is said. Ready for the owner's checkpoint. The first thing I would fix if one re-take is allowed: D-N18 (the English `filter-bags`), with D-N19 if the lead wants the diagram owned. This is a recommendation for the checkpoint, not a status: « ready to release » is the owner's to say.
+
+# Film round 1: the scoped review (17/11/2026)
+
+**Reviewed**: `046da61` against `ef297d8` (the three commits `6364137`, `d7e7d7c`, `046da61`: the cues, the five worlds in the open air, the report). A scoped, independent review (the reviewer built none of it and edited nothing), two `git archive` copies, headless Chrome under the lock, 4 walks (1280 FR, 1280 EN, 768 FR, 390 FR), 71 shots each, 0 console errors. Question asked: may this commit feed the film's first render? Scratch and stills: `~/.cache/lab-review/gasifier-lab/film-round-1-review/` (not in the repository). No withheld size is named in this section.
+
+**Gates (clean copy)**: typecheck 0, prettier pass, 539 tests pass (519 before), standard test prints no shortfall, build pass (JS +1.4 % brotli). Parts, data, `narration/`, `public/` untouched. Cost on the phone profile (CPU x4, 390 px): world entry faster in all five worlds (farm 327 to 161 ms, garage 408 to 317 ms), mean frame +0.1 to +1.3 ms, worst frame no worse. The kit's shimmer is stable (pinned clocks, spread 0).
+
+**Held**: requests 1, 3, 4, 5, 6 of the film round (the x600 luma, the hour query, the lab cues, the plume reading against the boards), contact of the lowest shadow-casting meshes (nothing floats or sinks), the setting of the four worlds, tests and guards, narration ids and cues, FR/EN parity, no text in textures. Requests 7 and 9: reported honestly (7: the film loses nothing in its current text, the plate stays off the outlet frame; 9: the showcase card is planned, no sources, so the invitation cannot be checked and the film cannot publish before the lab is public).
+
+## Defects
+
+- **F1. BLOCKER. Floating dark-green rectangular leaf cards above four birch crowns in the farm's home view**, the first frame of the cold open; absent before. Repro: farm, home, any hour. Likely the coarse birches beyond the near range (`leafyTree(..., true)`: sprays and size scaled up, `farm/trees.ts`). Stills: `stills/crop-birch-before-after.png`.
+- **F2. MAJOR. Bedroom, ch.1 « room-above » (and 5b): a window pane with its two curtains stands free in the air** at the cut (the back wall is hidden, its window is not). Not new, but the film now frames it (`garage/building.ts`, « window on the back wall »).
+- **F3. MAJOR. 5b lid (request 8): with `lidLeak` the cloud hides the unit and the lid**; no lid reads. Request 8 is met in the frame box only.
+- **F4. MAJOR. The stopped tractor (request 2) is one white dot at 200 px**, the same as the house chimney's. The gas is the model's (share 0.19 at 17 model min, 0.025 at 37 min after the stop; gone in 5 s at x600), and while the share is above about 0.4 (the first 8 model minutes) it buries the cab and the unit in the 0c frame.
+- **F5. MAJOR. Shimmer up on the ridge and tree-line crest** (orbit/dolly %, before to after: 1280 tractor 0.62/2.10 to 1.52/2.73, gasifier 0.22/1.12 to 0.71/1.81, garage 0.54/2.36 to 1.90/5.65; farm unchanged at 2.25/5.69; 390 gasifier 0.50/2.53 to 1.58/3.62). Heat maps: the band across the full width (share of the top third flagged: tractor 23 % vs 1 %, gasifier 23 % vs 1 %), the garage house's siding, the farm's birch and spruce crowns.
+- **F6. MAJOR. Flight closed-garage to old-rescue-set (2.5 s) goes through the wall**: frame 52 of 75 is a full frame of dark boards, then a cut (luma change 72, was 11). None of the 9 other garage flights is over 2.
+- **F7. MAJOR. The farm is still the lowest**: the first frame is a brown field filling half the picture with sawtooth shadows, a soft grey disc for the yard and a tractor 3 % wide; the evening at 0a reads as a darker, same-green day, warm light only on low facades.
+- **F8. minor. The three cues are state**: a later scenario, preset or reset cue wipes them; a mid-run `postgas` changes only what follows. Set at clock 0 they reproduce the writer's pins. Not said in `cues.ts` or `3d.md`. On `lidleak` at 30 min the 3D lid plume jumps to a third at once while the model's flow rises over about 5 model minutes.
+- **F9. minor. Docs and small things**: the report says 420 trees, the code and `3d.md` a smaller count; the `?hour` read is every frame, not once, and after `?hour=` the model's own day cannot be restored (only another hour); the garage house stands on the other side from the farm's; bedroom furniture is box furniture and the plume sprites on the floor look like paper scraps; the gas line at home at 200 px is tiny on an empty slab. Two numeric coincidences with a withheld length in `3d.md` and `water.md` (quantities that are not hot-part sizes, the docs guard passes): reword.
+
+## Against the Piggott bar
+
+The reviewer put the film's frames beside the Piggott film pose. Piggott fills the frame, has grain, bolts and a graded dark set; ours are small objects in flat daylight on a pale plain. The gasifier is near on casings, welds and bands, but the bed is confetti flakes in the key's colours (noisy at 200 px) and the cut plates are flat orange. The gas train and the tractor are close (anchor plates, gussets, lugs, contact shadows) but the cylinder cut is flat white and the Sankey is flat. The garage is far above before (the strapped door frame 5c is the best frame), but frames 2 and 3 and the flat lawn hold it back. The farm is the lowest (F7).
+
+## Not checked
+
+768 EN, 390 EN, the before-walk at the app's cameras, real phones, Safari, Firefox, the film driver's own pixels (AO, accumulation), 60 fps playback, the spoken guide played, the 1000 m3 garage framing, the birches in real-time playback (heat maps only).
+
+## Verdict
+
+**1 blocker, 6 major, 2 minor groups. May `046da61` feed the film's first render? Yes with conditions**: fix F1 first; cut straight to the old rescue set (F6); frame 0c after the plume thins (F4); keep `room-above` and 5b off the owner's cut until F2 and F3 are fixed. The next modeler round, in order: (1) the farm (F1, F7, the stop reading at 200 px without burying the unit, the evening light, alpha of the leaf cards); (2) the garage (F2, F3, F6, the furniture and the sprites, the house side); (3) the machine worlds (soften the ridge and tree-line crest, wood grain or hatch on the chips and cut plates, the Sankey and the cylinder); (4) the docs (F8, F9).
