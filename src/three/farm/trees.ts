@@ -278,9 +278,85 @@ export function leafCard(
   t.colorSpace = THREE.SRGBColorSpace;
   t.magFilter = THREE.LinearFilter;
   t.minFilter = THREE.LinearMipmapLinearFilter;
-  t.generateMipmaps = true;
+  // the mip chain is made here and not by the card: a box filter takes a card that is half leaves to an alpha of one half at a distance, and over the alpha test that is a whole solid rectangle (the dark cards that floated over the birches), under it a card that is gone;
+  // each level keeps the share of the card that the base level covers, by the quantile of its own filtered alpha, so that a crown has the same leaves at every distance and nothing at an edge of a mip level to toggle (docs/qa.md D16)
+  t.mipmaps = leafMips(d, N);
+  t.generateMipmaps = false;
   t.needsUpdate = true;
   return t;
+}
+
+/**
+ * The levels of a card, from its base (RGBA, alpha 0 or 255): the colour of a texel is the average of the covered texels under it (a transparent texel has no colour to lend), the alpha is 255 for the texels with the highest filtered alpha, as many of them as the base
+ * covers, and 0 elsewhere; below eight texels a side the cover is the average alpha itself (a card that small is a few pixels).
+ */
+export function leafMips(base: Uint8Array, N: number): { data: Uint8Array; width: number; height: number }[] {
+  const levels = [{ data: base, width: N, height: N }];
+  // what a level is made of, before its alpha is decided: for each texel the sums, over the base texels under it, of the alpha-weighted colour and of the alpha (a transparent texel has no colour to lend)
+  let sr = new Float32Array(N * N);
+  let sg = new Float32Array(N * N);
+  let sb = new Float32Array(N * N);
+  let sa = new Float32Array(N * N);
+  let cover = 0;
+  for (let i = 0; i < N * N; i++) {
+    const a = base[i * 4 + 3]! / 255;
+    sr[i] = base[i * 4]! * a;
+    sg[i] = base[i * 4 + 1]! * a;
+    sb[i] = base[i * 4 + 2]! * a;
+    sa[i] = a;
+    cover += a;
+  }
+  cover /= N * N;
+  let size = N;
+  let block = 1;
+  while (size > 1) {
+    const n = size >> 1;
+    block *= 2;
+    const nr = new Float32Array(n * n);
+    const ng = new Float32Array(n * n);
+    const nb = new Float32Array(n * n);
+    const na = new Float32Array(n * n);
+    for (let j = 0; j < n; j++)
+      for (let i = 0; i < n; i++)
+        for (const [dx, dy] of [
+          [0, 0],
+          [1, 0],
+          [0, 1],
+          [1, 1],
+        ] as const) {
+          const k = (2 * j + dy) * size + 2 * i + dx;
+          nr[j * n + i]! += sr[k]!;
+          ng[j * n + i]! += sg[k]!;
+          nb[j * n + i]! += sb[k]!;
+          na[j * n + i]! += sa[k]!;
+        }
+    const out = new Uint8Array(n * n * 4);
+    const mean = new Float32Array(n * n);
+    for (let i = 0; i < n * n; i++) {
+      mean[i] = na[i]! / (block * block);
+      if (na[i]! > 0) {
+        out[i * 4] = Math.round(nr[i]! / na[i]!);
+        out[i * 4 + 1] = Math.round(ng[i]! / na[i]!);
+        out[i * 4 + 2] = Math.round(nb[i]! / na[i]!);
+      }
+    }
+    if (n >= 8) {
+      // the texels that stay are the top `cover` of the filtered alpha by rank; two texels of one value are told apart by a fixed scatter, so that a flat region is cut as a pattern and not all in or all out
+      const keyed = Array.from(mean, (v, i) => ({ v: v + (1e-4 * (((i * 2654435761) >>> 8) % 1000)) / 1000, i }));
+      keyed.sort((p, q) => q.v - p.v);
+      const stay = Math.round(cover * n * n);
+      for (let r = 0; r < stay; r++) out[keyed[r]!.i * 4 + 3] = 255;
+    } else {
+      for (let i = 0; i < n * n; i++) out[i * 4 + 3] = Math.round(mean[i]! * 255);
+    }
+    levels.push({ data: out, width: n, height: n });
+    sr = nr;
+    sg = ng;
+    sb = nb;
+    sa = na;
+    size = n;
+  }
+  return levels;
 }
 
 /** The foliage material: alpha-tested leaf cards seen from both sides, lit by the crown's normal (never the card's), vertex colours tinting each spray. */
@@ -515,8 +591,8 @@ export function leafyTree(kind: 'birch' | 'oak' | 'apple' | 'linden', seed: numb
       c: spec.crownC,
       rad: spec.rad,
       // seen from afar the same leaves in fewer, larger sprays: less edge against the sky for the eye to crawl along (docs/qa.md D16)
-      sprays: coarse ? Math.round(spec.sprays * 0.42) : spec.sprays,
-      size: coarse ? spec.size * 1.55 : spec.size,
+      sprays: coarse ? Math.round(spec.sprays * 0.6) : spec.sprays,
+      size: coarse ? spec.size * 1.2 : spec.size,
       tint: [0.45 * lightG, 1.0 * lightG],
       shell: kind === 'oak' ? 0.4 : 0.15,
       droop: kind === 'birch' ? 0.35 : 0.15,

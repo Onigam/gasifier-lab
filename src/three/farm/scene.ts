@@ -134,11 +134,13 @@ export function blocksSight(x: number, z: number): boolean {
 }
 
 /**
- * The hour a film asks the farm's sun to stand at, or null for the model's own day (the clock from `FARM.dayStart`, 06:30, held at 15:24 over a clock of ×600). A film sets it with `?hour=19.5` in the address (read once, when the world is built) or live with
- * `scene.userData.filmHour = 19.5`; the sun then stands at that hour whatever the clock does (a film's clock runs fast: a day would race past it). Nothing else reads it: the model's day is unchanged.
+ * The hour a film asks the farm's sun to stand at, or null for the model's own day (the clock from `FARM.dayStart`, 06:30, held at 15:24 over a clock of ×600). Two ways to ask. `?hour=19.5` in the address, read **once, when the world is built**. `scene.userData.filmHour = 19.5` live, which wins over the
+ * address; **`scene.userData.filmHour = null` gives the model's own day back** (the address is not read again), and deleting the key falls back to the address. The sun then stands at that hour whatever the clock does (a film's clock runs fast: a day would race past it). Nothing else reads it: the
+ * model's day is unchanged.
  */
 export function filmHourOf(scene: THREE.Scene, fromAddress: number | null = urlHour()): number | null {
   const live = scene.userData.filmHour;
+  if (live === null) return null;
   if (typeof live === 'number' && live >= 0 && live < 24) return live;
   return fromAddress;
 }
@@ -276,6 +278,8 @@ export interface FarmScene extends SceneModule<GasState> {
 
 export function createFarmScene(opts: FarmOptions = {}): FarmScene {
   const scene = new THREE.Scene();
+  // the address is read here, once
+  const addressHour = urlHour();
   scene.name = 'farm';
   // the sky gives the world its own environment (docs/scenery.md); the look is the labs' day light
   scene.userData.look = { exposure: 1.1, ao: true, aoRadius: 0.9 };
@@ -493,10 +497,33 @@ export function createFarmScene(opts: FarmOptions = {}): FarmScene {
   // the gas of a stopped tractor: it leaves at the primary-air intake and the lid for as long as the model says (`plumeShare`), a column the size of a man at the tractor and a thin white-yellow veil against the field from a long way. It rides with the tractor (a child of its group,
   // in its own frame). The shape is ours, how much leaves is the model's (docs/water.md); a running tractor shows none
   const stopEye = v3(1.38, UNIT_AT.y + 0.18, -1.16 - 0.068);
-  const stopLid = v3(UNIT_AT.x, UNIT.top + UNIT_AT.y, UNIT_AT.z);
+  const stopLid = v3(UNIT_AT.x, UNIT.top - 0.09, UNIT_AT.z);
+  // a column that stands tall (the veil of a thin gas, seen from the road as a pale pillar), thinning as the eye comes within some metres of it so that the tractor in the frame that looks at it is not buried (the model's share is untouched; only how the sprites are drawn)
   const stopPlumes = [
-    makePlume({ origin: stopEye, color: 0xf2eddc, rise: 3.4, spread: 1.7, n: 260, size: 1.9, speed: 0.07, seed: 15 }),
-    makePlume({ origin: stopLid, color: 0xefe7c4, rise: 2.6, spread: 1.3, n: 180, size: 1.6, speed: 0.06, seed: 16 }),
+    makePlume({
+      origin: stopEye,
+      color: 0xf2eddc,
+      rise: 9,
+      spread: 2.6,
+      n: 300,
+      size: 2.4,
+      speed: 0.05,
+      seed: 15,
+      fade: [5, 17],
+      minPx: 5,
+    }),
+    makePlume({
+      origin: stopLid,
+      color: 0xefe7c4,
+      rise: 7,
+      spread: 2.0,
+      n: 160,
+      size: 1.8,
+      speed: 0.045,
+      seed: 16,
+      fade: [5, 17],
+      minPx: 4,
+    }),
   ];
   for (const pl of stopPlumes) drive.add(pl.points);
 
@@ -539,7 +566,8 @@ export function createFarmScene(opts: FarmOptions = {}): FarmScene {
   followers.add('chip-barn', props[1]![0], { shell: false, explode: 0 });
   followers.add('chip-barn', props[2]![0], { shell: false, explode: 0 });
   followers.add('wood-gas-tractor', link, { shell: false, explode: 0 });
-  registry.overview(() => [new THREE.Box3(new THREE.Vector3(-30, -1, -28), new THREE.Vector3(36, 8, 34))]);
+  // the overview's box is set a little to the west of the yard's middle: the tractor starts its rounds at the west end of the near side, and the picture should have it a third of the way in and not at the edge
+  registry.overview(() => [new THREE.Box3(new THREE.Vector3(-37, -1, -28), new THREE.Vector3(31, 8, 34))]);
 
   // ---- « Flux »: the fuel's way and what comes out of the machine, for the eye (the speed is nowhere the true one)
   const flows = new FlowDots(900, 0.34, 0.012, true);
@@ -607,18 +635,19 @@ export function createFarmScene(opts: FarmOptions = {}): FarmScene {
     registry,
     hotspots: hs,
     machine,
-    home: { position: new THREE.Vector3(14, 52, 50), target: new THREE.Vector3(4, 0.5, -8) },
+    // from the south, low over the field: the ploughed ground with its rounds in the foreground, the ditch and the fence, the yard and its buildings in the middle, the forest and the sky behind (the overview framed from above made the field half the picture and the tractor a tenth of its width)
+    home: { position: new THREE.Vector3(18, 15, 60), target: new THREE.Vector3(2, 1, -4) },
     minDistance: 1.2,
     maxDistance: 420,
     near: 0.1,
     far: 5000,
     declutter: true,
-    homePadding: 1.0,
+    homePadding: 0.44,
     update(state: GasState, dt: number, view: ViewOpts) {
       const p = opts.params?.();
       const sel = opts.selected?.() ?? null;
       // the sun: the model's clock from the farm's day start; at a fast clock the light holds
-      const film = filmHourOf(scene);
+      const film = filmHourOf(scene, addressHour);
       const hour = film ?? (FARM.dayStart + state.hour) % 24;
       sky.update(hour, view.time, 170, film === null && (p?.timeScale ?? 60) >= 600);
       // the tractor goes round at the model's ground speed while it works, and stands while the engine does not, or while it is the one selected

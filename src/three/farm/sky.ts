@@ -30,11 +30,24 @@ export function sunDirection(hour: number, day = 170, out = new THREE.Vector3())
 function injectNight(sky: Sky): void {
   const m = sky.material;
   m.uniforms.uNight = { value: 0 };
+  m.uniforms.uGlow = { value: 0 };
+  m.uniforms.uSunDir = { value: new THREE.Vector3(0, 1, 0) };
   const hook = 'gl_FragColor = vec4( texColor, 1.0 );';
   if (!m.fragmentShader.includes(hook)) return;
-  m.fragmentShader = m.fragmentShader.replace('void main() {', 'uniform float uNight;\nvoid main() {').replace(
-    hook,
-    /* glsl */ `
+  m.fragmentShader = m.fragmentShader
+    .replace('void main() {', 'uniform float uNight;\nuniform float uGlow;\nuniform vec3 uSunDir;\nvoid main() {')
+    .replace(
+      hook,
+      /* glsl */ `
+      {
+        // the evening: the air near the ground glows orange on the side of the sun and rosy away from it, the whole sky a shade warmer; none by day (uGlow is the golden hour's share, docs/scenery.md)
+        float upG = max( direction.y, 0.0 );
+        float lowAir = pow( 1.0 - upG, 3.2 );
+        float toSun = max( dot( normalize( vec3( direction.x, 0.001, direction.z ) ), normalize( vec3( uSunDir.x, 0.001, uSunDir.z ) ) ), 0.0 );
+        vec3 glowCol = mix( vec3( 0.95, 0.62, 0.52 ), vec3( 1.0, 0.5, 0.24 ), pow( toSun, 1.6 ) );
+        texColor = mix( texColor, glowCol, uGlow * lowAir * ( 0.35 + 0.55 * pow( toSun, 1.2 ) ) );
+        texColor *= mix( vec3( 1.0 ), vec3( 1.04, 0.92, 0.84 ), 0.6 * uGlow );
+      }
       {
         float up = max(direction.y, 0.0);
         vec3 nightCol = mix(vec3(0.010, 0.016, 0.040), vec3(0.0025, 0.004, 0.012), pow(up, 0.6));
@@ -46,7 +59,7 @@ function injectNight(sky: Sky): void {
         texColor = mix(texColor, nightCol + vec3(star) * 0.9, uNight);
       }
       ${hook}`,
-  );
+    );
 }
 
 /** Equirectangular sky-and-ground gradient used as the environment (reflections on pipes, water, metal). */
@@ -139,6 +152,8 @@ export function createSky(scene: THREE.Scene): SkyRig {
   const sunDir = new THREE.Vector3(0, 1, 0);
   const moonDir = new THREE.Vector3(-0.35, 0.8, 0.45).normalize();
   const warm = new THREE.Color(0xffc48a);
+  const amber = new THREE.Color(0xff9a52);
+  const hemiGold = new THREE.Color(0x8d9fc6);
   const white = new THREE.Color(0xfff3e2);
   const moonCol = new THREE.Color(0x9fb4d8);
   const fogDay = new THREE.Color(0xc4d3e2);
@@ -178,11 +193,16 @@ export function createSky(scene: THREE.Scene): SkyRig {
     u.sunPosition.value.copy(sunDir);
     u.uNight.value = smoothstep(-2 * DEG, -10 * DEG, alt);
     if (u.time) u.time.value = time;
-    const sunI = 3.9 * smoothstep(-1 * DEG, 6 * DEG, alt) * (1 - 0.18 * low);
+    // the golden hour: under about twenty-five degrees the sun is a strong warm light from the side and the sky over the ground a cooler, dimmer fill, so that what the sun touches is orange and what it does not is blue (the day's grey-green is what the evening was before)
+    const gold = (1 - smoothstep(13 * DEG, 30 * DEG, alt)) * day;
+    const sunI = 3.9 * smoothstep(-1 * DEG, 6 * DEG, alt) * (1 - 0.18 * low) * (1 + 0.65 * gold);
     const moonI = 1.1 * (1 - day);
     if (sunI >= moonI) {
       lightDir.copy(sunDir);
-      sun.color.copy(white).lerp(warm, low);
+      sun.color
+        .copy(white)
+        .lerp(warm, low)
+        .lerp(amber, 0.7 * gold);
       sun.intensity = sunI;
     } else {
       lightDir.copy(moonDir);
@@ -190,13 +210,23 @@ export function createSky(scene: THREE.Scene): SkyRig {
       sun.intensity = moonI;
     }
     place();
-    hemi.intensity = lerp(0.5, 1.0, day) * lerp(1, 0.86, low * day);
-    hemi.color.copy(hemiNight).lerp(hemiDay, day);
-    scene.environmentIntensity = lerp(0.2, 0.55, day);
+    hemi.intensity = lerp(0.5, 1.0, day) * lerp(1, 0.86, low * day) * (1 - 0.38 * gold);
+    hemi.color
+      .copy(hemiNight)
+      .lerp(hemiDay, day)
+      .lerp(hemiGold, 0.6 * gold);
+    scene.environmentIntensity = lerp(0.2, 0.55, day) * (1 - 0.3 * gold);
     (scene.fog as THREE.FogExp2).color
       .copy(fogNight)
       .lerp(fogDay, day)
-      .lerp(fogDusk, low * day * 0.6);
+      .lerp(fogDusk, low * day * 0.6 + 0.35 * gold);
+    // the sky's own horizon glows: a hazier, warmer air near the sun
+    u.turbidity.value = 3.6 + 5.5 * gold;
+    u.mieCoefficient.value = 0.004 + 0.012 * gold;
+    u.rayleigh.value = 1.3 + 0.9 * gold;
+    u.uGlow.value = gold;
+    u.uSunDir.value.copy(sunDir);
+    (scene.fog as THREE.FogExp2).density = FOG_DENSITY * (1 + 1.6 * gold);
   };
 
   const rig: SkyRig = {

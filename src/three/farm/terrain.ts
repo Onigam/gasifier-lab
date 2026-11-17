@@ -131,8 +131,11 @@ export function buildTerrain(): Terrain {
           float farM = smoothstep( 120.0, 700.0, length( p - vec2( ${FARM.yard.x.toFixed(1)}, ${FARM.yard.z.toFixed(1)} ) ) );
           meadow = mix( meadow, vec3( 0.11, 0.17, 0.1 ), farM * 0.55 * smoothstep( 0.35, 0.75, lFbm( p * 0.004 + 3.0 ) ) );
           // the yard and the lane: gravel and packed earth
-          float rYard = length( p - vec2( ${FARM.yard.x.toFixed(1)}, ${FARM.yard.z.toFixed(1)} ) * 1.0 );
-          float yard = 1.0 - smoothstep( ${FARM.yard.r.toFixed(1)}, ${(FARM.yard.r + 5).toFixed(1)}, rYard + 4.0 * ( lNoise( p * 0.4 ) - 0.5 ) );
+          // the yard is the ground between the lane, the buildings and the ditch, with an edge that a wheel and a mower have made (a few metres of broken line), and it stops at the ditch: the field is another thing
+          float edgeJ = lNoise( p * 0.35 ) - 0.5;
+          float yardX = 1.0 - smoothstep( 36.0, 37.6, abs( p.x - 3.0 ) + 2.2 * edgeJ );
+          float yardZ = ( 1.0 - smoothstep( 5.2, 6.4, p.y + 1.2 * edgeJ ) ) * smoothstep( -24.0, -22.2, p.y + 1.6 * edgeJ );
+          float yard = yardX * yardZ;
           float lane = ( 1.0 - smoothstep( ${(FARM.lane.width / 2).toFixed(2)}, ${(FARM.lane.width / 2 + 0.7).toFixed(2)}, abs( p.y - ${FARM.lane.z.toFixed(2)} + 1.6 * sin( p.x * 0.03 ) ) ) ) * step( 0.0, p.x ) * ( 1.0 - 0.0 * p.x );
           float trk = ( 1.0 - smoothstep( ${(FARM.track.width / 2).toFixed(2)}, ${(FARM.track.width / 2 + 0.7).toFixed(2)}, abs( p.x - ${FARM.track.x.toFixed(2)} ) ) ) * step( -4.0, p.y ) * step( p.y, ${(FARM.field.z0 + 6).toFixed(1)} );
           float gravelM = max( max( yard, lane ), trk );
@@ -159,9 +162,23 @@ export function buildTerrain(): Terrain {
           float fur = 0.5 + 0.5 * sin( p.y * 8.4 + 2.2 * lNoise( vec2( p.x * 0.12, p.y * 0.4 ) ) );
           sc *= 1.0 - furrowFade * ( 0.34 * ( 1.0 - fur ) );
           sc *= 1.0 + furrowFade * 0.25 * ( lNoise( p * 7.0 ) - 0.5 );
-          // a stripe of the headland, harrowed and paler, round the field
-          float head = field * smoothstep( 4.0, 0.0, min( min( abs( p.y - ${FARM.field.z0.toFixed(2)} ), abs( abs( p.x ) - ${FARM.field.x1.toFixed(1)} ) ), abs( p.y - ${FARM.field.z1.toFixed(1)} ) ) );
-          sc = mix( sc, vec3( 0.34, 0.26, 0.18 ), head * 0.5 );
+          // lands: beds of the plough, a dozen metres wide, a little paler and darker in turn, so that the field has a grain at the distance of the overview, where a furrow is no longer seen; a drier tone in patches
+          float land = 0.5 + 0.5 * sin( p.y * 0.52 + 1.5 * lNoise( vec2( p.x * 0.03, p.y * 0.1 ) ) );
+          sc *= 0.88 + 0.2 * land;
+          sc = mix( sc, sc * vec3( 1.28, 1.12, 0.92 ), 0.55 * smoothstep( 0.55, 0.8, lFbm( p * 0.018 + 21.0 ) ) );
+          // the headland, harrowed and paler, along the near edge, with the grass verge between it and the fence
+          float edgeNear = abs( p.y - ${(FARM.field.z0 + 3.2).toFixed(2)} );
+          float head = field * ( 1.0 - smoothstep( 1.8, 3.2, edgeNear ) );
+          head = max( head, field * smoothstep( 4.0, 0.0, min( abs( abs( p.x ) - ${FARM.field.x1.toFixed(1)} ), abs( p.y - ${FARM.field.z1.toFixed(1)} ) ) ) );
+          sc = mix( sc, vec3( 0.46, 0.35, 0.24 ), head * 0.8 );
+          // the tractor's rounds: the strip the crusher has been over is finer and paler, with the two wheel lines pressed into it, a quarter metre wide each: the path is the loop of the tractor (a stadium) and the wheels are half a tread from it
+          vec2 q = p - vec2( ${FARM.loop.x.toFixed(1)}, ${FARM.loop.z.toFixed(1)} );
+          float onLoop = abs( length( vec2( max( abs( q.x ) - ${(FARM.loop.len / 2).toFixed(1)}, 0.0 ), q.y ) ) - ${FARM.loop.r.toFixed(1)} );
+          float worked = 1.0 - smoothstep( 1.8, 2.6, onLoop );
+          float wheelLine = 1.0 - smoothstep( 0.13, 0.3, abs( onLoop - 1.12 ) );
+          float trackFade = 1.0 - smoothstep( 70.0, 200.0, dist );
+          sc = mix( sc, sc * vec3( 1.2, 1.12, 1.0 ) * ( 0.94 + 0.1 * lNoise( p * 9.0 ) ), worked * 0.75 * mix( 0.55, 1.0, trackFade ) );
+          sc *= 1.0 - 0.38 * wheelLine * trackFade * ( 0.7 + 0.3 * lNoise( vec2( p.x * 2.0, p.y * 3.0 ) ) );
           vec3 c = meadow;
           c = mix( c, sc, field );
           c = mix( c, gr, gravelM );
