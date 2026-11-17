@@ -19,8 +19,14 @@ import type { PresetId, ScenarioId } from './sim/types';
 //   [[lab:place:garage]]            `field` or `garage`: only a machine in the garage fills the room
 //   [[lab:volume:50]]               the garage's volume, 50 or 1000 m³
 //   [[lab:door:shut]]               `shut`, `ajar` or `open`
+//   [[lab:postgas:0.2]]             the whole volume of gas that leaves after a stop, m³, 0.2 to 5: the one input nobody measured (a film or a guide moves it to show how the number rests on it)
+//   [[lab:postgasmin:20]]           the time of that gas, minutes, 5 to 180
+//   [[lab:lidleak:on]]              `on` or `off`: a lid that does not seal (S3's fault); the model's, never a gesture
 //   [[lab:speed:60]]                simulated seconds per second (1, 10, 60, 600, 3600); starts the clock
 //   [[lab:pause]]  [[lab:play]]     stops and starts the clock
+//
+// `postgas`, `postgasmin` and `lidleak` are **state of the run**, not events. A later `scenario`, `preset` or `reset` cue sets them back to that starting point's values, so a film or a guide gives them after it; given at clock 0 they reproduce the model's figures for them (the same run as the slider's). Given in the middle of a run,
+// `postgas` and `postgasmin` change only the gas that is yet to leave (what is out stays out: the room's number does not jump back), and `lidleak` makes the model's flow rise over some minutes, which the 3D follows (the lid's gas is eased over five model minutes).
 
 const range = (arg: string | undefined, min: number, max: number): number | null => {
   if (arg === undefined || arg.trim() === '') return null;
