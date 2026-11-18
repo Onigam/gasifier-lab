@@ -1048,15 +1048,19 @@ export function buildUnit(opts: UnitOptions): Unit {
       const key = `${Math.round(x / cell)}:${Math.round(y / cell)}`;
       if ((taken.get(key) ?? 0) >= 1) continue;
       taken.set(key, 1);
+      // a heap has depth: two pieces in five stand up out of the face at any angle, the rest lie on it tilted; each sits at its own depth, the deeper ones darker (in the shade of those over them). At two or three metres the face is a layer of pieces with an edge and a
+      // shadow to each, not flakes printed on a plane (docs/qa.md, film round 3, m3)
+      const standing = r() < 0.4;
+      const depth = r();
       spots.push({
         x,
         y,
         rot: (r() - 0.5) * 1.8,
         s: size,
-        tx: (r() - 0.5) * 0.7,
-        ty: (r() - 0.5) * 0.7,
-        z: -0.001 + 0.004 * r(),
-        tone: 0.8 + 0.3 * r(),
+        tx: (r() - 0.5) * (standing ? 2.2 : 0.8),
+        ty: (r() - 0.5) * (standing ? 2.2 : 0.8),
+        z: -0.004 + 0.009 * depth,
+        tone: (0.62 + 0.3 * depth) * (0.9 + 0.2 * r()),
       });
     }
     if (!spots.length) return null;
@@ -1159,7 +1163,7 @@ export function buildUnit(opts: UnitOptions): Unit {
     }
     // loose flakes
     const flakes = chipBlank(COLUMN.chipLength, COLUMN.chipWidth, COLUMN.chipThick);
-    const N = cut ? 260 : 520;
+    const N = cut ? 420 : 520;
     const looseMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.95 });
     chipShape(looseMat, CHIP_SIZE, true);
     const im = new THREE.InstancedMesh(flakes, looseMat, N);
@@ -1176,8 +1180,10 @@ export function buildUnit(opts: UnitOptions): Unit {
       const d = Math.sqrt(r()) * (r0 - 0.012);
       const z = Math.sin(a) * d;
       if (cut && z < 0) continue;
-      const h = 0.04 * (1 - (d / r0) ** 2) - 0.03 + 0.005 + r() * 0.012;
-      e.set((r() - 0.5) * 0.9, r() * TAU, (r() - 0.5) * 0.9);
+      // on the mound, in two layers, and near the cut more of them on edge: the top of the heap seen in section is a ragged line of pieces, not a smooth arc
+      const onEdge = cut && z < 0.04 && r() < 0.6;
+      const h = 0.04 * (1 - (d / r0) ** 2) - 0.03 + 0.004 + r() * 0.016;
+      e.set((r() - 0.5) * (onEdge ? 2.6 : 0.9), r() * TAU, (r() - 0.5) * (onEdge ? 2.6 : 0.9));
       q.setFromEuler(e).multiply(flat);
       const size = 0.6 + 0.75 * r() ** 1.4;
       mtx.compose(v3(Math.cos(a) * d, h, z), q, v3(size, size * (0.8 + 0.4 * r()), 1 + size));
