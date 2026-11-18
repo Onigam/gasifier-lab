@@ -12,7 +12,7 @@ const puppeteer = createRequire(path.join(deps, 'index.js'))('puppeteer-core');
 const CHROME = `${process.env.HOME}/.cache/puppeteer/chrome/mac_arm-154.0.8037.57/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing`;
 const BASE = process.env.URL ?? 'http://localhost:5883/';
 const OUT = process.env.OUT;
-const WORLDS = ['farm', 'tractor', 'gasifier', 'gas-train', 'garage'];
+const WORLDS = process.env.WORLDS ? process.env.WORLDS.split(',') : ['farm', 'tractor', 'gasifier', 'gas-train', 'garage'];
 const GL = ['--use-gl=angle', '--use-angle=metal', '--enable-gpu', '--ignore-gpu-blocklist'];
 
 function pinClocks() {

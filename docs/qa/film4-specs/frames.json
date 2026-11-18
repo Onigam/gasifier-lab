@@ -1,0 +1,284 @@
+{
+ "out": "/Users/magino/.cache/lab-review/gasifier-lab/film4/after",
+ "tag": "c",
+ "width": 1280,
+ "height": 720,
+ "film": true,
+ "shots": [
+  {
+   "name": "farm-0a-home",
+   "scene": "farm",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ],
+    [
+     "engine",
+     "off"
+    ]
+   ],
+   "runIn": 20,
+   "small": true
+  },
+  {
+   "name": "farm-0a-stopped-wide",
+   "scene": "farm",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ],
+    [
+     "engine",
+     "off"
+    ],
+    [
+     "raw",
+     {
+      "timeScale": 1
+     }
+    ]
+   ],
+   "runIn": 30,
+   "small": true
+  },
+  {
+   "name": "farm-0b-garage",
+   "scene": "farm",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ],
+   "frame": [
+    "farm-garage"
+   ],
+   "small": true
+  },
+  {
+   "name": "farm-0b-house-garage",
+   "scene": "farm",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ],
+   "frame": [
+    "farmhouse",
+    "farm-garage"
+   ],
+   "small": true
+  },
+  {
+   "name": "farm-0a-stop-6min",
+   "scene": "farm",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ],
+    [
+     "engine",
+     "off"
+    ]
+   ],
+   "runIn": 6,
+   "small": true
+  },
+  {
+   "name": "garage-1-home",
+   "scene": "garage",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ],
+    [
+     "engine",
+     "off"
+    ],
+    [
+     "speed",
+     "10"
+    ]
+   ],
+   "runIn": 4,
+   "small": true
+  },
+  {
+   "name": "garage-5c-door",
+   "scene": "garage",
+   "cues": [
+    [
+     "scenario",
+     "closed-garage"
+    ],
+    [
+     "speed",
+     "51"
+    ],
+    [
+     "door",
+     "open"
+    ]
+   ],
+   "frame": [
+    "garage-door"
+   ],
+   "runIn": 70,
+   "small": true
+  },
+  {
+   "name": "garage-5b-lid",
+   "scene": "garage",
+   "cues": [
+    [
+     "scenario",
+     "closed-garage"
+    ],
+    [
+     "speed",
+     "51"
+    ],
+    [
+     "raw",
+     {
+      "lidLeak": true
+     }
+    ]
+   ],
+   "frame": [
+    "post-gas-plume"
+   ],
+   "runIn": 30,
+   "small": true
+  },
+  {
+   "name": "gasifier-2-chip-column",
+   "scene": "gasifier",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ],
+    [
+     "journey",
+     "0.15"
+    ]
+   ],
+   "frame": [
+    "chip-column"
+   ],
+   "small": true
+  },
+  {
+   "name": "gasifier-2-pyrolysis",
+   "scene": "gasifier",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ],
+    [
+     "journey",
+     "0.42"
+    ]
+   ],
+   "frame": [
+    "pyrolysis-zone"
+   ],
+   "small": true
+  },
+  {
+   "name": "train-3-home",
+   "scene": "gas-train",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ],
+   "flows": true,
+   "small": true
+  },
+  {
+   "name": "gasifier-chips-close",
+   "scene": "gasifier",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ],
+   "camera": {
+    "position": [
+     0.05,
+     1.25,
+     -0.45
+    ],
+    "target": [
+     0.0,
+     1.2,
+     0.0
+    ]
+   },
+   "small": true
+  },
+  {
+   "name": "garage-lawn-low",
+   "scene": "garage",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ],
+    [
+     "engine",
+     "off"
+    ]
+   ],
+   "camera": {
+    "position": [
+     9,
+     1.6,
+     -11
+    ],
+    "target": [
+     0,
+     1.2,
+     0
+    ]
+   },
+   "small": true
+  },
+  {
+   "name": "farm-guide-barrel",
+   "scene": "farm",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ],
+   "frame": [
+    "condensate-barrel"
+   ]
+  },
+  {
+   "name": "farm-guide-ash-bin",
+   "scene": "farm",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ],
+   "frame": [
+    "ash-bin"
+   ]
+  }
+ ]
+}
