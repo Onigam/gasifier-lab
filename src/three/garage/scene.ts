@@ -106,8 +106,8 @@ export function createGarageScene(opts: GarageOptions = {}): GarageScene {
     slab: [-5.2, -9, 5.2, -GARAGE.wall - 0.005],
     groundY: -0.21,
     yardRadius: 18,
-    // the yard is used: a worn band and ruts off the apron's front edge out to the track, oil before the door, a puddle in the right-hand rut, chips dropped, grass at the slab's foot (docs/qa.md, film round 3, item 8)
-    wear: { apron: [-1.4, 2.6, -9], puddle: [1.45, -12.6, 0.8] },
+    // the yard is used: a worn band and ruts off the apron's front edge out to the track, oil before the door, a puddle by the slab's side (in the home picture), chips dropped, grass at the slab's foot (docs/qa.md, film round 3, item 8)
+    wear: { apron: [-1.4, 2.6, -9], puddle: [6.7, -4.6, 0.85] },
     // a meadow round the yard, with tufts and stones, and the track the tractor took from the lane to the apron (the building, the house and the apron are left clear: the largest garage of the model is 22 m deep)
     meadow: {
       tufts: 7000,

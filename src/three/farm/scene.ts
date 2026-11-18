@@ -586,7 +586,7 @@ export function createFarmScene(opts: FarmOptions = {}): FarmScene {
   const anchorAt: Record<FarmId, [number, number, number]> = {
     'wood-gas-tractor': [0.6, 3.5, 0],
     // (over the barn's west end: its French name, the longest, ran out of the phone's and the tablet's picture from over its middle, docs/qa.md, film round 3, M1)
-    'chip-barn': [-FARM.barn.w / 2 + 1.2, FARM.barn.wall + 4, FARM.barn.d / 2 + 0.6],
+    'chip-barn': [-FARM.barn.w / 2 - 0.2, FARM.barn.wall + 4, FARM.barn.d / 2 + 0.6],
     'drum-chipper': [0.2, 3.1, 0],
     'chip-sieve': [0, 2.4, 0],
     'clod-crusher': [0.0, 1.2, 0],

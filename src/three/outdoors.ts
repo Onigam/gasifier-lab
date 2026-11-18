@@ -24,8 +24,8 @@ export interface YardOptions {
   /** Where the yard's gravel gives way to meadow, in metres from the middle of the world. */
   yardRadius?: number;
   /**
-   * The traces of use on a yard where a machine comes and goes (the garage's): the slab's front edge it drives off (x0, x1 at z), a darker worn band with two wheel ruts from it out to the track, oil stains where it stands to be worked on, a puddle in a rut, pale chips
-   * dropped round the apron, grass at the foot of the slab's edge. Drawn by the ground's own shader: no draw call, no program.
+   * The traces of use on a yard where a machine comes and goes (the garage's): the slab's front edge it drives off (x0, x1 at z), a darker worn band with two wheel ruts from it out to the track, oil stains where it stands to be worked on, a puddle (x, z, radius),
+   * pale chips dropped round the slab, grass at the slab's foot. Drawn by the ground's own shader: no draw call, no program.
    */
   wear?: { apron: readonly [number, number, number]; puddle: readonly [number, number, number] };
   /** The z of the wheel lines worn into the gravel along x (a machine that rolls on the spot rolls in them). */
@@ -80,7 +80,7 @@ function landMaterial(
   scroll: { value: number },
   ruts: readonly number[],
   track: readonly (readonly [number, number])[] = [],
-  wear?: YardOptions['wear'],
+  wear?: YardOptions['wear'] & { slab?: readonly [number, number, number, number] },
 ): THREE.MeshStandardMaterial {
   const mat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 1, metalness: 0 });
   const gravel = tiled(gravelMap(), 1, 1);
@@ -99,6 +99,7 @@ function landMaterial(
     .join('\n          ');
   const key = `yard-land:${yardR}:${ruts.join(',')}:${track.map((t) => t.join(' ')).join(',')}:${wear ? [...wear.apron, ...wear.puddle].join(' ') : ''}`;
   const f = (x: number): string => x.toFixed(2);
+  const sl = wear?.slab ?? [0, 0, 0, 0];
   const wearGlsl = wear
     ? `// the traces of use: off the slab's front edge the gravel is driven to a darker band, two ruts in it that run out to the track, oil where a machine stood, a puddle in a rut, chips dropped, grass along the slab's foot
           {
@@ -122,14 +123,17 @@ function landMaterial(
             float wetRim = ( 1.0 - smoothstep( ${f(wear.puddle[2])}, ${f(wear.puddle[2] + 0.35)}, pd ) ) * ( 1.0 - yardWet );
             c *= 1.0 - 0.35 * wetRim;
             c = mix( c, vec3( 0.32, 0.36, 0.38 ), 0.8 * yardWet );
-            // chips dropped round the apron: pale specks, gone where they would be finer than a pixel
+            // how far out of the slab, all round it
+            vec2 sq = max( vec2( ${f(sl[0])}, ${f(sl[1])} ) - w, w - vec2( ${f(sl[2])}, ${f(sl[3])} ) );
+            float dOut = length( max( sq, 0.0 ) );
+            // chips dropped round the slab: pale specks, gone where they would be finer than a pixel
             vec2 cp = w * 9.0;
             vec2 cc = floor( cp );
-            float chip = step( 0.93, yHash( cc ) ) * ( 1.0 - smoothstep( 0.08, 0.08 + 1.5 * fwidth( cp.x ), length( fract( cp ) - 0.5 ) ) ) * ( 1.0 - smoothstep( 1.0, 5.0, off ) ) * smoothstep( -0.2, 0.2, off ) * ( 1.0 - smoothstep( 6.0, 16.0, dist ) );
+            float chip = step( 0.92, yHash( cc ) ) * ( 1.0 - smoothstep( 0.08, 0.08 + 1.5 * fwidth( cp.x ), length( fract( cp ) - 0.5 ) ) ) * ( 1.0 - smoothstep( 1.0, 4.0, dOut ) ) * step( 0.001, dOut ) * ( 1.0 - smoothstep( 6.0, 16.0, dist ) );
             c = mix( c, vec3( 0.72, 0.6, 0.4 ), 0.8 * chip );
-            // grass at the foot of the slab's front edge and its sides, where no wheel goes
-            float foot = ( 1.0 - smoothstep( 0.0, 0.5, abs( off ) + 0.2 * yNoise( w * 4.0 ) ) ) * smoothstep( 0.3, 1.2, abs( w.x - ${f((wear.apron[0] + wear.apron[1]) / 2)} ) - 1.3 );
-            c = mix( c, meadow * 0.9, 0.7 * foot );
+            // grass at the foot of the slab, where no wheel goes (not in the band the machine drives off)
+            float foot = ( 1.0 - smoothstep( 0.0, 0.6, dOut + 0.25 * yNoise( w * 4.0 ) ) ) * step( 0.001, dOut ) * ( 1.0 - band );
+            c = mix( c, meadow * 0.9, 0.75 * foot * ( 0.6 + 0.4 * yNoise( w * 7.0 ) ) );
           }`
     : '';
   patchMaterial(mat, key, (shader) => {
@@ -634,7 +638,7 @@ export function createYard(o: YardOptions): Yard {
   const groundY = o.groundY ?? -0.06;
   const land = new THREE.Mesh(
     new THREE.CircleGeometry(2600, 96),
-    landMaterial(o.yardRadius ?? 26, scroll, o.ruts ?? [], o.meadow?.track, o.wear),
+    landMaterial(o.yardRadius ?? 26, scroll, o.ruts ?? [], o.meadow?.track, o.wear && { ...o.wear, slab: o.slab }),
   );
   land.rotation.x = -Math.PI / 2;
   land.position.y = groundY;
