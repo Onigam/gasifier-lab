@@ -105,7 +105,8 @@ const FRAMING: Record<FarmId, PartFraming> = {
   'chip-sieve': { viewDir: viewFrom(18, 340) },
   'clod-crusher': { viewDir: viewFrom(18, 340) },
   farmhouse: { viewDir: viewFrom(12, 15) },
-  'farm-garage': { viewDir: viewFrom(12, 25) },
+  // from the south-west, the garage's open gable and its door, the house behind it on the right (from the south-east the house stood before it and took half the picture: docs/qa.md, film round 3, m8)
+  'farm-garage': { viewDir: viewFrom(12, 335) },
   'ash-bin': { viewDir: viewFrom(20, 30) },
   'condensate-barrel': { viewDir: viewFrom(18, 25) },
   // the ditch is 420 m long: a stretch with the track's culvert is what a click brings the camera to
@@ -543,8 +544,9 @@ export function createFarmScene(opts: FarmOptions = {}): FarmScene {
     makePlume({
       origin: stopEye,
       color: 0xf2eddc,
-      rise: 9,
-      spread: 2.6,
+      // (a pale pillar of some six metres: at nine it stood over the house and the garage behind the field's tractor in the farm's wide frames, docs/qa.md, film round 3, m7)
+      rise: 6.5,
+      spread: 2.0,
       n: 300,
       size: 2.4,
       speed: 0.05,

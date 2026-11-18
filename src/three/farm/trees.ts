@@ -799,6 +799,8 @@ interface Planting {
   z: number;
   s: number;
   rot: number;
+  /** The crown's width over the species' for its height (a slimmer or a broader tree), 1 by default. */
+  w?: number;
 }
 
 /** Instanced trees of one species at places, scaled to a real height by `s` (a share of the species' height). */
@@ -828,7 +830,8 @@ function instance(
     const y = terrainHeight(p.x, p.z);
     e.set(0, p.rot, 0);
     q.setFromEuler(e);
-    mtx.compose(new THREE.Vector3(p.x, y - 0.05, p.z), q, new THREE.Vector3(h, h, h));
+    const w = h * (p.w ?? 1);
+    mtx.compose(new THREE.Vector3(p.x, y - 0.05, p.z), q, new THREE.Vector3(w, h, w));
     if (hasTrunk) mt.setMatrixAt(i, mtx);
     ml.setMatrixAt(i, mtx);
     const t = 1 - tintJitter + 2 * tintJitter * r();
@@ -970,8 +973,8 @@ export function buildTrees(avoid: (x: number, z: number) => boolean = () => fals
     leafyTree('birch', 1),
     'birch',
     [
-      pl(-34.5, -1.5, 0.95),
-      pl(-31.5, -14, 1),
+      pl(-37, -1, 0.95),
+      pl(-29.5, -11.2, 1),
       pl(-35.5, -8.5, 0.8),
       pl(-3, -16, 0.9),
       pl(-22, 3.2, 0.7),
@@ -1043,6 +1046,15 @@ export function buildTrees(avoid: (x: number, z: number) => boolean = () => fals
     spruces.push({ x: -78 - r() * 3, z: -40 + i * 5.5 + r() * 2, s: 0.9 + 0.35 * r(), rot: r() * 6.28 });
   for (let i = 0; i < 10; i++)
     spruces.push({ x: 82 + r() * 8 + (i % 2) * 5, z: -35 + i * 6 + r() * 3, s: 0.9 + 0.3 * r(), rot: r() * 6.28 });
+  // no two alike against the sky: each spruce of the first rows its own height and its own taper (a slim one, a broad one), from a draw of its own so that nothing else of the farm moves; the saw of equal cones along the belt's top was the hottest band of the
+  // flicker tool's heat maps and what the wide shots showed (docs/qa.md, film round 3, item 7)
+  {
+    const rs = rng(4242);
+    for (const p of spruces) {
+      p.s *= 0.78 + 0.4 * rs();
+      p.w = 0.72 + 0.42 * rs();
+    }
+  }
   const sp = new THREE.Mesh();
   void sp;
   const spruceHeight = 24;
@@ -1072,6 +1084,7 @@ export function buildTrees(avoid: (x: number, z: number) => boolean = () => fals
   }
   {
     const places = back.filter((p) => !avoidAt(p.x, p.z));
+    const rb = rng(4343);
     const im = new THREE.InstancedMesh(softened(spruceCoarse(7, 6)), spruceMat, places.length);
     const mtx = new THREE.Matrix4();
     const q = new THREE.Quaternion();
@@ -1080,7 +1093,9 @@ export function buildTrees(avoid: (x: number, z: number) => boolean = () => fals
       const h = spruceHeight * p.s;
       const y = terrainHeight(p.x, p.z);
       q.setFromAxisAngle(new THREE.Vector3(0, 1, 0), p.rot);
-      mtx.compose(new THREE.Vector3(p.x, y - 0.05, p.z), q, new THREE.Vector3(h, h, h));
+      // (their own tapers too, from a draw of their own)
+      const w = h * (0.78 + 0.36 * rb());
+      mtx.compose(new THREE.Vector3(p.x, y - 0.05, p.z), q, new THREE.Vector3(w, h, w));
       im.setMatrixAt(i, mtx);
       const t = 0.62 + 0.08 * r();
       col.setRGB(t, t * 1.03, t * 1.06);
