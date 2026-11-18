@@ -951,3 +951,118 @@ Real phones, Safari, Firefox; 60 fps playback and the film driver's own render; 
 **The lab is not ready for the owner's checkpoint (1 blocker, 2 majors). A first film render from `39dec01` may go ahead with conditions** (the barrel frame and the phone overview are not film shots): 0a static or a very slow push at 16:9; 5b used as « gas leaving the top of the unit », with an arrow; the rescue-set flight is acceptable (the cut to the gauge or the fly-in are both possible); no chip close-ups; no orbit of the garage seen from the meadow.
 
 **Round 4, in order:** (1) B1: move the barrel and bin, their framing and their Flux, plus a guide-frame rays test; (2) M1: read the aspect at the moment of framing, fix the overview tool's language; (3) the garage tufts near the camera, and compile-ahead (kit request); (4) 5b from the side, adapting `film2.test.ts`; (5) chips as a heap with thickness; (6) the gas line: the cyclone and ribbons placement is the lead's decision; (7) the saw of spruce tops against the sky; (8) the yard's gravel; (9) the minors.
+
+# Film round 4: the scoped review (18/11/2026)
+
+Independent review (`lab-reviewer`, opus) of `ecd18fc` (ten commits `d15087c` to `ecd18fc` on top of the previous review's `2906567`); status `building`, nothing pushed. Filed by the lead from the reviewer's report; the reviewer edited nothing in the lab (`git status` clean at `ecd18fc`, no `node_modules/node_modules` in the lab). Method: four clones with their own `npm ci` in `~/.cache/lab-review/lab-reviewer/gasifier-lab/film4/` (`S`): `after` = `ecd18fc`, `before` = `2906567`, `base` = `41a7859`, `broken` = `ecd18fc` for mutation tests; every Chrome run through `with-chrome-lock.sh` in four jobs (`S/job1.sh` to `job4.sh`); 969 images (544 stills): `S/stills/`, `S/sheets/`, `S/crops/`, `S/guide/`, `S/m1/`, `S/log/`.
+
+**Verdict: the lab is not ready for the owner's checkpoint (0 blockers, 4 majors, 11 minors). The first film render can be made from `ecd18fc`, with conditions** (no blocker is left; both film-frame majors can be avoided by choosing poses).
+
+## Gates (clean clone)
+
+- Typecheck 0 errors; `format:check` pass; the runner's own line is **« Tests 657 passed (657) »** in « Test Files 39 passed (39) »; build passes (one chunk 1,572.65 kB, 480.67 kB gzip, the > 1500 kB warning).
+- Draw calls (Node, `drawStats`; triangles): `farm` 431 (449,629), `tractor` 268 (150,078), `gasifier` 119 (346,042: the chips, 420 loose pieces instead of 260), `gas-train` 267 (120,529), `garage` 388 (232,064): none changed since `2906567`, all under the limits of `worlds.test.ts`.
+- Shader programs (`docs/qa/film4-programs.mjs`, phone profile, worlds in tab order): `ecd18fc` and `41a7859` both 91 / 99 / 120 / 127 / **131** (garage **+4**); `39dec01` garage 136 (+9). **The « adds 5 programs » in the message of commit `7e7b875` is wrong.**
+- Console errors: 0 in every run (1280, 768, 390, French and English, every mode at 768 and 390; the 18 still runs; the 11 guide runs: 0 failed requests, 0 HTTP ≥ 400). `git diff` over `src/sim`, `src/data`, `narration/`, `public/` since `2906567` is empty; no part id changed.
+
+## B1: closed, and the tests are meaningful
+
+- In the browser (the real farm guide played, `S/tools/guide.mjs`): at 18 to 21 s the barrel stands clear with the bin beside it, at 1280 FR/EN (camera (-28.1, 3.1, 3.8)) and 390 FR/EN (camera (-27.6, 3.5, 4.9)); the brown Flux dot arrives above the barrel and no dot lies on a wall; « Voix de synthèse » / « Synthetic voice » shown, every segment plays to its end (`S/guide/scene-farm-1280-fr/07-t21.png`, `S/sheets/guide-farm-390.jpg`, `S/sheets/m4-farm.jpg`).
+- **Mutation test** in the `broken` clone (the barrel back at (-29.6, -7.6) with `viewFrom(18, 40)`): **3 tests fail**: the rays test at 16:9 (75.8 % of the barrel hidden by `farm-garage`), the rays test at 390 × 844 (74.7 %), the Flux test (« arc 6, stretch 1, tractor place 3: through room-above »). Margins today: every farm cue 0.00 hidden; the worst cue in the lab is `tractor/cab` at 0.15, then `garage-door` at 0.11.
+- Blind spots of the test, by design: it skips every `InstancedMesh` (trees, tufts, chips: this is how N1 passes), transparent materials (glass, gas), the app's panel insets (so N3 cannot show up), and tests one static state of the farm.
+- No other frame cue now looks at a wall or a cut; the only changed frames are `farm-garage` (N1) and the ash bin, which now has the barrel in its foreground (`S/sheets/cues1280-*.jpg`, `cues390-farm-garage.jpg`, `cues-farm-pairs.jpg`).
+
+## M1: a real first visit (fresh context per page, language set before load, no reframing)
+
+| Width | Farm, FR                                 | Farm, EN | Gas line |
+| ----- | ---------------------------------------- | -------- | -------- |
+| 1280  | 0                                        | 0        | 0        |
+| 768   | 1: « Grange à plaquettes » +42 px of 170 | 0        | 0        |
+| 390   | 1: « Grange à plaquettes » +36 px of 170 | 0        | 0        |
+
+At `2906567` the farm label was cut by +49 and +43 px and the gas line had « Caisson de filtre » cut by +11 and +5 px: **the gas line is fixed.** The tall overview is now what a phone gets (768: camera about 245 m away, the yard about 73 % of the free width; 390: about 172 m).
+
+Install guide, 10 steps, partly clipped labels: FR after 3 / 9 (in 6 steps) / 7 (in 6 steps) at 1280 / 768 / 390 (before 3 / 10 / 9); EN after 4 / 5 / 5. **Step 8 (« Ce que la journée laissait »): the tractor's name is cut by +132 / +136 px of 204 in French and by +90 / +94 px of 163 in English**: it depends on where the moving tractor is, so it is not a French-only problem. Older clips, not this round's scope: « Colonne de plaquettes » (+16 to +24 px, gasifier), « Ligne de gaz » (+74 / +97 px, tractor).
+
+The `alone` bug (m5) is fixed: at `2906567`, `registry.bounds('ash-bin')` and `bounds('condensate-barrel')` were empty at 768 and 390; at `ecd18fc` they hold boxes at both sizes.
+
+**Short 3D names for the data role to adopt** (the sheet keeps the full name): « Grange » for « Grange à plaquettes »; « Tracteur » (or « Tracteur gazogène », 17 characters) for « Tracteur à gaz de bois ». Even so, the moving tractor's label needs **kit request 33** (fold the label to the left near the edge).
+
+## The hard rules, measured by the reviewer
+
+**Garage first frame** (`film1-cost.mjs`; phone profile 390 × 844, pixel ratio 2; median of six fresh pages; two runs alternating `41a7859` and `ecd18fc`): `41a7859` 111.5 ms (106–125) at CPU 1× and 344 ms (329–370) at 4×; `ecd18fc` **118.5 ms (113–136), +6 %** and **401 ms (376–417), +17 %** (the modeler reported 126 / 392.5 ms; the ranges overlap at 1× and just separate at 4×). Farm first frame: `41a7859` 84.5 / 172 ms; `ecd18fc` 74.5 / 144.5 ms.
+
+**The farm's bimodality is real, older than this round, and comes from how many programs the first frame compiles** (`S/tools/cost2.mjs` logs `renderer.info.programs` before and after that frame): `ecd18fc` opened on `#garage` 149 ms median (68–165), 10 programs compiled on the fast page, 46 on the others; `41a7859` 163 ms (78–194), 11 and 47; `ecd18fc` opened on `#tractor` 181.5 ms (93–191), 13 on 2 pages, 49 on 4 pages; `ecd18fc` opened on `#garage` **after 8 s idle: 17.5 ms** (98 programs already built; `41a7859` 21 ms). The cause of the 10-versus-46 split is not proven (probably whether the first frame is drawn before the kit's first-visit `requestAnimationFrame(() => stage.frameAll(0.01))`, `app.js:214`). All 12 of `film1-cost`'s farm pages landed in the fast mode, so its farm figures understate a full switch (about 150 ms at 1×). **Kit request 31 (compile ahead while idle) would bring a switch from about 150 ms to about 20 ms.**
+
+**Proposed first-frame budget** (none is written anywhere): on the phone profile, median of six fresh pages with the `film1-cost` method, every world's first frame after a switch **≤ 150 ms at CPU 1× and ≤ 450 ms at 4×, and no more than +10 % per round at 4× unless a reason is written down.** Today the garage meets the absolute limits and breaks the relative one (+17 %): the old m1 stays a minor.
+
+**Shimmer** (kit tool via `film1-flicker.mjs`, 90 frames, `HEAT=1`, three commits in one job; orbit / dolly %):
+
+| Cell             | `ecd18fc`       | `41a7859`                         | `39dec01`   |
+| ---------------- | --------------- | --------------------------------- | ----------- |
+| `farm` 390       | 1.31 / 2.17     | 0.73 / 1.38 (a different picture) | 1.27 / 2.29 |
+| `gas-train` 1280 | 1.64 / 2.81     | 0.66 / 2.51                       | 1.60 / 2.36 |
+| `gas-train` 390  | 0.43 / 1.33     | 0.37 / 0.96                       | 0.50 / 1.33 |
+| `garage` 390     | **1.11 / 3.40** | 1.11 / 3.24                       | 1.90 / 3.54 |
+| `gasifier` 390   | 0.91 / 3.88     | 0.89 / 3.60                       | 0.90 / 3.72 |
+| `farm` 1280      | 2.73 / 4.45     | 2.91 / 6.23                       | 2.55 / 4.36 |
+| `garage` 1280    | 1.87 / 5.74     | 1.85 / 5.69                       | 1.87 / 5.72 |
+
+Largest spike 1.49: no pop. Garage heat map (`S/sheets/heat-390.jpg`): the foreground tufts are gone; what is left is the building's edges and the ground texture at the foot of the dolly: **M2 is fixed for the garage.** Gas line heat map (`S/sheets/heat-gastrain-1280.jpg`): the machine's own textured surfaces, the flow dots are not in it. **Decisions (the lead's, on the reviewer's advice): accept the gas line's nearer, two-thirds frame (1.64 % is at the kit's 1.6 % reference; the film holds that frame still or in a slow push); accept farm 390 (a new picture, flat against round 3); the gasifier at 390 is +7.8 % against `41a7859`, within the +10 % rule.**
+
+## Item by item (film look at 1280 × 720 and at 200 px; before = `2906567`)
+
+- **5b, the lid: in part.** The lid is seen from 7°; the gap is a dark-brown band of about 4–5 px at 1280 (`S/crops/lid-after.png`) and under 1 px at 200 px. **The pale straight-edged wedge** comes from the gas plume dots (`plume-dots`, Points), not from the lid's ring plume (hiding all plume dots removes it; hiding only the lid's ring plume leaves it): most likely the intake plume (`plumeEye`, `garage/scene.ts` about l. 188); it was already there at `39dec01` (`S/sheets/wedge-probe.jpg`).
+- **The gas line's home: in part (N3).** In the film's 16:9 frame the line spans **55 % of the width (66 % with the cyclone, 70 % to its ring)** against 52 % before; the modeler's 60 % / 75 % is overstated. The arrow heads and the diesel's swallow tail read well. The cyclone is plausible as « apart » but stands 0.5 m from the starting fan and its floor ring runs under the fan's stand (`S/measure/cyclone-ground.png`). The same pieces are in the tractor world (no cyclone there, as the data says).
+- **Chips:** more grain and depth, still flakes on a false-colour plane, **not a heap** (`S/sheets/m4-line.jpg`). **Spruces:** heights vary a little; the crowns are still stacked cones and the top line is still a saw (`S/sheets/film-b.jpg`).
+- **The yard (N2):** barely visible in the home frame; no puddle at 16:9 home, only at 390 home and in the low and 5c frames; where it shows it reads as a decal.
+- **0a, pines:** the needle tuft above the crown is gone (`S/crops/0a-pines-after.png`). **m7 fixed:** the gas column at `farm-0a-stopped-wide` stands left of the house and clear of the garage (it still reads as a white cotton ball with a two-lobed top).
+- **m8, `[[frame:farm-garage]]`: in part, and a new defect (N1):** the house went from 45 % to 27 % of the width and the garage from 12 % to 18 %, but a near crown now fills the left of the frame. **m6:** the birch is 4.9 m from the oak, confirmed in code and test.
+- The garage frames at the final state, which the modeler did not shoot: `S/stills/after/m4/a-garage-1-home.png`, `S/stills/after/film/a-garage-5c-door.png`.
+
+## Regressions the modeler did not look for
+
+Flights (worst local ratio, before / after): rescue set 1.41 / 1.41; water gauge 1.14 / 1.14; `farm-garage` to tractor (the new south-west pose) 1.09 / 1.42; closed garage to leaking lid 1.25 / 1.35: no pop (the camera passes under the slab only briefly, `S/sheets/flight-lid.jpg`). Section, exploded and X-ray views in all five worlds at 768 and 390, French and English: layouts fine (`S/sheets/390-modes.jpg`, `768-fr-modes.jpg`). The guide of every world plus the intro (EN, 115.6 s): 0 errors. `pl02` and the gas line's text (« À l'écart, le cyclone ») are still true. The barrel's sheet says « Fût de tôle sur deux liteaux / A sheet-metal drum on two battens » while the 3D is a wooden cask with staves and hoops (older than the round).
+
+## Defects
+
+**Majors**
+
+- **N3. The gas line's overview at 1280 with the panel open no longer shows the cyclone.** Only its ring's edge shows at the panel border while the overview text names it; at `2906567` it stood in the middle. Commit `072679e`: `HOME_WIDE` and `CYCLONE_AT` are tuned for a full 16:9 frame and the panel inset pushes the unit's end under the panel (`S/sheets/app-gastrain-1280.jpg`, `S/m1b/1280-fr-home-gas-train.png`). Fix: frame with the insets (or put the cyclone at the exhaust end, or in front), and test it with the panel's free view.
+- **N1. Film 0b and the guide frame `[[frame:farm-garage]]`.** A near broad-leaved crown fills about 30 % of the left of the frame (its leaf cards read flat), a birch trunk crosses the foreground, the barn is cut at the right and the house (27 %) is still larger than the garage (18 %). Commit `3ebc9c9` (bearing 335). `S/stills/after/m4/a-farm-0b-garage.png`, `S/sheets/cues-farm-pairs.jpg`, `S/guide/scene-farm-1280-fr/08-t24.png`. Fix: another bearing or a higher elevation; add tree instances to the rays test, or a « no crown within N m of the eye » test.
+- **N2. The yard's wear in film 5c and the guide's door frame.** A pale puddle in the corner with uniform round pale dots (« chips ») drawn on the water too, and a straight-edged green « L » of grass at the slab's foot that follows the slab rectangle. Commits `21ee7ef`, `fbf44c6`: `outdoors.ts` `wearGlsl`, the `chip` and `foot` terms. `S/crops/5c-door-foot-after.png`, `S/stills/after/film/a-garage-5c-door.png`, `S/guide/scene-garage-1280-fr/08-t28.png`. Fix: no chips on the water (multiply by `1 - yardWet`); chips as irregular flecks of varied size; break the foot band with noise or drop it; move the puddle out of the 5c frame.
+- **M1, left over.** French « Grange à plaquettes » cut at 768 and 390, and the tractor's name at install step 8 in both languages. Fix: short 3D names (data role) and kit request 33.
+
+**Minors**
+
+1. Garage first frame +6 % at 1× and +17 % at 4× against `41a7859` (old m1): kit request 31 is the cure.
+2. The pale wedge in 5b: the intake plume dots, already at `39dec01`.
+3. The cyclone's ring lies under the starting fan's stand, 0.5 m away.
+4. The barrel is a wooden cask but its sheet says a sheet-metal drum (older; data or 3D).
+5. Install step 8 frames the whole farm because of the 420 m ditch; the bin and barrel are specks and the labels shown are the main ones, not the step's parts (`S/overview-tool/install-residues-1280-fr.png`).
+6. Install steps 4 and 6 lose the tractor at ×60; at 390 only ploughed soil shows, before and after (`S/sheets/install-tractor-steps.jpg`).
+7. The rays test is blind to instanced meshes, transparent materials and the panel insets.
+8. `garage/scene.ts` about l. 58: `GARAGE_HOME` was inserted between `WALL_CLEARANCE`'s doc comment and its constant, so the comment documents the wrong thing.
+9. Chips are not a heap (old m3). 10. The spruce saw (old item 7). 11. The 0a gas column reads as a cotton ball (older).
+
+## Honesty of the modeler's report
+
+Confirmed: 657 tests (the runner's own line), draw calls, programs at +4 and +4 (the commit message's « +5 » is false and the report says so), B1 done, the `alone` bug fixed, the overview clips at 1280 and in English, the shimmer table within 0.15 (the garage's 390 dolly is now 3.40, not 3.26: measured before the last yard changes; still within +10 %), the first-frame figures within the spread. Overstated: « 60 % / 75 % » of the width for the line (it is 55 % / 66 %); « a puddle in the home picture » (not at 16:9); « grass in patches » (a straight green L remains in 5c); « nothing clipped in English » (install step 8 cuts the tractor's name in English too). In part and worse than stated: m8 (because of the near crown) and the gas line's home (because of N3 at 1280 with the panel). Not mentioned: the farm's 1280 orbit rose against round 3 (2.55 to 2.73); the flights were not re-measured (the reviewer did; fine).
+
+## Against the Piggott bar (`S/sheets/piggott-bar.jpg`)
+
+At or above Piggott's site shot (`ch-0_45`): 0a, the closed garage, the oxidation zone. Under Piggott's hero frames (`ch-1_37`, `ch-3_24`: one object on a graded dark set): the gas line's home (a diagram on a sunlit slab), 5b (a busy interior with haze and the wedge), 5c (the yard decals), the chips. Nothing was traded away for readability at 200 px: every 200 px version still shows its subject.
+
+## Conditions for the first render
+
+Still hold: 0a static or a very slow push (farm 1280 orbit is 2.73); 5b as « gas leaving the top of the unit » with an arrow (crop or accept the wedge; the gap does not read at 200 px); no chip close-ups. Can be lifted: « no orbit of the garage from the meadow » (the garage's 390 orbit is back to 1.11; at 1280, 1.87 as before, keep moves slow). New: **0b: use `[[frame:farmhouse,farm-garage]]` or a hand-set pose, not `[[frame:farm-garage]]`; 5c: frame tighter on the door, without the left yard corner.**
+
+## Round 5, in order
+
+1. N3: the gas line's home with the panel open (cyclone in view), keeping the 16:9 frame. 2. N1: the 0b pose; trees in the rays test. 3. N2: the yard shader (chips, the green foot band, where the puddle sits). 4. M1: short French 3D names (data role), kit request 33, install step 8 framing the bin, the barrel and a stretch of ditch. 5. The 5b wedge (the intake plume dots). 6. Write down the first-frame budget; kit request 31. 7. The minors: the cyclone's ring, the barrel's material, the comment, the chips as a heap, the spruce saw.
+
+## Not checked
+
+Real phones, Safari, Firefox; the voice itself and 60 fps playback; the film driver's own render; the kit's `walk.mjs` (replaced by the first-visit probes and the guide runs); the guides of the tractor, the gasifier and the gas line in English, and the guides at 768; the ×600 evening; a camera orbit around a far part; why the farm's first frame sometimes compiles 10 programs instead of 46 (a hypothesis only).
+
+**One thing outside the review's scope, reported by the reviewer:** the modeler's stray copy `~/Dev/piggott-lab/node_modules/node_modules` still exists (322 MB); not touched.
