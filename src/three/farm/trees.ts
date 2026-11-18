@@ -758,12 +758,13 @@ export function pineTree(seed: number): Species {
   const ends: [number, number, number][] = [];
   for (let i = 0; i < 7; i++) {
     const a = i * 2.399 + r();
-    const y0 = 0.62 + 0.3 * (i / 6);
-    const L = 0.17 * (0.7 + 0.6 * r());
+    // the limbs stay under the crown's top and the higher ones are shorter: a limb that ended over the crown carried its tuft of needles on a bare red stick against the sky (docs/qa.md, film round 3, m9)
+    const y0 = 0.62 + 0.22 * (i / 6);
+    const L = 0.17 * (0.7 + 0.6 * r()) * (1 - 0.4 * (i / 6));
     const pts: [number, number, number][] = [
       [0.012, y0, 0],
-      [0.012 + Math.cos(a) * L * 0.5, y0 + 0.03, Math.sin(a) * L * 0.5],
-      [0.012 + Math.cos(a) * L, y0 + 0.07, Math.sin(a) * L],
+      [0.012 + Math.cos(a) * L * 0.5, y0 + 0.025, Math.sin(a) * L * 0.5],
+      [0.012 + Math.cos(a) * L, y0 + 0.05, Math.sin(a) * L],
     ];
     tube(m, pts, [0.007, 0.005, 0.002], 4, bark, bark, 4);
     ends.push(pts[2]!);

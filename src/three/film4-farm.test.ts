@@ -72,3 +72,18 @@ describe('the garage’s yard is used (docs/qa.md, film round 3, item 8)', () =>
     expect(shaderOf(createTractorScene().scene)).not.toContain('float rutW');
   });
 });
+
+describe('the pines’ limbs (docs/qa.md, film round 3, m9)', () => {
+  it('above the middle of its crown, no wood of a pine stands out of the crown’s ellipsoid: no tuft of needles on a bare stick against the sky', async () => {
+    const { pineTree, crownReach } = await import('./farm/trees');
+    const pine = pineTree(9);
+    const wood = pine.trunk.attributes.position as THREE.BufferAttribute;
+    let worst = 0;
+    for (let i = 0; i < wood.count; i++) {
+      const y = wood.getY(i);
+      if (y < 0.86) continue;
+      worst = Math.max(worst, crownReach([wood.getX(i), y, wood.getZ(i)], [0.01, 0.86, 0], [0.22, 0.11, 0.22], 0.2));
+    }
+    expect(worst).toBeLessThan(1.0);
+  });
+});

@@ -585,7 +585,8 @@ export function createFarmScene(opts: FarmOptions = {}): FarmScene {
   // Where each name stands, in its part's own frame. The names of the buildings are raised and drawn to one side so that none lies on another at home, at 1280, 768 and 390 px (the first set stood the house's name under the garage's: docs/qa.md D17); each still stands on or over the part it names.
   const anchorAt: Record<FarmId, [number, number, number]> = {
     'wood-gas-tractor': [0.6, 3.5, 0],
-    'chip-barn': [-4.6, FARM.barn.wall + 4, FARM.barn.d / 2 + 0.6],
+    // (over the barn's west end: its French name, the longest, ran out of the phone's and the tablet's picture from over its middle, docs/qa.md, film round 3, M1)
+    'chip-barn': [-FARM.barn.w / 2 + 1.2, FARM.barn.wall + 4, FARM.barn.d / 2 + 0.6],
     'drum-chipper': [0.2, 3.1, 0],
     'chip-sieve': [0, 2.4, 0],
     'clod-crusher': [0.0, 1.2, 0],
