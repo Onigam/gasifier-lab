@@ -160,20 +160,23 @@ describe('the gas line’s home view is the line (docs/qa.md, film round 2: « t
       const g = (c as THREE.Mesh).geometry;
       if (!g?.attributes.position) continue;
       const p = g.attributes.position as THREE.BufferAttribute;
-      if (p.count % 2 === 0) continue;
+      // (film round 4: the diesel's ribbon has a swallow's tail at its start, which changes its count of points: the geometry says whether it has a head)
+      if (!g.userData.head) continue;
       heads++;
       // the last three points: the head's two barbs and its tip
       const tip = new THREE.Vector3().fromBufferAttribute(p, p.count - 1);
       const a = new THREE.Vector3().fromBufferAttribute(p, p.count - 3);
       const b = new THREE.Vector3().fromBufferAttribute(p, p.count - 2);
-      const endA = new THREE.Vector3().fromBufferAttribute(p, p.count - 5);
-      const endB = new THREE.Vector3().fromBufferAttribute(p, p.count - 4);
+      // the strip's last pair of points (25 pairs; a swallow's tail, when there is one, comes after them)
+      const endA = new THREE.Vector3().fromBufferAttribute(p, 48);
+      const endB = new THREE.Vector3().fromBufferAttribute(p, 49);
       const w = Math.abs(endB.z - endA.z);
       expect(Math.abs(b.z - a.z)).toBeGreaterThan(w * 1.3);
       expect(tip.x - a.x).toBeCloseTo(arrowHead(w), 5);
       expect(tip.x).toBeGreaterThan(endA.x + 0.15);
       expect(tip.z).toBeCloseTo((a.z + b.z) / 2, 5);
     }
-    expect(heads).toBe(3);
+    // the three that end, and the diesel where it goes into the engine's ribbon (film round 4, docs/qa.md, film round 3, m4)
+    expect(heads).toBe(4);
   });
 });

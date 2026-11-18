@@ -28,6 +28,7 @@ function ribbon(
   z1: number,
   w1: number,
   head = false,
+  tail = false,
 ): THREE.BufferGeometry {
   const n = 24;
   const top: [number, number][] = [];
@@ -54,6 +55,16 @@ function ribbon(
       idx.push(k, k + 1, k + 2, k + 1, k + 3, k + 2);
     }
   }
+  if (tail) {
+    // a ribbon that comes in from outside the picture's sum (the diesel) starts in a swallow's tail cut into its end, not square in the air: it reads as fed from somewhere (docs/qa.md, film round 3, m4)
+    const k = pos.length / 3;
+    const len = 0.6 * arrowHead(w0);
+    pos.push(x0 - len, 0, z0, x0 - len, 0, z0 + w0, x0 - len * 0.1, 0, z0 + w0 / 2);
+    uv.push(x0 - len, 0, x0 - len, w0, x0, w0 / 2);
+    edge.push(0, 1, 0.5);
+    // the two barbs and the strip between the notch and the start, wound as the ribbon is (facing up)
+    idx.push(k, k + 2, 0, 0, k + 2, 1, k + 2, k + 1, 1);
+  }
   if (head) {
     // where a ribbon ends (the shaft's work, a loss) it ends in an arrow's head, wider than the ribbon: which way the energy goes is read from across the yard, where the chevrons along it are too fine
     const k = pos.length / 3;
@@ -69,6 +80,8 @@ function ribbon(
   g.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
   g.setAttribute('aEdge', new THREE.Float32BufferAttribute(edge, 1));
   g.setIndex(idx);
+  g.userData.head = head;
+  g.userData.tail = tail;
   g.computeVertexNormals();
   // lie facing up whatever the winding
   const nrm = g.attributes.normal as THREE.BufferAttribute;
@@ -182,7 +195,8 @@ export function buildSankey(): Sankey {
       redo(loss1, k(L1) + 0.002, () => ribbon(X[1]!, G, L1, X[2]!, G + 0.35, L1, true));
       // the gas goes on to the engine, the diesel joins it
       redo(gas2, k(G) + 0.003, () => ribbon(X[2]!, 0, G, X[3]!, 0, G));
-      redo(diesel, k(D) + 0.004, () => ribbon(X[2]! + 0.2, G + L1 + 0.35 + 0.15, D, X[3]!, G, D));
+      // the diesel comes in from outside the sum (a swallow's tail) and goes into the engine's ribbon (an arrow's head over its edge)
+      redo(diesel, k(D) + 0.004, () => ribbon(X[2]! + 0.2, G + L1 + 0.35 + 0.15, D, X[3]!, G, D, true, true));
       redo(engine, k(G + D) + 0.005, () => ribbon(X[3]!, 0, G + D, X[4]!, 0, G + D));
       redo(shaft, k(S) + 0.006, () => ribbon(X[4]!, 0, S, X[5]!, 0, S, true));
       redo(loss2, k(L2) + 0.007, () => ribbon(X[4]!, S, L2, X[5]!, S + 0.35, L2, true));

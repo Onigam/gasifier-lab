@@ -48,15 +48,18 @@ import type { GasParams, GasState } from '../../sim/types';
 // one cylinder cut open with the pilot's thread of diesel, the exhaust. The same pieces, from the same functions as the tractor's (`train/components.ts`), standing on frames and posts instead of the tractor, and the pipes between them follow
 // their ports: nothing hangs from a part that went away. The cyclone, on the programme's own system (Fig. 3.5b) and not on this tractor's schematic, stands to one side, joined to nothing.
 
+/** Where the cyclone stands (on the programme's system, not on this tractor's: joined to nothing), and how far before the line the ribbons lie. */
+export const CYCLONE_AT = { x: -0.95, z: -1.05 } as const;
+export const SANKEY_Z = -2.35;
 /** What the gas line's overview holds: the line from the fan at the unit's foot to the exhaust behind the cylinder (at `cylX`), the top of the fan's stack, and the ribbons of the Sankey on the slab before it. */
 export const HOME_BOX = (cylX: number): THREE.Box3 =>
-  new THREE.Box3(new THREE.Vector3(-0.75, 0, -3.15), new THREE.Vector3(cylX + 0.8, 2.62, 1.1));
+  new THREE.Box3(new THREE.Vector3(CYCLONE_AT.x - 0.2, 0, SANKEY_Z - 0.15), new THREE.Vector3(cylX + 0.8, 2.62, 1.1));
 /**
  * Where a wide view looks at it from, and at what: from the front and a little from the unit's end, 22 degrees up, aimed low and forward of the line. The kit frames the sphere of a box about its middle, and the middle of this box is not the middle of what it shows on the
  * screen (the ribbons lie on the ground in front of the line, the stack stands over it): aimed at the box's middle, the camera stood a fifth further and the line took less than half the picture's width. So a wide view's overview is the box stretched forward until its middle
  * is `at`, and the padding is what puts the eye at `eye`; a view taller than wide has the box itself, which the kit fits by its real extents.
  */
-export const HOME_WIDE = { eye: new THREE.Vector3(1.51, 3.59, -7.89), at: new THREE.Vector3(2.2, 1.6, -3.0) };
+export const HOME_WIDE = { eye: new THREE.Vector3(0.83, 3.43, -7.14), at: new THREE.Vector3(1.5, 1.5, -2.4) };
 export function homeWide(cylX: number): { box: THREE.Box3; padding: number } {
   const hold = HOME_BOX(cylX);
   const box = hold.clone();
@@ -228,7 +231,8 @@ export function createGasTrainScene(opts: GasTrainOptions = {}): GasTrainScene {
   // its face (the tubes and the scale stand out of the board on its +x side) turns to the open end of the line, where the camera that frames it stands
   gauge.group.rotation.y = 0;
   const cyclonePl = frame(0.34, 0.34, 0.69, 'cyclone-stand');
-  cyclone.group.position.set(filterAt.x + 0.35, 0.69, filterAt.z - 1.55);
+  // (in front of the unit's end of the line, clear of the ribbons: between the ribbons and the line it kept them 1.6 m out, and the camera with them; docs/qa.md, film round 3, m4)
+  cyclone.group.position.set(CYCLONE_AT.x, 0.69, CYCLONE_AT.z);
   cyclonePl.position.set(cyclone.group.position.x, 0, cyclone.group.position.z);
   scenery.add(cyclonePl);
   // a ring drawn on the paper round the cyclone: it is on the programme's system (Fig. 3.5b), not on this tractor's schematic (conflict 22)
@@ -406,7 +410,7 @@ export function createGasTrainScene(opts: GasTrainOptions = {}): GasTrainScene {
   // where the energy goes, flat on the paper in front of the line: the model's kilowatts as ribbons
   const sankey = buildSankey();
   // (as near the line as the cyclone's stand lets them: every decimetre between the ribbons and the line is a decimetre the camera stands further back at home)
-  sankey.group.position.set(-0.2, 0, -3.0);
+  sankey.group.position.set(-0.2, 0, SANKEY_Z);
   scene.add(sankey.group);
   followers.add('hot-gas-pipe', sankey.group, { shell: false, explode: 0 });
   sankey.update(base0);
