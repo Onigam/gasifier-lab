@@ -55,14 +55,17 @@ const HOTSPOTS: HotspotDef[] = [
   { id: 'old-rescue-set', fr: 'Appareil des années 1940', en: '1940s rescue set', minor: true },
 ];
 
-/** How far inside a wall's inner face the camera may stand and still have the wall stepped aside: a camera flying into the room crosses the wall's thickness and its boards, and would otherwise fill the frame with them for a moment. */
 /** Where the world's overview is looked at from (the kit keeps the direction and sets the distance from the shape of the view). */
 export const GARAGE_HOME = {
   position: new THREE.Vector3(12.5, 4.6, -7.4),
   target: new THREE.Vector3(0, 2.9, 2.4),
 } as const;
 
+/** How far inside a wall's inner face the camera may stand and still have the wall stepped aside: a camera flying into the room crosses the wall's thickness and its boards, and would otherwise fill the frame with them for a moment. */
 export const WALL_CLEARANCE = 0.5;
+
+/** The yard's traces of use (`outdoors.ts`, `YardOptions.wear`): the band the machine drives off the apron (x0, x1 at z) and the puddle (x, z, radius). */
+export const GARAGE_WEAR = { apron: [-1.4, 2.6, -9], puddle: [9.2, -3.2, 0.85] } as const;
 
 /** Is the wall `id` (`plus-x`, `minus-x`, `back`, `front`, the bedroom's with `above-` taken off) stepped aside for an eye at `cam`, in a room `w` across and `d` deep? */
 export function wallHidden(id: string, cam: THREE.Vector3, w: number, d: number, h = 3.35): boolean {
@@ -106,8 +109,9 @@ export function createGarageScene(opts: GarageOptions = {}): GarageScene {
     slab: [-5.2, -9, 5.2, -GARAGE.wall - 0.005],
     groundY: -0.21,
     yardRadius: 18,
-    // the yard is used: a worn band and ruts off the apron's front edge out to the track, oil before the door, a puddle by the slab's side (in the home picture), chips dropped, grass at the slab's foot (docs/qa.md, film round 3, item 8)
-    wear: { apron: [-1.4, 2.6, -9], puddle: [6.7, -4.6, 0.85] },
+    // the yard is used: a worn band and ruts off the apron's front edge out to the track, oil before the door, a puddle off the slab's side, chips dropped, grass at the slab's foot (docs/qa.md, film round 3, item 8). The puddle lies 2.5 m further
+    // out than in round 4, where the door's frame (film 5c) had it in its corner; the phone's home picture still has it (film round 4, N2)
+    wear: GARAGE_WEAR,
     // a meadow round the yard, with tufts and stones, and the track the tractor took from the lane to the apron (the building, the house and the apron are left clear: the largest garage of the model is 22 m deep)
     meadow: {
       tufts: 7000,

@@ -99,9 +99,12 @@ function landMaterial(
     .join('\n          ');
   const key = `yard-land:${yardR}:${ruts.join(',')}:${track.map((t) => t.join(' ')).join(',')}:${wear ? [...wear.apron, ...wear.puddle].join(' ') : ''}`;
   const f = (x: number): string => x.toFixed(2);
-  const sl = wear?.slab ?? [0, 0, 0, 0];
+  // the slab's plan as it is laid out now: a world lays its slab out again once it knows its machine (`fitSlab`: the garage's apron follows the room's width), and the traces round it follow (with the plan the yard was made with, the grass « at the slab's
+  // foot » grew two metres off the garage's apron, in a straight L: docs/qa.md, film round 4, N2)
+  const slabNow = { value: new THREE.Vector4(...(wear?.slab ?? [0, 0, 0, 0])) };
+  mat.userData.slabNow = slabNow;
   const wearGlsl = wear
-    ? `// the traces of use: off the slab's front edge the gravel is driven to a darker band, two ruts in it that run out to the track, oil where a machine stood, a puddle in a rut, chips dropped, grass along the slab's foot
+    ? `// the traces of use: off the slab's front edge the gravel is driven to a darker band, two ruts in it that run out to the track, oil where a machine stood, a puddle, chips dropped, grass in clumps at the slab's foot
           {
             vec2 a0 = vec2( ${f(wear.apron[0])}, ${f(wear.apron[2])} );
             float ax = clamp( w.x, ${f(wear.apron[0])}, ${f(wear.apron[1])} );
@@ -124,16 +127,26 @@ function landMaterial(
             c *= 1.0 - 0.35 * wetRim;
             c = mix( c, vec3( 0.13, 0.145, 0.15 ), 0.85 * yardWet );
             // how far out of the slab, all round it
-            vec2 sq = max( vec2( ${f(sl[0])}, ${f(sl[1])} ) - w, w - vec2( ${f(sl[2])}, ${f(sl[3])} ) );
+            vec2 sq = max( uYardSlab.xy - w, w - uYardSlab.zw );
             float dOut = length( max( sq, 0.0 ) );
-            // chips dropped round the slab: pale specks, gone where they would be finer than a pixel
-            vec2 cp = w * 9.0;
+            // chips dropped round the slab: slivers of wood of every size, turned every way, in drifts and not on a grid, paler and darker; none on the water, and gone where they would be finer than a pixel (round dots of one size, drawn on the
+            // puddle too, read as a pattern: docs/qa.md, film round 4, N2)
+            vec2 cp = w * 7.0;
             vec2 cc = floor( cp );
-            float chip = step( 0.92, yHash( cc ) ) * ( 1.0 - smoothstep( 0.08, 0.08 + 1.5 * fwidth( cp.x ), length( fract( cp ) - 0.5 ) ) ) * ( 1.0 - smoothstep( 1.0, 4.0, dOut ) ) * step( 0.001, dOut ) * ( 1.0 - smoothstep( 6.0, 16.0, dist ) );
-            c = mix( c, vec3( 0.72, 0.6, 0.4 ), 0.8 * chip );
-            // grass at the foot of the slab, where no wheel goes (not in the band the machine drives off)
-            float foot = ( 1.0 - smoothstep( 0.1, 0.9, dOut + 0.4 * yNoise( w * 3.0 ) ) ) * step( 0.001, dOut ) * ( 1.0 - band ) * smoothstep( 0.4, 0.7, yNoise( w * 2.3 + 4.0 ) );
-            c = mix( c, meadow * 0.8, 0.5 * foot );
+            vec2 cq = fract( cp ) - 0.5 - 0.55 * ( vec2( yHash( cc + 3.7 ), yHash( cc + 8.1 ) ) - 0.5 );
+            float ca = 6.2832 * yHash( cc + 1.9 );
+            cq = mat2( cos( ca ), sin( ca ), -sin( ca ), cos( ca ) ) * cq;
+            float cs = 0.06 + 0.14 * yHash( cc + 5.3 ) * yHash( cc + 6.1 );
+            float cd = length( cq * vec2( 1.0, 2.0 + 2.5 * yHash( cc + 2.2 ) ) ) / cs;
+            float drift = 0.93 - 0.12 * yNoise( w * 0.7 + 13.0 );
+            float chip = step( drift, yHash( cc ) ) * ( 1.0 - smoothstep( 1.0, 1.0 + 1.5 * fwidth( cp.x ) / cs, cd ) ) * ( 1.0 - smoothstep( 0.5, 4.0, dOut + 1.2 * yNoise( w * 0.5 ) ) ) * step( 0.001, dOut ) * ( 1.0 - smoothstep( 6.0, 16.0, dist ) ) * ( 1.0 - yardWet ) * ( 1.0 - wetRim );
+            c = mix( c, mix( vec3( 0.74, 0.62, 0.42 ), vec3( 0.46, 0.36, 0.24 ), yHash( cc + 4.4 ) ), 0.8 * chip );
+            // grass in clumps where the concrete meets the gravel and no wheel goes: its reach from the slab and the edge of the driven band both broken by noise (a band of one width following the slab's rectangle read as a straight green L:
+            // film round 4, N2)
+            float footReach = 0.3 + 1.1 * yNoise( w * 0.8 + 2.0 );
+            float driven = smoothstep( 0.05, 0.6, band + 0.6 * ( yNoise( w * 1.3 + 6.0 ) - 0.5 ) );
+            float foot = ( 1.0 - smoothstep( 0.0, footReach, dOut ) ) * step( 0.001, dOut ) * ( 1.0 - driven ) * smoothstep( 0.42, 0.66, yFbm( w * 2.1 + 4.0 ) );
+            c = mix( c, meadow * 0.95, 0.75 * foot );
           }`
     : '';
   patchMaterial(mat, key, (shader) => {
@@ -141,6 +154,7 @@ function landMaterial(
     shader.uniforms.uGrass = { value: grass };
     shader.uniforms.uSoil = { value: soil };
     shader.uniforms.uScroll = scroll;
+    shader.uniforms.uYardSlab = slabNow;
     shader.vertexShader = shader.vertexShader
       .replace('#include <common>', '#include <common>\nvarying vec3 vYardP;')
       .replace(
@@ -156,6 +170,7 @@ function landMaterial(
         uniform sampler2D uGrass;
         uniform sampler2D uSoil;
         uniform float uScroll;
+        uniform vec4 uYardSlab;
         float yardWet = 0.0;
         ${NOISE}`,
       )
@@ -678,6 +693,7 @@ export function createYard(o: YardOptions): Yard {
       if (!slab) return;
       slab.geometry.dispose();
       slab.geometry = slabGeometry(x0, z0, x1, z1);
+      (land.material as THREE.Material).userData.slabNow?.value.set(x0, z0, x1, z1);
     },
   };
 }

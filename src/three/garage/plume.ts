@@ -18,6 +18,8 @@ const VERT = /* glsl */ `
   uniform float uRing;
   uniform vec2 uFade;
   uniform float uMinPx;
+  uniform vec2 uLean;
+  uniform float uThin;
   varying float vAlpha;
   varying float vRot;
   varying float vSeed;
@@ -25,15 +27,19 @@ const VERT = /* glsl */ `
     float age = fract( aSeed.x * 7.0 + uTime * uSpeed * ( 0.7 + 0.6 * aSeed.y ) );
     float live = step( aSeed.w, uShare );
     float a = aSeed.y * 6.2831853;
-    // from a ring when the gas leaves round an edge (a lid lifted on its spring), from the point when it leaves a mouth
-    float r = uRing + ( 0.04 + uSpread * age * ( 0.4 + 0.9 * aSeed.z ) );
+    // from a ring when the gas leaves round an edge (a lid lifted on its spring), from the point when it leaves a mouth. From a mouth the puffs fill the cone (the square root spreads them evenly over its section): on its surface alone, a column seen from
+    // the side was a hollow cone, dense at its two edges, and its top read as two lobes (docs/qa.md, film round 4, minor 11)
+    float reach = mix( 0.15 + 1.1 * sqrt( aSeed.z ), 0.4 + 0.9 * aSeed.z, step( 0.001, uRing ) );
+    float r = uRing + ( 0.04 + uSpread * age * reach );
     vec3 p = uOrigin + vec3( cos( a ) * r, uRise * pow( age, 0.8 ) + 0.1 * sin( uTime * 0.7 + aSeed.x * 40.0 ) * age, sin( a ) * r );
+    // the air carries it off to one side as it rises (outdoors), more the older it is
+    p.xz += uLean * pow( age, 1.5 );
     vec4 mv = modelViewMatrix * vec4( p, 1.0 );
     gl_Position = projectionMatrix * mv;
     float size = uSize * ( 0.3 + 1.6 * age ) * live;
     gl_PointSize = max( size * uPixels / max( 0.5, -mv.z ), uMinPx * live );
     // a veil thins as the eye comes up to it (it is a thin gas: close, it is seen through) and holds at a distance, where it is all there is to see
-    vAlpha = live * sin( 3.14159265 * age ) * 0.9 * smoothstep( uFade.x, uFade.y, -mv.z );
+    vAlpha = live * sin( 3.14159265 * age ) * 0.9 * smoothstep( uFade.x, uFade.y, -mv.z ) * ( 1.0 - uThin * age );
     vRot = aSeed.z * 6.2831853;
     vSeed = aSeed.x;
   }
@@ -86,6 +92,10 @@ export function makePlume(o: {
   fade?: [number, number];
   /** The least a particle is drawn, in pixels, so that a far plume is a column and not a dot. */
   minPx?: number;
+  /** How far the air carries the gas off sideways by the end of its life, metres in x and z (outdoors). */
+  lean?: [number, number];
+  /** How much thinner the gas is at the end of its life than its middle would make it, 0 to 1: a column that thins out as it rises and does not end in a ball. */
+  thin?: number;
 }): Plume {
   const n = o.n ?? 160;
   const r = rng(o.seed ?? 1);
@@ -120,6 +130,8 @@ export function makePlume(o: {
       uRing: { value: o.ring ?? 0 },
       uFade: { value: new THREE.Vector2(...(o.fade ?? [0, 0.01])) },
       uMinPx: { value: o.minPx ?? 0 },
+      uLean: { value: new THREE.Vector2(...(o.lean ?? [0, 0])) },
+      uThin: { value: o.thin ?? 0 },
       uColor: { value: new THREE.Color(o.color) },
       uOpacity: { value: 0.5 },
     },
@@ -130,9 +142,17 @@ export function makePlume(o: {
   points.userData.noShadow = true;
   points.renderOrder = 12;
   points.name = 'plume-dots';
+  // (never drawn: no colour, no depth. Drawn with an opacity of nothing it still stood in the film look's occlusion pass, which draws every mesh that writes colour as a solid, and the ambient occlusion of a ghost ellipsoid round the gas was the pale
+  // straight-edged wedge over the lid in film 5b: docs/qa.md, film round 4, minor 2. The kit leaves a mesh without colour out of that pass; a click still finds it.)
   const haze = new THREE.Mesh(
     new THREE.SphereGeometry(1, 14, 10),
-    new THREE.MeshBasicMaterial({ color: o.color, transparent: true, opacity: 0, depthWrite: false }),
+    new THREE.MeshBasicMaterial({
+      color: o.color,
+      transparent: true,
+      opacity: 0,
+      depthWrite: false,
+      colorWrite: false,
+    }),
   );
   haze.position.copy(o.origin).add(new THREE.Vector3(0, o.rise * 0.45, 0));
   haze.scale.set(Math.max(0.25, o.spread * 0.8), Math.max(0.3, o.rise * 0.55), Math.max(0.25, o.spread * 0.8));
