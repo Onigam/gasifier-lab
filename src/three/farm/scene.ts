@@ -175,6 +175,18 @@ export function loopAt(s: number): { x: number; z: number; hx: number; hz: numbe
 
 export const LOOP_LENGTH = 2 * FARM.loop.len + 2 * Math.PI * FARM.loop.r;
 
+/** The farm's overview in a wide view and in a tall one: what it holds, where it is looked at from (the kit keeps the direction and sets the distance), and the kit's padding of the box's sphere. */
+export const OVERVIEW_WIDE = {
+  box: new THREE.Box3(new THREE.Vector3(-33, -1, -28), new THREE.Vector3(31, 8, 30)),
+  home: { position: new THREE.Vector3(18, 15, 60), target: new THREE.Vector3(2, 1, -4) },
+  padding: 0.5,
+};
+export const OVERVIEW_TALL = {
+  box: new THREE.Box3(new THREE.Vector3(-26, 0, -23), new THREE.Vector3(26, 4, 22)),
+  home: { position: new THREE.Vector3(10, 62, 52), target: new THREE.Vector3(0, 1, -2) },
+  padding: 0.5,
+};
+
 /** The ditch's water: a ribbon along the bottom, its UVs running along x so that the flow can be scrolled. Decoration: nothing in the model says how the ditch runs (docs/water.md). */
 function ditchWater(x0: number, x1: number, shared?: THREE.DataTexture): { mesh: THREE.Mesh; map: THREE.DataTexture } {
   const N = Math.max(4, Math.round((x1 - x0) / 2));
@@ -594,8 +606,10 @@ export function createFarmScene(opts: FarmOptions = {}): FarmScene {
   followers.add('chip-barn', props[1]![0], { shell: false, explode: 0 });
   followers.add('chip-barn', props[2]![0], { shell: false, explode: 0 });
   followers.add('wood-gas-tractor', link, { shell: false, explode: 0 });
-  // the overview's box is set a little to the west of the yard's middle: the tractor starts its rounds at the west end of the near side, and the picture should have it a third of the way in and not at the edge
-  registry.overview(() => [new THREE.Box3(new THREE.Vector3(-37, -1, -28), new THREE.Vector3(31, 8, 34))]);
+  // the overview is the yard with its buildings and the near side of the tractor's rounds, and nothing else (the ditch runs on for 80 m and the stopped tractor's gas rises 9 m: the kit would frame them all). A wide view looks at it from the south, low over the field; a view
+  // taller than it is wide (a phone, a tablet upright) is filled by the width of the yard whatever the camera does, so it looks from higher, to put the depth of the farm (the forest, the yard, the field with the tractor) up the picture instead of a strip of it under a sky
+  let aspect = 16 / 9;
+  registry.overview(() => [aspect < 1 ? OVERVIEW_TALL.box : OVERVIEW_WIDE.box], true);
 
   // ---- « Flux »: the fuel's way and what comes out of the machine, for the eye (the speed is nowhere the true one)
   const flows = new FlowDots(900, 0.34, 0.012, true);
@@ -647,6 +661,7 @@ export function createFarmScene(opts: FarmOptions = {}): FarmScene {
   const focusAt = new THREE.Vector3();
   scene.onBeforeRender = (_r, _s, camera) => {
     if (!(camera as THREE.PerspectiveCamera).isPerspectiveCamera) return;
+    aspect = (camera as THREE.PerspectiveCamera).aspect;
     camera.getWorldPosition(camAt);
     camera.getWorldDirection(camDir);
     // where the line of sight meets the ground, or 30 m ahead when it does not
@@ -662,14 +677,19 @@ export function createFarmScene(opts: FarmOptions = {}): FarmScene {
     registry,
     hotspots: hs,
     machine,
-    // from the south, low over the field: the ploughed ground with its rounds in the foreground, the ditch and the fence, the yard and its buildings in the middle, the forest and the sky behind (the overview framed from above made the field half the picture and the tractor a tenth of its width)
-    home: { position: new THREE.Vector3(18, 15, 60), target: new THREE.Vector3(2, 1, -4) },
+    // from the south, low over the field: the ploughed ground with its rounds in the foreground, the ditch and the fence, the yard and its buildings in the middle, the forest and the sky behind (the overview framed from above made the field half the picture and the tractor a tenth of its width);
+    // from higher in a view taller than wide (read at each framing: the kit takes the direction from here)
+    get home() {
+      return aspect < 1 ? OVERVIEW_TALL.home : OVERVIEW_WIDE.home;
+    },
     minDistance: 1.2,
     maxDistance: 420,
     near: 0.1,
     far: 5000,
     declutter: true,
-    homePadding: 0.44,
+    get homePadding() {
+      return aspect < 1 ? OVERVIEW_TALL.padding : OVERVIEW_WIDE.padding;
+    },
     update(state: GasState, dt: number, view: ViewOpts) {
       const p = opts.params?.();
       const sel = opts.selected?.() ?? null;

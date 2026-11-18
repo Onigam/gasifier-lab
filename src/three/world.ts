@@ -195,8 +195,15 @@ export class WorldRegistry extends PartRegistry {
     super();
   }
 
-  overview(extent: () => THREE.Box3[]): void {
+  private alone = false;
+
+  /**
+   * What the overview holds beyond the parts. `alone`: the overview is these boxes and nothing else (a landscape, whose parts run on for hundreds of metres: a ditch, a plume): the box of a part that is not the selected one is then cut to them, so that `Stage.frameAll`,
+   * which frames the union of every part's box, frames what the world says and not the whole ditch.
+   */
+  overview(extent: () => THREE.Box3[], alone = false): void {
     this.extent = extent;
+    this.alone = alone;
     if (!this.parts.has(OVERVIEW)) this.add(OVERVIEW, new THREE.Object3D());
   }
 
@@ -207,7 +214,11 @@ export class WorldRegistry extends PartRegistry {
   override bounds(id: string): THREE.Box3 {
     if (id !== OVERVIEW) {
       if (!this.framing && this.refused.has(id) && this.selected() === id) return new THREE.Box3();
-      return super.bounds(id);
+      const own = super.bounds(id);
+      if (!this.alone || this.framing || this.selected() === id) return own;
+      const hold = new THREE.Box3();
+      for (const b of this.extent?.() ?? []) hold.union(b);
+      return own.intersect(hold);
     }
     const box = new THREE.Box3();
     for (const part of this.parts.values()) if (part.display === 'hidden') return box;
