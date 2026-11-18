@@ -23,6 +23,11 @@ export interface YardOptions {
   groundY?: number;
   /** Where the yard's gravel gives way to meadow, in metres from the middle of the world. */
   yardRadius?: number;
+  /**
+   * The traces of use on a yard where a machine comes and goes (the garage's): the slab's front edge it drives off (x0, x1 at z), a darker worn band with two wheel ruts from it out to the track, oil stains where it stands to be worked on, a puddle in a rut, pale chips
+   * dropped round the apron, grass at the foot of the slab's edge. Drawn by the ground's own shader: no draw call, no program.
+   */
+  wear?: { apron: readonly [number, number, number]; puddle: readonly [number, number, number] };
   /** The z of the wheel lines worn into the gravel along x (a machine that rolls on the spot rolls in them). */
   ruts?: readonly number[];
   /**
@@ -75,6 +80,7 @@ function landMaterial(
   scroll: { value: number },
   ruts: readonly number[],
   track: readonly (readonly [number, number])[] = [],
+  wear?: YardOptions['wear'],
 ): THREE.MeshStandardMaterial {
   const mat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 1, metalness: 0 });
   const gravel = tiled(gravelMap(), 1, 1);
@@ -91,7 +97,41 @@ function landMaterial(
       return `td = min( td, ySeg( w, vec2( ${a[0].toFixed(2)}, ${a[1].toFixed(2)} ), vec2( ${b[0].toFixed(2)}, ${b[1].toFixed(2)} ) ) );`;
     })
     .join('\n          ');
-  const key = `yard-land:${yardR}:${ruts.join(',')}:${track.map((t) => t.join(' ')).join(',')}`;
+  const key = `yard-land:${yardR}:${ruts.join(',')}:${track.map((t) => t.join(' ')).join(',')}:${wear ? [...wear.apron, ...wear.puddle].join(' ') : ''}`;
+  const f = (x: number): string => x.toFixed(2);
+  const wearGlsl = wear
+    ? `// the traces of use: off the slab's front edge the gravel is driven to a darker band, two ruts in it that run out to the track, oil where a machine stood, a puddle in a rut, chips dropped, grass along the slab's foot
+          {
+            vec2 a0 = vec2( ${f(wear.apron[0])}, ${f(wear.apron[2])} );
+            float ax = clamp( w.x, ${f(wear.apron[0])}, ${f(wear.apron[1])} );
+            float off = a0.y - w.y;
+            float onYard = 1.0 - edge;
+            // the worn band: as wide as the apron, fading out over ten metres from its edge
+            float band = smoothstep( 0.0, 0.4, off ) * ( 1.0 - smoothstep( 6.0, 12.0, off ) ) * ( 1.0 - smoothstep( 0.0, 1.5, abs( w.x - ax ) ) );
+            c *= 1.0 - 0.16 * band * onYard;
+            // two ruts a tractor's track apart, wandering a little
+            float wx = w.x - ${f((wear.apron[0] + wear.apron[1]) / 2)} - 0.25 * sin( off * 0.35 );
+            float rutW = exp( -pow( ( abs( wx ) - 0.85 ) / 0.22, 2.0 ) ) * band;
+            c *= 1.0 - 0.3 * rutW * ( 0.75 + 0.25 * yNoise( w * 3.0 ) );
+            // oil, black and irregular, in front of the door
+            float oil = smoothstep( 0.62, 0.78, yFbm( w * 1.3 + 9.0 ) ) * smoothstep( 0.0, 0.3, off ) * ( 1.0 - smoothstep( 2.5, 5.0, off ) ) * ( 1.0 - smoothstep( 0.0, 1.0, abs( w.x - ax ) ) );
+            c = mix( c, vec3( 0.05, 0.045, 0.04 ), 0.6 * oil );
+            // the puddle: still water in a rut, the sky's grey in it, its edge dark and wet
+            float pd = length( ( w - vec2( ${f(wear.puddle[0])}, ${f(wear.puddle[1])} ) ) * vec2( 1.0, 0.55 ) ) + 0.25 * ( yNoise( w * 2.2 ) - 0.5 );
+            yardWet = 1.0 - smoothstep( ${f(wear.puddle[2] * 0.85)}, ${f(wear.puddle[2])}, pd );
+            float wetRim = ( 1.0 - smoothstep( ${f(wear.puddle[2])}, ${f(wear.puddle[2] + 0.35)}, pd ) ) * ( 1.0 - yardWet );
+            c *= 1.0 - 0.35 * wetRim;
+            c = mix( c, vec3( 0.32, 0.36, 0.38 ), 0.8 * yardWet );
+            // chips dropped round the apron: pale specks, gone where they would be finer than a pixel
+            vec2 cp = w * 9.0;
+            vec2 cc = floor( cp );
+            float chip = step( 0.93, yHash( cc ) ) * ( 1.0 - smoothstep( 0.08, 0.08 + 1.5 * fwidth( cp.x ), length( fract( cp ) - 0.5 ) ) ) * ( 1.0 - smoothstep( 1.0, 5.0, off ) ) * smoothstep( -0.2, 0.2, off ) * ( 1.0 - smoothstep( 6.0, 16.0, dist ) );
+            c = mix( c, vec3( 0.72, 0.6, 0.4 ), 0.8 * chip );
+            // grass at the foot of the slab's front edge and its sides, where no wheel goes
+            float foot = ( 1.0 - smoothstep( 0.0, 0.5, abs( off ) + 0.2 * yNoise( w * 4.0 ) ) ) * smoothstep( 0.3, 1.2, abs( w.x - ${f((wear.apron[0] + wear.apron[1]) / 2)} ) - 1.3 );
+            c = mix( c, meadow * 0.9, 0.7 * foot );
+          }`
+    : '';
   patchMaterial(mat, key, (shader) => {
     shader.uniforms.uGravel = { value: gravel };
     shader.uniforms.uGrass = { value: grass };
@@ -112,7 +152,12 @@ function landMaterial(
         uniform sampler2D uGrass;
         uniform sampler2D uSoil;
         uniform float uScroll;
+        float yardWet = 0.0;
         ${NOISE}`,
+      )
+      .replace(
+        '#include <roughnessmap_fragment>',
+        '#include <roughnessmap_fragment>\n  roughnessFactor = mix( roughnessFactor, 0.06, yardWet );',
       )
       .replace(
         '#include <color_fragment>',
@@ -170,6 +215,7 @@ function landMaterial(
           c *= 1.0 - 0.22 * wheel * worn * ( 0.6 + 0.4 * yNoise( vec2( w.x * 5.0, w.y * 1.2 ) ) );`
               : ''
           }
+          ${wearGlsl}
           diffuseColor.rgb = c;
         }`,
       );
@@ -588,7 +634,7 @@ export function createYard(o: YardOptions): Yard {
   const groundY = o.groundY ?? -0.06;
   const land = new THREE.Mesh(
     new THREE.CircleGeometry(2600, 96),
-    landMaterial(o.yardRadius ?? 26, scroll, o.ruts ?? [], o.meadow?.track),
+    landMaterial(o.yardRadius ?? 26, scroll, o.ruts ?? [], o.meadow?.track, o.wear),
   );
   land.rotation.x = -Math.PI / 2;
   land.position.y = groundY;

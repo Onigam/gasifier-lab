@@ -147,16 +147,7 @@ describe('the lid’s gas leaves round its rim, and follows the model’s flow a
     expect(u(lidPlume(late)).uShare!.value as number).toBeGreaterThan(0.55);
   });
 
-  it('the camera looks down on the lid while it leaks, and from the side of the intake otherwise', () => {
-    let params = { lidLeak: false, timeScale: 51 } as GasParams;
-    const g = createGarageScene({ params: () => params });
-    g.update(stateWith(), 1 / 60, view());
-    const flat = g.registry.get('post-gas-plume')!.viewDir!.y;
-    params = { ...params, lidLeak: true };
-    g.update(stateWith(), 1 / 60, view({ time: 2 }));
-    const down = g.registry.get('post-gas-plume')!.viewDir!.y;
-    expect(down).toBeGreaterThan(flat + 0.1);
-  });
+  // (film round 4: « the camera looks down on the lid while it leaks » is replaced by `film4-lid.test.ts`: the gap under the lid shows by three pixels and more in the 5b frame, from the side; docs/qa.md, film round 3, m2, the lead's decision « the test gives, not the frame »)
 
   it('a plume can fade near the eye, start on a ring and keep a least size', () => {
     const p = makePlume({

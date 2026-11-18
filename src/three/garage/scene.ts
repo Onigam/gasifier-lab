@@ -82,8 +82,8 @@ export const CLOSED_VIEW = [12, 60] as const;
 /** The share of the building's box that its frame is: the kit stands back by nearly twice the frame's sphere, and at the whole box the building was a fifth of the picture's width in a plain. */
 const CLOSED_FRAME = 0.52;
 const EYE_VIEW = viewFrom(14, 80);
-/** The lid when it leaks: from the open side, looking down on it, so that its dished plate, the yoke across it, the spring and the handle are seen, and on the near side the gap under its edge and the cord it closes on. */
-const LID_VIEW = viewFrom(21, 78);
+/** The lid when it leaks: from the open side and from the side, 7 degrees up, so that the gap under its edge shows over the cord it closes on (six pixels at 1280, `film4-lid.test.ts`; from 21 degrees up the edge hid it: docs/qa.md, film round 3, m2), with the yoke, the spring and the handle over the plate. */
+const LID_VIEW = viewFrom(7, 78);
 /** With a lid that leaks, the share of itself the intake's gas is drawn at and the height it rises to, metres: thin and low, so that the near wheel and the foot of the cab are seen (the model's flow is untouched; the lid's gas is the larger of the two). */
 export const LEAK_INTAKE = { share: 0.2, rise: 0.5 } as const;
 
@@ -106,6 +106,8 @@ export function createGarageScene(opts: GarageOptions = {}): GarageScene {
     slab: [-5.2, -9, 5.2, -GARAGE.wall - 0.005],
     groundY: -0.21,
     yardRadius: 18,
+    // the yard is used: a worn band and ruts off the apron's front edge out to the track, oil before the door, a puddle in the right-hand rut, chips dropped, grass at the slab's foot (docs/qa.md, film round 3, item 8)
+    wear: { apron: [-1.4, 2.6, -9], puddle: [1.45, -12.6, 0.8] },
     // a meadow round the yard, with tufts and stones, and the track the tractor took from the lane to the apron (the building, the house and the apron are left clear: the largest garage of the model is 22 m deep)
     meadow: {
       tufts: 7000,
