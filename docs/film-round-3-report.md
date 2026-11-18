@@ -58,7 +58,7 @@ The stills of `docs/qa/film3-specs/item1.json` to `item5.json` (38 poses, before
 
 ## 3. Shimmer, measured
 
-The kit's flicker tool (`docs/qa/film1-flicker.mjs`, 90 frames, a 5° orbit and a 20 % dolly at each world's home, orbit / dolly, the share of pixels whose change from frame to frame is not smooth), `41a7859` on one port → the working tree on the other, one run a side (the tool is deterministic on pinned clocks: the before column is round 2's « after » to the last digit). Largest spike 1.47 at 1280, 1.41 at 390 (a pop is over 2).
+The kit's flicker tool (`docs/qa/film1-flicker.mjs`, 90 frames, a 5° orbit and a 20 % dolly at each world's home, orbit / dolly, the share of pixels whose change from frame to frame is not smooth), `41a7859` on one port → the working tree on the other, one run a side (the tool is deterministic on pinned clocks: the before column is round 2's « after » to the last digit). Largest spike 1.47 at 1280, 1.39 at 390 (a pop is over 2).
 
 | World       | 1280 × 720                  | 390 × 844                   |
 | ----------- | --------------------------- | --------------------------- |
@@ -66,7 +66,7 @@ The kit's flicker tool (`docs/qa/film1-flicker.mjs`, 90 frames, a 5° orbit and 
 | `tractor`   | 1.14 / 2.73 → 1.14 / 2.74 % | 0.67 / 2.06 → 0.68 / 2.07 % |
 | `gasifier`  | 0.43 / 1.75 → 0.44 / 1.82 % | 0.89 / 3.60 → 0.90 / 3.72 % |
 | `gas-train` | 0.66 / 2.51 → 1.60 / 2.36 % | 0.37 / 0.96 → 0.49 / 1.33 % |
-| `garage`    | 1.85 / 5.69 → 1.87 / 5.72 % | 1.11 / 3.24 → 1.84 / 3.50 % |
+| `garage`    | 1.85 / 5.69 → 1.87 / 5.72 % | 1.11 / 3.24 → 1.90 / 3.54 % |
 
 **The home views are not the same pictures as before in `farm` (all widths) and `gas-train` (wide): both are nearer, on purpose (items 4 and 6), and the tool measures at home. A nearer subject has more edges on the screen.** World by world:
 
@@ -75,7 +75,7 @@ The kit's flicker tool (`docs/qa/film1-flicker.mjs`, 90 frames, a 5° orbit and 
 - **`tractor`: unchanged** (nothing of its picture changed but the meadow's green). The heat map says what is counted: the machine's own edges (the cab's bars, the rack, the lugs, the pipes: they sweep on an orbit), the gravel under the eye in the bottom third of the frame, the wheels that turn and the ground that runs (the engine runs at home: motion), the clusters at the horizon. It cannot be lower without taking detail or contrast off the machine, or stopping it.
 - **`gasifier`: unchanged within a tenth of a point** (twice as many chips cost 0.06 on the dolly at 1280 and 0.12 at 390).
 - **`gas-train`, 1280: the orbit is up (0.66 → 1.60), the dolly a little down.** The home is nearer on purpose (the box of the line's pieces is about one and a half times larger on the screen), and the heat map is the line's own edges. Softer chevrons on the ribbons changed nothing (1.60 with them at 0.46 of white, 1.60 at 0.36): it is not the ribbons. At 390: 0.37 / 0.96 → 0.50 / 1.33 (the ribbons are nearer the line, deeper in colour, with arrow heads).
-- **`garage`, 1280: unchanged** (the boards of the house, of the door and of the lining: lines a few pixels apart that sweep). **At 390 the orbit is up (1.11 → 1.84)**: the heat map shows the tufts of the meadow in the foreground at the bottom of the tall frame (at 390 the camera stands back, in the meadow): near things that cross the picture on an orbit, which the tool counts as it counts any motion. Fewer tufts that fade nearer the eye (7,000 gone by 34 m instead of 9,000 by 46 m) did not lower it (1.72 → 1.84).
+- **`garage`, 1280: unchanged** (the boards of the house, of the door and of the lining: lines a few pixels apart that sweep). **At 390 the orbit is up (1.11 → 1.90)**: the heat map shows the tufts of the meadow in the foreground at the bottom of the tall frame (at 390 the camera stands back, in the meadow): near things that cross the picture on an orbit, which the tool counts as it counts any motion. Fewer tufts that fade nearer the eye (7,000 gone by 34 m instead of 9,000 by 46 m) did not lower it (1.72, then 1.84 and 1.90 on two runs of the last state: the tufts that are left are the near ones).
 - Against the 1.6 % orbit of the ram-pump site (the kit's reference) at 1280: under it `tractor` and `gasifier`; at it `gas-train`; over it `garage` (1.87) and `farm` (2.55).
 
 **What the farm's diagnosis said** (the tool with objects hidden, 1280, the new home view): everything, with the rows behind drawn like the first rows, 3.46 / 5.23; without the rows behind 2.64 / 4.72; without any spruce 2.47 / 4.35; without any tree 0.90 / 2.76; without the tractor and its crusher (which move: motion, not shimmer) 3.21 / 4.72. So the first rows of spruce are 0.2 point, the broad-leaved crowns and the pines about 1.6, the rest of the picture (the buildings' boards, the fence, the walls, the tractor) 0.9.
@@ -94,17 +94,17 @@ Colour pass in Node (`drawStats`), `41a7859` → now:
 
 The limits of `worlds.test.ts` are unchanged. **Triangles rose**: the chips of the section are shaped blanks (56 triangles a chip, about 5,100 chips: the `gasifier` world's count is five times what it was, under its limit of 400,000), the loose chips on the column in every world that draws the unit, the rows of spruce behind the belt (80,000), the tufts and stones of the garage's meadow (60,000).
 
-Cost on the phone profile (headless Chrome on Metal at 390 × 844, pixel ratio 2, the CPU slowed 4 times by the DevTools protocol; a proxy, the GPU is not slowed; `docs/qa/film1-cost.mjs`; the median of 6 fresh pages a world, two runs of 3), first frame after the switch 1× / 4×, mean of the next 40 frames 1× / 4×, before → after:
+Cost on the phone profile (headless Chrome on Metal at 390 × 844, pixel ratio 2, the CPU slowed 4 times by the DevTools protocol; a proxy, the GPU is not slowed; `docs/qa/film1-cost.mjs`; the median of 6 fresh pages a world, two runs of 3 a side, before alternating with after, on the last state of the tree), first frame after the switch 1× / 4×, mean of the next 40 frames 1× / 4×, before → after:
 
 | World       | First frame (ms)      | Mean frame (ms)       |
 | ----------- | --------------------- | --------------------- |
-| `farm`      | 90 / 170 → 90 / 156   | 2.2 / 8.6 → 1.7 / 5.5 |
-| `tractor`   | 84 / 265 → 86 / 276   | 1.9 / 6.9 → 1.9 / 6.5 |
-| `gasifier`  | 117 / 222 → 120 / 226 | 0.8 / 3.5 → 0.8 / 3.5 |
-| `gas-train` | 94 / 240 → 98 / 242   | 2.0 / 6.8 → 1.9 / 6.2 |
-| `garage`    | 114 / 334 → 138 / 402 | 2.8 / 9.8 → 2.5 / 9.8 |
+| `farm`      | 82 / 158 → 88 / 155   | 2.2 / 7.8 → 1.3 / 5.3 |
+| `tractor`   | 82 / 268 → 88 / 272   | 1.9 / 6.4 → 1.9 / 6.5 |
+| `gasifier`  | 112 / 215 → 119 / 230 | 0.8 / 3.2 → 0.7 / 3.3 |
+| `gas-train` | 93 / 234 → 98 / 244   | 1.8 / 6.4 → 1.7 / 6.3 |
+| `garage`    | 112 / 344 → 136 / 412 | 2.7 / 9.8 → 2.5 / 9.6 |
 
-The frame's cost is the same or lower in every world (the farm's is a third lower at 4×: 64 draw calls fewer). The first frame is within noise in four worlds. **The garage's first frame is a fifth slower (114 / 334 → 138 / 402 ms): not neutral.** The meadow's two new materials are compiled there and its tufts are placed. After this measure the placing of the tufts was made cheaper (the noise that says where the rough grass is thick is read once on a grid: the garage's build in Node went from about 68 ms to about 60, for 55 before the round); **that last state was not measured again in the browser** (the Mac's Chrome lock was held by a long render). **Not measured: a real phone, Safari, Firefox.**
+The frame's cost is the same or lower in every world (the farm's is a third lower at 4×: 64 draw calls fewer). The first frame is within noise in `farm`, `tractor` and `gas-train`, and 6 % slower in `gasifier` (the chips' shape is one more patch to compile). **The garage's first frame is a fifth slower (112 / 344 → 136 / 412 ms): not neutral, and the rule was that it stay neutral.** The meadow's two new materials (the tufts, the stones) are compiled there and the land's shader is longer. Making the placing of the tufts cheaper (the noise that says where the rough grass is thick is read once on a grid) changed nothing of it (138 / 402 before that, 136 / 412 after): it is the compiling, not the placing. To get it back the stones or the tufts must go, or be compiled ahead of the visit by the kit's warm-up: for the lead to decide. **Not measured: a real phone, Safari, Firefox.**
 
 ## 5. Against the Piggott bar, per world, honestly
 
@@ -121,17 +121,19 @@ The reference: `onigam-video/renders/piggott-lab/2026-11-16-short-1-c/qa/` (a he
 ## 6. NOT done, NOT checked, said plainly
 
 1. **Not rendered, not watched at speed**: no frame of the film's own driver, no 60 frames a second, no real phone, no Safari, no Firefox.
-2. **The farm's shimmer** (§ 3): the saw of spruce tops against the sky is still there; 0a static or a very slow push.
-3. **The gap under the lid** is small in the frame (item 3); a side view was not done.
-4. **The chips** are irregular flakes, not a heap of wood with thickness (item 4a).
-5. **The gas line at home** is half the width (item 4b).
-6. **The yard's gravel** in `garage` has no relief; only the meadow has (item 5).
-7. **Not looked at**: the worlds other than the farm at 768 and 390 with the interface (the gas line's tall overview is given its own box: not seen in a browser); the labels of the minor parts in the farm after the garage, the bin and the barrel moved (only the four main names were counted: none clipped, none on another by eye); the spoken guide played against the new places (its text names no side: read, not played); the explode and X-ray of every world after the lid's and the chips' changes, beyond the tests; the farm's « Flux » dots to the bin and the barrel at their new places, beyond the tests; the evening (`?hour=20`) beyond one still; the walk of every part of every world (`walk.mjs`) was not run again.
-8. **The flight test is a count of rays in Node**, with the kit's pose arithmetic copied (kit request 27): it does not see the gas, the transparent things, or what the film's driver does differently.
-9. **The meadow's deeper green changes every open world's ground** (`tractor`, `gasifier`, `gas-train`, `garage`): seen on the stills of this round, not compared with round 2's for every pose.
-10. **A test of an earlier round was adapted** (`dims.test.ts`: « the farm sits on the research's plan » held the garage beyond the house's east gable; it now holds it beyond the west one): the design it held changed on purpose (item 5; the research gives no plan of the farm). No other existing test was touched.
-11. **The commits were cut from one working tree**: the Mac's Chrome lock was held for forty minutes at a time by other jobs, so the six items were developed side by side and the commits made at the end, one an item, each state rebuilt in a clean copy and passing typecheck, prettier and the whole suite before its commit (561, 563, 565, 570, 572, 574 tests). The browser measurements are of the last state only.
-12. **Requests 7 and 9 of round 1** (the analyser's end point, the showcase card) are not mine and are as they were.
+2. **The garage's first frame on the phone profile is a fifth slower** (§ 4): the rule was that the cost stay neutral, and for that one figure it does not.
+3. **Shimmer is higher than before in four cells of the table** (§ 3: the farm at 390, the gas line at 1280 and 390, the garage at 390), each with its cause; the tractor and the gasifier are where they were, not lower.
+4. **The farm's shimmer** (§ 3): the saw of spruce tops against the sky is still there; 0a static or a very slow push.
+5. **The gap under the lid** is small in the frame (item 3); a side view was not done.
+6. **The chips** are irregular flakes, not a heap of wood with thickness (item 4a).
+7. **The gas line at home** is half the width (item 4b).
+8. **The yard's gravel** in `garage` has no relief; only the meadow has (item 5).
+9. **Not looked at**: the worlds other than the farm at 768 and 390 with the interface (the gas line's tall overview is given its own box: not seen in a browser); the labels of the minor parts in the farm after the garage, the bin and the barrel moved (only the four main names were counted: none clipped, none on another by eye); the spoken guide played against the new places (its text names no side: read, not played); the explode and X-ray of every world after the lid's and the chips' changes, beyond the tests; the farm's « Flux » dots to the bin and the barrel at their new places, beyond the tests; the evening (`?hour=20`) beyond one still; the walk of every part of every world (`walk.mjs`) was not run again.
+10. **The flight test is a count of rays in Node**, with the kit's pose arithmetic copied (kit request 27): it does not see the gas, the transparent things, or what the film's driver does differently.
+11. **The meadow's deeper green changes every open world's ground** (`tractor`, `gasifier`, `gas-train`, `garage`): seen on the stills of this round, not compared with round 2's for every pose.
+12. **A test of an earlier round was adapted** (`dims.test.ts`: « the farm sits on the research's plan » held the garage beyond the house's east gable; it now holds it beyond the west one): the design it held changed on purpose (item 5; the research gives no plan of the farm). No other existing test was touched.
+13. **The commits were cut from one working tree**: the Mac's Chrome lock was held for forty minutes at a time by other jobs, so the six items were developed side by side and the commits made at the end, one an item, each state rebuilt in a clean copy and passing typecheck, prettier and the whole suite before its commit (561, 563, 565, 570, 572, 574 tests). The browser measurements are of the last state only.
+14. **Requests 7 and 9 of round 1** (the analyser's end point, the showcase card) are not mine and are as they were.
 
 ## 7. What I found that the review did not
 
