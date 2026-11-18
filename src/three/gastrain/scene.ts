@@ -301,7 +301,8 @@ export function createGasTrainScene(opts: GasTrainOptions = {}): GasTrainScene {
     'filter-bags': { viewDir: viewFrom(35, 190) },
     'cooler-condensate-vessel': { viewDir: viewFrom(10, 150) },
     // the board's two faces look along the line (its tubes and ticks stand out of it in x): from that side, above the line's own height of eye, so that the two columns and the scale are read and not the board's edge
-    'water-gauge': { viewDir: viewFrom(12, 95) },
+    // (and from well above the cylinder that stands beside it: the straight flight from the cylinder's own view to this one went through the cylinder's cut metal, docs/qa.md, film round 2, M3)
+    'water-gauge': { viewDir: viewFrom(30, 95) },
   };
   const anchorAt: Record<TrainId, [number, number, number]> = {
     'hot-gas-pipe': [0.05, 0.34, 0],

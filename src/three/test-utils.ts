@@ -116,3 +116,59 @@ export function worldsOf<T>(make: () => T): () => T {
   let built: T | null = null;
   return () => (built ??= make());
 }
+
+/**
+ * How much of the picture a near surface fills, for an eye at `eye` looking at `at` (a lens of 35 degrees, 16:9): the share of 45 rays through the frame whose first hit, among the opaque meshes that are drawn for that eye (the world's own `onBeforeRender` is run first: walls that step
+ * aside are aside), is nearer than `near` metres, and the name of what most of them hit. A flight that passes through a slab or a casting shows as a frame where this is most of the picture.
+ */
+export function nearShare(
+  scene: THREE.Scene,
+  eye: THREE.Vector3,
+  at: THREE.Vector3,
+  near: number,
+): { share: number; name: string } {
+  const cam = new THREE.PerspectiveCamera(35, 16 / 9, 0.05, 5000);
+  cam.position.copy(eye);
+  cam.lookAt(at);
+  cam.updateMatrixWorld(true);
+  scene.onBeforeRender(null as never, scene, cam, null as never, null as never, null as never);
+  const meshes: THREE.Mesh[] = [];
+  const c = new THREE.Vector3();
+  scene.traverse((o) => {
+    const m = o as THREE.Mesh;
+    if (!m.isMesh || (m as THREE.InstancedMesh).isInstancedMesh) return;
+    for (let p: THREE.Object3D | null = o; p; p = p.parent) if (!p.visible) return;
+    const mat = m.material as THREE.Material;
+    if (Array.isArray(mat) || mat.transparent) return;
+    if (!m.geometry.boundingSphere) m.geometry.computeBoundingSphere();
+    const bs = m.geometry.boundingSphere!;
+    if (
+      c.copy(bs.center).applyMatrix4(m.matrixWorld).distanceTo(eye) - bs.radius * m.matrixWorld.getMaxScaleOnAxis() >
+      near
+    )
+      return;
+    meshes.push(m);
+  });
+  const ray = new THREE.Raycaster();
+  ray.far = near;
+  const by = new Map<string, number>();
+  let hits = 0;
+  for (let j = 0; j < 5; j++)
+    for (let i = 0; i < 9; i++) {
+      ray.setFromCamera(new THREE.Vector2(-0.9 + (1.8 * i) / 8, -0.9 + (1.8 * j) / 4), cam);
+      const hit = ray.intersectObjects(meshes, false)[0];
+      if (!hit) continue;
+      hits++;
+      let name = hit.object.name;
+      for (let p: THREE.Object3D | null = hit.object; p && !name; p = p.parent) name = p.name;
+      by.set(name, (by.get(name) ?? 0) + 1);
+    }
+  let best = '';
+  let n = 0;
+  for (const [k, v] of by)
+    if (v > n) {
+      best = k;
+      n = v;
+    }
+  return { share: hits / 45, name: best };
+}

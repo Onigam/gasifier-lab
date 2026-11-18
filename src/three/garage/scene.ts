@@ -71,8 +71,15 @@ export function wallHidden(id: string, cam: THREE.Vector3, w: number, d: number,
   return false;
 }
 
+/** Where the whole building is looked at from: elevation and bearing, degrees. */
+export const CLOSED_VIEW = [12, 60] as const;
+/** The share of the building's box that its frame is: the kit stands back by nearly twice the frame's sphere, and at the whole box the building was a fifth of the picture's width in a plain. */
+const CLOSED_FRAME = 0.52;
 const EYE_VIEW = viewFrom(14, 80);
-const LID_VIEW = viewFrom(22, 80);
+/** The lid when it leaks: from the open side, looking down on it, so that its dished plate, the yoke across it, the spring and the handle are seen, and on the near side the gap under its edge and the cord it closes on. */
+const LID_VIEW = viewFrom(21, 78);
+/** With a lid that leaks, the share of itself the intake's gas is drawn at and the height it rises to, metres: thin and low, so that the near wheel and the foot of the cab are seen (the model's flow is untouched; the lid's gas is the larger of the two). */
+export const LEAK_INTAKE = { share: 0.2, rise: 0.5 } as const;
 
 /** How far open the door is for each state of the model: ajar is a gap, open is wide. */
 export const DOOR_OPEN: Record<DoorState, number> = { shut: 0, ajar: 0.12, open: 1 };
@@ -228,7 +235,12 @@ export function createGarageScene(opts: GarageOptions = {}): GarageScene {
   };
   const FRAME: Record<GarageId, PartFraming> = {
     // the building whole (the garage and the room over it), a little tighter than its box so that it fills the picture and not a third of it
-    'closed-garage': { viewDir: viewFrom(22, 60), frame: centre([building.shell, building.above], 0.8) },
+    // (from a little above the eye's height, not from high up: the straight flight from here down to a fitting in the room then goes in under the slab between the storeys, well clear of its edge, and not through the bedroom's floor, which filled a frame with concrete:
+    // docs/qa.md, film round 2, M2)
+    'closed-garage': {
+      viewDir: viewFrom(CLOSED_VIEW[0], CLOSED_VIEW[1]),
+      frame: centre([building.shell, building.above], CLOSED_FRAME),
+    },
     // from the yard, in front and a little to the side away from the house: the boards, the straps, their bolts and the hinges, and the room through the door when it stands open
     'garage-door': { viewDir: viewFrom(8, 160) },
     // the bedroom from the front and a little to the open side, not so high that its floor is all that is seen: the bed, the window, the wardrobe
@@ -320,7 +332,7 @@ export function createGarageScene(opts: GarageOptions = {}): GarageScene {
         scene.updateMatrixWorld(true);
         registry.get('co-indicator')?.frame?.copy(centre(indicator.group, 0.62));
         registry.get('old-rescue-set')?.frame?.copy(centre(rescue, 0.62));
-        registry.get('closed-garage')?.frame?.copy(centre([building.shell, building.above], 0.8));
+        registry.get('closed-garage')?.frame?.copy(centre([building.shell, building.above], CLOSED_FRAME));
         registry.get('room-above')?.frame?.copy(centre(building.above, 0.45));
         co.fit(building.inside);
         // the labels of the shell and of the bedroom stay on the walls of the room as it grows
