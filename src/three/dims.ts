@@ -312,6 +312,8 @@ export const FARM = {
   ashBin: { x: -29.8, z: -3.4 },
   /** The barrel of black water: out in the open off the garage's west corner, beside the ash bin and not behind it from the yard (until film round 4 it stood behind the garage's west wall, and the guide's frame of it looked at the wall: docs/qa.md, film round 3, B1). */
   barrel: { x: -31.0, z: -2.5 },
+  /** The barrel itself: a 200-litre steel drum (the part's sheet: « a sheet-metal drum on two battens »), estimate from the common drum: radius over the chimes, its body's, height, and the heights of its two rolling hoops over its foot. */
+  drum: { rChime: 0.293, r: 0.286, h: 0.88, hoops: [0.29, 0.59] },
   /** The 4 m clod crusher (K38): width reported. Its length behind the hitch, estimate. */
   crusher: { width: 4.0, depth: 1.4, pole: 2.6, rings: 2 * 24 },
   /** The loop the tractor drives in the field: a rounded rectangle, centre, straight length and radius of the ends. */

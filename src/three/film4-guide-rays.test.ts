@@ -145,10 +145,12 @@ export function hiddenShare(
     ndc.copy(p).project(cam);
     return Math.abs(ndc.x) <= 1 && Math.abs(ndc.y) <= 1 && ndc.z < 1;
   });
+  // what can stand in front: every opaque mesh, instanced ones included (the farm's trees, the meadow's tufts, the chips: a crown in front of the garage was how film round 4's N1 passed this test)
   const meshes: THREE.Object3D[] = [];
   mod.scene.traverse((o) => {
     const m = o as THREE.Mesh;
-    if (!m.isMesh || (m as THREE.InstancedMesh).isInstancedMesh || !shown(m) || !opaque(m)) return;
+    if (!m.isMesh || !shown(m) || !opaque(m)) return;
+    if ((m as THREE.InstancedMesh).isInstancedMesh && (m as THREE.InstancedMesh).count === 0) return;
     const own = owner.get(m);
     if (own && skipShells(own)) return;
     meshes.push(m);

@@ -62,8 +62,9 @@ export type FarmId = (typeof FARM_IDS)[number];
 export const FARM_REFUSED: ReadonlySet<string> = new Set(['clod-crusher']);
 
 const HOTSPOTS: HotspotDef[] = [
-  { id: 'wood-gas-tractor', fr: 'Tracteur à gaz de bois', en: 'Wood-gas tractor', goto: 'tractor' },
-  { id: 'chip-barn', fr: 'Grange à plaquettes', en: 'Chip barn' },
+  // (the labels' short names: « Tracteur à gaz de bois » and « Grange à plaquettes » ran out of the picture at 768 and 390 px on a first visit, docs/qa.md, film round 4, M1; the part's sheet, the list of parts and the guide keep the full names of `part-ids.ts`)
+  { id: 'wood-gas-tractor', fr: 'Tracteur gazogène', en: 'Wood-gas tractor', goto: 'tractor' },
+  { id: 'chip-barn', fr: 'Grange', en: 'Chip barn' },
   { id: 'drum-chipper', fr: 'Déchiqueteuse', en: 'Drum chipper', minor: true },
   { id: 'chip-sieve', fr: 'Crible', en: 'Chip sieve', minor: true },
   { id: 'clod-crusher', fr: 'Brise-mottes', en: 'Clod crusher', minor: true },
@@ -105,13 +106,24 @@ const FRAMING: Record<FarmId, PartFraming> = {
   'chip-sieve': { viewDir: viewFrom(18, 340) },
   'clod-crusher': { viewDir: viewFrom(18, 340) },
   farmhouse: { viewDir: viewFrom(12, 15) },
-  // from the south-west, the garage's open gable and its door, the house behind it on the right (from the south-east the house stood before it and took half the picture: docs/qa.md, film round 3, m8)
-  'farm-garage': { viewDir: viewFrom(12, 335) },
+  // from the south-west and near, on the garage's ground floor: its door and its west wall lead, the house steps back behind it on the right and the barrel and the bin stand at its corner. From the south-east the house stood before it and took half the picture
+  // (docs/qa.md, film round 3, m8); framed on the whole building from bearing 335 the camera stood 29 m out, the house was still wider than the garage and a birch's crown filled the left third (film round 4, N1)
+  'farm-garage': {
+    viewDir: viewFrom(14, 310),
+    frame: new THREE.Box3(
+      new THREE.Vector3(FARM.garage.x - GARAGE.small.w / 2 - GARAGE.wall - 0.8, 0, FARM.garage.z - 0.2),
+      new THREE.Vector3(
+        FARM.garage.x + GARAGE.small.w / 2 + GARAGE.wall,
+        4,
+        FARM.garage.z + GARAGE.small.d / 2 + GARAGE.wall,
+      ),
+    ),
+  },
   'ash-bin': { viewDir: viewFrom(20, 30) },
   'condensate-barrel': { viewDir: viewFrom(18, 25) },
-  // the ditch is 420 m long: a stretch with the track's culvert is what a click brings the camera to
+  // the ditch is 420 m long: a stretch with the track's culvert is what a click brings the camera to (from due north: from bearing 190 the linden by the barn stood 25 m from the eye in a view of 54 m, `film5-farm-crowns.test.ts`)
   'field-ditch': {
-    viewDir: viewFrom(38, 190),
+    viewDir: viewFrom(38, 180),
     frame: new THREE.Box3(new THREE.Vector3(10, -1.2, 6.2), new THREE.Vector3(31, 2.0, 11)),
   },
 };
@@ -175,6 +187,12 @@ export function loopAt(s: number): { x: number; z: number; hx: number; hz: numbe
 }
 
 export const LOOP_LENGTH = 2 * FARM.loop.len + 2 * Math.PI * FARM.loop.r;
+
+/** The stretch of the ditch that stands for it when it is framed with other parts: the end of its part's run south of the ash bin and the barrel (`WorldRegistry.stretch`). */
+export const DITCH_STRETCH = new THREE.Box3(
+  new THREE.Vector3(FARM.barrel.x - 4, -FARM.ditch.depth - 0.3, FARM.ditch.z - 3),
+  new THREE.Vector3(FARM.ashBin.x + 4, 1.5, FARM.ditch.z + 3),
+);
 
 /** The farm's overview in a wide view and in a tall one: what it holds, where it is looked at from (the kit keeps the direction and sets the distance), and the kit's padding of the box's sphere. */
 export const OVERVIEW_WIDE = {
@@ -533,6 +551,9 @@ export function createFarmScene(opts: FarmOptions = {}): FarmScene {
     size: 3.5,
     speed: 0.04,
     seed: 9,
+    // (the farm's air: the same light wind as the stopped tractor's gas)
+    lean: [1.4, 0.5],
+    thin: 0.5,
   });
   scene.add(smoke.points);
   // the gas of a stopped tractor: it leaves at the primary-air intake and the lid for as long as the model says (`plumeShare`), a column the size of a man at the tractor and a thin white-yellow veil against the field from a long way. It rides with the tractor (a child of its group,
@@ -546,25 +567,31 @@ export function createFarmScene(opts: FarmOptions = {}): FarmScene {
       color: 0xf2eddc,
       // (a pale pillar of some six metres: at nine it stood over the house and the garage behind the field's tractor in the farm's wide frames, docs/qa.md, film round 3, m7)
       rise: 6.5,
-      spread: 2.0,
+      spread: 1.5,
       n: 300,
-      size: 2.4,
+      size: 1.9,
       speed: 0.05,
       seed: 15,
       fade: [5, 17],
       minPx: 5,
+      // a light wind lays the column over and thins it as it rises: a veil leaning off the tractor and not a ball of cotton over it (docs/qa.md, film round 4, minor 11)
+      lean: [1.8, 0.6],
+      thin: 0.35,
     }),
     makePlume({
       origin: stopLid,
       color: 0xefe7c4,
-      rise: 7,
-      spread: 2.0,
+      // (a low puff at the column's foot, leaning with it: as tall as the intake's, the two columns side by side were the two lobes of one top)
+      rise: 2.2,
+      spread: 0.8,
       n: 160,
-      size: 1.8,
+      size: 1.2,
       speed: 0.045,
       seed: 16,
       fade: [5, 17],
       minPx: 4,
+      lean: [1.4, 0.5],
+      thin: 0.35,
     }),
   ];
   for (const pl of stopPlumes) drive.add(pl.points);
@@ -615,6 +642,8 @@ export function createFarmScene(opts: FarmOptions = {}): FarmScene {
   // read at the moment of framing (the canvas's shape), not at the last render: the first framing of a visit comes before any
   const tall = (): boolean => viewAspect(aspect) < 1;
   registry.overview(() => [tall() ? OVERVIEW_TALL.box : OVERVIEW_WIDE.box], true);
+  // framed with others (the guide's step « what the day left »: the bin, the barrel and the ditch), the ditch is its stretch south of them
+  registry.stretch('field-ditch', DITCH_STRETCH);
 
   // ---- « Flux »: the fuel's way and what comes out of the machine, for the eye (the speed is nowhere the true one)
   const flows = new FlowDots(900, 0.34, 0.012, true);
@@ -631,7 +660,8 @@ export function createFarmScene(opts: FarmOptions = {}): FarmScene {
   const barnDoor = at(FARM.barn.x, 1.8, FARM.barn.z + FARM.barn.d / 2 + 0.5);
   const barnIn = at(FARM.barn.x - 1.0, 1.6, FARM.barn.z + FARM.barn.d / 2 - 3.5);
   const bin = at(FARM.ashBin.x, 1.0, FARM.ashBin.z);
-  const barrelTop = at(FARM.barrel.x, 1.3, FARM.barrel.z);
+  // (into the drum's filling bung, a hand over its head)
+  const barrelTop = at(FARM.barrel.x, 0.07 + FARM.drum.h + 0.12, FARM.barrel.z);
   const mid = (a: THREE.Vector3, b: THREE.Vector3, up = 3): THREE.Vector3 =>
     a
       .clone()

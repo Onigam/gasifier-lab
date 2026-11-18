@@ -3,7 +3,7 @@ import { group, mesh, rng } from '@onigam/lab-kit/three';
 import { FARM } from '../dims';
 import { TAU, boxAt, cylZ, joined, latheCrisp, softBox, stick, tubeGeometry, uvMetric, v3 } from '../common';
 import { dynamic, mergeStatic } from '../merge';
-import { endGrainMap, concreteMap, masonryMap, strawMap, tiled, woodMap, rustSteelMap, boardsMap } from '../textures';
+import { endGrainMap, concreteMap, masonryMap, strawMap, tiled, woodMap, rustSteelMap } from '../textures';
 import { ashMat, blackWater, darkSteel, hotCasing, rubber, steel, tarFilm } from '../materials';
 import { terrainHeight } from './terrain';
 
@@ -392,44 +392,50 @@ export function buildBarrel(): { group: THREE.Group; level: THREE.Mesh } {
   const g = group('condensate-barrel');
   g.userData.partId = 'condensate-barrel';
   g.add(mesh(joined([boxAt(-0.4, 0, -0.34, 0.4, 0.07, -0.24), boxAt(-0.4, 0, 0.24, 0.4, 0.07, 0.34)]), wood(0x6b5238)));
-  const prof: [number, number][] = [
-    [0.0, 0.07],
-    [0.22, 0.07],
-    [0.27, 0.2],
-    [0.3, 0.45],
-    [0.315, 0.62],
-    [0.3, 0.79],
-    [0.27, 1.04],
-    [0.22, 1.17],
-    [0.0, 1.17],
-  ];
-  const staves = latheCrisp(prof, 40);
-  // staves by a vertical texture: a boards map round the lathe
-  const sm = std({ color: 0xc8a574, map: tiled(boardsMap(), 6, 1.2), roughness: 0.9 });
-  g.add(mesh(staves, sm));
-  for (const [y, r] of [
-    [0.14, 0.236],
-    [0.35, 0.292],
-    [0.62, 0.318],
-    [0.9, 0.292],
-    [1.1, 0.236],
-  ] as const)
-    g.add(mesh(new THREE.TorusGeometry(r + 0.004, 0.011, 6, 40).rotateX(Math.PI / 2), iron(), [0, y, 0]));
-  // the lid, a bung hole and its wooden bung, the black that has run from it
-  g.add(mesh(new THREE.CylinderGeometry(0.2, 0.2, 0.025, 28), wood(0x8a6a44), [0, 1.18, 0]));
-  g.add(mesh(new THREE.CylinderGeometry(0.03, 0.026, 0.04, 12), wood(0x5a4630), [0.1, 1.2, 0.0]));
+  // a 200-litre steel drum, as the part's sheet says (until film round 5 it was a wooden cask with staves and hoops: docs/qa.md, film round 4, minor 4): its body, the rolled chimes at its foot and its head, the two rolling hoops, a head set a little
+  // into the top chime with its two bungs, the paint gone to rust where it is handled and where it stands
+  const { rChime: rc, r, h, hoops } = FARM.drum;
+  const y0 = 0.07;
+  const body = latheCrisp(
+    [
+      [0.0, y0 + 0.006],
+      [r - 0.004, y0 + 0.006],
+      [rc, y0 + 0.012],
+      [rc, y0 + 0.026],
+      [r, y0 + 0.032],
+      [r, y0 + h - 0.032],
+      [rc, y0 + h - 0.026],
+      [rc, y0 + h - 0.006],
+      [r - 0.006, y0 + h - 0.004],
+      [r - 0.01, y0 + h - 0.016],
+      [0.0, y0 + h - 0.016],
+    ],
+    48,
+  );
+  // (a faded red, as many drums of the time were: a dark blue one was a black cylinder in the yard's shade at 200 px)
+  const paintMat = std({ color: 0x9a4a34, map: tiled(rustSteelMap(), 3, 2), roughness: 0.6, metalness: 0.35 });
+  g.add(mesh(body, paintMat));
+  for (const k of hoops)
+    g.add(mesh(new THREE.TorusGeometry(r, 0.008, 6, 48).rotateX(Math.PI / 2), paintMat, [0, y0 + k, 0]));
+  // the bungs: a 2-inch one near the rim (the one that is filled through) and a 3/4-inch one opposite, each in its raised flange
+  const head = y0 + h - 0.016;
+  g.add(mesh(new THREE.CylinderGeometry(0.042, 0.046, 0.012, 20), iron(), [0.19, head + 0.006, 0]));
+  g.add(mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.008, 6), darkSteel(), [0.19, head + 0.016, 0]));
+  g.add(mesh(new THREE.CylinderGeometry(0.022, 0.024, 0.01, 16), iron(), [-0.2, head + 0.005, 0.02]));
+  g.add(mesh(new THREE.CylinderGeometry(0.014, 0.014, 0.008, 6), darkSteel(), [-0.2, head + 0.013, 0.02]));
+  // the black that has run down from the filling bung
   const streak = latheCrisp(
     [
-      [0.318, 0.55],
-      [0.318, 1.14],
+      [rc + 0.001, y0 + 0.3],
+      [rc + 0.001, y0 + h - 0.03],
     ],
-    40,
-    0.2,
-    1.2,
+    48,
+    Math.PI / 2 - 0.22,
+    0.44,
   );
   g.add(mesh(streak, tarFilm()));
-  // the level: a black disc that is not seen, the surface of the water, riding the model's litres through the bung's glass
-  const level = mesh(new THREE.CylinderGeometry(0.021, 0.021, 1, 10), blackWater(), [0.1, 1.17, 0.0]);
+  // the level: a black disc that is not seen, the surface of the water, riding the model's litres through the bung
+  const level = mesh(new THREE.CylinderGeometry(0.021, 0.021, 1, 10), blackWater(), [0.19, head, 0.0]);
   level.visible = false;
   g.add(level);
   mergeStatic(g, { name: 'condensate-barrel' });

@@ -220,6 +220,16 @@ export class WorldRegistry extends PartRegistry {
     if (!this.parts.has(OVERVIEW)) this.add(OVERVIEW, new THREE.Object3D());
   }
 
+  private stretches = new Map<string, THREE.Box3>();
+
+  /**
+   * In a world whose overview is `alone`, the stretch of a long part that stands for it when it is framed with others (a guide's step frames the union of its parts' boxes): the 420 m ditch framed with the ash bin and the barrel was the whole farm, and they were specks
+   * (docs/qa.md, film round 4, minor 5). The overview holds its own extent as before (the stretch lies inside it); a click on the part alone, its sheet's « Encombrement » and its own framing (`frameBounds`) still get the part's own box.
+   */
+  stretch(id: string, box: THREE.Box3): void {
+    this.stretches.set(id, box);
+  }
+
   override ids(): string[] {
     return super.ids().filter((id) => id !== OVERVIEW);
   }
@@ -231,7 +241,9 @@ export class WorldRegistry extends PartRegistry {
       if (!this.alone || this.framing || this.selected() === id) return own;
       const hold = new THREE.Box3();
       for (const b of this.extent?.() ?? []) hold.union(b);
-      return own.intersect(hold);
+      own.intersect(hold);
+      const cut = this.stretches.get(id);
+      return cut ? own.intersect(cut) : own;
     }
     const box = new THREE.Box3();
     for (const part of this.parts.values()) if (part.display === 'hidden') return box;
