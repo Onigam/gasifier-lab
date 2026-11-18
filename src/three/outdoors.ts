@@ -122,7 +122,7 @@ function landMaterial(
             yardWet = 1.0 - smoothstep( ${f(wear.puddle[2] * 0.85)}, ${f(wear.puddle[2])}, pd );
             float wetRim = ( 1.0 - smoothstep( ${f(wear.puddle[2])}, ${f(wear.puddle[2] + 0.35)}, pd ) ) * ( 1.0 - yardWet );
             c *= 1.0 - 0.35 * wetRim;
-            c = mix( c, vec3( 0.32, 0.36, 0.38 ), 0.8 * yardWet );
+            c = mix( c, vec3( 0.13, 0.145, 0.15 ), 0.85 * yardWet );
             // how far out of the slab, all round it
             vec2 sq = max( vec2( ${f(sl[0])}, ${f(sl[1])} ) - w, w - vec2( ${f(sl[2])}, ${f(sl[3])} ) );
             float dOut = length( max( sq, 0.0 ) );
@@ -132,8 +132,8 @@ function landMaterial(
             float chip = step( 0.92, yHash( cc ) ) * ( 1.0 - smoothstep( 0.08, 0.08 + 1.5 * fwidth( cp.x ), length( fract( cp ) - 0.5 ) ) ) * ( 1.0 - smoothstep( 1.0, 4.0, dOut ) ) * step( 0.001, dOut ) * ( 1.0 - smoothstep( 6.0, 16.0, dist ) );
             c = mix( c, vec3( 0.72, 0.6, 0.4 ), 0.8 * chip );
             // grass at the foot of the slab, where no wheel goes (not in the band the machine drives off)
-            float foot = ( 1.0 - smoothstep( 0.0, 0.6, dOut + 0.25 * yNoise( w * 4.0 ) ) ) * step( 0.001, dOut ) * ( 1.0 - band );
-            c = mix( c, meadow * 0.9, 0.75 * foot * ( 0.6 + 0.4 * yNoise( w * 7.0 ) ) );
+            float foot = ( 1.0 - smoothstep( 0.1, 0.9, dOut + 0.4 * yNoise( w * 3.0 ) ) ) * step( 0.001, dOut ) * ( 1.0 - band ) * smoothstep( 0.4, 0.7, yNoise( w * 2.3 + 4.0 ) );
+            c = mix( c, meadow * 0.8, 0.5 * foot );
           }`
     : '';
   patchMaterial(mat, key, (shader) => {
@@ -161,7 +161,7 @@ function landMaterial(
       )
       .replace(
         '#include <roughnessmap_fragment>',
-        '#include <roughnessmap_fragment>\n  roughnessFactor = mix( roughnessFactor, 0.06, yardWet );',
+        '#include <roughnessmap_fragment>\n  roughnessFactor = mix( roughnessFactor, 0.3, yardWet );',
       )
       .replace(
         '#include <color_fragment>',

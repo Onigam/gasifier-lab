@@ -66,7 +66,7 @@ describe('the garage’s yard is used (docs/qa.md, film round 3, item 8)', () =>
       'yardWet = 1.0',
       'float chip',
       'float foot',
-      'roughnessFactor = mix( roughnessFactor, 0.06, yardWet )',
+      'roughnessFactor = mix( roughnessFactor, 0.3, yardWet )',
     ])
       expect(g).toContain(s);
     expect(shaderOf(createTractorScene().scene)).not.toContain('float rutW');
