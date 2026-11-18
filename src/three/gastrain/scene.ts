@@ -48,8 +48,15 @@ import type { GasParams, GasState } from '../../sim/types';
 // one cylinder cut open with the pilot's thread of diesel, the exhaust. The same pieces, from the same functions as the tractor's (`train/components.ts`), standing on frames and posts instead of the tractor, and the pipes between them follow
 // their ports: nothing hangs from a part that went away. The cyclone, on the programme's own system (Fig. 3.5b) and not on this tractor's schematic, stands to one side, joined to nothing.
 
-/** Where the cyclone stands (on the programme's system, not on this tractor's: joined to nothing), and how far before the line the ribbons lie. */
-export const CYCLONE_AT = { x: -0.95, z: -1.05 } as const;
+/**
+ * Where the cyclone stands (on the programme's system, not on this tractor's: joined to nothing), and how far before the line the ribbons lie. (0.3 m further from the line than in film round 4: its ring on the slab ran under the starting fan's stand, docs/qa.md,
+ * film round 4, minor 3.)
+ */
+export const CYCLONE_AT = { x: -1.0, z: -1.35 } as const;
+/** The ring drawn on the slab round the cyclone, inner and outer radius, metres: clear of its own stand and of the starting fan's. */
+export const CYCLONE_RING = [0.43, 0.46] as const;
+/** The widest shape of view the home is made for (the film's 16:9): a narrower one stands back so that it still holds as much of the line across (`homePaddingFor`). */
+export const HOME_ASPECT = 16 / 9;
 export const SANKEY_Z = -2.35;
 /** What the gas line's overview holds: the line from the fan at the unit's foot to the exhaust behind the cylinder (at `cylX`), the top of the fan's stack, and the ribbons of the Sankey on the slab before it. */
 export const HOME_BOX = (cylX: number): THREE.Box3 =>
@@ -71,6 +78,14 @@ export function homeWide(cylX: number): { box: THREE.Box3; padding: number } {
   }
   const r = box.getSize(new THREE.Vector3()).length() / 2;
   return { box, padding: (HOME_WIDE.eye.distanceTo(HOME_WIDE.at) * Math.sin((17.5 * Math.PI) / 180)) / r };
+}
+/**
+ * The kit's padding of the home's box for a view of this shape. The kit fits a wide view by its height: a view narrower than 16:9 (the app at 1280 with its panel open is about 5:4) kept the 16:9 distance and lost the line's ends at its sides, the
+ * cyclone first (docs/qa.md, film round 4, N3). It stands back in proportion, so that across it holds what the film's frame holds; a view taller than wide fits the plain box by its extents.
+ */
+export function homePaddingFor(aspect: number, wide: number): number {
+  if (aspect < 1) return 0.62;
+  return wide * Math.max(1, HOME_ASPECT / aspect);
 }
 
 export interface GasTrainOptions {
@@ -237,7 +252,7 @@ export function createGasTrainScene(opts: GasTrainOptions = {}): GasTrainScene {
   scenery.add(cyclonePl);
   // a ring drawn on the paper round the cyclone: it is on the programme's system (Fig. 3.5b), not on this tractor's schematic (conflict 22)
   const mark = new THREE.Mesh(
-    new THREE.RingGeometry(0.62, 0.65, 64).rotateX(-Math.PI / 2),
+    new THREE.RingGeometry(CYCLONE_RING[0], CYCLONE_RING[1], 64).rotateX(-Math.PI / 2),
     new THREE.MeshBasicMaterial({ color: 0xb8742f, transparent: true, opacity: 0.8, depthWrite: false }),
   );
   mark.position.set(cyclone.group.position.x, 0.004, cyclone.group.position.z);
@@ -474,7 +489,7 @@ export function createGasTrainScene(opts: GasTrainOptions = {}): GasTrainScene {
     far: 5000,
     declutter: true,
     get homePadding() {
-      return viewAspect(aspect) < 1 ? 0.62 : wide.padding;
+      return homePaddingFor(viewAspect(aspect), wide.padding);
     },
     update(state: GasState, dt: number, view: ViewOpts) {
       setField(state);
