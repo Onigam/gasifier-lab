@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { group, mesh, rng } from '@onigam/lab-kit/three';
 import { FARM } from '../dims';
 import { boxAt, joined, softBox, stick, uvMetric, v3 } from '../common';
-import { dynamic, mergeStatic } from '../merge';
+import { dynamic, mergePanes, mergeStatic } from '../merge';
 import { boardsMap, brickMap, chipsMap, masonryMap, shingleMap, tiled, woodMap } from '../textures';
 import { terrainHeight } from './terrain';
 
@@ -225,6 +225,8 @@ export function buildFarmhouse(opts: { against?: -1 | 1 } = {}): Building {
     ),
   );
   mergeStatic(g, { name: 'farmhouse' });
+  // the panes of the nineteen windows are one mesh (they share one glass and none overlaps another)
+  mergePanes(g, 'farmhouse-panes');
   g.position.y = Math.max(terrainHeight(FARM.house.x, FARM.house.z), 0);
   return {
     group: g,

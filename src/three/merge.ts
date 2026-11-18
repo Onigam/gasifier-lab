@@ -47,6 +47,32 @@ export interface MergeResult {
 
 const NOTHING: MergeResult = { removed: 0, created: 0 };
 
+/**
+ * What a texture draws: its image and how it is laid (two clones of one map with the same repeat, as `tiled` makes for every mesh that asks, draw the same pixels: by their own uuid they never matched, and five hoops of one barrel were five calls).
+ */
+function textureKey(t: THREE.Texture | null | undefined): string | undefined {
+  if (!t) return undefined;
+  return [
+    t.source.uuid,
+    t.repeat.x,
+    t.repeat.y,
+    t.offset.x,
+    t.offset.y,
+    t.rotation,
+    t.center.x,
+    t.center.y,
+    t.wrapS,
+    t.wrapT,
+    t.magFilter,
+    t.minFilter,
+    t.anisotropy,
+    t.colorSpace,
+    t.channel,
+    t.flipY,
+    t.matrixAutoUpdate,
+  ].join(',');
+}
+
 /** Two materials with the same signature draw the same pixels and may be shared; `undefined` = never share. */
 export function materialSignature(m: THREE.Material): string | undefined {
   if (m.type !== 'MeshStandardMaterial') return undefined;
@@ -62,14 +88,14 @@ export function materialSignature(m: THREE.Material): string | undefined {
     s.flatShading,
     s.side,
     s.opacity,
-    s.map?.uuid,
-    s.normalMap?.uuid,
-    s.roughnessMap?.uuid,
-    s.metalnessMap?.uuid,
-    s.emissiveMap?.uuid,
-    s.bumpMap?.uuid,
-    s.alphaMap?.uuid,
-    s.aoMap?.uuid,
+    textureKey(s.map),
+    textureKey(s.normalMap),
+    textureKey(s.roughnessMap),
+    textureKey(s.metalnessMap),
+    textureKey(s.emissiveMap),
+    textureKey(s.bumpMap),
+    textureKey(s.alphaMap),
+    textureKey(s.aoMap),
     s.alphaTest,
     s.polygonOffset,
     s.polygonOffsetFactor,
@@ -275,6 +301,60 @@ export function mergeStatic(root: THREE.Object3D, opts: MergeOptions = {}): Merg
     out.frustumCulled = first.frustumCulled;
     out.layers.mask = first.layers.mask;
     if (first.userData.noShadow) out.userData.noShadow = true;
+    out.userData.merged = list.length;
+    for (const m of list) m.parent?.remove(m);
+    root.add(out);
+    removed += list.length;
+    created++;
+  }
+  return { removed, created };
+}
+
+/**
+ * The panes of a building: meshes under `root` that share one transparent material (the very same object) are baked into one mesh, in the frame of `root`. `mergeStatic` leaves transparent meshes alone, since two that overlap must be sorted by the renderer; panes of glass
+ * each in its own window do not overlap, and a house with nineteen windows paid nineteen calls for two hundred triangles. Only for meshes that never move or toggle by themselves (not flagged `dynamic`, no part of their own).
+ */
+export function mergePanes(root: THREE.Object3D, name = 'panes'): MergeResult {
+  if (!MERGE.enabled) return NOTHING;
+  root.updateWorldMatrix(true, true);
+  const inverse = new THREE.Matrix4().copy(root.matrixWorld).invert();
+  const rel = new THREE.Matrix4();
+  const buckets = new Map<string, THREE.Mesh[]>();
+  const visit = (o: THREE.Object3D): void => {
+    for (const c of o.children) {
+      if (!c.visible || c.userData.keep || c.userData.dynamic) continue;
+      if (c.userData.partId && c.userData.partId !== root.userData.partId) continue;
+      const m = c as THREE.Mesh;
+      if (
+        m.isMesh &&
+        !(m as THREE.InstancedMesh).isInstancedMesh &&
+        !Array.isArray(m.material) &&
+        m.material.transparent
+      ) {
+        const key = [m.material.uuid, m.castShadow, m.receiveShadow, m.renderOrder].join('#');
+        const b = buckets.get(key);
+        if (b) b.push(m);
+        else buckets.set(key, [m]);
+      }
+      visit(c);
+    }
+  };
+  visit(root);
+  let removed = 0;
+  let created = 0;
+  for (const list of buckets.values()) {
+    if (list.length < 2) continue;
+    const uv = list.some((m) => m.geometry.attributes.uv);
+    const geos = list.map((m) => bakedGeometry(m.geometry, uv, rel.multiplyMatrices(inverse, m.matrixWorld)));
+    const merged = mergeGeometries(geos, false);
+    geos.forEach((g) => g.dispose());
+    if (!merged) continue;
+    const first = list[0]!;
+    const out = new THREE.Mesh(merged, first.material);
+    out.name = `${name}-merged`;
+    out.castShadow = first.castShadow;
+    out.receiveShadow = first.receiveShadow;
+    out.renderOrder = first.renderOrder;
     out.userData.merged = list.length;
     for (const m of list) m.parent?.remove(m);
     root.add(out);

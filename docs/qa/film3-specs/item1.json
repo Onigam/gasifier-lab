@@ -1,0 +1,178 @@
+{
+ "out": "/Users/magino/.cache/lab-review/gasifier-lab/film3/after",
+ "tag": "c",
+ "width": 1280,
+ "height": 720,
+ "film": true,
+ "shots": [
+  {
+   "name": "farm-0a-home",
+   "scene": "farm",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ],
+    [
+     "engine",
+     "off"
+    ]
+   ],
+   "runIn": 20
+  },
+  {
+   "name": "farm-0a-evening-20",
+   "scene": "farm",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ],
+    [
+     "engine",
+     "off"
+    ]
+   ],
+   "runIn": 6,
+   "dayStart": 20.0
+  },
+  {
+   "name": "farm-oldpose-birch",
+   "scene": "farm",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ],
+   "runIn": 3,
+   "camera": {
+    "position": [
+     29,
+     26,
+     106
+    ],
+    "target": [
+     3,
+     3.5,
+     3
+    ]
+   }
+  },
+  {
+   "name": "farm-aerial-15",
+   "scene": "farm",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ],
+   "runIn": 3,
+   "camera": {
+    "position": [
+     29.5,
+     29.47,
+     98.63
+    ],
+    "target": [
+     2,
+     1,
+     -4
+    ]
+   }
+  },
+  {
+   "name": "farm-aerial-25",
+   "scene": "farm",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ],
+   "runIn": 3,
+   "camera": {
+    "position": [
+     27.8,
+     47.49,
+     92.3
+    ],
+    "target": [
+     2,
+     1,
+     -4
+    ]
+   }
+  },
+  {
+   "name": "farm-aerial-32",
+   "scene": "farm",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ],
+   "runIn": 3,
+   "camera": {
+    "position": [
+     26.14,
+     59.29,
+     86.11
+    ],
+    "target": [
+     2,
+     1,
+     -4
+    ]
+   }
+  },
+  {
+   "name": "farm-aerial-40",
+   "scene": "farm",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ],
+   "runIn": 3,
+   "camera": {
+    "position": [
+     23.81,
+     71.71,
+     77.39
+    ],
+    "target": [
+     2,
+     1,
+     -4
+    ]
+   }
+  },
+  {
+   "name": "farm-aerial-55",
+   "scene": "farm",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ],
+   "runIn": 3,
+   "camera": {
+    "position": [
+     18.33,
+     91.11,
+     56.94
+    ],
+    "target": [
+     2,
+     1,
+     -4
+    ]
+   }
+  }
+ ]
+}

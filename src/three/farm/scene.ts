@@ -1,9 +1,9 @@
 import * as THREE from 'three';
-import { group, mesh, rng } from '@onigam/lab-kit/three';
+import { group, mesh, patchMaterial, rng } from '@onigam/lab-kit/three';
 import type { Hotspot, SceneModule, ViewOpts } from '@onigam/lab-kit/three';
 import { FARM, GARAGE, UNIT, UNIT_AT } from '../dims';
 import { Followers } from '../followers';
-import { dynamic, mergeStatic } from '../merge';
+import { dynamic, mergePanes, mergeStatic } from '../merge';
 import { chipsMap, concreteMap, tiled } from '../textures';
 import { buildGarageBuilding } from '../garage/building';
 import { DOOR_OPEN } from '../garage/scene';
@@ -267,8 +267,27 @@ function reeds(x0: number, x1: number, n: number, seed: number): THREE.Object3D 
   }
   im.castShadow = false;
   im.name = 'reeds';
+  // a blade of 6 cm is under a pixel from some tens of metres: a field of them along the ditch is a line of pixels that come and go as the camera moves (docs/qa.md, film round 2, M1). A blade is never drawn thinner than about two pixels, and the rushes go down into the bank
+  // between `REEDS_FADE` metres from the eye: from the field's far side the bank is the land's own dark grass, near it the rushes stand
+  patchMaterial(im.material as THREE.Material, 'reeds-by-distance', (shader) => {
+    shader.uniforms.uReedFade = { value: new THREE.Vector2(...REEDS_FADE) };
+    shader.vertexShader = shader.vertexShader
+      .replace('#include <common>', '#include <common>\nuniform vec2 uReedFade;')
+      .replace(
+        '#include <begin_vertex>',
+        `#include <begin_vertex>
+        #ifdef USE_INSTANCING
+          float reedD = length( ( modelViewMatrix * instanceMatrix * vec4( 0.0, 0.0, 0.0, 1.0 ) ).xyz );
+          transformed.x *= max( 1.0, reedD * 0.0022 / 0.06 );
+          transformed.y *= 1.0 - smoothstep( uReedFade.x, uReedFade.y, reedD );
+        #endif`,
+      );
+  });
   return im;
 }
+
+/** The rushes of the ditch stand whole within the first distance from the eye, metres, and are gone into the bank at the second. */
+export const REEDS_FADE = [28, 52] as const;
 
 const UP = new THREE.Vector3(0, 1, 0);
 
@@ -302,11 +321,19 @@ export function createFarmScene(opts: FarmOptions = {}): FarmScene {
   barn.group.position.x = FARM.barn.x;
   barn.group.position.z = FARM.barn.z;
   scene.add(barn.group);
-  // the garage, attached to the house's east gable: the same building that `garage` shows cut open, here roofed, its door to the south
+  // the garage, attached to the house's gable (`FARM.garage`): the same building that `garage` shows cut open, here roofed, its door to the south
   const gar = buildGarageBuilding({ roof: true, volume: GARAGE.smallM3 });
   const farmGarage = group('farm-garage');
   farmGarage.userData.partId = 'farm-garage';
   farmGarage.add(gar.shell, gar.above, gar.roof);
+  // in the farm the garage is whole and roofed and no wall of it steps aside: its walls, its lining and the bedroom's joinery are one mesh a material (the door's leaves and the lamp still move), its panes one mesh
+  for (const part of [gar.shell, gar.above]) {
+    part.traverse((o) => {
+      if (o.userData.keep) o.userData.keep = false;
+    });
+    mergeStatic(part, { name: `farm-${part.name}` });
+    mergePanes(part, `farm-${part.name}-panes`);
+  }
   farmGarage.rotation.y = Math.PI;
   farmGarage.position.set(FARM.garage.x, 0, FARM.garage.z);
   scene.add(farmGarage);
@@ -612,7 +639,6 @@ export function createFarmScene(opts: FarmOptions = {}): FarmScene {
   const pin = new THREE.Vector3();
   const hitch = new THREE.Vector3();
   void UNIT;
-  void mergeStatic;
 
   // the sun's shadow box follows what the camera looks at when it is near it: 2,048 texels over 240 m are 12 cm each, a blur under a tyre; over 40 m they are 2 cm. From the overview it is the whole yard, as before
   const camAt = new THREE.Vector3();

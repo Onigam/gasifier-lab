@@ -1,0 +1,99 @@
+{
+ "out": "/Users/magino/.cache/lab-review/gasifier-lab/film3/after",
+ "tag": "c",
+ "width": 1280,
+ "height": 720,
+ "film": true,
+ "shots": [
+  {
+   "name": "garage-5b-lid",
+   "scene": "garage",
+   "cues": [
+    [
+     "scenario",
+     "closed-garage"
+    ],
+    [
+     "speed",
+     "51"
+    ],
+    [
+     "raw",
+     {
+      "lidLeak": true
+     }
+    ]
+   ],
+   "frame": [
+    "post-gas-plume"
+   ],
+   "runIn": 30
+  },
+  {
+   "name": "garage-5b-lid-late",
+   "scene": "garage",
+   "cues": [
+    [
+     "scenario",
+     "closed-garage"
+    ],
+    [
+     "speed",
+     "51"
+    ],
+    [
+     "raw",
+     {
+      "lidLeak": true
+     }
+    ]
+   ],
+   "frame": [
+    "post-gas-plume"
+   ],
+   "runIn": 90
+  },
+  {
+   "name": "garage-4-plume",
+   "scene": "garage",
+   "cues": [
+    [
+     "scenario",
+     "closed-garage"
+    ],
+    [
+     "speed",
+     "51"
+    ]
+   ],
+   "frame": [
+    "post-gas-plume"
+   ],
+   "runIn": 40,
+   "flows": true
+  },
+  {
+   "name": "gasifier-lid",
+   "scene": "gasifier",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ],
+   "frame": [
+    "spring-lid"
+   ]
+  },
+  {
+   "name": "tractor-6-home",
+   "scene": "tractor",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ]
+  }
+ ]
+}

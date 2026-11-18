@@ -1,0 +1,135 @@
+{
+ "out": "/Users/magino/.cache/lab-review/gasifier-lab/film3/after",
+ "tag": "c",
+ "width": 1280,
+ "height": 720,
+ "film": true,
+ "shots": [
+  {
+   "name": "farm-0b-house-garage",
+   "scene": "farm",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ],
+   "frame": [
+    "farmhouse",
+    "farm-garage"
+   ]
+  },
+  {
+   "name": "farm-0b-garage",
+   "scene": "farm",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ],
+   "frame": [
+    "farm-garage"
+   ]
+  },
+  {
+   "name": "farm-0a-home",
+   "scene": "farm",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ],
+    [
+     "engine",
+     "off"
+    ]
+   ],
+   "runIn": 20
+  },
+  {
+   "name": "garage-1-home",
+   "scene": "garage",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ],
+    [
+     "engine",
+     "off"
+    ],
+    [
+     "speed",
+     "10"
+    ]
+   ],
+   "runIn": 4
+  },
+  {
+   "name": "garage-1-closed-garage",
+   "scene": "garage",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ],
+    [
+     "engine",
+     "off"
+    ]
+   ],
+   "frame": [
+    "closed-garage"
+   ]
+  },
+  {
+   "name": "garage-5c-door",
+   "scene": "garage",
+   "cues": [
+    [
+     "scenario",
+     "closed-garage"
+    ],
+    [
+     "speed",
+     "51"
+    ],
+    [
+     "door",
+     "open"
+    ]
+   ],
+   "frame": [
+    "garage-door"
+   ],
+   "runIn": 70
+  },
+  {
+   "name": "garage-lawn-low",
+   "scene": "garage",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ],
+    [
+     "engine",
+     "off"
+    ]
+   ],
+   "camera": {
+    "position": [
+     9,
+     1.6,
+     -11
+    ],
+    "target": [
+     0,
+     1.2,
+     0
+    ]
+   }
+  }
+ ]
+}

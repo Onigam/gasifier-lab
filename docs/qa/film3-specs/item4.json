@@ -1,0 +1,117 @@
+{
+ "out": "/Users/magino/.cache/lab-review/gasifier-lab/film3/after",
+ "tag": "c",
+ "width": 1280,
+ "height": 720,
+ "film": true,
+ "shots": [
+  {
+   "name": "gasifier-2-home",
+   "scene": "gasifier",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ]
+  },
+  {
+   "name": "gasifier-2-chip-column",
+   "scene": "gasifier",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ],
+    [
+     "journey",
+     "0.15"
+    ]
+   ],
+   "frame": [
+    "chip-column"
+   ]
+  },
+  {
+   "name": "gasifier-2-pyrolysis",
+   "scene": "gasifier",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ],
+    [
+     "journey",
+     "0.42"
+    ]
+   ],
+   "frame": [
+    "pyrolysis-zone"
+   ]
+  },
+  {
+   "name": "gasifier-2-oxidation",
+   "scene": "gasifier",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ],
+    [
+     "journey",
+     "0.62"
+    ]
+   ],
+   "frame": [
+    "oxidation-zone"
+   ]
+  },
+  {
+   "name": "gasifier-chips-close",
+   "scene": "gasifier",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ],
+   "camera": {
+    "position": [
+     0.05,
+     1.25,
+     -0.45
+    ],
+    "target": [
+     0.0,
+     1.2,
+     0.0
+    ]
+   }
+  },
+  {
+   "name": "train-3-home",
+   "scene": "gas-train",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ],
+   "flows": true
+  },
+  {
+   "name": "train-3-filter",
+   "scene": "gas-train",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ],
+   "frame": [
+    "filter-box"
+   ],
+   "flows": true
+  }
+ ]
+}

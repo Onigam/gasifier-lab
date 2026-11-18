@@ -117,7 +117,7 @@ await page.evaluate((film) => {
 /** One move of FRAMES frames, measured in the page (the pixels never leave it). */
 const measure = (move) =>
   page.evaluate(
-    (move, frames) => {
+    (move, frames, heat) => {
       const st = window.__lab.stage;
       const c = st.controls;
       c.minDistance = 0;
@@ -146,6 +146,7 @@ const measure = (move) =>
       const d1 = [];
       let shimmer = 0;
       let counted = 0;
+      const hits = heat ? new Uint16Array(w * h) : null;
       place(0);
       window.__step(6);
       for (let f = 0; f < frames; f++) {
@@ -162,12 +163,37 @@ const measure = (move) =>
         }
         if (l0 && l1) {
           let n = 0;
-          for (let i = 0; i < l.length; i++) if (Math.abs(l[i] - 2 * l1[i] + l0[i]) > 12) n++;
+          for (let i = 0; i < l.length; i++)
+            if (Math.abs(l[i] - 2 * l1[i] + l0[i]) > 12) {
+              n++;
+              if (hits) hits[i]++;
+            }
           shimmer += n / l.length;
           counted++;
         }
         l0 = l1;
         l1 = l;
+      }
+      let heatUrl = null;
+      if (hits) {
+        const cv = document.createElement('canvas');
+        cv.width = w;
+        cv.height = h;
+        const ctx = cv.getContext('2d');
+        const img = ctx.createImageData(w, h);
+        for (let y = 0; y < h; y++)
+          for (let x = 0; x < w; x++) {
+            const i = (h - 1 - y) * w + x;
+            const o = (y * w + x) * 4;
+            const k = Math.min(1, hits[i] / 8);
+            const g = l1[i] * 0.45;
+            img.data[o] = hits[i] ? 255 : g;
+            img.data[o + 1] = hits[i] ? 230 * (1 - k) : g;
+            img.data[o + 2] = hits[i] ? 0 : g;
+            img.data[o + 3] = 255;
+          }
+        ctx.putImageData(img, 0, 0);
+        heatUrl = cv.toDataURL('image/png');
       }
       st.camera.position.copy(p0);
       c.target.copy(t0);
@@ -181,10 +207,12 @@ const measure = (move) =>
         spikeFrame: d1.indexOf(max) + 1,
         medianDiff: +median.toFixed(3),
         buffer: [w, h],
+        heatUrl,
       };
     },
     move,
     FRAMES,
+    !!process.env.HEAT,
   );
 
 const count = await page.evaluate(() => document.querySelectorAll('.scene-switch button').length);
@@ -209,7 +237,8 @@ for (let s = 0; s < Math.max(1, count); s++) {
   }
   await page.screenshot({ path: path.join(OUT, `${scene}.png`) });
   for (const move of ['orbit', 'dolly']) {
-    const r = await measure(move);
+    const { heatUrl, ...r } = await measure(move);
+    if (heatUrl) fs.writeFileSync(path.join(OUT, `${scene}-${move}-heat.png`), Buffer.from(heatUrl.split(',')[1], 'base64'));
     rows.push({ scene, move, ...r });
     console.log(`${scene} ${move}: shimmer ${r.shimmerPct} %, spike ${r.spike} (frame ${r.spikeFrame})`);
   }

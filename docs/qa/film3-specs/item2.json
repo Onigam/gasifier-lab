@@ -1,0 +1,290 @@
+{
+ "out": "/Users/magino/.cache/lab-review/gasifier-lab/film3/after",
+ "tag": "c",
+ "width": 1280,
+ "height": 720,
+ "film": true,
+ "shots": [
+  {
+   "name": "garage-1-closed-garage",
+   "scene": "garage",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ],
+    [
+     "engine",
+     "off"
+    ]
+   ],
+   "frame": [
+    "closed-garage"
+   ]
+  },
+  {
+   "name": "garage-path-t50",
+   "scene": "garage",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ],
+    [
+     "engine",
+     "off"
+    ]
+   ],
+   "path": {
+    "from": [
+     "closed-garage"
+    ],
+    "to": [
+     "old-rescue-set"
+    ],
+    "t": 0.5
+   }
+  },
+  {
+   "name": "garage-path-t70",
+   "scene": "garage",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ],
+    [
+     "engine",
+     "off"
+    ]
+   ],
+   "path": {
+    "from": [
+     "closed-garage"
+    ],
+    "to": [
+     "old-rescue-set"
+    ],
+    "t": 0.7
+   }
+  },
+  {
+   "name": "garage-path-t80",
+   "scene": "garage",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ],
+    [
+     "engine",
+     "off"
+    ]
+   ],
+   "path": {
+    "from": [
+     "closed-garage"
+    ],
+    "to": [
+     "old-rescue-set"
+    ],
+    "t": 0.8
+   }
+  },
+  {
+   "name": "garage-path-t84",
+   "scene": "garage",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ],
+    [
+     "engine",
+     "off"
+    ]
+   ],
+   "path": {
+    "from": [
+     "closed-garage"
+    ],
+    "to": [
+     "old-rescue-set"
+    ],
+    "t": 0.84
+   }
+  },
+  {
+   "name": "garage-path-t87",
+   "scene": "garage",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ],
+    [
+     "engine",
+     "off"
+    ]
+   ],
+   "path": {
+    "from": [
+     "closed-garage"
+    ],
+    "to": [
+     "old-rescue-set"
+    ],
+    "t": 0.87
+   }
+  },
+  {
+   "name": "garage-path-t90",
+   "scene": "garage",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ],
+    [
+     "engine",
+     "off"
+    ]
+   ],
+   "path": {
+    "from": [
+     "closed-garage"
+    ],
+    "to": [
+     "old-rescue-set"
+    ],
+    "t": 0.9
+   }
+  },
+  {
+   "name": "garage-path-t95",
+   "scene": "garage",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ],
+    [
+     "engine",
+     "off"
+    ]
+   ],
+   "path": {
+    "from": [
+     "closed-garage"
+    ],
+    "to": [
+     "old-rescue-set"
+    ],
+    "t": 0.95
+   }
+  },
+  {
+   "name": "garage-3-rescue",
+   "scene": "garage",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ],
+   "frame": [
+    "old-rescue-set"
+   ]
+  },
+  {
+   "name": "train-path-t50",
+   "scene": "gas-train",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ],
+   "path": {
+    "from": [
+     "cylinder-cutaway"
+    ],
+    "to": [
+     "water-gauge"
+    ],
+    "t": 0.5
+   }
+  },
+  {
+   "name": "train-path-t65",
+   "scene": "gas-train",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ],
+   "path": {
+    "from": [
+     "cylinder-cutaway"
+    ],
+    "to": [
+     "water-gauge"
+    ],
+    "t": 0.65
+   }
+  },
+  {
+   "name": "train-path-t80",
+   "scene": "gas-train",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ],
+   "path": {
+    "from": [
+     "cylinder-cutaway"
+    ],
+    "to": [
+     "water-gauge"
+    ],
+    "t": 0.8
+   }
+  },
+  {
+   "name": "train-path-t90",
+   "scene": "gas-train",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ],
+   "path": {
+    "from": [
+     "cylinder-cutaway"
+    ],
+    "to": [
+     "water-gauge"
+    ],
+    "t": 0.9
+   }
+  },
+  {
+   "name": "train-3-gauge",
+   "scene": "gas-train",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ],
+   "frame": [
+    "water-gauge"
+   ],
+   "flows": true
+  }
+ ]
+}

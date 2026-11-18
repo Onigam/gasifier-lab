@@ -147,6 +147,13 @@ export const SPRUCE_COARSE_FROM = 28;
 /** Beyond this many metres from the eye a birch is drawn with its main limbs and a crown of fewer, larger sprays of the same leaves (`leafyTree(…, true)`). */
 export const BIRCH_COARSE_FROM = 30;
 
+/** A crown's leaves keep their own tones within the first distance from the eye, metres, and are the crown's mean green from the second. */
+export const LEAVES_FAR = [26, 75] as const;
+
+/** A limb of a broad-leaved tree ends within this share of its crown's ellipsoid, and the spray it carries within `SPRAY_TUCK` of it. */
+export const LIMB_REACH = 0.9;
+export const SPRAY_TUCK = 0.8;
+
 /** A spruce seen from afar: a stack of drooping skirts with a star-shaped hem (the boughs' tips), a thin dark lip under each. Same height and reach as the detailed one, a few hundred triangles of broad faces instead of seven hundred thin ones. */
 export function spruceCoarse(tiers = 10, points = 7): THREE.BufferGeometry {
   const m = new Mesher();
@@ -159,8 +166,10 @@ export function spruceCoarse(tiers = 10, points = 7): THREE.BufferGeometry {
     const f = t / (tiers - 1);
     const y = 0.09 + 0.87 * f ** 0.92;
     const reach = 0.205 * (1 - f) ** 0.85 + 0.03;
-    const droop = 0.026 + 0.045 * (1 - f);
-    const apex = m.vert(0, y + 0.06 * (1 - f) + 0.045, 0, midC);
+    // with fewer tiers each skirt is taller, so that one still reaches the next (ten tiers: as it was)
+    const tall = 9 / (tiers - 1);
+    const droop = (0.026 + 0.045 * (1 - f)) * tall;
+    const apex = m.vert(0, Math.min(0.97, y + (0.06 * (1 - f) + 0.045) * tall), 0, midC);
     const seg = points * 2;
     const hem: number[] = [];
     const under: number[] = [];
@@ -188,6 +197,35 @@ export function spruceCoarse(tiers = 10, points = 7): THREE.BufferGeometry {
   }
   for (let s = 0; s < 5; s++) m.tri(top, ring[(s + 1) % 5]!, ring[s]!);
   return m.build();
+}
+
+/**
+ * A tree of the rows behind: the same shape, lit nearly as one mass (its normals lean to the sky) and in nearly one green (its lit tips and the dark under its skirts drawn to their mean). Behind the first row a spruce is a dark shape among dark shapes; drawn with the
+ * stripes of light and shade the first row has, two hundred of them were a field of edges that crawled on a slow orbit (measured: the rows behind cost 0.8 point of the farm's shimmer before this).
+ */
+export function softened(g: THREE.BufferGeometry, keep = 0.25): THREE.BufferGeometry {
+  const n = g.attributes.normal as THREE.BufferAttribute;
+  const c = g.attributes.color as THREE.BufferAttribute;
+  const v = new THREE.Vector3();
+  let mr = 0;
+  let mg = 0;
+  let mb = 0;
+  for (let i = 0; i < c.count; i++) {
+    mr += c.getX(i);
+    mg += c.getY(i);
+    mb += c.getZ(i);
+  }
+  mr /= c.count;
+  mg /= c.count;
+  mb /= c.count;
+  for (let i = 0; i < n.count; i++) {
+    v.fromBufferAttribute(n, i).multiplyScalar(keep);
+    v.y += 1 - keep;
+    v.normalize();
+    n.setXYZ(i, v.x, v.y, v.z);
+    c.setXYZ(i, mr + (c.getX(i) - mr) * keep, mg + (c.getY(i) - mg) * keep, mb + (c.getZ(i) - mb) * keep);
+  }
+  return g;
 }
 
 export function spruceTrunk(): THREE.BufferGeometry {
@@ -246,10 +284,15 @@ export function leafCard(
   const lc = C(light);
   const dc = C(dark);
   const col = new THREE.Color();
+  // the spray's outline is a lobed blob and not the card's square: a card whose leaves fill its square is a rectangle as soon as it stands alone against the sky or the grass (the rectangles over the birches seen from above, docs/qa.md, film round 2, F1);
+  // the leaves' centres stay inside `SPRAY_OUTLINE`, so that the corners of every card are clear at every level of its mip chain
+  const phase = [r() * 6.28, r() * 6.28];
   for (let l = 0; l < leaves; l++) {
     const a = r() * Math.PI * 2;
-    const cx = 0.12 + r() * 0.76;
-    const cy = 0.12 + r() * 0.76;
+    const th = r() * Math.PI * 2;
+    const rad = Math.sqrt(r()) * sprayOutline(th, phase);
+    const cx = 0.5 + Math.cos(th) * rad;
+    const cy = 0.5 + Math.sin(th) * rad;
     const len = size * (0.8 + 0.6 * r());
     const wid = len * narrow;
     col.copy(dc).lerp(lc, r());
@@ -283,7 +326,32 @@ export function leafCard(
   t.mipmaps = leafMips(d, N);
   t.generateMipmaps = false;
   t.needsUpdate = true;
+  // the mean colour of its leaves (linear), for the crowns seen from afar
+  const mean = new THREE.Color(0, 0, 0);
+  let n = 0;
+  for (let k = 0; k < d.length; k += 4)
+    if (d[k + 3]) {
+      mean.r += d[k]!;
+      mean.g += d[k + 1]!;
+      mean.b += d[k + 2]!;
+      n++;
+    }
+  t.userData.mean = new THREE.Color().setRGB(
+    mean.r / n / 255,
+    mean.g / n / 255,
+    mean.b / n / 255,
+    THREE.SRGBColorSpace,
+  );
   return t;
+}
+
+/** The radius, in card widths from the card's middle, inside which the leaves of a spray have their centres: three and five lobes round a mean of 0.38, never over `SPRAY_REACH`. */
+export const SPRAY_REACH = 0.43;
+function sprayOutline(theta: number, phase: number[]): number {
+  return Math.min(
+    SPRAY_REACH,
+    0.38 * (1 + 0.16 * Math.sin(3 * theta + phase[0]!) + 0.09 * Math.sin(5 * theta + phase[1]!)),
+  );
 }
 
 /**
@@ -372,11 +440,28 @@ export function leafMaterial(map: THREE.Texture, name: string): THREE.MeshStanda
     name,
   });
   m.userData.noShare = true;
+  const mean = (map.userData.mean as THREE.Color | undefined) ?? new THREE.Color(0.2, 0.3, 0.1);
   patchMaterial(m, 'keep-normal', (shader) => {
-    shader.fragmentShader = shader.fragmentShader.replace(
-      '#include <normal_fragment_begin>',
-      '#include <normal_fragment_begin>\n  normal = normalize( vNormal );',
-    );
+    shader.uniforms.uLeafMean = { value: mean };
+    shader.uniforms.uLeafFar = { value: new THREE.Vector2(...LEAVES_FAR) };
+    shader.vertexShader = shader.vertexShader
+      .replace('#include <common>', '#include <common>\nvarying float vLeafD;')
+      .replace('#include <project_vertex>', '#include <project_vertex>\n  vLeafD = -mvPosition.z;');
+    shader.fragmentShader = shader.fragmentShader
+      .replace(
+        '#include <common>',
+        '#include <common>\nvarying float vLeafD;\nuniform vec3 uLeafMean;\nuniform vec2 uLeafFar;',
+      )
+      .replace('#include <normal_fragment_begin>', '#include <normal_fragment_begin>\n  normal = normalize( vNormal );')
+      .replace(
+        '#include <color_fragment>',
+        `#include <color_fragment>
+        {
+          // from afar a crown is a mass in its mean green, lit by its own round shape: the leaf-by-leaf and spray-by-spray differences of tone, which a pixel can no longer hold, are what glitters when the eye moves (docs/qa.md, film round 2, M1)
+          float leafFar = smoothstep( uLeafFar.x, uLeafFar.y, vLeafD );
+          diffuseColor.rgb = mix( diffuseColor.rgb, uLeafMean * mix( vColor.rgb, vec3( 0.74 ), 0.8 ), 0.85 * leafFar );
+        }`,
+      );
   });
   return m;
 }
@@ -392,6 +477,19 @@ interface CrownSpec {
   /** 0 airy, 1 solid: fraction of the sprays near the surface, not inside. */
   shell: number;
   droop: number;
+  /** The sprays on the limbs' ends are drawn in to this share of the crown's ellipsoid (a spray on a twig outside the mass is a card on a stick from above). None for a pine, whose low limbs carry their own. */
+  tuck?: number;
+}
+
+/** How far out of a crown a point stands: 0 at its middle, 1 on its ellipsoid (the droop of the sides undone). */
+export function crownReach(
+  p: [number, number, number],
+  c: [number, number, number],
+  rad: [number, number, number],
+  droop: number,
+): number {
+  const y = p[1] + droop * Math.abs(p[0] - c[0]);
+  return Math.hypot((p[0] - c[0]) / rad[0], (y - c[1]) / rad[1], (p[2] - c[2]) / rad[2]);
 }
 
 /** Sprays of crossed cards in a crown: each spray's normal points out of the crown, so that a crown lights as a mass. */
@@ -444,8 +542,16 @@ function crown(spec: CrownSpec, limbEnds: [number, number, number][]): THREE.Buf
     }
   };
   // sprays on the limbs' ends first, then through the ellipsoid
-  for (const e of limbEnds) place(new THREE.Vector3(...e));
   const p = new THREE.Vector3();
+  for (const e of limbEnds) {
+    p.set(...e);
+    const d = crownReach(e, spec.c, spec.rad, spec.droop);
+    if (spec.tuck && d > spec.tuck)
+      p.sub(centre)
+        .multiplyScalar(spec.tuck / d)
+        .add(centre);
+    place(p);
+  }
   for (let i = 0; i < spec.sprays; i++) {
     for (let t = 0; t < 40; t++) {
       p.set(r() * 2 - 1, r() * 2 - 1, r() * 2 - 1);
@@ -472,6 +578,8 @@ export interface Species {
   crown: THREE.BufferGeometry;
   /** Height of the real tree for a scale of 1, metres. */
   height: number;
+  /** The crown's ellipsoid (centre, radii, in tree heights) and the droop of its sides, for a broad-leaved tree. */
+  shape?: { c: [number, number, number]; rad: [number, number, number]; droop: number };
 }
 
 /** A broad-leaved tree: a trunk, forking limbs, a crown of sprays. `kind` sets the proportions. */
@@ -529,6 +637,7 @@ export function leafyTree(kind: 'birch' | 'oak' | 'apple' | 'linden', seed: numb
     },
   }[kind];
   const lean = spec.lean;
+  const droop = kind === 'birch' ? 0.35 : 0.15;
   const trunkPts: [number, number, number][] = [
     [0, 0, 0],
     [lean * 0.3, 0.05, 0],
@@ -570,6 +679,12 @@ export function leafyTree(kind: 'birch' | 'oak' | 'apple' | 'linden', seed: numb
       py += (L * up) / seg - (kind === 'birch' ? -0.01 : 0) * s;
       pts.push([px, py, pz]);
     }
+    // a limb ends in the crown, never outside it: the twig that stood out of the top carried one spray alone, a card on a stick seen from above (docs/qa.md, film round 2, F1)
+    for (let k = 1; k > 0.3 && crownReach([px, py, pz], spec.crownC, spec.rad, droop) > LIMB_REACH; k -= 0.05) {
+      for (let q = 1; q <= seg; q++)
+        for (let ax = 0; ax < 3; ax++) pts[q]![ax] = base[ax]! + (pts[q]![ax]! - base[ax]!) * (k / (k + 0.05));
+      [px, py, pz] = pts[seg]!;
+    }
     const r0 = Math.max(0.006, spec.trunkR[2]! * 0.6 * (1 - 0.4 * f)) * (coarse ? 1.6 : 1);
     tube(m, pts, [r0, r0 * 0.8, r0 * 0.6, r0 * 0.4, r0 * (coarse ? 0.4 : 0.15)], coarse ? 6 : 5, bark, twig, 5);
     ends.push([px, py, pz]);
@@ -581,6 +696,9 @@ export function leafyTree(kind: 'birch' | 'oak' | 'apple' | 'linden', seed: numb
       [pts[2]![0] + Math.cos(a2) * L * 0.4, pts[2]![1] + L * 0.2, pts[2]![2] + Math.sin(a2) * L * 0.4],
       [pts[2]![0] + Math.cos(a2) * L * 0.75, pts[2]![1] + L * 0.3, pts[2]![2] + Math.sin(a2) * L * 0.75],
     ];
+    for (let k = 0; k < 12 && crownReach(fork[2]!, spec.crownC, spec.rad, droop) > LIMB_REACH; k++)
+      for (const q of [1, 2] as const)
+        for (let ax = 0; ax < 3; ax++) fork[q]![ax] = pts[2]![ax]! + (fork[q]![ax]! - pts[2]![ax]!) * 0.9;
     tube(m, fork, [r0 * 0.5, r0 * 0.35, r0 * 0.12], 4, twig, twig, 5);
     ends.push(fork[2]!);
   }
@@ -595,11 +713,12 @@ export function leafyTree(kind: 'birch' | 'oak' | 'apple' | 'linden', seed: numb
       size: coarse ? spec.size * 1.2 : spec.size,
       tint: [0.45 * lightG, 1.0 * lightG],
       shell: kind === 'oak' ? 0.4 : 0.15,
-      droop: kind === 'birch' ? 0.35 : 0.15,
+      droop,
+      tuck: SPRAY_TUCK,
     },
     ends,
   );
-  return { trunk: m.build(), crown: cr, height: spec.h };
+  return { trunk: m.build(), crown: cr, height: spec.h, shape: { c: spec.crownC, rad: spec.rad, droop } };
 }
 
 /** A Scots pine: a long bare trunk with orange scaly bark above, a flat irregular crown at the top. */
@@ -643,7 +762,7 @@ export function pineTree(seed: number): Species {
       rad: [0.22, 0.11, 0.22],
       sprays: 90,
       size: 0.15,
-      tint: [0.35, 0.8],
+      tint: [0.6, 1.0],
       shell: 0.2,
       droop: 0.2,
     },
@@ -920,6 +1039,47 @@ export function buildTrees(avoid: (x: number, z: number) => boolean = () => fals
     crown: spruceCoarse(),
     from: SPRUCE_COARSE_FROM,
   });
+
+  // the belt has depth: rows of spruce behind the first, so that the shelterbelt is a band of forest and not a row of cones each cut out against the sky (the edge of a dark conifer on a bright sky is what crawls on a slow move, docs/qa.md, film round 2, M1: behind
+  // a first row there is now the dark of the second, and only the tops stand on the sky). One instanced mesh of the skirted spruce with fewer tiers, a little shorter than the first rows (their tops stay behind them and add no teeth to the edge of the belt against the sky), casting no shadow (the front rows cast the belt's)
+  const back: Planting[] = [];
+  for (let row = 0; row < 3; row++) {
+    for (let x = -100 - row * 4; x < 112 + row * 4; x += 4.6)
+      back.push({
+        x: x + (r() - 0.5) * 3,
+        z: -59 - row * 6.5 - r() * 3,
+        s: 0.74 + 0.24 * r(),
+        rot: r() * 6.28,
+      });
+    if (row === 2) continue;
+    for (let z = -52; z < 30; z += 5)
+      back.push({ x: -86 - row * 6.5 - r() * 3, z: z + (r() - 0.5) * 3, s: 0.74 + 0.24 * r(), rot: r() * 6.28 });
+    for (let z = -48; z < 30; z += 5)
+      back.push({ x: 100 + row * 6.5 + r() * 3, z: z + (r() - 0.5) * 3, s: 0.74 + 0.24 * r(), rot: r() * 6.28 });
+  }
+  {
+    const places = back.filter((p) => !avoidAt(p.x, p.z));
+    const im = new THREE.InstancedMesh(softened(spruceCoarse(7, 6)), spruceMat, places.length);
+    const mtx = new THREE.Matrix4();
+    const q = new THREE.Quaternion();
+    const col = new THREE.Color();
+    places.forEach((p, i) => {
+      const h = spruceHeight * p.s;
+      const y = terrainHeight(p.x, p.z);
+      q.setFromAxisAngle(new THREE.Vector3(0, 1, 0), p.rot);
+      mtx.compose(new THREE.Vector3(p.x, y - 0.05, p.z), q, new THREE.Vector3(h, h, h));
+      im.setMatrixAt(i, mtx);
+      const t = 0.62 + 0.08 * r();
+      col.setRGB(t, t * 1.03, t * 1.06);
+      im.setColorAt(i, col);
+      feet.push(new THREE.Vector3(p.x, y, p.z));
+    });
+    im.name = 'spruce-back';
+    im.castShadow = false;
+    im.receiveShadow = false;
+    im.frustumCulled = false;
+    group.add(im);
+  }
 
   // far forest: a ring of crude spruces in dark groves, kept from the yard and the field
   const far: Planting[] = [];
