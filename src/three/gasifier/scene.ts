@@ -3,7 +3,7 @@ import type { Hotspot, SceneModule, ViewOpts } from '@onigam/lab-kit/three';
 import { COLUMN, HEARTH, UNIT, UNIT_AT } from '../dims';
 import { frame } from '../train/stands';
 import { RAMP } from '../unit/field';
-import { cursorY, buildUnit, UNIT_PARTS, type Unit, type UnitPartId } from '../unit/unit';
+import { LID_HELD, cursorY, buildUnit, UNIT_PARTS, type Unit, type UnitPartId } from '../unit/unit';
 import { setField, FIELD, fieldT } from '../unit/field';
 import { makeFlow, unitSections } from '../flowpaths';
 import { heatRgb, heatStops } from '@onigam/lab-kit/sim/thermal';
@@ -234,7 +234,7 @@ export function createGasifierScene(opts: GasifierOptions = {}): SceneModule<Gas
         engineOn: state.engineOn,
         gasFlowShare: state.gasFlowShare,
         grateMoving: state.grateMoving,
-        lidPush: state.pressureSign === 'pressure' ? Math.min(1, state.plumeShare) : 0,
+        lidPush: state.pressureSign === 'pressure' ? (p?.lidLeak ? 1 : LID_HELD * Math.min(1, state.plumeShare)) : 0,
         ashShare: Math.min(1, state.ashKg / 4),
         jarShare: Math.min(1, state.condensateL * 0.08),
         time: view.time,

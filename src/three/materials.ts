@@ -76,6 +76,12 @@ export const blackPaint = (): THREE.MeshStandardMaterial =>
   once('black-paint', () => std({ color: COLOURS.black, roughness: 0.6, metalness: 0.2 }));
 export const rubber = (): THREE.MeshStandardMaterial =>
   once('rubber', () => std({ color: 0x17181a, roughness: 0.94, metalness: 0 }));
+/** The lid's plate: bare steel gone grey and dull in the weather, paler than the gap that opens under it when it lifts and than the yoke that bridges it. */
+export const lidPlate = (): THREE.MeshStandardMaterial =>
+  once('lid-plate', () => std({ color: 0x9aa39c, map: tiled(toolSteelMap(), 1, 1), roughness: 0.62, metalness: 0.45 }));
+/** The woven cord a lid closes on: pale, matt. */
+export const gasketCord = (): THREE.MeshStandardMaterial =>
+  once('gasket-cord', () => std({ color: 0xd8d0ba, roughness: 1, metalness: 0 }));
 export const hose = (): THREE.MeshStandardMaterial =>
   once('hose', () => std({ color: 0x232426, roughness: 0.8, metalness: 0 }));
 

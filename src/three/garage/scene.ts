@@ -222,8 +222,8 @@ export function createGarageScene(opts: GarageOptions = {}): GarageScene {
   const eyeAt = toRoom(eye);
   const lidAt = toRoom(lid);
   const eyeBox = new THREE.Box3(eyeAt.clone().add(v3(-1.0, -0.2, -1.0)), eyeAt.clone().add(v3(1.0, 1.9, 1.0)));
-  // with the lid's leak the frame is the lid and the ring of gas about it and nothing else: the camera stands outside the open side a little above, at the height from which the ray to the lid still passes under the slab
-  const lidTight = new THREE.Box3(lidAt.clone().add(v3(-0.55, -0.5, -0.55)), lidAt.clone().add(v3(0.55, 0.6, 0.55)));
+  // with the lid's leak the frame is the lid on the top of its casing with the gas that leaves round its rim over it, at the distance from which the near wheel and the foot of the cab are in the picture beside it (a medium frame: the lid as the top of the unit it closes)
+  const lidTight = new THREE.Box3(lidAt.clone().add(v3(-0.3, -0.3, -0.3)), lidAt.clone().add(v3(0.3, 0.35, 0.3)));
   // the two fittings on the wall are small: the camera frames their middle, not the board's and the cable's whole box
   scene.updateMatrixWorld(true);
   const centre = (o: THREE.Object3D | THREE.Object3D[], k: number): THREE.Box3 => {
@@ -363,9 +363,13 @@ export function createGarageScene(opts: GarageOptions = {}): GarageScene {
       const share = state.pressureSign === 'pressure' ? clamp(state.plumeShare, 0, 1) : 0;
       const op = state.plumeVisible ? 0.7 : 0.12;
       // with a lid that leaks the hot column draws the gas up and out of the lid, and less leaves at the intake
-      plumeEye.set({ share: p?.lidLeak ? share * 0.45 : share, opacity: op, time: view.time * view.slowMo });
+      plumeEye.set({
+        share: p?.lidLeak ? share * LEAK_INTAKE.share : share,
+        opacity: op,
+        time: view.time * view.slowMo,
+      });
       // and it stays low (under the lid), so that the lid is seen above it and not through it
-      (plumeEye.points.material as THREE.ShaderMaterial).uniforms.uRise!.value = p?.lidLeak ? 0.75 : 1.7;
+      (plumeEye.points.material as THREE.ShaderMaterial).uniforms.uRise!.value = p?.lidLeak ? LEAK_INTAKE.rise : 1.7;
       // the lid's gas follows the model's flow, which rises over some minutes when the lid starts to leak mid-run: eased over five model minutes, and set at once when the world meets a run already under way
       const lidTarget = p?.lidLeak ? clamp(0.3 + 0.7 * state.plumeShare, 0, 1) : share * 0.3;
       if (lidShown < 0) lidShown = lidTarget;

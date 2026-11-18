@@ -20,7 +20,7 @@ import {
   type Piece,
 } from '../train/components';
 import { LivePipe, type Port } from '../train/pipes';
-import { buildUnit, type Unit } from '../unit/unit';
+import { LID_HELD, buildUnit, type Unit } from '../unit/unit';
 import { makeFlow, unitSections, type FlowSet } from '../flowpaths';
 import { lineSections } from '../train/flow';
 import { setField } from '../unit/field';
@@ -296,7 +296,8 @@ export function buildMachine(): Machine {
       engineOn: s.engineOn,
       gasFlowShare: s.gasFlowShare,
       grateMoving: s.grateMoving,
-      lidPush: s.pressureSign === 'pressure' ? Math.min(1, s.plumeShare) : 0,
+      // the gas pushes the lid up against its spring a little; a lid that does not seal (the model's `lidLeak`) stands open by its whole lift for as long as the gas pushes
+      lidPush: s.pressureSign === 'pressure' ? (o.params?.lidLeak ? 1 : LID_HELD * Math.min(1, s.plumeShare)) : 0,
       ashShare: Math.min(1, s.ashKg / 4),
       jarShare: Math.min(1, s.condensateL * 0.08),
       time: o.time,

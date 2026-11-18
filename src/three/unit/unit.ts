@@ -33,6 +33,8 @@ import {
   blackWater,
   perforated,
   rubber,
+  gasketCord,
+  lidPlate,
   steel,
   tarFilm,
   upperCasing,
@@ -118,6 +120,11 @@ const T = UNIT.wall;
 const JY = UNIT.jointY;
 const RIM = UNIT.rimTop;
 const BOX_IN = HEARTH.boxR - HEARTH.boxWall;
+
+/** How far the gas lifts the lid against its spring at the most, metres: an estimate (no source gives it), a finger's width, so that a lid that does not seal shows its gap. */
+export const LID_LIFT = 0.019;
+/** The share of that lift a lid that seals is pushed to by the gas at its strongest: it shivers on its seat, it does not stand open. */
+export const LID_HELD = 0.63;
 
 /** The radius of the bed of chips and char at a height of U: the flare under the throat, the cone of the ring, the firebox, the hood, the sleeve, the casing. Drawn to scale; never printed. */
 export function bedRadius(y: number): number {
@@ -945,12 +952,15 @@ export function buildUnit(opts: UnitOptions): Unit {
     ];
     const underside = dish.map(([r, y]) => [r, y - L.thick] as [number, number]);
     const lidTurn = latheCrisp(dish, 64, phiStart, phiLength);
-    lidLift.add(mesh(lidTurn, darkSteel()));
+    lidLift.add(mesh(lidTurn, lidPlate()));
     lidLift.add(mesh(latheCrisp(underside.slice().reverse(), 64, phiStart, phiLength), darkSteel()));
     if (cut) lidLift.add(mesh(wallCap(dish, L.thick), cutMetal()));
-    // the lip and the seal under the rim
-    solid(ringPoly(L.R - 0.002, L.R + 0.004, -0.014, 0.002), darkSteel(), cut, lidLift, 64);
-    solid(ringPoly(RB - 0.012, RB + 0.003, -0.006, 0.0), rubber(), cut, lidLift, 64, rubber());
+    // the lid's rolled edge, worn bright: it closes on a cord gasket that lies on a seat welded round the casing's rim (the seat and the cord stay on the casing: when the gas lifts the lid on its spring, the gap opens between the cord and the edge,
+    // a dark line all round under the lid, which is what a lid that leaks looks like from the side)
+    solid(ringPoly(L.R - 0.003, L.R + 0.004, -0.005, 0.004), steel(), cut, lidLift, 64);
+    solid(ringPoly(RB + 0.002, L.R - 0.001, RIM - 0.017, RIM - 0.01), darkSteel(), cut, fuel, 64);
+    solid(ringPoly(RB + 0.004, RB + 0.009, RIM - 0.022, RIM - 0.016), darkSteel(), cut, fuel, 64);
+    solid(ringPoly(RB - 0.01, L.R - 0.004, RIM - 0.01, RIM - 0.004), gasketCord(), cut, fuel, 64, gasketCord());
     // the guide rod up through the yoke, and its nut
     // its top ends a little inside the yoke's bar when the lid is shut, and under the bar's top when the lid is lifted
     const rodLen = L.yokeUnder - (RIM + L.dish) + 0.005;
@@ -1237,7 +1247,7 @@ export function buildUnit(opts: UnitOptions): Unit {
     const rl = bedRadius(lv) / (RB - 0.012);
     topGroup.scale.set(rl, 1, rl);
     // the lid: pushed up by the gas against its spring, a few millimetres; the spring squashes with it
-    const lift = 0.012 * Math.min(1, Math.max(0, i.lidPush));
+    const lift = LID_LIFT * Math.min(1, Math.max(0, i.lidPush));
     lidLift.position.y = lidBase + lift;
     springMesh.scale.y = spring0 - lift;
     // the grate rocks while the model says it is moved; the shaft's outer end and its crank go with it, so the linkage never lets go
