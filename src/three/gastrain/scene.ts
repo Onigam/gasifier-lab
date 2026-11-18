@@ -47,6 +47,28 @@ import type { GasParams, GasState } from '../../sim/types';
 // one cylinder cut open with the pilot's thread of diesel, the exhaust. The same pieces, from the same functions as the tractor's (`train/components.ts`), standing on frames and posts instead of the tractor, and the pipes between them follow
 // their ports: nothing hangs from a part that went away. The cyclone, on the programme's own system (Fig. 3.5b) and not on this tractor's schematic, stands to one side, joined to nothing.
 
+/** What the gas line's overview holds: the line from the fan at the unit's foot to the exhaust behind the cylinder (at `cylX`), the top of the fan's stack, and the ribbons of the Sankey on the slab before it. */
+export const HOME_BOX = (cylX: number): THREE.Box3 =>
+  new THREE.Box3(new THREE.Vector3(-0.75, 0, -3.15), new THREE.Vector3(cylX + 0.8, 2.62, 1.1));
+/**
+ * Where a wide view looks at it from, and at what: from the front and a little from the unit's end, 22 degrees up, aimed low and forward of the line. The kit frames the sphere of a box about its middle, and the middle of this box is not the middle of what it shows on the
+ * screen (the ribbons lie on the ground in front of the line, the stack stands over it): aimed at the box's middle, the camera stood a fifth further and the line took less than half the picture's width. So a wide view's overview is the box stretched forward until its middle
+ * is `at`, and the padding is what puts the eye at `eye`; a view taller than wide has the box itself, which the kit fits by its real extents.
+ */
+export const HOME_WIDE = { eye: new THREE.Vector3(1.51, 3.59, -7.89), at: new THREE.Vector3(2.2, 1.6, -3.0) };
+export function homeWide(cylX: number): { box: THREE.Box3; padding: number } {
+  const hold = HOME_BOX(cylX);
+  const box = hold.clone();
+  // stretched on each axis so that `at` is its middle
+  for (const k of ['x', 'y', 'z'] as const) {
+    const reach = Math.max(HOME_WIDE.at[k] - hold.min[k], hold.max[k] - HOME_WIDE.at[k]);
+    box.min[k] = HOME_WIDE.at[k] - reach;
+    box.max[k] = HOME_WIDE.at[k] + reach;
+  }
+  const r = box.getSize(new THREE.Vector3()).length() / 2;
+  return { box, padding: (HOME_WIDE.eye.distanceTo(HOME_WIDE.at) * Math.sin((17.5 * Math.PI) / 180)) / r };
+}
+
 export interface GasTrainOptions {
   params?: () => GasParams;
   selected?: () => string | null;
@@ -357,7 +379,13 @@ export function createGasTrainScene(opts: GasTrainOptions = {}): GasTrainScene {
       { shell: true, explode: 0 },
     );
   // (the Sankey on the floor in front of the line is in the picture too)
-  registry.overview(() => [new THREE.Box3(new THREE.Vector3(-1.2, 0, -3.9), new THREE.Vector3(cylX + 1.4, 2.6, 2.0))]);
+  // (close about them: the line from the unit to the exhaust and the ribbons before it fill the width of the picture; the slab round them is not the subject)
+  let aspect = 16 / 9;
+  const wide = homeWide(cylX);
+  registry.overview(() => [aspect < 1 ? HOME_BOX(cylX) : wide.box]);
+  scene.onBeforeRender = (_r, _s, camera) => {
+    if ((camera as THREE.PerspectiveCamera).isPerspectiveCamera) aspect = (camera as THREE.PerspectiveCamera).aspect;
+  };
   yard.fitSlab(-2.2, -6.6, cylX + 2.2, 3.0);
 
   const portOf = (id: string, p: Port): Port => worldPort(pieces[id]!, p);
@@ -375,7 +403,8 @@ export function createGasTrainScene(opts: GasTrainOptions = {}): GasTrainScene {
   syncPipes();
   // where the energy goes, flat on the paper in front of the line: the model's kilowatts as ribbons
   const sankey = buildSankey();
-  sankey.group.position.set(-0.2, 0, -3.45);
+  // (as near the line as the cyclone's stand lets them: every decimetre between the ribbons and the line is a decimetre the camera stands further back at home)
+  sankey.group.position.set(-0.2, 0, -3.0);
   scene.add(sankey.group);
   followers.add('hot-gas-pipe', sankey.group, { shell: false, explode: 0 });
   sankey.update(base0);
@@ -431,13 +460,16 @@ export function createGasTrainScene(opts: GasTrainOptions = {}): GasTrainScene {
     registry,
     hotspots: hs,
     pieces,
-    home: { position: new THREE.Vector3(cx + 0.8, 4.2, -8.8), target: new THREE.Vector3(cx + 0.6, 0.6, -0.5) },
+    // (`HOME_WIDE`: the direction is the kit's to keep, the distance the kit's to set from the overview's box)
+    home: { position: HOME_WIDE.eye.clone(), target: HOME_WIDE.at.clone() },
     minDistance: 0.4,
     maxDistance: 36,
     near: 0.05,
     far: 5000,
     declutter: true,
-    homePadding: 0.62,
+    get homePadding() {
+      return aspect < 1 ? 0.62 : wide.padding;
+    },
     update(state: GasState, dt: number, view: ViewOpts) {
       setField(state);
       const now = partsNow(registry);

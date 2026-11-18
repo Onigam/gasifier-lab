@@ -6,7 +6,8 @@ import type { GasState } from '../../sim/types';
 // gives the shaft its work and keeps its losses. 1 cm of width is 2 kW. Ribbons only: no figure, no text (the strip and the sheets carry the numbers). It rebuilds a ribbon when its width has moved by more than a quarter of a kilowatt.
 
 const SCALE = 0.005;
-const COLOUR = { wood: 0x8c6a3f, gas: 0x5f8f8a, loss: 0x9b9791, diesel: 0xc9803a, shaft: 0x4e8a4a };
+// (deeper than the slab they lie on: a ribbon paler than concrete in the sun is lost on it)
+const COLOUR = { wood: 0x7d5526, gas: 0x2f7f7a, loss: 0x6f6b66, diesel: 0xc66a1c, shaft: 0x2f7d33 };
 
 interface Link {
   mesh: THREE.Mesh;
@@ -19,7 +20,15 @@ export interface Sankey {
 }
 
 /** A ribbon from (x0, z0..z0+w0) to (x1, z1..z1+w1), edges easing from one to the other. In the plane, y up by `y`. */
-function ribbon(x0: number, z0: number, w0: number, x1: number, z1: number, w1: number): THREE.BufferGeometry {
+function ribbon(
+  x0: number,
+  z0: number,
+  w0: number,
+  x1: number,
+  z1: number,
+  w1: number,
+  head = false,
+): THREE.BufferGeometry {
   const n = 24;
   const top: [number, number][] = [];
   const bottom: [number, number][] = [];
@@ -45,6 +54,16 @@ function ribbon(x0: number, z0: number, w0: number, x1: number, z1: number, w1: 
       idx.push(k, k + 1, k + 2, k + 1, k + 3, k + 2);
     }
   }
+  if (head) {
+    // where a ribbon ends (the shaft's work, a loss) it ends in an arrow's head, wider than the ribbon: which way the energy goes is read from across the yard, where the chevrons along it are too fine
+    const k = pos.length / 3;
+    const len = arrowHead(w1);
+    const over = 0.22 * w1 + 0.03;
+    pos.push(x1, 0, z1 - over, x1, 0, z1 + w1 + over, x1 + len, 0, z1 + w1 / 2);
+    uv.push(x1, 0, x1, w1, x1 + len, w1 / 2);
+    edge.push(0.3, 0.7, 0.5);
+    idx.push(k, k + 1, k + 2);
+  }
   const g = new THREE.BufferGeometry();
   g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
   g.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
@@ -64,6 +83,9 @@ function ribbon(x0: number, z0: number, w0: number, x1: number, z1: number, w1: 
   }
   return g;
 }
+
+/** The length of the arrow's head that ends a ribbon `w` wide, metres. */
+export const arrowHead = (w: number): number => Math.min(0.42, Math.max(0.16, 0.7 * w));
 
 export function buildSankey(): Sankey {
   const g = group('sankey');
@@ -110,7 +132,10 @@ export function buildSankey(): Sankey {
             float chevAt = vRib.x / 0.6 + across * 0.4;
             float chev = smoothstep( 0.0, 0.14, fract( chevAt ) ) * ( 1.0 - smoothstep( 0.1, 0.34, fract( chevAt ) ) ) * ( 1.0 - smoothstep( 0.08, 0.2, fwidth( chevAt ) ) );
             diffuseColor.rgb *= ( 0.66 + 0.38 * rim ) * ( 0.92 + 0.12 * streak ) * ( 0.94 + 0.12 * grain );
-            diffuseColor.rgb = mix( diffuseColor.rgb, vec3( 1.0 ), 0.2 * chev * rim );
+            // (a pale chevron with a dark one behind it: the pair reads from further than a pale one alone)
+            float chevBack = smoothstep( 0.0, 0.12, fract( chevAt + 0.3 ) ) * ( 1.0 - smoothstep( 0.1, 0.3, fract( chevAt + 0.3 ) ) ) * ( 1.0 - smoothstep( 0.08, 0.2, fwidth( chevAt ) ) );
+            diffuseColor.rgb *= 1.0 - 0.2 * chevBack * rim;
+            diffuseColor.rgb = mix( diffuseColor.rgb, vec3( 1.0 ), 0.36 * chev * rim );
           }`,
         );
     });
@@ -154,13 +179,13 @@ export function buildSankey(): Sankey {
       // wood in, split into the gas and the gasifier's losses
       redo(wood, k(W), () => ribbon(X[0]!, 0, W, X[1]!, 0, W));
       redo(gas1, k(G) + 0.001, () => ribbon(X[1]!, 0, G, X[2]!, 0, G));
-      redo(loss1, k(L1) + 0.002, () => ribbon(X[1]!, G, L1, X[2]!, G + 0.35, L1));
+      redo(loss1, k(L1) + 0.002, () => ribbon(X[1]!, G, L1, X[2]!, G + 0.35, L1, true));
       // the gas goes on to the engine, the diesel joins it
       redo(gas2, k(G) + 0.003, () => ribbon(X[2]!, 0, G, X[3]!, 0, G));
       redo(diesel, k(D) + 0.004, () => ribbon(X[2]! + 0.2, G + L1 + 0.35 + 0.15, D, X[3]!, G, D));
       redo(engine, k(G + D) + 0.005, () => ribbon(X[3]!, 0, G + D, X[4]!, 0, G + D));
-      redo(shaft, k(S) + 0.006, () => ribbon(X[4]!, 0, S, X[5]!, 0, S));
-      redo(loss2, k(L2) + 0.007, () => ribbon(X[4]!, S, L2, X[5]!, S + 0.35, L2));
+      redo(shaft, k(S) + 0.006, () => ribbon(X[4]!, 0, S, X[5]!, 0, S, true));
+      redo(loss2, k(L2) + 0.007, () => ribbon(X[4]!, S, L2, X[5]!, S + 0.35, L2, true));
     },
   };
 }

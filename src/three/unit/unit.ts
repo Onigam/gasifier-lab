@@ -42,6 +42,7 @@ import {
   zincMat,
 } from '../materials';
 import { dynamic, mergeStatic } from '../merge';
+import { chipBlank, chipSeeds, chipShape } from './chips';
 import { bedMaterial, chipMaterial, hotMetal } from './field';
 
 // The F-5 gasifier unit, built once for every world: whole on the tractor and in the farm, in section in `gasifier`, and in the garage. Its own frame U: origin on the axis at the foot of the lower casing, the tractor's axes (+x where the gas
@@ -293,6 +294,7 @@ export function buildUnit(opts: UnitOptions): Unit {
   // the cut face of the bed sits a little darker than the pieces that lie on it, so that the gaps between the pieces read as gaps
   const bed = bedMaterial(undefined, cut ? 0.84 : 1);
   const chipMat = chipMaterial(cut ? 0.84 : 1);
+  chipShape(chipMat, CHIP_SIZE);
   const metal = hotMetal(0x3b3632, { roughness: 0.62, metalness: 0.55 });
   const metalLight = hotMetal(0x5a5650, { roughness: 0.55, metalness: 0.6 });
   const ceramic = hotMetal(0x4f463d, { roughness: 0.9, metalness: 0.05 });
@@ -1024,19 +1026,24 @@ export function buildUnit(opts: UnitOptions): Unit {
    */
   const chipsOnFace = (y0: number, y1: number, seed: number, scale: number): THREE.InstancedMesh | null => {
     const r = rng(seed);
-    const flake = new THREE.BoxGeometry(COLUMN.chipLength, COLUMN.chipWidth, COLUMN.chipThick);
-    const cell = COLUMN.chipWidth * scale * 0.62;
+    // a chip is a chip of wood (`chips.ts`): the blank of the reported size, shaped piece by piece
+    const flake = chipBlank(COLUMN.chipLength, COLUMN.chipWidth, COLUMN.chipThick);
+    const cell = COLUMN.chipWidth * scale * 0.43;
     const taken = new Map<string, number>();
     const spots: { x: number; y: number; rot: number; s: number; tx: number; ty: number; z: number; tone: number }[] =
       [];
     let area = 0;
     for (let y = y0; y < y1; y += 0.01) area += 2 * bedRadius(y + 0.005) * 0.01;
-    const want = Math.min(2600, Math.round((0.8 * area) / (COLUMN.chipLength * COLUMN.chipWidth * scale * scale)));
+    // a bed is a heap: the pieces lie on one another, with little of the face left between them
+    const want = Math.min(2600, Math.round((1.8 * area) / (COLUMN.chipLength * COLUMN.chipWidth * scale * scale)));
     // a piece stays inside its part's own height (within the box the whole unit has for it, to the millimetre: machine.test.ts): its centre a piece's half-length in from each end
     const pad = Math.min(0.012, (y1 - y0) / 3);
     for (let tries = 0; spots.length < want && tries < want * 5; tries++) {
       const y = y0 + pad + r() * (y1 - y0 - 2 * pad);
-      const reach = bedRadius(y) - 0.008;
+      // many small pieces and a few whole ones, none larger than the largest was
+      const size = scale * (0.55 + 0.6 * r() ** 1.4);
+      // (a piece keeps its own half-length from the bed's wall, so that none stands out of the casing)
+      const reach = bedRadius(y) - Math.max(0.008, 0.0125 * size);
       const x = (2 * r() - 1) * reach;
       const key = `${Math.round(x / cell)}:${Math.round(y / cell)}`;
       if ((taken.get(key) ?? 0) >= 1) continue;
@@ -1045,14 +1052,15 @@ export function buildUnit(opts: UnitOptions): Unit {
         x,
         y,
         rot: (r() - 0.5) * 1.8,
-        s: scale * (0.8 + 0.35 * r()),
+        s: size,
         tx: (r() - 0.5) * 0.7,
         ty: (r() - 0.5) * 0.7,
         z: -0.001 + 0.004 * r(),
-        tone: 0.92 + 0.16 * r(),
+        tone: 0.8 + 0.3 * r(),
       });
     }
     if (!spots.length) return null;
+    chipSeeds(flake, spots.length, r);
     const im = new THREE.InstancedMesh(flake, chipMat, spots.length);
     const mtx = new THREE.Matrix4();
     const q = new THREE.Quaternion();
@@ -1150,9 +1158,13 @@ export function buildUnit(opts: UnitOptions): Unit {
       topGroup.add(c);
     }
     // loose flakes
-    const flakes = new THREE.BoxGeometry(COLUMN.chipLength, COLUMN.chipThick, COLUMN.chipWidth);
+    const flakes = chipBlank(COLUMN.chipLength, COLUMN.chipWidth, COLUMN.chipThick);
     const N = cut ? 260 : 520;
-    const im = new THREE.InstancedMesh(flakes, new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.95 }), N);
+    const looseMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.95 });
+    chipShape(looseMat, CHIP_SIZE, true);
+    const im = new THREE.InstancedMesh(flakes, looseMat, N);
+    // the blank lies in its own x and y: a loose chip lies flat, its thickness up
+    const flat = new THREE.Quaternion().setFromAxisAngle(v3(1, 0, 0), -Math.PI / 2);
     const r = rng(9);
     const mtx = new THREE.Matrix4();
     const q = new THREE.Quaternion();
@@ -1166,16 +1178,19 @@ export function buildUnit(opts: UnitOptions): Unit {
       if (cut && z < 0) continue;
       const h = 0.04 * (1 - (d / r0) ** 2) - 0.03 + 0.005 + r() * 0.012;
       e.set((r() - 0.5) * 0.9, r() * TAU, (r() - 0.5) * 0.9);
-      q.setFromEuler(e);
-      mtx.compose(v3(Math.cos(a) * d, h, z), q, v3(0.8 + r() * 0.5, 1, 0.8 + r() * 0.5));
+      q.setFromEuler(e).multiply(flat);
+      const size = 0.6 + 0.75 * r() ** 1.4;
+      mtx.compose(v3(Math.cos(a) * d, h, z), q, v3(size, size * (0.8 + 0.4 * r()), 1 + size));
       im.setMatrixAt(k, mtx);
       col.setHSL(0.09 + r() * 0.03, 0.5 + r() * 0.2, 0.34 + r() * 0.3);
       im.setColorAt(k, col);
       k++;
     }
     im.count = k;
+    chipSeeds(flakes, N, r);
     im.castShadow = false;
     im.receiveShadow = true;
+    im.name = 'loose-chips';
     topGroup.add(im);
   }
 
@@ -1299,3 +1314,6 @@ export function cursorY(c: number, top = RIM - 0.05): number {
 }
 
 export { clockwise, uvMetric, boxAt };
+
+/** The size of a chip's blank, metres (the reported one). */
+const CHIP_SIZE = { length: COLUMN.chipLength, width: COLUMN.chipWidth, thick: COLUMN.chipThick };
