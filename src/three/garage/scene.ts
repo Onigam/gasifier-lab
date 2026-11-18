@@ -56,6 +56,12 @@ const HOTSPOTS: HotspotDef[] = [
 ];
 
 /** How far inside a wall's inner face the camera may stand and still have the wall stepped aside: a camera flying into the room crosses the wall's thickness and its boards, and would otherwise fill the frame with them for a moment. */
+/** Where the world's overview is looked at from (the kit keeps the direction and sets the distance from the shape of the view). */
+export const GARAGE_HOME = {
+  position: new THREE.Vector3(12.5, 4.6, -7.4),
+  target: new THREE.Vector3(0, 2.9, 2.4),
+} as const;
+
 export const WALL_CLEARANCE = 0.5;
 
 /** Is the wall `id` (`plus-x`, `minus-x`, `back`, `front`, the bedroom's with `above-` taken off) stepped aside for an eye at `cam`, in a room `w` across and `d` deep? */
@@ -106,6 +112,16 @@ export function createGarageScene(opts: GarageOptions = {}): GarageScene {
       stones: 90,
       within: 38,
       keepOut: (x, z) => (Math.abs(x) < 9 && z > -10 && z < 24) || (x < 0 && x > -22 && z > -6 && z < 12),
+      // no tuft within some 12 m of where the home camera stands, at any shape of the view (13 m out at 16:9, 20 m out on a phone): the tufts that crossed the foot of the phone's picture on an orbit were what the flicker tool counted (docs/qa.md, film round 3, M2)
+      tuftsClear: (x, z) => {
+        const dx = GARAGE_HOME.position.x - GARAGE_HOME.target.x;
+        const dz = GARAGE_HOME.position.z - GARAGE_HOME.target.z;
+        const h = Math.hypot(dx, dz);
+        const along = ((x - GARAGE_HOME.target.x) * dx + (z - GARAGE_HOME.target.z) * dz) / h;
+        const across = Math.abs((x - GARAGE_HOME.target.x) * dz - (z - GARAGE_HOME.target.z) * dx) / h;
+        const k = Math.min(26, Math.max(10, along));
+        return Math.hypot(along - k, across) < 12;
+      },
       track: [
         [0.6, -8.5],
         [1.5, -16],
@@ -331,7 +347,7 @@ export function createGarageScene(opts: GarageOptions = {}): GarageScene {
     hotspots: hs,
     machine,
     building,
-    home: { position: new THREE.Vector3(12.5, 4.6, -7.4), target: new THREE.Vector3(0, 2.9, 2.4) },
+    home: { position: GARAGE_HOME.position.clone(), target: GARAGE_HOME.target.clone() },
     minDistance: 0.3,
     maxDistance: 45,
     near: 0.05,

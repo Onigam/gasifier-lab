@@ -65,3 +65,23 @@ describe('no part of the farm comes back with an empty box, wide or tall (docs/q
       }
     });
 });
+
+describe('the garage’s home has no tuft at its foot (docs/qa.md, film round 3, M2)', () => {
+  it('no tuft within 12 m of where the home camera stands, at 13 to 26 m from its target (16:9 to a phone)', async () => {
+    const { createGarageScene, GARAGE_HOME } = await import('./garage/scene');
+    const garage = createGarageScene();
+    const tufts = garage.scene.getObjectByName('tufts') as THREE.InstancedMesh;
+    expect(tufts.count).toBeGreaterThan(3000);
+    const dir = GARAGE_HOME.position.clone().sub(GARAGE_HOME.target).normalize();
+    const m = new THREE.Matrix4();
+    const p = new THREE.Vector3();
+    for (const d of [13, 16, 20, 24]) {
+      const eye = GARAGE_HOME.target.clone().addScaledVector(dir, d);
+      for (let i = 0; i < tufts.count; i++) {
+        tufts.getMatrixAt(i, m);
+        p.setFromMatrixPosition(m);
+        expect(Math.hypot(p.x - eye.x, p.z - eye.z), `${d} m out`).toBeGreaterThan(11.5);
+      }
+    }
+  });
+});

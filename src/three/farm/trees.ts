@@ -441,11 +441,24 @@ export function leafMaterial(map: THREE.Texture, name: string): THREE.MeshStanda
   });
   m.userData.noShare = true;
   const mean = (map.userData.mean as THREE.Color | undefined) ?? new THREE.Color(0.2, 0.3, 0.1);
+  // an instance grows out of the ground between the first two distances from the eye and goes back into it between the last two, metres (a tree never: these stand far out of reach). The meadow's tufts set their own (`outdoors.ts`): one program for every leaf and
+  // tuft of the labs, compiled once (a patch of their own was a program of their own in `garage`, docs/qa.md, film round 3, m1)
+  const shrink = new THREE.Vector4(-2, -1, 1e6, 2e6);
+  m.userData.leafShrink = shrink;
   patchMaterial(m, 'keep-normal', (shader) => {
     shader.uniforms.uLeafMean = { value: mean };
     shader.uniforms.uLeafFar = { value: new THREE.Vector2(...LEAVES_FAR) };
+    shader.uniforms.uLeafShrink = { value: shrink };
     shader.vertexShader = shader.vertexShader
-      .replace('#include <common>', '#include <common>\nvarying float vLeafD;')
+      .replace('#include <common>', '#include <common>\nvarying float vLeafD;\nuniform vec4 uLeafShrink;')
+      .replace(
+        '#include <begin_vertex>',
+        `#include <begin_vertex>
+        #ifdef USE_INSTANCING
+          float leafI = length( ( modelViewMatrix * instanceMatrix * vec4( 0.0, 0.0, 0.0, 1.0 ) ).xyz );
+          transformed.y *= smoothstep( uLeafShrink.x, uLeafShrink.y, leafI ) * ( 1.0 - smoothstep( uLeafShrink.z, uLeafShrink.w, leafI ) );
+        #endif`,
+      )
       .replace('#include <project_vertex>', '#include <project_vertex>\n  vLeafD = -mvPosition.z;');
     shader.fragmentShader = shader.fragmentShader
       .replace(

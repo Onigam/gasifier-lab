@@ -63,7 +63,10 @@ describe('the house stands on the same side of the garage in the farm and in the
       fragmentShader: THREE.ShaderLib.standard.fragmentShader,
     };
     (tufts.material as THREE.Material).onBeforeCompile(shader as never, null as never);
-    expect(shader.vertexShader).toContain('smoothstep( uTuftFade.x, uTuftFade.y, tuftD )');
+    // (film round 4: the fade is the leaves' own patch, so that the tufts share their program, docs/qa.md, film round 3, m1; the same fade, and a fade-in near the eye)
+    expect(shader.vertexShader).toContain('1.0 - smoothstep( uLeafShrink.z, uLeafShrink.w, leafI )');
+    const fade = shader.uniforms.uLeafShrink!.value as THREE.Vector4;
+    expect([fade.z, fade.w]).toEqual([...TUFTS_FADE]);
     expect(TUFTS_FADE[1]).toBeLessThan(60);
     // the ground's own picture has the track
     const land = garage.scene.getObjectByName('floor') as THREE.Mesh;

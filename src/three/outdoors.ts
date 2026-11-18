@@ -34,6 +34,8 @@ export interface YardOptions {
     stones: number;
     within: number;
     keepOut?: (x: number, z: number) => boolean;
+    /** Where no tuft stands (the stones may): the ground at the foot of the world's home picture, whatever the shape of the view. */
+    tuftsClear?: (x: number, z: number) => boolean;
     track?: readonly (readonly [number, number])[];
   };
 }
@@ -226,6 +228,8 @@ export function tuftCard(seed: number, N = 64): THREE.DataTexture {
 
 /** A tuft stands whole within the first distance from the eye, metres, and is gone into the turf at the second: beyond, the meadow is the ground's own picture, and nothing finer than a pixel is left to crawl. */
 export const TUFTS_FADE = [15, 34] as const;
+/** A tuft is not there within the first distance from the eye, metres, and stands whole from the second. */
+export const TUFTS_NEAR = [4, 9] as const;
 
 /** Tufts of grass and stones in the meadow: two instanced meshes. A tuft is three crossed cards on the ground, lit as the ground is (its normal is the ground's); a stone is a rounded block, a third of it in the turf. */
 function meadowRelief(
@@ -300,21 +304,11 @@ function meadowRelief(
   tuftG.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
   tuftG.setAttribute('color', new THREE.Float32BufferAttribute(col, 3));
   tuftG.setIndex(idx);
+  // the leaves' own material and program (`leafMaterial`), its instances growing out of the turf from `TUFTS_NEAR` metres from the eye and going back into it at `TUFTS_FADE`: a tuft that crosses the foot of a picture on an orbit is what the flicker tool counted
+  // at 390 px (docs/qa.md, film round 3, M2), one beyond some tens of metres is finer than a pixel
   const tuftM = leafMaterial(tuftCard(seed + 5), 'grass-tuft');
   tuftM.roughness = 1;
-  patchMaterial(tuftM, 'tuft-by-distance', (shader) => {
-    shader.uniforms.uTuftFade = { value: new THREE.Vector2(...TUFTS_FADE) };
-    shader.vertexShader = shader.vertexShader
-      .replace('#include <common>', '#include <common>\nuniform vec2 uTuftFade;')
-      .replace(
-        '#include <begin_vertex>',
-        `#include <begin_vertex>
-        #ifdef USE_INSTANCING
-          float tuftD = length( ( modelViewMatrix * instanceMatrix * vec4( 0.0, 0.0, 0.0, 1.0 ) ).xyz );
-          transformed.y *= 1.0 - smoothstep( uTuftFade.x, uTuftFade.y, tuftD );
-        #endif`,
-      );
-  });
+  (tuftM.userData.leafShrink as THREE.Vector4).set(TUFTS_NEAR[0], TUFTS_NEAR[1], TUFTS_FADE[0], TUFTS_FADE[1]);
   const tufts = new THREE.InstancedMesh(tuftG, tuftM, o.tufts);
   const m = new THREE.Matrix4();
   const q = new THREE.Quaternion();
@@ -330,6 +324,7 @@ function meadowRelief(
     // in patches, as rough grass grows: thick where the ground holds water, thin between
     const patch = patchAt(x, z);
     if (r() > (0.15 + 0.85 * turf(d)) * (0.18 + 0.82 * patch) || !free(x, z) || onTrack(x, z, 1.5)) continue;
+    if (o.tuftsClear?.(x, z)) continue;
     const tall = r() > 0.9;
     const w = (0.4 + 0.45 * r()) * (tall ? 0.8 : 1);
     const h = tall ? 0.45 + 0.3 * r() : 0.16 + 0.22 * r();
@@ -363,9 +358,16 @@ function meadowRelief(
     }
     stoneG.computeVertexNormals();
   }
+  // faceted by its own normals (each face its own corners) and white in its colours: the plain material of the farm's far forest, the same program (a flat-shaded one of its own was one more to compile in `garage`, docs/qa.md, film round 3, m1)
+  const facets = stoneG.index ? stoneG.toNonIndexed() : stoneG;
+  facets.computeVertexNormals();
+  facets.setAttribute(
+    'color',
+    new THREE.Float32BufferAttribute(new Float32Array(facets.attributes.position!.count * 3).fill(1), 3),
+  );
   const stones = new THREE.InstancedMesh(
-    stoneG,
-    new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.96, metalness: 0, flatShading: true }),
+    facets,
+    new THREE.MeshStandardMaterial({ color: 0xffffff, vertexColors: true, roughness: 1 }),
     o.stones,
   );
   let s = 0;
@@ -392,7 +394,8 @@ function meadowRelief(
   }
   stones.count = s;
   stones.name = 'stones';
-  stones.castShadow = true;
+  // no shadow of its own: a stone a third in the turf has the occlusion pass's dark at its foot, and its shadow pass was one more program (docs/qa.md, film round 3, m1)
+  stones.castShadow = false;
   stones.receiveShadow = true;
   stones.frustumCulled = false;
   g.add(stones);
