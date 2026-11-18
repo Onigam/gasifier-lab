@@ -1066,3 +1066,97 @@ Still hold: 0a static or a very slow push (farm 1280 orbit is 2.73); 5b as « ga
 Real phones, Safari, Firefox; the voice itself and 60 fps playback; the film driver's own render; the kit's `walk.mjs` (replaced by the first-visit probes and the guide runs); the guides of the tractor, the gasifier and the gas line in English, and the guides at 768; the ×600 evening; a camera orbit around a far part; why the farm's first frame sometimes compiles 10 programs instead of 46 (a hypothesis only).
 
 **One thing outside the review's scope, reported by the reviewer:** the modeler's stray copy `~/Dev/piggott-lab/node_modules/node_modules` still exists (322 MB); not touched.
+
+# Film round 5: the scoped review (18/11/2026)
+
+Independent review (`lab-reviewer`, opus) of `800e55d` (commits `70661e2`, `cacf62b`, `f8410f5`, `800e55d` on top of `4599d15`); status `building`, nothing pushed. Filed by the lead from the reviewer's report; the reviewer edited nothing in the lab (`git status` clean at `800e55d`, no `node_modules/node_modules` in the lab or in any scratch clone). Method: four clones with their own `npm ci` in `~/.cache/lab-review/lab-reviewer/gasifier-lab/film5/` (`S`): `after` = `800e55d`, `before` = `4599d15`, `base` = `41a7859`, `broken` = `800e55d` for the mutation tests and the intermediate commits; every Chrome run through `with-chrome-lock.sh` in three jobs; 2,193 images (`S/stills/`, `S/m1b/`, `S/guide/`, `S/flight/`, `S/flicker/`, `S/sheets/`, `S/crops/`); logs in `S/log/`.
+
+**Verdict: not ready for the owner's checkpoint (0 blockers, 1 major: what is left of M1 in the install guide; 13 minors, 7 new and 6 older or carried). N3, N1, N2 and the 5b wedge are fixed, each confirmed with the reviewer's own screenshots and with mutation tests. The first film render can be made from `800e55d`, under fewer conditions than before.**
+
+## Gates (clean clone)
+
+- Typecheck 0 errors; `format:check` passes; **« Tests 693 passed (693) »** in « Test Files 43 passed (43) »; build passes (one chunk 1,575.26 kB, 481.65 kB gzip, the > 1500 kB warning as before). Intermediate commits, each checked out alone, pass typecheck, tests and `format:check`: `70661e2` 664, `cacf62b` 668, `f8410f5` 693 tests.
+- Draw calls (Node `drawStats`; triangles), `800e55d` against `4599d15`: `farm` **430** (449,181) against 431; `tractor` 268; `gasifier` 119; `gas-train` 267; `garage` 388 (unchanged). Programs per world (`film4-programs.mjs`, phone profile): 91 / 99 / 120 / 127 / 131 at `800e55d`, `4599d15` and `41a7859` alike: no program added.
+- Console: 0 errors and 0 failed requests in every run (`m1b` at 1280, 768, 390, FR and EN, every display mode; 12 still runs; 3 flight runs; 22 flicker runs; 7 guide runs).
+- Protected files: `git diff 4599d15 800e55d -- src/sim src/data narration public` is empty and `src/three/part-ids.ts` is unchanged. The short 3D labels live in the `HotspotDef` list in `src/three/farm/scene.ts` (the sheets keep the full names: `film5-farm-labels.test.ts` checks it); the barrel's change is 3D only (`farm/props.ts`, `FARM.drum` in `dims.ts`; its sheet already said « Fût de tôle sur deux liteaux / A sheet-metal drum on two battens »). `pl02` and the cyclone's sheet (« à part, d'un côté ») are still true.
+
+## The four round-4 items and the wedge
+
+- **N3, the gas line's overview at 1280 with the panel open: fixed.** The cyclone and its ring stand inside the free view by the panel's edge (`S/m1b/1280-fr-home-gas-train.png`), also in English, at 768 and at 390 (`S/sheets/homes-farm-gas.jpg`). 16:9 unchanged; at 1280 × 800 and 900 × 720 the whole line holds (the cyclone was cut at 900 × 720 before). The ring is clear of the fan's stand.
+- **N1, `[[frame:farm-garage]]` and 0b: fixed** (`S/sheets/0b-pair.jpg`). The garage and its door lead, the drum and the bin stand in front, the house steps back; no near crown. The dark mass top-left is the oak at (-33, -15): a ray probe puts it 17.5 m from the eye against 18.6 m to the garage (beside the garage, not in front of the lens); it covers 6.6 % of the rays and its trunk sits on the left edge (minor 4). At 390 the garage leads too; the guide's cue at t23 lands on the same wall-free frame at 1280 and 390.
+- **N2, the yard in 5c: fixed** (`S/sheets/5c-pair.jpg`). The puddle is out of 5c and the straight green L is gone; chips are slivers of varied size and none lies on water; the grass grows in clumps; the yard reads almost plain at 1280, better than decals.
+- **The 5b wedge: fixed.** The pale straight-edged wedge over the lid is in the round-4 frame and absent from `800e55d`'s; the kit's AO pass skips meshes with `colorWrite: false` (`lab-kit/dist/three/look.js` l. 173–177): kit request 35.
+- **M1: done at the overview, in part in the install guide.** First-visit counts with `m1b.mjs` (fresh context per page, language set before load, no reframing), the modeler's and the reviewer's identical:
+
+| Width | Overview FR / EN | Install FR (round 4) | Install EN (round 4) |
+| ----- | ---------------- | -------------------- | -------------------- |
+| 1280  | 0 / 0            | 3 (3)                | 5 (5)                |
+| 768   | 0 / 0 (FR was 1) | 7 (9)                | 6 (5)                |
+| 390   | 0 / 0 (FR was 1) | 5 (7)                | 6 (5)                |
+
+Still clipped: **step 8: « Maison » +78 px of 80** at 768 and 390 in French; in English « Farmhouse » +99 / +98 of 100 and « Farm garage » +9 / +4; step 2 « Farmhouse » +87 / +95 of 100 (English, 768 / 390); step 3 « Ligne de gaz / Gas line run » +74 / +97 px; « Colonne de plaquettes » +16 to +24 px; at 1280 step 4 « Tracteur gazogène » +160 px of 170 (the moving tractor) and « Farm garage » +117 px (`S/m1b/m1b.json`, `S/m1b/768-fr-install-7.png`).
+
+**Mutation tests** (in `S/broken`, restored after each): every new test fails when its fix is undone. Cyclone back at (-0.95, -1.05) with its 0.62–0.65 m ring: 4 of 7 fail (1.25, 1.10, 1.00 and the ring's clearance); old home padding: 5 of 7 fail; 0b back at `viewFrom(12, 335)` with the birches where they are now: `farm-garage at 16:9` fails (« oak-crowns#0 covers 15 % »); same pose with round 4's birches too: « birch-crowns#0 covers 20 % »; puddle at round 4's place with `colorWrite` removed: 2 of 4 fail. The crown-in-front mutation needs a word: a birch planted on the 0b line of sight at (-33, 1.5) **is removed by the scene's own `blocksSight` filter** (trees are never placed in a part's 14 m-wide viewing corridor), so that test still passes; with the filter bypassed, 10 cases fail across `film5-farm-crowns` and `film4-guide-rays`.
+
+## What the modeler did not check (the reviewer's results)
+
+- **The flight into and out of 0b** (`flight2.mjs`, worst local ratio before / after / after in the film look): into `farmhouse,farm-garage` 1.06 / 1.10 / 1.04; into `farm-garage` 1.05 / 1.06 / 1.06; out to the tractor 1.42 / 1.25 / 1.25. No pop, no change in the count of visible meshes. The flight out skims the ground over the ditch halfway, as before (minor 5: cut, do not fly). In the garage the ratios of 3.78 and 4.59 come after the camera has stopped (0.19–0.23 grey levels per frame, as before): not a pop.
+- **Shimmer on the 0b pose** (orbit / dolly %): `farm-garage` 3.65 / 4.86 at 1280 (film look 3.57 / 4.58; round 4's pose 3.57 / 9.47) and **5.06 / 5.48 at 390** (round 4's pose 2.67 / 5.00); `farmhouse,farm-garage` 2.72 / 6.51 at 1280 and 1.37 / 3.41 at 390. The heat maps (`S/sheets/heat-0b.jpg`): the house's boards, the stone wall and the crowns. Minor 1.
+- **Exploded, X-ray and section views**, five worlds, 768 and 390, FR and EN: layouts hold. Older, in round 4's sheet: at 390 in the gas line's exploded view « Caisson de filtre » is cut at the edge and « Mélangeur » overlaps another label.
+- **The guide of every world played at 1280** (French; the farm also in English and at 390 French): 7 runs, every segment ends at its full length, « Voix de synthèse » / « Synthetic voice » shown, 0 errors; cues land on wall-free frames (the CO indicator is on a wall by design). Older: at farm t15 (the crusher) the tractor's label and half the tractor are cut at the right edge: kit request 33.
+- **Texts that cite the cyclone or the barrel** are still true. **Same machine in every world:** only the gas line (the cyclone, not in the tractor world, as the data says) and the farm (the drum) changed. **The evening** (`S/sheets/0a-evening.jpg`): reads; 0b at 20.2 h is dim, the oak's trunk black at the left edge.
+
+## Hard rules, measured by the reviewer
+
+First frame after a switch (`film1-cost.mjs`; 390 × 844, pixel ratio 2; median of six fresh pages; two runs alternating `41a7859`, `800e55d` and, for the garage, `4599d15`; command `URL=… OUT=S/cost/<side>-<run>.json node S/after/docs/qa/film1-cost.mjs`, summary `S/tools/costsum5.py`):
+
+| World     | `41a7859` 1× / 4×     | `800e55d` 1× / 4×             | Change at 4× |
+| --------- | --------------------- | ----------------------------- | ------------ |
+| farm      | 91 (84–179) / 167.5   | 118 (75–162, two modes) / 150 | −10 %        |
+| tractor   | 84.5 / 269.5          | 87 / 284                      | +5.4 %       |
+| gasifier  | 114 / 231.5           | 120.5 / 247                   | +6.7 %       |
+| gas-train | 97.5 / 254            | 97 / 255.5                    | +0.6 %       |
+| garage    | 111.5 / 358 (346–374) | 121.5 / **404 (391–408)**     | **+12.8 %**  |
+
+At `4599d15` the garage measures 129.5 / 407: flat against round 4. **The garage's +12.8 % at 4× against `41a7859` is real**; the reviewer's absolute figures run higher than the modeler's (404 against 381) but the ratio matches; all medians are under the written absolute limits (≤ 150 / ≤ 450). **The written reason only partly holds**: the programs are the same 131; the meadow's build, about 6 ms in Node, is about 24 ms at 4×, roughly half of the 46 ms gap; the other half is unexplained; kit request 31 is still the plausible cure.
+
+Shimmer (same job, orbit / dolly %), every cell within 0.05 of the modeler's table: farm 390 1.30 / 2.16; gas-train 1280 1.64 / 2.86; gas-train 390 0.43 / 1.31; garage 390 1.11 / 3.36; gasifier 390 0.91 / 3.88; farm 1280 2.70 / 4.20; garage 1280 1.87 / 5.72. Largest spike 1.49: no pop.
+
+## Defects
+
+**Major (1)**
+
+- **M1, what is left: clipped labels in the install guide, FR and EN, at 768 and 390.** At step 8 the house's name hangs almost wholly outside the picture (« Maison » +78 of 80; « Farmhouse » +99 of 100), which leaves a dot without a name; « Ligne de gaz / Gas line run » is cut +74 to +97 px at step 3 (`S/m1b/768-fr-install-7.png`, `S/m1b/390-en-install-7.png`). Fix: kit request 33 (the owner's call), or on the lab's side a step-8 frame that includes the house or leaves it fully out.
+
+**Minors (13)**
+
+1. (New) The 0b pose shimmers: 3.6 / 4.9 % at 1280, 5.1 / 5.5 % at 390. Film: hold it, or push very slowly.
+2. (Older) At 390 in the film look, the foreground tufts of 5c show dark, opaque, jagged card shapes: probably the same AO-pass mechanism as the wedge (alpha-tested cards drawn solid) (`S/crops/5c-390-foot-pair.png`).
+3. (New) `WorldRegistry.stretch` only works where the registry is not framing: the install step uses it, but `frameParts(['ash-bin','condensate-barrel','field-ditch'])` (a `[[frame:…]]` cue) still frames the whole farm (`S/stills/after/film/a-farm-residues.png`); no narration cue uses it today (`world.ts` `bounds()`, the `framing` branch).
+4. (New) 0b is dim: the oak's dark crown top-left, its trunk on the left edge, the yard in its shade; worse at 20.2 h.
+5. (Older) The flight from 0b to the tractor skims the ground over the ditch: use a cut in the film.
+6. (Carried, old m1) The garage's first frame is +12.8 % at 4× against `41a7859`; the reason holds for about half of it.
+7. (New) At install step 8 at 768, a near crown fills the top-left quarter and the bin and drum are dark blobs of about 15 px; kit request 34 for their names.
+8. (Not done) The 0a column still has a shallow notch at its top: narrower and leaning, still dense white (`S/crops/0a-col-pair.png`).
+9. (Not done) The chips are not a heap. 10. (Not done) The spruces' top line is still a saw.
+10. (Older) Install steps 4 and 6 lose the tractor at 390. 12. (Older) Gas line, exploded view at 390: « Caisson de filtre » cut and « Mélangeur » overlapping. 13. (Older) The ditch's own frame (due north, 38°, 54 m) shows no recognisable ditch (`S/sheets/barrel.jpg`).
+
+## Honesty of the modeler's report
+
+Reproduced exactly: the test counts (693; 664 / 668 / 693 on the intermediate commits), the draw calls and programs, every `m1b` count, the shimmer table (within 0.05), the « done in part » status of M1 including step 8, « 4 fail with round 4's padding » (the reviewer gets 4 shape cases plus the distance test), « round 4's pose: a birch takes 20 % ». Not reproduced in absolute terms: the first-frame figures (higher: garage 404 against 381 at 4×; base 358 against 338; the relative +12.7 % is confirmed); « the farm's pages landed in its fast mode » (the reviewer's landed in both modes, 75–162 ms). Partly overstated: « the reason, written down » covers about half the garage's gap; « the film should use `[[frame:farm-garage]]` » is right but the pose was never put through the flicker tool and it shimmers (minor 1); « no finding left for the data role »: true. The « not done » items are none worse than in round 4; the 0a column is better (narrower, leaning) and still notched.
+
+## Against the Piggott bar (`S/sheets/piggott-bar.jpg`, with Piggott's `ch-0_45`, `ch-1_37`, `ch-3_24` from `2026-11-18-film-g`)
+
+At or near Piggott's site shot: 0b now (one subject with its context), the 5c door, the oxidation zone. Still under Piggott's hero frames (one object on a dark graded set): the gas line's home (a diagram on a sunlit slab), 5b (a busy interior, but now clean), 0a's cotton column. Readability at 200 px (`S/sheets/200px-pairs.png`): every frame still shows its subject; nothing was traded away.
+
+## Conditions for the first render from `800e55d`
+
+Still hold: 0a static or a very slow push; no chip close-ups; 5b with the « gas leaving the top of the unit » arrow (the gap is still under 1 px at 200 px). Lifted: « crop or accept the wedge » in 5b (the wedge is gone); « 0b only as `[[frame:farmhouse,farm-garage]]` » (`[[frame:farm-garage]]` is now the better 0b); « 5c tighter » (the puddle is out at 16:9). New: hold 0b still or push it very slowly (shimmer 3.6 %); cut, do not fly, from 0b to the tractor; no 390 or vertical version of 5c until minor 2 is fixed; do not use `[[frame:ash-bin,condensate-barrel,field-ditch]]`.
+
+## Not checked
+
+Real phones, Safari, Firefox; the voice itself and 60 fps playback; the film driver's own render; the guides of the other worlds in English and at 768; the introduction; `walk.mjs`; why the farm's first frame has two modes.
+
+## Round 6, in order
+
+1. M1, what is left: step 8's frame (or kit request 33) and the « Ligne de gaz » clip. 2. Minor 2: the tufts in the AO pass (and kit request 35). 3. Minor 3: the stretch under `frameParts`. 4. The 0b pose's shimmer and light (minors 1 and 4). 5. Minor 7: install step 8 at 768. 6. The older items: the 0a notch, the chips, the spruce saw, the tractor lost at steps 4 and 6, the gas line's 390 exploded labels, the ditch's frame.
