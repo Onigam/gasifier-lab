@@ -10,7 +10,7 @@ import { DOOR_OPEN } from '../garage/scene';
 import { makePlume } from '../garage/plume';
 import { clamp } from '@onigam/lab-kit/three';
 import { buildMachine, type Machine } from '../tractor/tractor';
-import { WorldRegistry, anchor, hotspots, viewFrom, type HotspotDef, type PartFraming } from '../world';
+import { WorldRegistry, anchor, hotspots, viewAspect, viewFrom, type HotspotDef, type PartFraming } from '../world';
 import { buildBarn, buildFarmhouse } from './buildings';
 import {
   buildAshBin,
@@ -107,7 +107,7 @@ const FRAMING: Record<FarmId, PartFraming> = {
   farmhouse: { viewDir: viewFrom(12, 15) },
   'farm-garage': { viewDir: viewFrom(12, 25) },
   'ash-bin': { viewDir: viewFrom(20, 30) },
-  'condensate-barrel': { viewDir: viewFrom(18, 40) },
+  'condensate-barrel': { viewDir: viewFrom(18, 25) },
   // the ditch is 420 m long: a stretch with the track's culvert is what a click brings the camera to
   'field-ditch': {
     viewDir: viewFrom(38, 190),
@@ -182,7 +182,7 @@ export const OVERVIEW_WIDE = {
   padding: 0.5,
 };
 export const OVERVIEW_TALL = {
-  box: new THREE.Box3(new THREE.Vector3(-26, 0, -23), new THREE.Vector3(26, 4, 22)),
+  box: new THREE.Box3(new THREE.Vector3(-32, 0, -23), new THREE.Vector3(26, 4, 22)),
   home: { position: new THREE.Vector3(10, 62, 52), target: new THREE.Vector3(0, 1, -2) },
   padding: 0.5,
 };
@@ -609,10 +609,14 @@ export function createFarmScene(opts: FarmOptions = {}): FarmScene {
   // the overview is the yard with its buildings and the near side of the tractor's rounds, and nothing else (the ditch runs on for 80 m and the stopped tractor's gas rises 9 m: the kit would frame them all). A wide view looks at it from the south, low over the field; a view
   // taller than it is wide (a phone, a tablet upright) is filled by the width of the yard whatever the camera does, so it looks from higher, to put the depth of the farm (the forest, the yard, the field with the tractor) up the picture instead of a strip of it under a sky
   let aspect = 16 / 9;
-  registry.overview(() => [aspect < 1 ? OVERVIEW_TALL.box : OVERVIEW_WIDE.box], true);
+  // read at the moment of framing (the canvas's shape), not at the last render: the first framing of a visit comes before any
+  const tall = (): boolean => viewAspect(aspect) < 1;
+  registry.overview(() => [tall() ? OVERVIEW_TALL.box : OVERVIEW_WIDE.box], true);
 
   // ---- « Flux »: the fuel's way and what comes out of the machine, for the eye (the speed is nowhere the true one)
   const flows = new FlowDots(900, 0.34, 0.012, true);
+  // the paths, for the test that no arc runs through a building
+  flows.object.userData.flows = flows;
   scene.add(flows.object);
   const at = (x: number, y: number, z: number): THREE.Vector3 => new THREE.Vector3(x, y, z);
   const woodAt = at(FARM.woodpile.x, 1.3, FARM.woodpile.z);
@@ -680,7 +684,7 @@ export function createFarmScene(opts: FarmOptions = {}): FarmScene {
     // from the south, low over the field: the ploughed ground with its rounds in the foreground, the ditch and the fence, the yard and its buildings in the middle, the forest and the sky behind (the overview framed from above made the field half the picture and the tractor a tenth of its width);
     // from higher in a view taller than wide (read at each framing: the kit takes the direction from here)
     get home() {
-      return aspect < 1 ? OVERVIEW_TALL.home : OVERVIEW_WIDE.home;
+      return tall() ? OVERVIEW_TALL.home : OVERVIEW_WIDE.home;
     },
     minDistance: 1.2,
     maxDistance: 420,
@@ -688,7 +692,7 @@ export function createFarmScene(opts: FarmOptions = {}): FarmScene {
     far: 5000,
     declutter: true,
     get homePadding() {
-      return aspect < 1 ? OVERVIEW_TALL.padding : OVERVIEW_WIDE.padding;
+      return tall() ? OVERVIEW_TALL.padding : OVERVIEW_WIDE.padding;
     },
     update(state: GasState, dt: number, view: ViewOpts) {
       const p = opts.params?.();

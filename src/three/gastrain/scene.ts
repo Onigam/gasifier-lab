@@ -37,6 +37,7 @@ import {
   viewFrom,
   type HotspotDef,
   type PartFraming,
+  viewAspect,
 } from '../world';
 import { PIPE } from '../dims';
 import { createYard } from '../outdoors';
@@ -382,7 +383,8 @@ export function createGasTrainScene(opts: GasTrainOptions = {}): GasTrainScene {
   // (close about them: the line from the unit to the exhaust and the ribbons before it fill the width of the picture; the slab round them is not the subject)
   let aspect = 16 / 9;
   const wide = homeWide(cylX);
-  registry.overview(() => [aspect < 1 ? HOME_BOX(cylX) : wide.box]);
+  // the shape of the view is read when the framing is asked for (the first one comes before any render)
+  registry.overview(() => [viewAspect(aspect) < 1 ? HOME_BOX(cylX) : wide.box]);
   scene.onBeforeRender = (_r, _s, camera) => {
     if ((camera as THREE.PerspectiveCamera).isPerspectiveCamera) aspect = (camera as THREE.PerspectiveCamera).aspect;
   };
@@ -468,7 +470,7 @@ export function createGasTrainScene(opts: GasTrainOptions = {}): GasTrainScene {
     far: 5000,
     declutter: true,
     get homePadding() {
-      return aspect < 1 ? 0.62 : wide.padding;
+      return viewAspect(aspect) < 1 ? 0.62 : wide.padding;
     },
     update(state: GasState, dt: number, view: ViewOpts) {
       setField(state);

@@ -106,6 +106,19 @@ export function viewFrom(elevation: number, bearing: number): THREE.Vector3 {
   return new THREE.Vector3(Math.sin(b) * Math.cos(e), Math.sin(e), Math.cos(b) * Math.cos(e));
 }
 
+/**
+ * The shape of the 3D view now, width over height: the kit's canvas as laid out on the page when there is one, else `last` (the camera's aspect at the last render, or the world's default before any). A world that frames itself by the shape of the view reads it when the
+ * framing is asked for: the first framing of a visit comes before any render (docs/qa.md, film round 3, M1: the phone's first overview used a wide 16/9), and the kit frames again on a resize.
+ */
+export function viewAspect(last: number): number {
+  if (typeof document === 'undefined') return last;
+  const layer = document.querySelector('.label-layer');
+  const canvas = (layer?.parentElement?.querySelector('canvas') ??
+    document.querySelector('canvas')) as HTMLCanvasElement | null;
+  if (canvas && canvas.clientWidth > 0 && canvas.clientHeight > 0) return canvas.clientWidth / canvas.clientHeight;
+  return last;
+}
+
 /** A world-space box from its two corners. */
 export const box3 = (x0: number, y0: number, z0: number, x1: number, y1: number, z1: number): THREE.Box3 =>
   new THREE.Box3(new THREE.Vector3(x0, y0, z0), new THREE.Vector3(x1, y1, z1));
