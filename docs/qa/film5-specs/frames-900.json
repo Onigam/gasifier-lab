@@ -1,0 +1,22 @@
+{
+ "out": "/Users/magino/.cache/lab-review/lab-modeler/gasifier-lab/film5/after-900",
+ "tag": "a",
+ "width": 900,
+ "height": 720,
+ "film": true,
+ "shots": [
+  {
+   "name": "train-3-home-5x4",
+   "scene": "gas-train",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ],
+   "flows": true,
+   "home": true,
+   "small": true
+  }
+ ]
+}

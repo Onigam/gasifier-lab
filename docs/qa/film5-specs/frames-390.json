@@ -1,0 +1,80 @@
+{
+ "out": "/Users/magino/.cache/lab-review/lab-modeler/gasifier-lab/film5/after-390",
+ "tag": "a",
+ "width": 390,
+ "height": 844,
+ "dpr": 2,
+ "film": true,
+ "shots": [
+  {
+   "name": "farm-0b-garage",
+   "scene": "farm",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ],
+   "frame": [
+    "farm-garage"
+   ],
+   "small": true
+  },
+  {
+   "name": "garage-1-home",
+   "scene": "garage",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ],
+    [
+     "engine",
+     "off"
+    ],
+    [
+     "speed",
+     "10"
+    ]
+   ],
+   "runIn": 4,
+   "small": true
+  },
+  {
+   "name": "garage-5c-door",
+   "scene": "garage",
+   "cues": [
+    [
+     "scenario",
+     "closed-garage"
+    ],
+    [
+     "speed",
+     "51"
+    ],
+    [
+     "door",
+     "open"
+    ]
+   ],
+   "frame": [
+    "garage-door"
+   ],
+   "runIn": 70,
+   "small": true
+  },
+  {
+   "name": "train-3-home",
+   "scene": "gas-train",
+   "cues": [
+    [
+     "preset",
+     "mf-1100"
+    ]
+   ],
+   "flows": true,
+   "home": true,
+   "small": true
+  }
+ ]
+}
