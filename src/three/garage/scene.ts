@@ -100,6 +100,21 @@ export function createGarageScene(opts: GarageOptions = {}): GarageScene {
     slab: [-5.2, -9, 5.2, -GARAGE.wall - 0.005],
     groundY: -0.21,
     yardRadius: 18,
+    // a meadow round the yard, with tufts and stones, and the track the tractor took from the lane to the apron (the building, the house and the apron are left clear: the largest garage of the model is 22 m deep)
+    meadow: {
+      tufts: 7000,
+      stones: 90,
+      within: 38,
+      keepOut: (x, z) => (Math.abs(x) < 9 && z > -10 && z < 24) || (x < 0 && x > -22 && z > -6 && z < 12),
+      track: [
+        [0.6, -8.5],
+        [1.5, -16],
+        [6, -27],
+        [16, -40],
+        [34, -52],
+        [70, -64],
+      ],
+    },
   });
   const scene = yard.scene;
   const registry = new WorldRegistry(new Set(), opts.selected ?? (() => null));

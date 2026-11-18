@@ -300,6 +300,8 @@ export function createFarmScene(opts: FarmOptions = {}): FarmScene {
   // the address is read here, once
   const addressHour = urlHour();
   scene.name = 'farm';
+  // the garage leans on the house's west gable: the roof stops flush with it (the same house, the same way, as in `garage`)
+  const house = buildFarmhouse({ against: -1 });
   // the sky gives the world its own environment (docs/scenery.md); the look is the labs' day light
   scene.userData.look = { exposure: 1.1, ao: true, aoRadius: 0.9 };
   const sky = createSky(scene);
@@ -313,7 +315,6 @@ export function createFarmScene(opts: FarmOptions = {}): FarmScene {
   scene.add(scenery);
 
   // ---- buildings
-  const house = buildFarmhouse();
   house.group.position.x = FARM.house.x;
   house.group.position.z = FARM.house.z;
   scene.add(house.group);

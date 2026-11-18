@@ -957,9 +957,9 @@ export function buildTrees(avoid: (x: number, z: number) => boolean = () => fals
     leafyTree('birch', 1),
     'birch',
     [
-      pl(-26, -3, 0.95),
-      pl(-27.5, -11, 1),
-      pl(-30, -6, 0.8),
+      pl(-34.5, -1.5, 0.95),
+      pl(-31.5, -14, 1),
+      pl(-35.5, -8.5, 0.8),
       pl(-3, -16, 0.9),
       pl(-22, 3.2, 0.7),
       pl(34, 4, 0.85),

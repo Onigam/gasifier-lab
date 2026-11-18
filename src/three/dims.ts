@@ -297,8 +297,11 @@ export const FARM = {
   track: { x: 20.5, width: 3.2 },
   /** Farmhouse: plan (x, z), height of the eaves, its centre. Two storeys, red-painted boards. */
   house: { x: -17, z: -9, w: 12, d: 7, wall: 5.2 },
-  /** The garage with its bedroom over it, attached to the house's east gable; its door in the front wall. */
-  garage: { x: -8.6, z: -5.8 },
+  /**
+   * The garage with its bedroom over it, attached to the house's west gable; its door in the front wall. (It stood on the east gable until film round 3: the house was then on the unit's side of the garage, the side the `garage` world is cut open on, and that world drew the house
+   * on the other side: seen from the door, the house changed sides between the two worlds. Here it now stands where `garage` has it.)
+   */
+  garage: { x: -25.4, z: -5.8 },
   /** The chip barn. */
   barn: { x: 17, z: -22, w: 20, d: 10, wall: 5.0 },
   /** Implements and stores, yard places. */
@@ -306,8 +309,8 @@ export const FARM = {
   sieve: { x: 10.5, z: -9.5 },
   chipPile: { x: 5.6, z: -9 },
   woodpile: { x: 25.5, z: -10.5 },
-  ashBin: { x: -4.4, z: -3.2 },
-  barrel: { x: -4.2, z: -7.4 },
+  ashBin: { x: -29.8, z: -3.4 },
+  barrel: { x: -29.6, z: -7.6 },
   /** The 4 m clod crusher (K38): width reported. Its length behind the hitch, estimate. */
   crusher: { width: 4.0, depth: 1.4, pole: 2.6, rings: 2 * 24 },
   /** The loop the tractor drives in the field: a rounded rectangle, centre, straight length and radius of the ends. */

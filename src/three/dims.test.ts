@@ -112,7 +112,8 @@ describe('one source of dimensions', () => {
 
   it('the 4 m crusher is 4 m (K38) and the farm sits on the research’s plan', () => {
     expect(FARM.crusher.width).toBe(4);
-    expect(FARM.garage.x).toBeGreaterThan(FARM.house.x + FARM.house.w / 2 - 0.5);
+    // film round 3: the garage leans on the house's west gable (it leant on the east one: the house then changed sides between `farm` and `garage`, docs/qa.md, film round 2, F9)
+    expect(FARM.garage.x).toBeLessThan(FARM.house.x - FARM.house.w / 2 + 0.5);
   });
 });
 
